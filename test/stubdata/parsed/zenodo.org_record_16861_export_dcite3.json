@@ -1,0 +1,26 @@
+{
+    "abstract": "The Reticon RL-128L self-scanning photodiode array Is evaluated as a detector for astronomical spectroscopy. The utility and characteristics of this type of detector are discussed in relation to the physical processes involved and a detailed laboratory investigation presented, in addition to a final evaluation of a complete detector system at the telescope. &nbsp;</p>It was found that cooling to below a temperature of 150&deg;K or so would be necessary for work on faint objects (m<sub>v</sub> ~ 12 or greater). Using a dewar container filled with liquid nitrogen, successful operation with no measurable dark leakage current has been demonstrated, even for integration intervals of several hours. However, an unavoidable loss in infrared response is introduced as a consequence of this degree of cooling, a situation to be avoided if the observational problem and physical design permits. &nbsp;</p>Absolute quantum efficiency was found to peak at approximately 83 percent, with a significant interference pattern modulating the overall sensitivity versus wavelength curve. The interference effect has been traced to the presence of a thin SiO<sub>2</sub> overcoating on the illuminated front surface of the array. This modulation has a large enough free spectral range that it can be easily calibrated out of the final spectral records, in addition to other diode-to-diode sensitivity variations. &nbsp;Interference arising from reflection off the backside of the silicon substrate is neither expected nor observed.</p>With the signal fully digitized and the data acquisition process computer controlled, a dynamic range of better than 1000 has been achieved, with essentially complete linearity throughout. This, however, represents only about 10 percent of the dynamic range of the detector itself, indicating that more advanced designs may yield a system having a dynamic range in excess of 10<sup>4</sup>.</p>The rather high noise level for this type of detector system at present limits its usefulness to objects of moderate brightness. However, within this constraint, such a detector system offers many important features, including high quantum efficiency, complete linearity, broad dynamic range and spectral sensitivity, and ease of data reduction, even when hundreds or indeed thousands of spectral records are involved.", 
+    "affiliations": [
+        "University of Arizona"
+    ], 
+    "authors": [
+        "Geary, John Charles"
+    ], 
+    "bibcode": "1975PhDT........53G", 
+    "keywords": [
+        "Astronomy", 
+        "Astronomical spectroscopy", 
+        "Astronomical instruments", 
+        "Silicon diodes"
+    ], 
+    "properties": {
+        "DOI": "10.5281/zenodo.16861", 
+        "ELECTR": "http://zenodo.org/record/16861", 
+        "OPEN": 1, 
+        "PDF": "https://zenodo.org/record/16861/files/Geary_J_Thesis_1975.pdf"
+    }, 
+    "pubdate": "1975-08-29", 
+    "references": [], 
+    "source": "Zenodo", 
+    "title": "The Use of a Self-Scanning Silicon Photodiode Array for Astronomical Spectroscopy"
+}

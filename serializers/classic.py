@@ -1,6 +1,7 @@
 import sys
 import string
 import itertools
+import logging
 from dateutil.parser import parse as dateparser
 from collections import OrderedDict
 from namedentities import numeric_entities
@@ -46,7 +47,7 @@ class Tagged(object):
     def write(cls, record, fp=sys.stdout):
         for field in cls.fieldDict:
             content = record.get(field)
-            if not content:
+            if not content and field is not 'bibcode':
                 continue
             d = cls.fieldDict.get(field)
             fmt = d.get('fmt')
@@ -60,6 +61,9 @@ class Tagged(object):
             try:
                 fp.write('%{0} {1}\n'.format(d.get('tag'), numeric_entities(content)))
             except:
-                sys.stderr.write("error writing: {}".format(content))
+                logging.error("error writing: {}".format(content))
+                raise
+        fp.write('\n')
+
 
 

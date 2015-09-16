@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><resource xmlns="http://datacite.org/schema/kernel-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
+      <identifier identifierType="DOI">10.5281/zenodo.16738</identifier>
+      <creators>
+        <creator>
+          <creatorName>Battersby, Cara</creatorName>
+          <affiliation>University of Colorado, Boulder</affiliation>
+        </creator>
+      </creators>
+      <titles>
+        <title>The Structure and Evolution of Massive Star and Cluster Forming Regions</title>
+      </titles>
+      <publisher>Zenodo</publisher>
+      <publicationYear>2013</publicationYear>
+      <contributors>
+        <contributor contributorType="Supervisor">
+          <contributorName>Bally, John</contributorName>
+        </contributor>
+      </contributors>
+      <dates>
+        <date dateType="Issued">2013-08-10</date>
+      </dates>
+      <resourceType resourceTypeGeneral="Text">thesis</resourceType>
+      <alternateIdentifiers>
+        <alternateIdentifier alternateIdentifierType="URL">http://zenodo.org/record/16738</alternateIdentifier>
+        <alternateIdentifier alternateIdentifierType="bibcode">2013PhDT.......193B</alternateIdentifier>
+      </alternateIdentifiers>
+      <relatedIdentifiers>
+        <relatedIdentifier relationType="HasPart" relatedIdentifierType="URL">https://zenodo.org/record/16738/files/thesis_battersby.pdf</relatedIdentifier>
+      </relatedIdentifiers>
+      <rightsList>
+        <rights rightsURI="info:eu-repo/semantics/openAccess">Open Access</rights>
+        <rights rightsURI="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</rights>
+      </rightsList>
+      <descriptions>
+        <description descriptionType="Abstract">&lt;p&gt;The formation of massive stars and stellar clusters is important in understanding the light we receive from other galaxies, the life cycle of matter in the Galaxy, and the global process of star formation. However, this problem has remained elusive as the relative rarity, large distances, confusion, and obscured nature of massive star forming regions has made a global and high-resolution understanding of their formation intractable for decades. The advent of large Galactic Plane Surveys and high-resolution observing facilities have allowed us to make large strides in this&amp;nbsp; field by constraining the physical properties at the onset of massive star formation in clustered environments, identifying the stages of massive star formation, and estimating the lifetimes of these phases.&lt;/p&gt;
+    
+    &lt;p&gt;We present a detailed analysis of two young massive star forming regions in different evolutionary stages embedded within a single Infrared Dark Cloud using NH&lt;sub&gt;3&lt;/sub&gt; on the Karl G. Jansky Very Large Array. In this analysis, we characterize the physical structure (column density, temperature, and virial parameter) just prior to the onset of massive star formation and infer evolution in this structure by measuring it at different evolutionary stages. We expand this analysis to a global scale using Herschel and Spitzer surveys of the Galactic Plane from mid-to far-IR, devising a method to identify precursors to stellar clusters throughout the Galaxy for the first time. By separating the diffuse Galactic cirrus emission from the dense molecular clumps, we derive the dust temperatures and column densities characteristic of cluster-forming clumps. We compare these physical properties with star formation tracers in a systematic way to distinguish and characterize their evolutionary phases. We compare the physical properties derived from gas with those derived using dust. We estimate lifetimes for these evolutionary phases and speculate on the large-scale dynamics in the formation of stellar clusters.&lt;/p&gt;
+    
+    &lt;p&gt;We constrain the conditions at the onset of massive star formation, measure how these conditions change with evolutionary phase, and estimate the duration of each phase. This thesis places global and high-resolution constraints on the physical properties, evolution, and lifetimes of massive star and cluster forming regions.&lt;/p&gt;</description>
+      </descriptions>
+    </resource>

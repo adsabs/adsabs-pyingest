@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><resource xmlns="http://datacite.org/schema/kernel-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
+      <identifier identifierType="DOI">10.5281/zenodo.16733</identifier>
+      <creators>
+        <creator>
+          <creatorName>Genel, Shy</creatorName>
+          <affiliation>Ludwig-Maximilians-Universitaet Muenchen</affiliation>
+        </creator>
+      </creators>
+      <titles>
+        <title>The Formation of Dark Matter Halos and High-Redshift Galaxies</title>
+      </titles>
+      <publisher>Zenodo</publisher>
+      <publicationYear>2011</publicationYear>
+      <contributors>
+        <contributor contributorType="Supervisor">
+          <contributorName>Genzel, Reinhard</contributorName>
+          <affiliation>Max-Planck-Institut fuer Extraterrestrische Physic</affiliation>
+        </contributor>
+      </contributors>
+      <dates>
+        <date dateType="Issued">2011-03-11</date>
+      </dates>
+      <resourceType resourceTypeGeneral="Text">thesis</resourceType>
+      <alternateIdentifiers>
+        <alternateIdentifier alternateIdentifierType="URL">http://zenodo.org/record/16733</alternateIdentifier>
+      </alternateIdentifiers>
+      <relatedIdentifiers>
+        <relatedIdentifier relationType="HasPart" relatedIdentifierType="URL">https://zenodo.org/record/16733/files/Genel_Shy.pdf</relatedIdentifier>
+      </relatedIdentifiers>
+      <rightsList>
+        <rights rightsURI="info:eu-repo/semantics/openAccess">Open Access</rights>
+        <rights rightsURI="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</rights>
+      </rightsList>
+      <descriptions>
+        <description descriptionType="Abstract">&lt;p&gt;In the concordance &amp;Lambda;CDM&amp;nbsp;cosmological model, galaxies form in the centers of dark matter halos and merge with one another following the mergers of their host halos. Thus, we set out to quantify the growth mechanisms of dark matter halos. For this purpose, we analyze several large N-body simulations of the growth of cosmic structure. We devise a novel merger tree construction algorithm that properly takes into account halo fragmentations. We find that the merger rate evolves rapidly with redshift but depends weakly on mass, and that the proportions between mergers of different mass ratios, e.g.&amp;nbsp;major and minor mergers, are universal. We also show that the merger rate per progenitor halo (related to future mergers and to galaxy pair counting) is smaller than that per descendant halo (related to past mergers and galaxy disturbed morphplogies), and that their redshift and mass dependencies are different. We find that only ~60%&amp;nbsp;of the mass accreted onto halos arrives in mergers that are resolved in our simulations. Moreover, the functional form of the merger rate suggests that the merger contribution saturates at that value. Using full particle histories, we confirm that smoothly-accreted particles make a significant fraction of dark matter halos. This has important implications for the smoothness of gas accretion.&lt;/p&gt;
+    
+    &lt;p&gt;Disk galaxies at z~2&amp;nbsp;are rapidly star-forming, but show regular rotation, indicating little merger activity. We use a large dark matter simulation to show that even non-merging z~2 halos grow fast enough to explain observed high star-formation rates. We also follow those halos to z=0, finding that many do not undergo major mergers at all. The z~2&amp;nbsp;disks also show high velocity dispersions and irregular clumpy morphologies. We run &amp;quot;zoom-in&amp;quot; cosmological hydrodynamical simulations focusing on the formation of individual z~2 galaxies. We find that the clumpy morphologies are a result of gravitational instability, where the high random motions make the (turbulent) Jeans scales as large as the observed giant clumps. Star-formation feedback in our model is implemented as galactic winds with high mass-loading factors. We find that the high mass-loading factors prevent the clumps from virializing. Within roughly half a disk orbital time, they lose a large fraction of their mass, such that they stop collapsing and disrupt. Thus, their lifetimes are short and they do not migrate to the galaxy centers as has been proposed in the literature so far. We compare simulated galaxies to observations using radiative transfer calculations, and by creating mock SINFONI/VLT data cubes with realistic &amp;quot;observing conditions&amp;quot;. We find good agreement between &amp;quot;observed&amp;quot; simulated galaxies and real observed ones, in terms of their luminosities, colors, morphologies and kinematics. With this comparison, we conclude that the galaxies formed in our simulations are plausibly realistic.&lt;/p&gt;</description>
+      </descriptions>
+    </resource>

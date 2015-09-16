@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><resource xmlns="http://datacite.org/schema/kernel-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
+      <identifier identifierType="DOI">10.5281/zenodo.16728</identifier>
+      <creators>
+        <creator>
+          <creatorName>Gurwell, Mark Andrew</creatorName>
+          <affiliation>California Institute of Technology</affiliation>
+        </creator>
+      </creators>
+      <titles>
+        <title>Planetary Atmospheres: Probing Structure through Millimeterwave Observations of Carbon Monoxide</title>
+      </titles>
+      <publisher>Zenodo</publisher>
+      <publicationYear>1996</publicationYear>
+      <subjects>
+        <subject>TITAN</subject>
+        <subject>MARS</subject>
+        <subject>VENUS</subject>
+        <subject>INTERFEROMETRY</subject>
+        <subject>OVRO</subject>
+      </subjects>
+      <contributors>
+        <contributor contributorType="Supervisor">
+          <contributorName>Muhleman, Duane O.</contributorName>
+          <affiliation>California Institute of Technology</affiliation>
+        </contributor>
+      </contributors>
+      <dates>
+        <date dateType="Issued">1996-06-14</date>
+      </dates>
+      <resourceType resourceTypeGeneral="Text">thesis</resourceType>
+      <alternateIdentifiers>
+        <alternateIdentifier alternateIdentifierType="URL">http://zenodo.org/record/16728</alternateIdentifier>
+      </alternateIdentifiers>
+      <relatedIdentifiers>
+        <relatedIdentifier relationType="IsSupplementTo" relatedIdentifierType="bibcode">1996PhDT.........1G</relatedIdentifier>
+        <relatedIdentifier relationType="HasPart" relatedIdentifierType="URL">https://zenodo.org/record/16728/files/gurwell_thesis.pdf</relatedIdentifier>
+      </relatedIdentifiers>
+      <rightsList>
+        <rights rightsURI="info:eu-repo/semantics/openAccess">Open Access</rights>
+        <rights rightsURI="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</rights>
+      </rightsList>
+      <descriptions>
+        <description descriptionType="Abstract">&lt;p&gt;This thesis consists of inteferometric observations of carbon monoxide&lt;br /&gt;
+    from three planetary atmospheres. The observations address specific&lt;br /&gt;
+    questions about the state and structure of each atmosphere. The&lt;br /&gt;
+    analysis and results for each planetary body are contained within&lt;br /&gt;
+    individual chapters of the thesis, and the abstract for each is&lt;br /&gt;
+    reproduced below.&lt;/p&gt;
+    
+    &lt;p&gt;Titan: Evidence for a Well-Mixed Vertical Profile&lt;/p&gt;
+    
+    &lt;p&gt;We report on new millimeter heterodyne observations of the &lt;sup&gt;12&lt;/sup&gt;CO J(1&amp;minus;0)&lt;br /&gt;
+    rotational transition from the stratosphere of Titan made in October&lt;br /&gt;
+    1994 with the Owens Valley Radio Observatory Millimeter Array. The&lt;br /&gt;
+    spectrum obtained clearly exhibits a strong emission core over the&lt;br /&gt;
+    &amp;sim;600 MHz bandwidth of the upper sideband spectrometer. The lineshape,&lt;br /&gt;
+    referenced to the flat spectrum simultaneously observed in the lower&lt;br /&gt;
+    sideband, was inverted to determine a best fit CO mixing ratio profile&lt;br /&gt;
+    consistent with the observations. The best fit profile is a constant&lt;br /&gt;
+    mixing ratio of 5 &amp;plusmn; 1 &amp;times; 10&lt;sup&gt;&amp;minus;5&lt;/sup&gt; over the altitude range of 60&amp;ndash;200&lt;br /&gt;
+    km. Combined with IR observations of tropospheric CO (fCO = 6 &amp;times; 10&lt;sup&gt;&amp;minus;5&lt;/sup&gt;,&lt;br /&gt;
+    Lutz et al. 1983) this provides strong evidence that CO is well mixed&lt;br /&gt;
+    from the surface to at least 200 km in Titan&amp;rsquo;s atmosphere.&lt;/p&gt;
+    
+    &lt;p&gt;Mars: Thermal Structure from 0&amp;ndash;70 km&lt;/p&gt;
+    
+    &lt;p&gt;Millimeter-wave heterodyne observations of the &lt;sup&gt;12&lt;/sup&gt;CO J(1&amp;minus;0) rotational&lt;br /&gt;
+    transition from the atmosphere of Mars were made on three dates in&lt;br /&gt;
+    February 1993 with the Owens Valley Radio Observatory Millimeter&lt;br /&gt;
+    Array. These observations yielded high-quality spectra with a spatial&lt;br /&gt;
+    resolution of 4.2&amp;quot; on a 12.5&amp;quot; diameter Mars. The spectra were&lt;br /&gt;
+    numerically inverted for profiles of the local atmospheric temperature&lt;br /&gt;
+    from 0 to 70 km, assuming a constant CO mixing ratio for the&lt;br /&gt;
+    atmosphere. The derived average low latitude atmospheric temperature&lt;br /&gt;
+    profile is approximately 20 K cooler than reference temperature&lt;br /&gt;
+    profiles compiled during the Viking era. This new temperature profile&lt;br /&gt;
+    is well-matched by cooler profiles determined from whole disk CO&lt;br /&gt;
+    measurements, suggesting very little dust loading of the atmosphere at&lt;br /&gt;
+    the time of the observations (Clancy et al. 1990). In addition, the&lt;br /&gt;
+    revealed thermal structure shows variation with latitude, and these&lt;br /&gt;
+    temperature profiles compare well with profiles derived from Mariner 9&lt;br /&gt;
+    IRIS observations (Leovy 1982, Santee and Crisp 1993) and calculated&lt;br /&gt;
+    thermal structure from the Mars General Circulation Model (Haberle et&lt;br /&gt;
+    al. 1993). The temperature profiles were averaged in local time and&lt;br /&gt;
+    the resulting cross-section of temperature as a function of pressure&lt;br /&gt;
+    and latitude used to infer the mean zonal circulation of the&lt;br /&gt;
+    atmosphere. These wind results are somewhat compromised by the&lt;br /&gt;
+    relatively low spatial resolution of the observations but do&lt;br /&gt;
+    qualitatively match both inferred zonal winds from the Mariner 9 IRIS&lt;br /&gt;
+    observations and Mars GCM calculations. These initial observations&lt;br /&gt;
+    point toward the desirability of further interferometric measurements.&lt;/p&gt;
+    
+    &lt;p&gt;Venus: Temporal Variations of the Mesosphere&lt;/p&gt;
+    
+    &lt;p&gt;Millimeter-wave heterodyne observations of the &lt;sup&gt;12&lt;/sup&gt;CO J(1&amp;minus;0) rotational&lt;br /&gt;
+    transition from the mesosphere of Venus were made in early November&lt;br /&gt;
+    and early December 1994 with the Owens Valley Radio Observatory&lt;br /&gt;
+    Millimeter Array. The spatial resolution for each day was about 1000&lt;br /&gt;
+    km at the sub-earth point. The high quality CO spectra were&lt;br /&gt;
+    numerically inverted for profiles of the local CO mixing ratio from 80&lt;br /&gt;
+    to 105 km, assuming a Pioneer Venus mean temperature profile for the&lt;br /&gt;
+    atmosphere.&amp;nbsp; For each day the revealed CO distribution shows a&lt;br /&gt;
+    nightside maximum centered at low latitudes and shifted from the&lt;br /&gt;
+    anti-solar point toward the morning terminator.&amp;nbsp; Both days show a&lt;br /&gt;
+    clear latitudinal falloff in the CO abundance. In November the maximum&lt;br /&gt;
+    was centered at roughly 2h local time at 100 km, while in December the&lt;br /&gt;
+    maximum was at roughly 4 &amp;minus; 4.5h local time at 100 km. In addition, CO&lt;br /&gt;
+    abundances were slightly higher in November. The changes in the CO&lt;br /&gt;
+    distribution are examined in the context of the mesospheric&lt;br /&gt;
+    circulation model of Clancy and Muhleman (1985b). The increased shift&lt;br /&gt;
+    away from the anti-solar point and decreased CO abundance for the&lt;br /&gt;
+    December observations both point toward increased zonal and/or&lt;br /&gt;
+    decreased sub-solar to anti-solar circulation within the mesosphere&lt;br /&gt;
+    during the month between observations.&lt;/p&gt;
+    
+    &lt;p&gt;&amp;nbsp;&lt;/p&gt;</description>
+        <description descriptionType="Other">Thesis presented in partial fulfillment of the requirements for the degree of Doctor of Philosophy, Division for Geological and Planetary Sciences,  California Institute of Technology, Pasadena, California.   Thesis defended 21 July 1995.</description>
+      </descriptions>
+    </resource>

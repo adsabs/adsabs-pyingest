@@ -33,19 +33,23 @@ class TestClassic(unittest.TestCase):
             self.assertNotEqual(output, '')
             basefile, _ = os.path.splitext(os.path.basename(file))
             target = os.path.join(self.outputdir, basefile + '.tag')
-            # check to see if a file exists
+            # save temporary copy
+            target_saved = target + '.parsed'
+            with open(target_saved, 'w') as fp:
+                fp.write(output)
+
             ok = False
             if os.path.exists(target):
                 with open(target, 'r') as fp:
                     shouldbe = fp.read()
                     self.assertEqual(shouldbe, output, "results differ from %s" % target)
+                    ok = True
             else:
-                self.fail("could not find shouldbe file %s\n" % target)
-            if not ok:
-                # dump copy of data structure
-                target = target + '.parsed'
-                with open(target, 'w') as fp:
-                    fp.write(output)
-#                    sys.stderr.write("created file %s\n" % target)
+                sys.stderr.write("could not find shouldbe file %s\n" % target)
+
+            if ok:
+                os.remove(target_saved)
+            else:
+                sys.stderr.write("parsed output saved to %s\n" % target_saved)
 
 

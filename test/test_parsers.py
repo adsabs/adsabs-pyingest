@@ -26,19 +26,25 @@ class TestZenodo(unittest.TestCase):
                 self.assertIsNotNone(document, "%s: error reading doc" % file)
             basefile = os.path.basename(file)
             target = os.path.join(self.outputdir, basefile + '.json')
-            # check to see if a file exists
+            # save temporary copy of data structure
+            target_saved = target + '.parsed'
+            with open(target_saved, 'w') as fp:
+                json.dump(document, fp, sort_keys=True, indent=4)
+
             ok = False
             if os.path.exists(target):
                 with open(target, 'r') as fp:
                     shouldbe = json.load(fp)
                     self.assertDictEqual(shouldbe, document, "results differ from %s" % target)
+                    ok = True
             else:
-                self.fail("could not find shouldbe file %s\n" % target)
-            if not ok:
-                # dump copy of data structure
-                target = target + '.parsed'
-                with open(target, 'w') as fp:
-                    json.dump(document, fp, sort_keys=True, indent=4)
-#                    sys.stderr.write("created file %s\n" % target)
+                sys.stderr.write("could not find shouldbe file %s\n" % target)
+
+            if ok:
+                os.remove(target_saved)
+            else:
+                sys.stderr.write("parsed output dumped in %s\n" % target_saved)
+
+
 
 
