@@ -1,38 +1,34 @@
 import sys
 import os.path
-#sys.path.append(os.path.dirname(__file__))
 
 import logging
 import logging.config
-import argparse
 import codecs
-from parsers.zenodo import ZenodoParser
-from validators.ads import SimpleValidator
-from serializers.classic import Tagged
+
+sys.path.append(os.path.dirname(__file__))
 from config.logging import loggingDict
+from config.utils import import_class, parse_arguments
+
 
 if __name__ == "__main__":
 
     sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
     sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
 
-    argp = argparse.ArgumentParser()
-    argp.add_argument(
-        '--debug',
-        default=False,
-        action='store_true',
-        dest='debug',
-        help='turn on debugging'
-        )
-    argp.add_argument('files', nargs='+')
-    args = argp.parse_args()
+    args = parse_arguments()
     if args.debug:
         loggingDict['loggers']['']['level'] = 'DEBUG';
     logging.config.dictConfig(loggingDict)
-        
-    parser = ZenodoParser()
-    validator = SimpleValidator()
-    serializer = Tagged()
+
+    # it is probably more user-friendly do do this kind
+    # of configuration via a config file (see ConfigParser)
+    logging.debug("parser set to {}".format(args.parser))
+    parser = import_class(args.parser)
+    logging.debug("parser set to {}".format(args.validator))
+    validator = import_class(args.validator)
+    logging.debug("parser set to {}".format(args.serializer))
+    serializer = import_class(args.serializer)
+
     for file in args.files:
         d = None
         with open(file, 'r') as fp:
