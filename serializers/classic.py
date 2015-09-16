@@ -47,7 +47,7 @@ class Tagged(object):
     def write(cls, record, fp=sys.stdout):
         for field in cls.fieldDict:
             content = record.get(field)
-            if not content:
+            if not content and field is not 'bibcode':
                 continue
             d = cls.fieldDict.get(field)
             fmt = d.get('fmt')
@@ -63,5 +63,7 @@ class Tagged(object):
             except:
                 logging.error("error writing: {}".format(content))
                 raise
+        fp.write('\n')
+
 
 
