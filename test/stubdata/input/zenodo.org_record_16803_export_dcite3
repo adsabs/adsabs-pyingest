@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><resource xmlns="http://datacite.org/schema/kernel-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
+      <identifier identifierType="DOI">10.5281/zenodo.16803</identifier>
+      <creators>
+        <creator>
+          <creatorName>Murphy, Nicholas</creatorName>
+          <affiliation>University of Wisconsin-Madison</affiliation>
+        </creator>
+      </creators>
+      <titles>
+        <title>Simulation and Analysis of Magnetic Reconnection in a Laboratory Plasma Astrophysics Experiment</title>
+      </titles>
+      <publisher>Zenodo</publisher>
+      <publicationYear>2009</publicationYear>
+      <subjects>
+        <subject>Magnetic reconnection</subject>
+        <subject>Plasma physics</subject>
+        <subject>Computational magnetohydrodynamics</subject>
+      </subjects>
+      <contributors>
+        <contributor contributorType="Supervisor">
+          <contributorName>Sovinec, Carl</contributorName>
+          <affiliation>University of Wisconsin-Madison</affiliation>
+        </contributor>
+        <contributor contributorType="Supervisor">
+          <contributorName>Zweibel, Ellen</contributorName>
+          <affiliation>University of Wisconsin-Madison</affiliation>
+        </contributor>
+      </contributors>
+      <dates>
+        <date dateType="Issued">2009-06-30</date>
+      </dates>
+      <resourceType resourceTypeGeneral="Text">thesis</resourceType>
+      <alternateIdentifiers>
+        <alternateIdentifier alternateIdentifierType="URL">http://zenodo.org/record/16803</alternateIdentifier>
+      </alternateIdentifiers>
+      <relatedIdentifiers>
+        <relatedIdentifier relationType="IsIdenticalTo" relatedIdentifierType="bibcode">2009PhDT........25M</relatedIdentifier>
+        <relatedIdentifier relationType="HasPart" relatedIdentifierType="URL">https://zenodo.org/record/16803/files/Murphy_Thesis.pdf</relatedIdentifier>
+      </relatedIdentifiers>
+      <rightsList>
+        <rights rightsURI="info:eu-repo/semantics/openAccess">Open Access</rights>
+        <rights rightsURI="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</rights>
+      </rightsList>
+      <descriptions>
+        <description descriptionType="Abstract">&lt;p&gt;Magnetic reconnection is an inherently multiscale process in which small-scale physics and large-scale dynamics both play important roles. To address the interplay between local and global effects, extended magnetohydrodynamic (MHD) simulations of the Magnetic Reconnection Experiment (MRX) are presented using the NIMROD code. Both the &amp;quot;pull&amp;quot; and &amp;quot;push&amp;quot; modes of operation are simulated with and without two-fluid effects in the generalized Ohm&amp;#39;s law. The pull reconnection rate is slowed by the presence of high downstream pressure. Because of the lesser volume available on the inboard side of the current sheet, density is depleted more quickly from the inboard upstream region than the outboard upstream region during pull reconnection, resulting in a radially inward drift of the current sheet. A buildup of pressure on the inboard side of the current sheet during push reconnection displaces the X-point towards the outboard side of the current sheet. Two-fluid simulations show good agreement with experimental observations of the quadrupole out-of-plane magnetic field associated with two-fluid reconnection. However, geometric effects are found to be more important in determining the reconnection rate than the inclusion of two-fluid effects. Communication between small and large scales is primarily due to pressure gradients that develop from a pileup of reconnection exhaust which then feed back on the reconnection process.&lt;/p&gt;
+    
+    &lt;p&gt;Magnetic reconnection with asymmetry in the outflow direction occurs in many situations in both nature and the laboratory. A control volume analysis is performed for the case of steady antiparallel magnetic reconnection with asymmetric downstream pressure to find approximate relations for conservation of mass, momentum, and energy in the resistive magnetohydrodynamic (MHD) framework. These relationships are used to derive the outflow velocity from each side. The reconnection rate is not greatly affected except when outflow from both sides of the current sheet is blocked. Instead of bidirectional Alfv&amp;eacute;nic jets, reconnection with asymmetric downstream pressure can result in one Alfv&amp;eacute;nic jet and one sub-Alfv&amp;eacute;nic jet. A similar model is presented for reconnection in cylindrical geometry when the outflow is aligned with the radial direction. The predictions of these models are tested using resistive MHD simulations of driven asymmetric magnetic reconnection.&lt;/p&gt;</description>
+      </descriptions>
+    </resource>

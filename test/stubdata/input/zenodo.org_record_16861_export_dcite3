@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><resource xmlns="http://datacite.org/schema/kernel-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
+      <identifier identifierType="DOI">10.5281/zenodo.16861</identifier>
+      <creators>
+        <creator>
+          <creatorName>Geary, John Charles</creatorName>
+          <affiliation>University of Arizona</affiliation>
+        </creator>
+      </creators>
+      <titles>
+        <title>The Use of a Self-Scanning Silicon Photodiode Array for Astronomical Spectroscopy</title>
+      </titles>
+      <publisher>Zenodo</publisher>
+      <publicationYear>1975</publicationYear>
+      <subjects>
+        <subject>Astronomy</subject>
+        <subject>Astronomical spectroscopy</subject>
+        <subject>Astronomical instruments</subject>
+        <subject>Silicon diodes</subject>
+      </subjects>
+      <contributors>
+        <contributor contributorType="Supervisor">
+          <contributorName>Gilbert, G. R.</contributorName>
+          <affiliation>University of Arizona</affiliation>
+        </contributor>
+      </contributors>
+      <dates>
+        <date dateType="Issued">1975-08-29</date>
+      </dates>
+      <resourceType resourceTypeGeneral="Text">thesis</resourceType>
+      <alternateIdentifiers>
+        <alternateIdentifier alternateIdentifierType="URL">http://zenodo.org/record/16861</alternateIdentifier>
+        <alternateIdentifier alternateIdentifierType="bibcode">1975PhDT........53G</alternateIdentifier>
+        <alternateIdentifier alternateIdentifierType="Handle">10150/289320</alternateIdentifier>
+      </alternateIdentifiers>
+      <relatedIdentifiers>
+        <relatedIdentifier relationType="HasPart" relatedIdentifierType="URL">https://zenodo.org/record/16861/files/Geary_J_Thesis_1975.pdf</relatedIdentifier>
+      </relatedIdentifiers>
+      <rightsList>
+        <rights rightsURI="info:eu-repo/semantics/openAccess">Open Access</rights>
+        <rights rightsURI="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</rights>
+      </rightsList>
+      <descriptions>
+        <description descriptionType="Abstract">&lt;p&gt;The Reticon RL-128L self-scanning photodiode array Is evaluated as a detector for astronomical spectroscopy. The utility and characteristics of this type of detector are discussed in relation to the physical processes involved and a detailed laboratory investigation presented, in addition to a final evaluation of a complete detector system at the telescope. &amp;nbsp;&lt;/p&gt;
+    
+    &lt;p&gt;It was found that cooling to below a temperature of 150&amp;deg;K or so would be necessary for work on faint objects (m&lt;sub&gt;v&lt;/sub&gt; ~ 12 or greater). Using a dewar container filled with liquid nitrogen, successful operation with no measurable dark leakage current has been demonstrated, even for integration intervals of several hours. However, an unavoidable loss in infrared response is introduced as a consequence of this degree of cooling, a situation to be avoided if the observational problem and physical design permits. &amp;nbsp;&lt;/p&gt;
+    
+    &lt;p&gt;Absolute quantum efficiency was found to peak at approximately 83 percent, with a significant interference pattern modulating the overall sensitivity versus wavelength curve. The interference effect has been traced to the presence of a thin SiO&lt;sub&gt;2&lt;/sub&gt; overcoating on the illuminated front surface of the array. This modulation has a large enough free spectral range that it can be easily calibrated out of the final spectral records, in addition to other diode-to-diode sensitivity variations. &amp;nbsp;Interference arising from reflection off the backside of the silicon substrate is neither expected nor observed.&lt;/p&gt;
+    
+    &lt;p&gt;With the signal fully digitized and the data acquisition process computer controlled, a dynamic range of better than 1000 has been achieved, with essentially complete linearity throughout. This, however, represents only about 10 percent of the dynamic range of the detector itself, indicating that more advanced designs may yield a system having a dynamic range in excess of 10&lt;sup&gt;4&lt;/sup&gt;.&lt;/p&gt;
+    
+    &lt;p&gt;The rather high noise level for this type of detector system at present limits its usefulness to objects of moderate brightness. However, within this constraint, such a detector system offers many important features, including high quantum efficiency, complete linearity, broad dynamic range and spectral sensitivity, and ease of data reduction, even when hundreds or indeed thousands of spectral records are involved.&lt;/p&gt;</description>
+        <description descriptionType="Other">102 pgs</description>
+      </descriptions>
+    </resource>

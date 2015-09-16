@@ -1,6 +1,7 @@
 import sys
 import string
 import itertools
+import logging
 from dateutil.parser import parse as dateparser
 from collections import OrderedDict
 from namedentities import numeric_entities
@@ -60,6 +61,7 @@ class Tagged(object):
             try:
                 fp.write('%{0} {1}\n'.format(d.get('tag'), numeric_entities(content)))
             except:
-                sys.stderr.write("error writing: {}".format(content))
+                logging.error("error writing: {}".format(content))
+                raise
 
 

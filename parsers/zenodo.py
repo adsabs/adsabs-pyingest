@@ -5,6 +5,7 @@
 import sys
 import json
 import re
+import logging
 from datacite3 import DataCite3Parser
 
 
@@ -29,7 +30,7 @@ class ZenodoParser(DataCite3Parser):
                     j = json.loads(c)
                     references = j.get('references',[])
                 except ValueError:
-                    sys.stderr.write(u'Ignoring unparsable "Other" description element: %s\n' % c)
+                    logging.warning(u'Ignoring unparsable "Other" description element: %s\n' % c)
         return references
 
     def get_abstract(self, r):

@@ -1,0 +1,25 @@
+{
+    "abstract": "Magnetic reconnection is an inherently multiscale process in which small-scale physics and large-scale dynamics both play important roles. To address the interplay between local and global effects, extended magnetohydrodynamic (MHD) simulations of the Magnetic Reconnection Experiment (MRX) are presented using the NIMROD code. Both the &quot;pull&quot; and &quot;push&quot; modes of operation are simulated with and without two-fluid effects in the generalized Ohm&#39;s law. The pull reconnection rate is slowed by the presence of high downstream pressure. Because of the lesser volume available on the inboard side of the current sheet, density is depleted more quickly from the inboard upstream region than the outboard upstream region during pull reconnection, resulting in a radially inward drift of the current sheet. A buildup of pressure on the inboard side of the current sheet during push reconnection displaces the X-point towards the outboard side of the current sheet. Two-fluid simulations show good agreement with experimental observations of the quadrupole out-of-plane magnetic field associated with two-fluid reconnection. However, geometric effects are found to be more important in determining the reconnection rate than the inclusion of two-fluid effects. Communication between small and large scales is primarily due to pressure gradients that develop from a pileup of reconnection exhaust which then feed back on the reconnection process.</p>Magnetic reconnection with asymmetry in the outflow direction occurs in many situations in both nature and the laboratory. A control volume analysis is performed for the case of steady antiparallel magnetic reconnection with asymmetric downstream pressure to find approximate relations for conservation of mass, momentum, and energy in the resistive magnetohydrodynamic (MHD) framework. These relationships are used to derive the outflow velocity from each side. The reconnection rate is not greatly affected except when outflow from both sides of the current sheet is blocked. Instead of bidirectional Alfv&eacute;nic jets, reconnection with asymmetric downstream pressure can result in one Alfv&eacute;nic jet and one sub-Alfv&eacute;nic jet. A similar model is presented for reconnection in cylindrical geometry when the outflow is aligned with the radial direction. The predictions of these models are tested using resistive MHD simulations of driven asymmetric magnetic reconnection.", 
+    "affiliations": [
+        "University of Wisconsin-Madison"
+    ], 
+    "authors": [
+        "Murphy, Nicholas"
+    ], 
+    "bibcode": "2009PhDT........25M", 
+    "keywords": [
+        "Magnetic reconnection", 
+        "Plasma physics", 
+        "Computational magnetohydrodynamics"
+    ], 
+    "properties": {
+        "DOI": "10.5281/zenodo.16803", 
+        "ELECTR": "http://zenodo.org/record/16803", 
+        "OPEN": 1, 
+        "PDF": "https://zenodo.org/record/16803/files/Murphy_Thesis.pdf"
+    }, 
+    "pubdate": "2009-06-30", 
+    "references": [], 
+    "source": "Zenodo", 
+    "title": "Simulation and Analysis of Magnetic Reconnection in a Laboratory Plasma Astrophysics Experiment"
+}

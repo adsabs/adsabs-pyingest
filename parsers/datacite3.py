@@ -6,6 +6,7 @@ import sys
 import re
 import json
 import codecs
+import logging
 from lib import xmltodict
 
 class WrongSchemaException(Exception):
@@ -213,7 +214,7 @@ class DataCite3Parser(object):
             properties['DOI'] = doi
 
         return { 
-            'bibcode': bibcode,
+            'bibcode': bibcode or '',
             'authors': authors,
             'affiliations': aaffils,
 #            'contributors': contributors,
