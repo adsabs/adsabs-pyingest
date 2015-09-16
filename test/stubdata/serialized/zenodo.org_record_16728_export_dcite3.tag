@@ -66,3 +66,4 @@
     decreased sub-solar to anti-solar circulation within the mesosphere<br />
     during the month between observations.</p>&#160;
 %I PDF: https://zenodo.org/record/16728/files/gurwell_thesis.pdf; DOI: 10.5281/zenodo.16728; OPEN: 1; ELECTR: http://zenodo.org/record/16728
+
