@@ -4,22 +4,56 @@
 
 import os
 import requests
+import codecs
 import logging
 import argparse
+import multiprocessing
 
 GROBID_SERVER = 'http://localhost:8081'
 GROBID_HANDLER = 'processFulltextDocument'
+DEFAULT_THREADS = multiprocessing.cpu_count() / 2;
 
 class GrobidError(Exception):
     pass
 
 
-def process_one(file, service):
-    response = requests.post(url=service, files={'input': file})
-    if response.status_code == 200:
-        return response.text
-    else:
-        raise GrobidError(response.reason)
+class GrobidProcessor(object):
+    """
+    Needed to take avantage of multiprocessing.Pool
+    """
+    def __init__(self, service):
+        self.service = service
+
+    def __call__(self, file):
+        try: 
+            fp = open(file, 'r')
+        except IOError, error:
+            logging.error("error opening file %s: %s" % (file, error))
+            return False
+        logging.info("processing file %s" % file)
+        try:
+            xml = self.send_to_grobid(fp)
+        except GrobidError, error:
+            logging.error("error processing file %s: %s" % (file, error))
+            return False
+        out_file = file + '.xml'
+        try:
+            fp = codecs.open(out_file, 'w', 'utf-8')
+        except IOError, error:
+            logging.error("error opening file %s: %s" % (out_file, error))
+            return False
+        fp.write(xml)
+        logging.info("written output file %s" % out_file)
+        return True
+
+    def send_to_grobid(self, filehandle):
+        response = requests.post(url=self.service, files={'input': filehandle})
+        if response.status_code == 200:
+            logging.debug("successful response from grobid server (%d bytes)" % len(response.content))
+            return response.text
+        else:
+            raise GrobidError("HTTP %d - %s: %s" % (response.status_code, response.reason, response.text))
+
 
 def parse_arguments():
     argp = argparse.ArgumentParser()
@@ -44,6 +78,13 @@ def parse_arguments():
         dest='handler',
         help='specify handler to use (default is %s)' % GROBID_HANDLER
         )
+    argp.add_argument(
+        '--threads',
+        type=int,
+        default=DEFAULT_THREADS,
+        dest='threads',
+        help='specify number of threads to use (default is %d)' % DEFAULT_THREADS
+        )
     argp.add_argument('files', nargs='+')
     return argp.parse_args()
 
@@ -51,25 +92,18 @@ def parse_arguments():
 if __name__ == "__main__":
     
     args = parse_arguments()
-    logger = logging.getLogger('Grobid PDF extraction')
     if args.debug:
-        logger.setLevel(logging.DEBUG)
+        logging.basicConfig(level=logging.DEBUG)
     else:
-        logger.setLevel(logging.INFO)
+        logging.basicConfig(level=logging.INFO)
 
     service = os.path.join(args.server, args.handler)
 
-    for file in args.files:
-        logging.info("processing file %s" % file)
-        try:
-            xml = process_one(file, service)
-        except GrobidError, error:
-            logging.error("error processing file %s: %s" % (file, error))
-            continue
-        out_file = file + '.xml'
-        with open(file, 'w') as fp:
-            fp.write(xml)
-        logging.info("written output file %s" % out_file)
+    threads = min(args.threads, len(args.files))
+    logging.info("allocating %d threads for processing %d files" %(threads, len(args.files)))
+
+    p = multiprocessing.Pool(threads)
+    p.map(GrobidProcessor(service), args.files)
 
 
     

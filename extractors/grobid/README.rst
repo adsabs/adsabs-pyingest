@@ -14,9 +14,12 @@ docker run -p 8081:8080 grobid-server
 ```
 
 To test on a PDF file:
+```
+python process_pdf.py --server http://localhost:8081 astro-ph-0002105.pdf
+```
+This will create a file called astro-ph-0002105.pdf.xml
 
 
 TODO:
-* set up grobid-service in container for multi-threaded use
 * train new models for astro-specific content and have service accept models as input
 
