@@ -3,11 +3,9 @@
 #
 
 import sys
-import re
 import json
 import codecs
-import logging
-from lib import xmltodict
+from default import BaseXmlToDictParser
 
 class WrongSchemaException(Exception):
     pass
@@ -18,7 +16,7 @@ class MissingAuthorsException(Exception):
 class MissingTitleException(Exception):
     pass
 
-class DataCite3Parser(object):
+class DataCite3Parser(BaseXmlToDictParser):
 
     def __init__(self):
         # make sure we are utf-8 clean on stdout, stderr
@@ -26,39 +24,7 @@ class DataCite3Parser(object):
         self.OA_URIS = [ 'info:eu-repo/semantics/openAccess' ]
         self.OA_TEXT = [ 'Open Access' ]
 
-    def _array(self, e):
-        """Ensures that e is an array"""
-        if type(e) == type(None):
-            return []
-        elif type(e) == type([]):
-            return e
-        else:
-            return [e]
-
-    def _text(self, e, d=''):
-        """Returns text node of element e (or default d)"""
-        if type(e) == type(None):
-            return d
-        elif isinstance(e, dict):
-            return e.get('#text', d)
-        elif isinstance(e, basestring):
-            return e
-
-    def _attr(self, e, k, d=''):
-        """Returns attribute k from element e (or default d)"""
-        if type(e) == type(None):
-            return d
-        elif isinstance(e, dict):
-            return e.get('@' + k, d)
-        elif isinstance(e, basestring):
-            return d
-        else:
-            return d
-
-
     def get_abstract(self, r):
-        # abstract, references are all in the "descriptions" section
-
         # abstract, references are all in the "descriptions" section
         # as of version 3.1 of datacite schema, "References" is not an
         # allowed description type so Lars is shoving the references
@@ -83,13 +49,13 @@ class DataCite3Parser(object):
         return references
 
     def resource_dict(self, fp, **kwargs):
-        d = xmltodict.parse(fp, **kwargs)
+        d = self.xmltodict(fp, **kwargs)
         # as a convenience, remove the OAI wrapper if it's there
         r = d.get('record',{}).get('metadata',{}).get('resource') or d.get('resource')
         return r
 
     def parse(self, fp, **kwargs):
-        """Parses Zenodo's flavor of DataCite 3.1 schema, returns ADS tagged format"""
+        """DataCite 3.1 metadata returns ADS tagged format"""
         r = self.resource_dict(fp, **kwargs)
 
         # check for namespace to make sure it's datacite3
