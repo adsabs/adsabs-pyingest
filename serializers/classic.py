@@ -4,7 +4,7 @@ import itertools
 import logging
 from dateutil.parser import parse as dateparser
 from collections import OrderedDict
-from namedentities import numeric_entities
+from namedentities import numeric_entities, named_entities
 
 
 # some utility functions
@@ -47,7 +47,9 @@ class Tagged(object):
     def write(cls, record, fp=sys.stdout):
         for field in cls.fieldDict:
             content = record.get(field)
-            if not content and field is not 'bibcode':
+            if field is 'bibcode' and content is None:
+                continue
+            elif not content:
                 continue
             d = cls.fieldDict.get(field)
             fmt = d.get('fmt')
@@ -59,9 +61,10 @@ class Tagged(object):
             elif type(content) is type({}):
                 content = jc.join(["{0}: {1}".format(k, v) for k,v in content.items()])
             try:
-                fp.write('%{0} {1}\n'.format(d.get('tag'), numeric_entities(content)))
+                #fp.write('%{0} {1}\n'.format(d.get('tag'), numeric_entities(content)))
+                fp.write('%{0} {1}\n'.format(d.get('tag'), named_entities(content)))
             except:
-                logging.error("error writing: {}".format(content))
+                logging.error("error writing content for tag {0}: {1}\n".format(d.get('tag'), content))
                 raise
         fp.write('\n')
 

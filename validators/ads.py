@@ -4,6 +4,8 @@ import json
 import jsonschema
 
 SIMPLE_SCHEMA = os.path.join(os.path.dirname(__file__), 'simple.schema.json')
+ZENODO_SCHEMA = os.path.join(os.path.dirname(__file__), 'zenodo.schema.json')
+NULL_SCHEMA = os.path.join(os.path.dirname(__file__), 'null.schema.json')
 
 SCHEMA_VALIDATOR = jsonschema.validators.Draft4Validator
 
@@ -29,9 +31,14 @@ class Validator(object):
         """
         self.validator.validate(document)
 
+class NullValidator(Validator):
+    def __init__(self):
+        super(self.__class__, self).__init__(NULL_SCHEMA)
 
 class SimpleValidator(Validator):
-    
     def __init__(self):
         super(self.__class__, self).__init__(SIMPLE_SCHEMA)
 
+class ZenodoValidator(Validator):
+    def __init__(self):
+        super(self.__class__, self).__init__(ZENODO_SCHEMA)
