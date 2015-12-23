@@ -61,6 +61,5 @@
 	    "type": "string"
 	}
     },
-    "required": ["authors", "title", "pubdate"],
     "additionalProperties": false
 }

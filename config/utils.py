@@ -30,7 +30,7 @@ def parse_arguments():
     argp.add_argument(
         '--debug',
         default=False,
-        action='store_true',
+        action='count',
         dest='debug',
         help='turn on debugging'
         )

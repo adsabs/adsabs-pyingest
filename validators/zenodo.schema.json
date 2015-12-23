@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Generic ADS record",
-    "description": "metadata record from random source",
+    "title": "Zenodo record",
+    "description": "metadata record from Zenodo (datacite3)",
     "type": "object",
     "properties": {
         "authors": {
@@ -55,12 +55,13 @@
 		"PDF": { "type": "string" },
 		"OPEN": { "type": "number" },
 		"ELECTR": { "type": "string" }
-	    }
+	    },
+            "required": ["DOI"]
         },
         "bibcode": {
 	    "type": "string"
 	}
     },
-    "required": ["authors", "title", "pubdate"],
+    "required": ["authors", "title", "pubdate", "properties"],
     "additionalProperties": false
 }

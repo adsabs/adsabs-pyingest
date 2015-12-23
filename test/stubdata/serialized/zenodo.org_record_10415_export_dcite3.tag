@@ -13,7 +13,7 @@
    Aldering, G., et al. 2002, in Society of Photo-Optical Instrumentation Engineers (SPIE) Conference Series, Vol. 4836, Society of Photo-Optical Instrumentation Engineers (SPIE) Conference Series, ed. J. A. Tyson & S. Wolff, 61-72
    Aldering, G., et al. 2006, ApJ, 650, 510
    Allen, D. A., Wright, A. E., & Goss, W. M. 1976, MNRAS, 177, 91
-   Amor&#237;n, R., et al. 2014, ArXiv e-prints, 1403.3692
+   Amor&iacute;n, R., et al. 2014, ArXiv e-prints, 1403.3692
    Anderson, J. P., Covarrubias, R. A., James, P. A., Hamuy, M., & Habergham, S. M. 2010, MNRAS, 407, 2660
    Anderson, J. P., et al. 2014, ArXiv e-prints, 1403.7091
    Anderson, J. P., & James, P. A. 2009, MNRAS, 399, 559

@@ -3,11 +3,9 @@
 #
 
 import sys
-import re
 import json
 import codecs
-import logging
-from lib import xmltodict
+from default import BaseXmlToDictParser
 
 class WrongSchemaException(Exception):
     pass
@@ -18,7 +16,7 @@ class MissingAuthorsException(Exception):
 class MissingTitleException(Exception):
     pass
 
-class DataCite3Parser(object):
+class DataCite3Parser(BaseXmlToDictParser):
 
     def __init__(self):
         # make sure we are utf-8 clean on stdout, stderr
@@ -26,39 +24,7 @@ class DataCite3Parser(object):
         self.OA_URIS = [ 'info:eu-repo/semantics/openAccess' ]
         self.OA_TEXT = [ 'Open Access' ]
 
-    def _array(self, e):
-        """Ensures that e is an array"""
-        if type(e) == type(None):
-            return []
-        elif type(e) == type([]):
-            return e
-        else:
-            return [e]
-
-    def _text(self, e, d=''):
-        """Returns text node of element e (or default d)"""
-        if type(e) == type(None):
-            return d
-        elif isinstance(e, dict):
-            return e.get('#text', d)
-        elif isinstance(e, basestring):
-            return e
-
-    def _attr(self, e, k, d=''):
-        """Returns attribute k from element e (or default d)"""
-        if type(e) == type(None):
-            return d
-        elif isinstance(e, dict):
-            return e.get('@' + k, d)
-        elif isinstance(e, basestring):
-            return d
-        else:
-            return d
-
-
     def get_abstract(self, r):
-        # abstract, references are all in the "descriptions" section
-
         # abstract, references are all in the "descriptions" section
         # as of version 3.1 of datacite schema, "References" is not an
         # allowed description type so Lars is shoving the references
@@ -74,7 +40,7 @@ class DataCite3Parser(object):
         # as of version 3.1 of datacite schema, "References" is not an
         # allowed description type but here we try just for kicks
         references = []
-        for s in self._array(r.get('descriptions',{}).get('description',[])):
+        for s in self._array(self._dict(r.get('descriptions')).get('description',[])):
             t = s.get('@descriptionType')
             c = self._text(s)
             if t == 'References':
@@ -83,13 +49,18 @@ class DataCite3Parser(object):
         return references
 
     def resource_dict(self, fp, **kwargs):
-        d = xmltodict.parse(fp, **kwargs)
+        d = self.xmltodict(fp, **kwargs)
         # as a convenience, remove the OAI wrapper if it's there
         r = d.get('record',{}).get('metadata',{}).get('resource') or d.get('resource')
         return r
 
     def parse(self, fp, **kwargs):
-        """Parses Zenodo's flavor of DataCite 3.1 schema, returns ADS tagged format"""
+        """
+        DataCite 3.1 metadata returns ADS tagged format.
+        Note: we use the object's _dict() and _array() functions to guard against
+        unexpeected element constructs in the XML (e.g. empty elements or single
+        sub-elements when a list is allowed
+        """
         r = self.resource_dict(fp, **kwargs)
 
         # check for namespace to make sure it's datacite3
@@ -104,7 +75,7 @@ class DataCite3Parser(object):
         # authors
         authors = []
         aaffils = []
-        for a in self._array(r.get('creators',{}).get('creator',[])):
+        for a in self._array(self._dict(r.get('creators')).get('creator',[])):
             authors.append(a.get('creatorName'))
             aff = a.get('affiliation','')
             for i in self._array(a.get('nameIdentifier')):
@@ -117,7 +88,7 @@ class DataCite3Parser(object):
 
         # title
         titles = {}
-        for t in self._array(r.get('titles',{}).get('title',[])):
+        for t in self._array(self._dict(r.get('titles')).get('title',[])):
             l = self._attr(t, 'lang', 'en')
             titles[l] = self._text(t)
         if not titles:
@@ -132,7 +103,7 @@ class DataCite3Parser(object):
         year = self._text(r.get('publicationYear'))
         pubdate = None
         dates = {}
-        for d in self._array(r.get('dates',{}).get('date',[])):
+        for d in self._array(self._dict(r.get('dates')).get('date',[])):
             t = self._attr(d, 'dateType')
             dates[t] = self._text(d)
         for dt in [ 'Issued', 'Created', 'Submitted' ]:
@@ -143,7 +114,7 @@ class DataCite3Parser(object):
 
         # keywords
         keywords = []
-        for k in self._array(r.get('subjects',{}).get('subject',[])):
+        for k in self._array(self._dict(r.get('subjects')).get('subject',[])):
             # XXX we are ignoring keyword scheme
             keywords.append(self._text(k))
 
@@ -151,7 +122,7 @@ class DataCite3Parser(object):
         contribs = []
         caffils = []
         ctypes = []
-        for a in self._array(r.get('contributors',{}).get('contributor',[])):
+        for a in self._array(self._dict(r.get('contributors')).get('contributor',[])):
             contribs.append(a.get('contributorName'))
             ctypes.append(a.get('@contributorType',''))
             aff = a.get('affiliation','')
@@ -170,7 +141,7 @@ class DataCite3Parser(object):
         # bibcodes should appear as <alternateIdentifiers>
         identifiers = {}
         bibcode, html, pdf = None, None, None
-        for i in self._array(r.get('alternateIdentifiers',{}).get('alternateIdentifier',[])):
+        for i in self._array(self._dict(r.get('alternateIdentifiers')).get('alternateIdentifier',[])):
             t = i.get('@alternateIdentifierType')
             if t == 'URL':
                 html = self._text(i)
@@ -180,7 +151,7 @@ class DataCite3Parser(object):
                 identifiers[t] = self._text(i)
 
         # related identifiers; bibcodes sometime appear in <relatedIdentifiers>
-        for i in self._array(r.get('relatedIdentifiers',{}).get('relatedIdentifier',[])):
+        for i in self._array(self._dict(r.get('relatedIdentifiers')).get('relatedIdentifier',[])):
             t = i.get('@relatedIdentifierType')
             rt = i.get('@relationType')
             c = self._text(i)
@@ -193,7 +164,7 @@ class DataCite3Parser(object):
 
         # access rights
         isoa = False
-        for a in self._array(r.get('rightsList',{}).get('rights',[])):
+        for a in self._array(self._dict(r.get('rightsList')).get('rights',[])):
             u = self._attr(a, 'rightsURI')
             c = self._text(i)
             if u in self.OA_URIS or c in self.OA_TEXT:
