@@ -34,7 +34,7 @@ if __name__ == "__main__":
         d = None
         with open(file) as fp:
             logging.debug("parsing file %s" %file)
-            d = parser.parse(fp, debug=(args.debug > 1))
+            d = parser.parse(fp)
             if args.debug:
                 sys.stderr.write("document: %s" % json.dumps(d))
             logging.debug("validating file %s" %file)

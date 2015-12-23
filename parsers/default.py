@@ -29,6 +29,15 @@ class BaseXmlToDictParser(object):
         else:
             return [e]
 
+    def _dict(self, e, d={}):
+        """Ensures that e is a dictionary"""
+        if type(e) == type(None):
+            return d
+        elif isinstance(e, dict):
+            return e
+        else:
+            return d
+
     def _text(self, e, d=''):
         """Returns text node of element e (or default d)"""
         if type(e) == type(None):
