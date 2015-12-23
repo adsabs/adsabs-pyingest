@@ -1,0 +1,25 @@
+{
+    "abstract": "The Gran Telescopio Canarias (GTC) archive is operational since November 2011. The archive, maintained by the Data Archive Unit at CAB in the framework of the Spanish Virtual Observatory project, provides access to both raw and science ready data and has been designed in compliance with the standards defined by the International Virtual Observatory Alliance (IVOA) to guarantee a high level of data accessibility and handling.</p>In this presentation I will describe the main capabilities the GTC archive offers to the community, in terms of functionalities and data collections, to carry out an efficient scientific exploitation of GTC data.", 
+    "affiliations": [
+        "Centro de Astrobiolog\u00eda (INTA-CSIC), Spain", 
+        "Centro de Astrobiolog\u00eda (INTA-CSIC), Spain"
+    ], 
+    "authors": [
+        "Alacid, J. Manuel", 
+        "Solano, Enrique"
+    ], 
+    "bibcode": "", 
+    "keywords": [
+        "Science data management"
+    ], 
+    "properties": {
+        "DOI": "10.5281/zenodo.34495", 
+        "ELECTR": "http://zenodo.org/record/34495", 
+        "OPEN": 1, 
+        "PDF": "https://zenodo.org/record/34495/files/Alacid_SciOps2015.pdf"
+    }, 
+    "pubdate": "2015-12-01", 
+    "references": [], 
+    "source": "Zenodo", 
+    "title": "The GTC Public Archive"
+}

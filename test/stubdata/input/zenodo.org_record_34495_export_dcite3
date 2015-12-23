@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><resource xmlns="http://datacite.org/schema/kernel-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
+      <identifier identifierType="DOI">10.5281/zenodo.34495</identifier>
+      <creators>
+        <creator>
+          <creatorName>Alacid, J. Manuel</creatorName>
+          <affiliation>Centro de Astrobiología (INTA-CSIC), Spain</affiliation>
+        </creator>
+        <creator>
+          <creatorName>Solano, Enrique</creatorName>
+          <affiliation>Centro de Astrobiología (INTA-CSIC), Spain</affiliation>
+        </creator>
+      </creators>
+      <titles>
+        <title>The GTC Public Archive</title>
+      </titles>
+      <publisher>Zenodo</publisher>
+      <publicationYear>2015</publicationYear>
+      <subjects>
+        <subject>Science data management</subject>
+      </subjects>
+      <contributors/>
+      <dates>
+        <date dateType="Issued">2015-12-01</date>
+      </dates>
+      <resourceType resourceTypeGeneral="Text">Presentation</resourceType>
+      <alternateIdentifiers>
+        <alternateIdentifier alternateIdentifierType="URL">http://zenodo.org/record/34495</alternateIdentifier>
+      </alternateIdentifiers>
+      <relatedIdentifiers>
+        <relatedIdentifier relationType="HasPart" relatedIdentifierType="URL">https://zenodo.org/record/34495/files/Alacid_SciOps2015.pdf</relatedIdentifier>
+      </relatedIdentifiers>
+      <rightsList>
+        <rights rightsURI="info:eu-repo/semantics/openAccess">Open Access</rights>
+        <rights rightsURI="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</rights>
+      </rightsList>
+      <descriptions>
+        <description descriptionType="Abstract">&lt;p&gt;The Gran Telescopio Canarias (GTC) archive is operational since November 2011. The archive, maintained by the Data Archive Unit at CAB in the framework of the Spanish Virtual Observatory project, provides access to both raw and science ready data and has been designed in compliance with the standards defined by the International Virtual Observatory Alliance (IVOA) to guarantee a high level of data accessibility and handling.&lt;/p&gt;
+    
+    &lt;p&gt;In this presentation I will describe the main capabilities the GTC archive offers to the community, in terms of functionalities and data collections, to carry out an efficient scientific exploitation of GTC data.&lt;/p&gt;</description>
+      </descriptions>
+    </resource>
