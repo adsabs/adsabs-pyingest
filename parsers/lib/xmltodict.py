@@ -1,20 +1,5 @@
 #!/usr/bin/env python
-'''Makes working with XML feel like you are working with JSON
-
-https://github.com/martinblech/xmltodict
-
-Copyright (C) 2012 Martin Blech and individual contributors.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-'''
-
-
+"Makes working with XML feel like you are working with JSON"
 
 from xml.parsers import expat
 from xml.sax.saxutils import XMLGenerator
@@ -44,7 +29,7 @@ except NameError:  # pragma no cover
     _unicode = str
 
 __author__ = 'Martin Blech'
-__version__ = '0.8.6'
+__version__ = '0.9.2'
 __license__ = 'MIT'
 
 
@@ -65,10 +50,11 @@ class _DictSAXHandler(object):
                  dict_constructor=OrderedDict,
                  strip_whitespace=True,
                  namespace_separator=':',
-                 namespaces=None):
+                 namespaces=None,
+                 force_list=()):
         self.path = []
         self.stack = []
-        self.data = None
+        self.data = []
         self.item = None
         self.item_depth = item_depth
         self.xml_attribs = xml_attribs
@@ -82,6 +68,7 @@ class _DictSAXHandler(object):
         self.strip_whitespace = strip_whitespace
         self.namespace_separator = namespace_separator
         self.namespaces = namespaces
+        self.force_list = force_list
 
     def _build_name(self, full_name):
         if not self.namespaces:
@@ -109,26 +96,30 @@ class _DictSAXHandler(object):
             self.stack.append((self.item, self.data))
             if self.xml_attribs:
                 attrs = self.dict_constructor(
-                    (self.attr_prefix+key, value)
+                    (self.attr_prefix+self._build_name(key), value)
                     for (key, value) in attrs.items())
             else:
                 attrs = None
             self.item = attrs or None
-            self.data = None
+            self.data = []
 
     def endElement(self, full_name):
         name = self._build_name(full_name)
         if len(self.path) == self.item_depth:
             item = self.item
             if item is None:
-                item = self.data
+                item = (None if not self.data
+                        else self.cdata_separator.join(self.data))
+
             should_continue = self.item_callback(self.path, item)
             if not should_continue:
                 raise ParsingInterrupted()
         if len(self.stack):
-            item, data = self.item, self.data
+            data = (None if not self.data
+                    else self.cdata_separator.join(self.data))
+            item = self.item
             self.item, self.data = self.stack.pop()
-            if self.strip_whitespace and data is not None:
+            if self.strip_whitespace and data:
                 data = data.strip() or None
             if data and self.force_cdata and item is None:
                 item = self.dict_constructor()
@@ -139,14 +130,15 @@ class _DictSAXHandler(object):
             else:
                 self.item = self.push_data(self.item, name, data)
         else:
-            self.item = self.data = None
+            self.item = None
+            self.data = []
         self.path.pop()
 
     def characters(self, data):
         if not self.data:
-            self.data = data
+            self.data = [data]
         else:
-            self.data += self.cdata_separator + data
+            self.data.append(data)
 
     def push_data(self, item, key, data):
         if self.postprocessor is not None:
@@ -163,7 +155,10 @@ class _DictSAXHandler(object):
             else:
                 item[key] = [value, data]
         except KeyError:
-            item[key] = data
+            if key in self.force_list:
+                item[key] = [data]
+            else:
+                item[key] = data
         return item
 
 
@@ -235,6 +230,37 @@ def parse(xml_input, encoding=None, expat=expat, process_namespaces=False,
         >>> xmltodict.parse('<a>hello</a>', expat=defusedexpat.pyexpat)
         OrderedDict([(u'a', u'hello')])
 
+    You can use the force_list argument to force lists to be created even
+    when there is only a single child of a given level of hierarchy. The
+    force_list argument is a tuple of keys. If the key for a given level
+    of hierarchy is in the force_list argument, that level of hierarchy
+    will have a list as a child (even if there is only one sub-element).
+    The index_keys operation takes precendence over this. This is applied
+    after any user-supplied postprocessor has already run.
+
+        For example, given this input:
+        <servers>
+          <server>
+            <name>host1</name>
+            <os>Linux</os>
+            <interfaces>
+              <interface>
+                <name>em0</name>
+                <ip_address>10.0.0.1</ip_address>
+              </interface>
+            </interfaces>
+          </server>
+        </servers>
+
+        If called with force_list=('interface',), it will produce
+        this dictionary:
+        {'servers':
+          {'server':
+            {'name': 'host1',
+             'os': 'Linux'},
+             'interfaces':
+              {'interface':
+                [ {'name': 'em0', 'ip_address': '10.0.0.1' } ] } } }
     """
     handler = _DictSAXHandler(namespace_separator=namespace_separator,
                               **kwargs)
@@ -242,9 +268,11 @@ def parse(xml_input, encoding=None, expat=expat, process_namespaces=False,
         if not encoding:
             encoding = 'utf-8'
         xml_input = xml_input.encode(encoding)
+    if not process_namespaces:
+        namespace_separator = None
     parser = expat.ParserCreate(
         encoding,
-        namespace_separator if process_namespaces else None
+        namespace_separator
     )
     try:
         parser.ordered_attributes = True
@@ -254,6 +282,7 @@ def parse(xml_input, encoding=None, expat=expat, process_namespaces=False,
     parser.StartElementHandler = handler.startElement
     parser.EndElementHandler = handler.endElement
     parser.CharacterDataHandler = handler.characters
+    parser.buffer_text = True
     try:
         parser.ParseFile(xml_input)
     except (TypeError, AttributeError):
@@ -268,17 +297,20 @@ def _emit(key, value, content_handler,
           preprocessor=None,
           pretty=False,
           newl='\n',
-          indent='\t'):
+          indent='\t',
+          full_document=True):
     if preprocessor is not None:
         result = preprocessor(key, value)
         if result is None:
             return
         key, value = result
-    if not isinstance(value, (list, tuple)):
+    if (not hasattr(value, '__iter__')
+            or isinstance(value, _basestring)
+            or isinstance(value, dict)):
         value = [value]
-    if depth == 0 and len(value) > 1:
-        raise ValueError('document with multiple roots')
-    for v in value:
+    for index, v in enumerate(value):
+        if full_document and depth == 0 and index > 0:
+            raise ValueError('document with multiple roots')
         if v is None:
             v = OrderedDict()
         elif not isinstance(v, dict):
@@ -314,7 +346,8 @@ def _emit(key, value, content_handler,
             content_handler.ignorableWhitespace(newl)
 
 
-def unparse(input_dict, output=None, encoding='utf-8', **kwargs):
+def unparse(input_dict, output=None, encoding='utf-8', full_document=True,
+            **kwargs):
     """Emit an XML document for the given `input_dict` (reverse of `parse`).
 
     The resulting XML document is returned as a string, but if `output` (a
@@ -329,15 +362,20 @@ def unparse(input_dict, output=None, encoding='utf-8', **kwargs):
     can be customized with the `newl` and `indent` parameters.
 
     """
-    ((key, value),) = input_dict.items()
+    if full_document and len(input_dict) != 1:
+        raise ValueError('Document must have exactly one root.')
     must_return = False
     if output is None:
         output = StringIO()
         must_return = True
     content_handler = XMLGenerator(output, encoding)
-    content_handler.startDocument()
-    _emit(key, value, content_handler, **kwargs)
-    content_handler.endDocument()
+    if full_document:
+        content_handler.startDocument()
+    for key, value in input_dict.items():
+        _emit(key, value, content_handler, full_document=full_document,
+              **kwargs)
+    if full_document:
+        content_handler.endDocument()
     if must_return:
         value = output.getvalue()
         try:  # pragma no cover
