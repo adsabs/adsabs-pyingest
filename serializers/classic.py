@@ -33,7 +33,7 @@ class Tagged(object):
     fieldDict = OrderedDict([('bibcode',      { 'tag': 'R' }),
                              ('title',        { 'tag': 'T' }),
                              ('authors',      { 'tag': 'A', 'join': '; ' }),
-                             ('affiliations', { 'tag': 'F', 'join': '; ', 'fmt': format_affids }),
+                             ('affiliations', { 'tag': 'F', 'join': ', ', 'fmt': format_affids }),
                              ('pubdate',      { 'tag': 'D', 'fmt': format_pubdate }),
                              ('publication',  { 'tag': 'J' }),
                              ('source',       { 'tag': 'G'  }),
