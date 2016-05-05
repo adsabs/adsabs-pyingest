@@ -35,7 +35,6 @@
 	    "items": {
 	        "type": "string"
 	    },
-	    "uniqueItems": true
 	},
 	"abstract": {
 	    "description": "summary of the work",
@@ -46,7 +45,6 @@
 	    "items": {
 	        "type": "string"
 	    },
-	    "uniqueItems": true
 	},
 	"properties": {
 	    "type": "object",
