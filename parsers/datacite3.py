@@ -164,8 +164,8 @@ class DataCite3Parser(BaseXmlToDictParser):
 
         # access rights
         isoa = False
-        for a in self._array(self._dict(r.get('rightsList')).get('rights',[])):
-            u = self._attr(a, 'rightsURI')
+        for i in self._array(self._dict(r.get('rightsList')).get('rights',[])):
+            u = self._attr(i, 'rightsURI')
             c = self._text(i)
             if u in self.OA_URIS or c in self.OA_TEXT:
                 isoa = True
