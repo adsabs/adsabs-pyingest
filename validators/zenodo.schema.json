@@ -34,7 +34,7 @@
 	    "type": "array",
 	    "items": {
 	        "type": "string"
-	    },
+	    }
 	},
 	"abstract": {
 	    "description": "summary of the work",
@@ -44,7 +44,7 @@
 	    "type": "array",
 	    "items": {
 	        "type": "string"
-	    },
+	    }
 	},
 	"properties": {
 	    "type": "object",
