@@ -1,0 +1,43 @@
+<record>
+<header>
+ <identifier>oai:arXiv.org:1711.05739</identifier>
+ <datestamp>2017-11-17</datestamp>
+ <setSpec>physics:astro-ph</setSpec>
+</header>
+<metadata>
+ <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+ <dc:title>Planet-Planet Occultations in TRAPPIST-1 and Other Exoplanet Systems</dc:title>
+ <dc:creator>Luger, Rodrigo</dc:creator>
+ <dc:creator>Lustig-Yaeger, Jacob</dc:creator>
+ <dc:creator>Agol, Eric</dc:creator>
+ <dc:subject>Astrophysics - Earth and Planetary Astrophysics</dc:subject>
+ <dc:description>  We explore the occurrence and detectability of planet-planet occultations
+(PPOs) in exoplanet systems. These are events during which a planet occults the
+disk of another planet in the same system, imparting a small photometric signal
+as its thermal or reflected light is blocked. We focus on the planets in
+TRAPPIST-1, whose orbital planes we show are aligned to within 0.3 degrees at
+90% confidence. We present a photodynamical model for predicting and computing
+PPOs in TRAPPIST-1 and other systems for various assumptions of the planets'
+atmospheric states. When marginalizing over the uncertainties on all orbital
+parameters, we find that the rate of PPOs in TRAPPIST-1 is about 1.4 per day.
+We investigate the prospects for detection of these events with the James Webb
+Space Telescope, finding that ~10-20 occultations per year of b and c should be
+above the noise level at 12-15 microns. Joint modeling of several of these PPOs
+could lead to a robust detection. Alternatively, observations with the proposed
+Origins Space Telescope should be able to detect individual PPOs at high
+signal-to-noise. We show how PPOs can be used to break transit timing variation
+degeneracies, imposing strong constraints on the eccentricities and masses of
+the planets, as well as to constrain the longitudes of nodes and thus the
+complete three-dimensional structure of the system. We further show how
+modeling of these events can be used to reveal a planet's day/night temperature
+contrast and construct crude surface maps. We make our photodynamical code
+available on github.
+</dc:description>
+ <dc:description>Comment: 36 pages, 25 figures. Accepted to ApJ. Multi-purpose photodynamical
+  code available at github.com/rodluger/planetplanet</dc:description>
+ <dc:date>2017-11-15</dc:date>
+ <dc:type>text</dc:type>
+ <dc:identifier>http://arxiv.org/abs/1711.05739</dc:identifier>
+ </oai_dc:dc>
+</metadata>
+</record>
