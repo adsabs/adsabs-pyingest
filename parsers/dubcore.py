@@ -138,6 +138,7 @@ if __name__ == "__main__":
     dcx = DublinCoreParser()
 
     woo = None
-    with open('oai_ArXiv.org_1711_04702','rU') as fp:
+    with open('oai_ArXiv.org_1711_05739','rU') as fp:
         woo = dcx.parse(fp)
-        print ('authors lol:',woo['creators'])
+
+    print woo
