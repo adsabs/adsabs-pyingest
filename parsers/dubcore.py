@@ -25,8 +25,7 @@ class DublinCoreParser(BaseXmlToDictParser):
 
     def __init__(self):
     # make sure we are utf-8 clean on stdout, stderr
-        self.DUBC_SCHEMA = 'https://tools.ietf.org/html/rfc5013'
-        self.debug = False
+        self.DUBC_SCHEMA = "http://www.openarchives.org/OAI/2.0/oai_dc/"
 
 
 # This should have all of the possible fields of Dublin Core specification
@@ -54,6 +53,7 @@ class DublinCoreParser(BaseXmlToDictParser):
         for s in self._array(r.get('dc:creator',[])):
             creator.append(self._text(s))
         if len(creator) == 0:
+            raise MissingAuthorsException("No authors found")
             creator = None
         return creator
 
@@ -63,6 +63,7 @@ class DublinCoreParser(BaseXmlToDictParser):
         for s in self._array(r.get('dc:title',[])):
             title.append(self._text(s))
         if len(title) == 0:
+            raise MissingTitleException("No title found")
             title = None
         return title
 
@@ -135,10 +136,13 @@ class DublinCoreParser(BaseXmlToDictParser):
 
 if __name__ == "__main__":
 
+    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
+    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
+
     dcx = DublinCoreParser()
 
     woo = None
-    with open('oai_ArXiv.org_1711_05739','rU') as fp:
+    with open('test/oai_ArXiv.org_1711_05739','rU') as fp:
         woo = dcx.parse(fp)
 
     print woo

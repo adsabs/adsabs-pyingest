@@ -23,6 +23,8 @@ class ArxivParser(DublinCoreParser):
 
         arx['authors']  = "; ".join(r['creators'])
 
+        arx['subjects'] = ", ".join(r['subjects'])
+
         arx['url'],arx['doi'] = make_extras(r['identifiers'])
 
         arx['bibcode']  = make_bibcode(arx['url'],arx['authors'])
@@ -73,7 +75,7 @@ def make_bibcode(url,authors):
 if __name__ == "__main__":
 
     arxiv = ArxivParser()
-    with open('0306266','rU') as fp:
+    with open('test/0306266','rU') as fp:
         x = arxiv.parse(fp)
         for k in x.keys():
             print "%s:\t%s"%(k,x[k])
