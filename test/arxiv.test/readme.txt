@@ -1,2 +1,2 @@
-see data in /proj/ads_abstracts/sources/ArXiv/UpdateAgent
+see data in ua/.../sources/ArXiv/UpdateAgent
 
