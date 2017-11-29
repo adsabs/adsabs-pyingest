@@ -6,6 +6,7 @@ import os
 import sys
 from glob import glob
 from parsers.arxiv import ArxivParser
+from serializers.serializer_mp import ArxivToMasterPipeline
 
 def get_arguments():
 
@@ -56,10 +57,8 @@ def main():
 
     arxiv = ArxivParser()
 
-    if args.absdir:
-       cfg.INCOMING_ABS_DIR = args.absdir
 
-
+    print ("\n\nBEGIN find records to parse ...")
     if args.caldate:
         file_pattern=args.caldate
         glob_pattern=cfg.UPDATE_AGENT_DIR+'/*'+file_pattern+'*'
@@ -90,21 +89,28 @@ def main():
         else:
             reclist = map(lambda x: cfg.ARCHIVE_ABS_DIR + '/' + x.replace('.','/'), reclist)
             print (reclist)
+    elif args.absdir:
+        reclist = glob(args.absdir+'/*')
     else:
         print 'Empty record list.'
         reclist = []
 
-    for f in reclist:
-        with open(f,'rU') as fp:
-            parsed_records.append(arxiv.parse(fp))
 
-    for r in parsed_records:
-        if args.parse_only:
-            print ("\n"+str(r)+"\n")
-        else:
-#           thing.topushXtoMasterPipeline(r)
-            print "\nsending to masterpipeline not really LOL!\n"
+    if (len(reclist) > 0):
+        print "\n\nBEGIN parse reclist ...\n\n"
+        for f in reclist:
+            with open(f,'rU') as fp:
+                parsed_records.append(arxiv.parse(fp))
 
+        print "\n\nBEGIN send parsed records to Master Pipeline ...\n\n"
+        for r in parsed_records:
+            if args.parse_only:
+                print ("\n"+str(r)+"\n")
+            else:
+                mpsender=ArxivToMasterPipeline()
+                mpsender.serialize(r)
+
+    print "DONE."
     return
 
 
