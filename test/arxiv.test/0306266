@@ -1,0 +1,31 @@
+<record>
+<header>
+ <identifier>oai:arXiv.org:math/0306266</identifier>
+ <datestamp>2017-11-17</datestamp>
+ <setSpec>math</setSpec>
+</header>
+<metadata>
+ <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+ <dc:title>The Lovasz number of random graphs</dc:title>
+ <dc:creator>Coja-Oghlan, Amin</dc:creator>
+ <dc:subject>Mathematics - Combinatorics</dc:subject>
+ <dc:subject>05C80, 05C15</dc:subject>
+ <dc:description>  We study the Lovasz number theta along with two further SDP relaxations
+theta1, theta1/2 of the independence number and the corresponding relaxations
+of the chromatic number on random graphs G(n,p). We prove that these
+relaxations are concentrated about their means Moreover, extending a result of
+Juhasz, we compute the asymptotic value of the relaxations for essentially the
+entire range of edge probabilities p. As an application, we give an improved
+algorithm for approximating the independence number in polynomial expected
+time, thereby extending a result of Krivelevich and Vu. We also improve on the
+analysis of an algorithm of Krivelevich for deciding whether G(n,p) is
+k-colorable.
+</dc:description>
+ <dc:date>2003-06-18</dc:date>
+ <dc:type>text</dc:type>
+ <dc:identifier>http://arxiv.org/abs/math/0306266</dc:identifier>
+ <dc:identifier>Combinatorics, Probability and Computing 14 (2005) 439 - 465</dc:identifier>
+ <dc:identifier>doi:10.1017/S0963548305006826</dc:identifier>
+ </oai_dc:dc>
+</metadata>
+</record>
