@@ -1,0 +1,50 @@
+<record>
+<header>
+ <identifier>oai:arXiv.org:1111.0262</identifier>
+ <datestamp>2015-06-03</datestamp>
+ <setSpec>physics:astro-ph</setSpec>
+</header>
+<metadata>
+ <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+ <dc:title>Modern observations of Hubble's first-discovered Cepheid in M31</dc:title>
+ <dc:creator>Templeton, M.</dc:creator>
+ <dc:creator>Henden, A.</dc:creator>
+ <dc:creator>Goff, W.</dc:creator>
+ <dc:creator>Smith, S.</dc:creator>
+ <dc:creator>Sabo, R.</dc:creator>
+ <dc:creator>Walker, G.</dc:creator>
+ <dc:creator>Buchheim, R.</dc:creator>
+ <dc:creator>Belcheva, G.</dc:creator>
+ <dc:creator>Crawford, T.</dc:creator>
+ <dc:creator>Cook, M.</dc:creator>
+ <dc:creator>Dvorak, S.</dc:creator>
+ <dc:creator>Harris, B.</dc:creator>
+ <dc:subject>Astrophysics - Solar and Stellar Astrophysics</dc:subject>
+ <dc:description>  We present a modern ephemeris and modern light curve of the first-discovered
+Cepheid variable in M31, Edwin Hubble's M31-V1. Observers of the American
+Association of Variable Star Observers undertook these observations during the
+latter half of 2010. The observations were in support of an outreach program by
+the Space Telescope Science Institute's Hubble Heritage project, but the
+resulting data are the first concentrated observations of M31-V1 made in modern
+times. AAVSO observers obtained 214 V-band, Rc-band, and unfiltered
+observations from which a current ephemeris was derived. The ephemeris derived
+from these observations is JD(Max) = 2455430.5(+/-0.5) + 31.4 (+/-0.1) E. The
+period derived from the 2010 data are in agreement with the historic values of
+the period, but the single season of data precludes a more precise
+determination of the period or measurement of the period change using these
+data alone. However, using an ephemeris based upon the period derived by Baade
+and Swope we are able to fit all of the observed data acceptably well.
+Continued observations in the modern era will be very valuable in linking these
+modern data with data from the 1920s-30s and 1950s, and will enable us to
+measure period change in this historic Cepheid. In particular, we strongly
+encourage intensive observations of this star around predicted times of maximum
+to constrain the date of maximum to better than 0.5 days.
+</dc:description>
+ <dc:description>Comment: 9 pages, 9 figures, accepted for publication in PASP</dc:description>
+ <dc:date>2011-11-01</dc:date>
+ <dc:type>text</dc:type>
+ <dc:identifier>http://arxiv.org/abs/1111.0262</dc:identifier>
+ <dc:identifier>doi:10.1086/663651</dc:identifier>
+ </oai_dc:dc>
+</metadata>
+</record>

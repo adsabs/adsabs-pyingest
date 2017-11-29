@@ -40,54 +40,57 @@ class ArxivParser(DublinCoreParser):
             pass
 
         else:
-            if(len(r.keys()) == 0):
-                raise EmptyParserException("No dictionary.")
-
             try:
-                arx['pubdate']  = r['dc:date'][-1]
-            except KeyError:
-                raise MissingDateException("Invalid record: no pubdate")
-            else:
-                arx['pubhist']  = r['dc:date'][0:-1]
-                if(len(arx['pubhist']) == 0):
-                    arx['pubhist'] = None
+                if(len(r.keys()) == 0):
+                    raise EmptyParserException("No dictionary.")
 
-            try:
-                arx['abstract'] = r['dc:description'][0]
-            except KeyError:
-                raise MissingAbstractException("Invalid record: no abstract")
-            else:
-                arx['comments'] = " ".join(r['dc:description'][1:])
+                try:
+                    arx['pubdate']  = r['dc:date'][-1]
+                except KeyError:
+                    raise MissingDateException("Invalid record: no pubdate")
+                else:
+                    arx['pubhist']  = r['dc:date'][0:-1]
+                    if(len(arx['pubhist']) == 0):
+                        arx['pubhist'] = None
 
-            try:
-                arx['title']    = r['dc:title'][-1]
-            except KeyError:
-                raise MissingTitleException("Invalid record: no title")
-            else:
-                pass
+                try:
+                    arx['abstract'] = r['dc:description'][0]
+                except KeyError:
+                    raise MissingAbstractException("Invalid record: no abstract")
+                else:
+                    arx['comments'] = " ".join(r['dc:description'][1:])
 
-            try:
-                arx['authors']  = "; ".join(r['dc:creator'])
-            except KeyError:
-                raise MissingAuthorException("Invalid record: no author(s)")
-            else:
-                pass
+                try:
+                    arx['title']    = r['dc:title'][-1]
+                except KeyError:
+                    raise MissingTitleException("Invalid record: no title")
+                else:
+                    pass
 
-            try:
-                arx['subjects'] = ", ".join(r['dc:subject'])
-            except KeyError:
-                raise MissingAbstractException("Invalid record: no subjects")
-            else:
-                pass
+                try:
+                    arx['authors']  = "; ".join(r['dc:creator'])
+                except KeyError:
+                    raise MissingAuthorException("Invalid record: no author(s)")
+                else:
+                    pass
 
-            try:
-                make_extras(r['dc:identifier'])
-            except KeyError:
-                raise MissingIDException("Invalid record: no identifier")
-            else:
-                arx['doi'],arx['url'] = make_extras(r['dc:identifier'])
+                try:
+                    arx['subjects'] = ", ".join(r['dc:subject'])
+                except KeyError:
+                    raise MissingAbstractException("Invalid record: no subjects")
+                else:
+                    pass
 
-            arx['bibcode']  = make_bibcode(arx['url'],arx['authors'])
+                try:
+                    make_extras(r['dc:identifier'])
+                except KeyError:
+                    raise MissingIDException("Invalid record: no identifier")
+                else:
+                    arx['doi'],arx['url'] = make_extras(r['dc:identifier'])
+
+                arx['bibcode']  = make_bibcode(arx['url'],arx['authors'])
+            except:
+                print "Malformed record, skipping."
 
         return arx
 
