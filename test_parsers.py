@@ -6,8 +6,8 @@ import unittest
 import sys, os
 import glob
 import json
-import parsers.zenodo
-import parsers.arxiv
+from pyingest.parsers import zenodo
+from pyingest.parsers import arxiv
 
 stubdata_dir = os.path.join(os.path.dirname(__file__), 'test/stubdata')
 
@@ -19,7 +19,7 @@ class TestZenodo(unittest.TestCase):
 #        sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
 
     def test_zenodo_parser(self):
-        parser = parsers.zenodo.ZenodoParser()
+        parser = zenodo.ZenodoParser()
         for file in self.inputdocs:
             # this will raise exceptions if something is wrong
             with open(file, 'r') as fp:
@@ -51,15 +51,15 @@ class TestZenodo(unittest.TestCase):
 class TestArxiv(unittest.TestCase):
 
 #   def test_bad_xml(self):
-#       with self.assertRaises(parsers.arxiv.EmptyParserException):
+#       with self.assertRaises(arxiv.EmptyParserException):
 #           with open('test/arxiv.test/readme.txt','rU') as fp:
-#               parser = parsers.arxiv.ArxivParser()
+#               parser = arxiv.ArxivParser()
 #               document = parser.parse(fp)
 
 #   def test_no_xml_file(self):
-#       with self.assertRaises(parsers.arxiv.EmptyParserException):
+#       with self.assertRaises(arxiv.EmptyParserException):
 #           fp=None
-#           parser = parsers.arxiv.ArxivParser()
+#           parser = arxiv.ArxivParser()
 #           document = parser.parse(fp)
 #           print "file parsed ok"
 
@@ -68,7 +68,7 @@ class TestArxiv(unittest.TestCase):
                     'title':['Planet-Planet Occultations in TRAPPIST-1 and Other Exoplanet Systems'],
                 'bibcode':u'2017arXiv171105739L'}
         with open('test/arxiv.test/oai_ArXiv.org_1711_05739','rU') as fp:
-            parser = parsers.arxiv.ArxivParser()
+            parser = arxiv.ArxivParser()
             document = parser.parse(fp)
         for k in shouldbe.keys():
             self.assertEqual(shouldbe[k],document[k])
