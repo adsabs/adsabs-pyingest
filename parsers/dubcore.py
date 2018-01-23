@@ -61,17 +61,13 @@ class DublinCoreParser(BaseXmlToDictParser):
 
         output_metadata=dict()
 
-        try:
-            r = self.resource_dict(fp, **kwargs)
-        except:
-            print "Could not parse file into a dictionary."
-        else:
-            schema = self.get_schema(r)
+        r = self.resource_dict(fp, **kwargs)
+        schema = self.get_schema(r)
 
 
-            for tag in schema:
-                if (self.get_tag(r, tag)):
-                    output_metadata[tag]=self.get_tag(r, tag)
+        for tag in schema:
+            if (self.get_tag(r, tag)):
+                output_metadata[tag]=self.get_tag(r, tag)
 
         return output_metadata
 

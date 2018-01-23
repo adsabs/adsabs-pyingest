@@ -1,4 +1,3 @@
-git+https://github.com/adsabs/ADSPipelineUtils.git@master
 jsonschema
 namedentities
 python-dateutil
