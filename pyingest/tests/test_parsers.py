@@ -9,7 +9,7 @@ import json
 from pyingest.parsers import zenodo
 from pyingest.parsers import arxiv
 
-stubdata_dir = os.path.join(os.path.dirname(__file__), 'test/stubdata')
+stubdata_dir = os.path.join(os.path.dirname(__file__), 'test_data/stubdata')
 
 class TestZenodo(unittest.TestCase):
 
@@ -52,7 +52,7 @@ class TestArxiv(unittest.TestCase):
 
 #   def test_bad_xml(self):
 #       with self.assertRaises(arxiv.EmptyParserException):
-#           with open('test/arxiv.test/readme.txt','rU') as fp:
+#           with open('test_data/arxiv.test/readme.txt','rU') as fp:
 #               parser = arxiv.ArxivParser()
 #               document = parser.parse(fp)
 
@@ -67,7 +67,7 @@ class TestArxiv(unittest.TestCase):
         shouldbe = {'author':[u'Luger, Rodrigo', u'Lustig-Yaeger, Jacob', u'Agol, Eric'],
                     'title':['Planet-Planet Occultations in TRAPPIST-1 and Other Exoplanet Systems'],
                 'bibcode':u'2017arXiv171105739L'}
-        with open('test/arxiv.test/oai_ArXiv.org_1711_05739','rU') as fp:
+        with open('test_data/arxiv.test/oai_ArXiv.org_1711_05739','rU') as fp:
             parser = arxiv.ArxivParser()
             document = parser.parse(fp)
         for k in shouldbe.keys():

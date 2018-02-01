@@ -6,7 +6,7 @@ import unittest
 import sys, os
 import glob
 import json
-import validators.ads
+import pyingest.validators.ads
 
 stubdata_dir = os.path.join(os.path.dirname(__file__), 'stubdata')
 
@@ -17,7 +17,7 @@ class TestSimple(unittest.TestCase):
 #        sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
 
     def test_simple_schema(self):
-        validator = validators.ads.SimpleValidator()
+        validator = pyingest.validators.ads.SimpleValidator()
         for file in self.inputdocs:
             # this will raise exceptions if something is wrong
             with open(file, 'r') as fp:

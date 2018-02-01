@@ -7,7 +7,7 @@ import sys, os
 import glob
 import json
 import cStringIO
-import serializers.classic
+import pyingest.serializers.classic
 
 stubdata_dir = os.path.join(os.path.dirname(__file__), 'stubdata')
 
@@ -19,7 +19,7 @@ class TestClassic(unittest.TestCase):
 #        sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
 
     def test_classic_tagged(self):
-        serializer = serializers.classic.Tagged()
+        serializer = pyingest.serializers.classic.Tagged()
         for file in self.inputdocs:
             # this will raise exceptions if something is wrong
             document = ''
