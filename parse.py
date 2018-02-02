@@ -41,4 +41,3 @@ if __name__ == "__main__":
             validator.validate(d)
             logging.debug("serializing file %s" %file)
             serializer.write(d)
-

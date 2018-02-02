@@ -31,123 +31,63 @@ class ArxivParser(DublinCoreParser):
 
         arx = dict()
 
-        print(self.__class__, self)
-
         r = super(self.__class__, self).parse(fp, **kwargs)
 
-        if(len(r.keys()) == 0):
-            raise EmptyParserException("No dictionary.")
+        if r['abstract']:
+            r['abstract']=r['abstract'][0]
 
-        try:
-            arx['pubdate']  = r['dc:date'][-1]
-        except KeyError:
-            raise MissingDateException("Invalid record: no pubdate")
-        else:
-            pass
+        if r['bibcode']:
+            idarray = r['bibcode'].split(':')
+            arxiv_id = idarray[-1]
 
-        try:
-            arx['abstract'] = r['dc:description'][0]
-        except KeyError:
-            raise MissingAbstractException("Invalid record: no abstract")
-        else:
-            pass
+            if arxiv_id[0].isalpha():
+                arx_field = arxiv_id.split('/')[0].replace('-','.')
+                arx_num = arxiv_id.split('/')[1]
+                arx_yy = arx_num[0:2]
+                if arx_num[2] == '0':
+                    arx_num = arx_num[3:]
+                else:
+                    arx_num = arx_num[2:]
+            else:
+                arx_field = 'arXiv'
+                arx_num = arxiv_id.replace('.','')
+                arx_yy = arx_num[0:2]
 
-        try:
-            arx['title']    = [r['dc:title'][-1]]
-        except KeyError:
-            raise MissingTitleException("Invalid record: no title")
-        else:
-            pass
+            if int(arx_yy) > 90:
+                year=u'19'+arx_yy
+            else:
+                year=u'20'+arx_yy
 
-        try:
-            arx['author']  = r['dc:creator']
-        except KeyError:
-            raise MissingAuthorException("Invalid record: no author(s)")
-        else:
-            pass
+# You're going to need to fix this for non-ascii first initials, but whatevs.
+            author_init=r['authors'][0]
 
-        try:
-            arx['keyword'] = r['dc:subject']
-        except KeyError:
-            raise MissingAbstractException("Invalid record: no subjects")
-        else:
-            pass
+            bibcode1 = year+arx_field
+            bibcode2 = arx_num+author_init
+            if(len(bibcode1)+len(bibcode2) < 19):
+                bibcodex = u'.'*(19-len(bibcode1)-len(bibcode2))
+                bibcode = bibcode1 + bibcodex + bibcode2
+            else:
+                bibcode = bibcode1 + bibcode2
+            r['bibcode'] = bibcode
 
-        try:
-            arx['lolbutts'] = r['identifier']
-        except KeyError:
-            pass
-        else:
-            print ("haha:",arx['lolbutts'])
+        if r['properties']:
+            for x in r['properties']:
+                if 'http://arxiv.org' in x:
+                    r['properties'] = x
 
-        try:
-            make_extras(r['dc:identifier'])
-        except KeyError:
-            raise MissingIDException("Invalid record: no identifier")
-        else:
-            testdoi, url = make_extras(r['dc:identifier'])
-            if testdoi != [None]:
-                arx['doi'] = testdoi
-
-        try:
-            arx['bibcode'] = make_bibcode(url,arx['author'])
-        except KeyError:
-            raise MissingBibcodeException("Invalid record: cant generate bibcode")
-        else:
-            pass
-
-        return arx
-
-
-def make_extras(ids):
-    doi = None
-    url = None
-    for x in ids:
-        if u'doi:' in x:
-            doi = x
-        if u'http' in x:
-            if u'arxiv.org' in x:
-                url = x
-
-    return [doi],url
-
-
-def make_bibcode(url,authors):
-    (arxiv_id1,arxiv_id2) = url.split('/')[-2:]
-    if arxiv_id1 == u'abs':
-        (arxiv_id1,arxiv_id2) = arxiv_id2.split('.')
-        yy = arxiv_id1[0:2]
-    else:
-        yy = arxiv_id2[0:2]
-        arxiv_id2=arxiv_id2[2:]
-        if(arxiv_id2[0] == u'0'):
-            arxiv_id2 = arxiv_id2[1:]
-    if int(yy) > 90:
-        year=u'19'+yy
-    else:
-        year=u'20'+yy
-
-    if len(arxiv_id2) == 4:
-        arxiv_id2 = u'.'+arxiv_id2
-
-    auth_init = authors[0][0]
-    if arxiv_id1.isdigit() == True:
-        bibcode = year+'arXiv'+arxiv_id1+arxiv_id2+auth_init
-    else:
-        bibcode1 = year+arxiv_id1
-        bibcode2 = arxiv_id2+auth_init
-        bibcodex = u'.'*(19-len(bibcode1)-len(bibcode2))
-        bibcode  = bibcode1 + bibcodex + bibcode2
-
-    return bibcode
-
+        return r
 
 if __name__ == '__main__':
 
-    lol = ArxivParser()
+    test = ArxivParser()
 
-    woo = None
-    with open('/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/astro-ph/9501013','rU') as fp:
-        woo = lol.parse(fp)
+    fl = ['/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/astro-ph/9501013',
+          '/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/math/0306266',
+          '/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/1711/04702',
+          '/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/1711/05739']
+    for f in fl:
+        with open(f,'rU') as fp:
+            woo = test.parse(fp)
+            print(woo)
+            print("\n\n\n")
 
-    print(woo)

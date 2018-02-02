@@ -101,11 +101,7 @@ class DublinCoreParser(BaseXmlToDictParser):
 # 'dc:description'.  For arXiv.org, it's only r['dc:description'][0]
 
             if self.get_tag(r,'dc:description'):
-                if len(self.get_tag(r,'dc:description')) == 1:
-                    output_metadata['abstract'] = self.get_tag(r,'dc:description')[0]
-                else:
-                    output_metadata['abstract'] = "  ".join(self.get_tag(r,'dc:description'))
-
+                output_metadata['abstract'] = self.get_tag(r,'dc:description')
 
 # Keywords
 
@@ -123,11 +119,7 @@ class DublinCoreParser(BaseXmlToDictParser):
 #abstract page
 
             if self.get_tag(r,'dc:identifier'):
-                if len(self.get_tag(r,'dc:identifier')) == 1:
-                    output_metadata['properties'] = self.get_tag(r,'dc:identifier')[0]
-                else:
-                    output_metadata['properties'] = "  ".join(self.get_tag(r,'dc:identifier'))
-
+                output_metadata['properties'] = self.get_tag(r,'dc:identifier')
 
 
 
