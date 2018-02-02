@@ -27,11 +27,11 @@ class EmptyParserException(Exception):
 class ArxivParser(DublinCoreParser):
 
     def check_author_init(self,namestring):
-        n_ascii = namestring.encode('ascii','xmlcharrefreplace')
-        if n_ascii[0].isalpha():
-            return n_ascii[0].upper()
-        else:
-            return '.'
+        import unicodedata
+        nlol = u'&Oacute;rtiz, Bob'
+        namestring = nlol.encode('utf8','ascii')
+        print (namestring)
+        return unicodedata.normalize('NFD',namestring[0]).encode('utf8','ignore')
 
 
     def parse(self, fp, **kwargs):
