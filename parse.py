@@ -7,8 +7,8 @@ import codecs
 import json
 
 sys.path.append(os.path.dirname(__file__))
-from config.logging import loggingDict
-from config.utils import import_class, parse_arguments
+from pyingest.config.logging import loggingDict
+from pyingest.config.utils import import_class, parse_arguments
 
 
 if __name__ == "__main__":

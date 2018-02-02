@@ -31,6 +31,8 @@ class ArxivParser(DublinCoreParser):
 
         arx = dict()
 
+        print(self.__class__, self)
+
         r = super(self.__class__, self).parse(fp, **kwargs)
 
         if(len(r.keys()) == 0):
@@ -72,11 +74,18 @@ class ArxivParser(DublinCoreParser):
             pass
 
         try:
+            arx['lolbutts'] = r['identifier']
+        except KeyError:
+            pass
+        else:
+            print ("haha:",arx['lolbutts'])
+
+        try:
             make_extras(r['dc:identifier'])
         except KeyError:
             raise MissingIDException("Invalid record: no identifier")
         else:
-            testdoi,url = make_extras(r['dc:identifier'])
+            testdoi, url = make_extras(r['dc:identifier'])
             if testdoi != [None]:
                 arx['doi'] = testdoi
 
@@ -131,3 +140,14 @@ def make_bibcode(url,authors):
         bibcode  = bibcode1 + bibcodex + bibcode2
 
     return bibcode
+
+
+if __name__ == '__main__':
+
+    lol = ArxivParser()
+
+    woo = None
+    with open('/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/astro-ph/9501013','rU') as fp:
+        woo = lol.parse(fp)
+
+    print(woo)

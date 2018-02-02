@@ -11,6 +11,9 @@ class NoSchemaException(Exception):
 class WrongSchemaException(Exception):
     pass
 
+class UnparseableException(Exception):
+    pass
+
 
 class DublinCoreParser(BaseXmlToDictParser):
 
@@ -19,58 +22,116 @@ class DublinCoreParser(BaseXmlToDictParser):
         self.DUBC_SCHEMA = "http://www.openarchives.org/OAI/2.0/oai_dc/"
 
 
-    def get_schema(self, r):
-        schema = []
+    def check_schema(self, r):
+        schema_spec = []
         for s in self._array(r[u'@xmlns:oai_dc']):
-            schema.append(self._text(s))
-        if len(schema) == 0:
+            schema_spec.append(self._text(s))
+        if len(schema_spec) == 0:
             raise NoSchemaException("Unknown record schema.")
-            schema = None
-        elif schema[0] != self.DUBC_SCHEMA:
+        elif schema_spec[0] != self.DUBC_SCHEMA:
             raise WrongSchemaException("Wrong schema.")
         else:
             pass
-        schema = ['dc:contributor','dc:coverage','dc:creator','dc:date',
-                  'dc:description','dc:format','dc:identifier','dc:language',
-                  'dc:publisher','dc:relation','dc:rights','dc:source',
-                  'dc:subject','dc:title','dc:type']
-        return schema
 
 
     def get_tag(self, r, tag):
         value = []
-        try:
-            tag,self._array(r.get(tag,[]))
-        except KeyError:
-            pass
-        else:
-            for s in self._array(r.get(tag,[])):
-                value.append(self._text(s))
-            if len(value) == 0:
-                value = None
+        for s in self._array(r.get(tag,[])):
+            value.append(self._text(s))
+        if len(value) == 0:
+            value = None
         return value
 
 
     def resource_dict(self, fp, **kwargs):
         d = self.xmltodict(fp, **kwargs)
+        idtag = d.get('record',{}).get('header',{}).get('identifier',{})
         r = d.get('record',{}).get('metadata',{}).get('oai_dc:dc',{})
-        return r
+        return idtag, r
+
+    def make_dubc_bibcode(self, ident):
+        return ident
 
 
     def parse(self, fp, **kwargs):
+#   Note: this generic DC parser may not return an object that has all
+#   metadata needed for a tagged record, but not every DC record will
+#   have all of that information.
 
         output_metadata=dict()
 
-        r = self.resource_dict(fp, **kwargs)
-        schema = self.get_schema(r)
+        idtag, r = self.resource_dict(fp, **kwargs)
+        try:
+            self.check_schema(r)
+        except:
+            raise UnparseableException("Cannot parse record.")
+        else:
 
 
-        for tag in schema:
-            if (self.get_tag(r, tag)):
-                output_metadata[tag]=self.get_tag(r, tag)
+# Bibcode
+            if idtag is not None:
+                output_metadata['bibcode'] = self.make_dubc_bibcode(idtag)
+
+
+# Title
+            if self.get_tag(r,'dc:title'):
+                if len(self.get_tag(r,'dc:title')) == 1:
+                    output_metadata['title'] = self.get_tag(r,'dc:title')[0]
+                else:
+                    output_metadata['title'] = ": ".join(self.get_tag(r,'dc:title'))
+               
+
+# Authors
+            if self.get_tag(r,'dc:creator'):
+                if len(self.get_tag(r,'dc:creator')) == 1:
+                    output_metadata['authors'] = self.get_tag(r,'dc:creator')[0]
+                else:
+                    output_metadata['authors'] = "; ".join(self.get_tag(r,'dc:creator'))
+
+
+# Pubdate
+
+            if self.get_tag(r,'dc:date'):
+                output_metadata['pubdate'] = self.get_tag(r,'dc:date')[-1]
+
+            
+# Abstract
+
+# Note: for generic dublin core, I'm passing all entries tagged with
+# 'dc:description'.  For arXiv.org, it's only r['dc:description'][0]
+
+            if self.get_tag(r,'dc:description'):
+                if len(self.get_tag(r,'dc:description')) == 1:
+                    output_metadata['abstract'] = self.get_tag(r,'dc:description')[0]
+                else:
+                    output_metadata['abstract'] = "  ".join(self.get_tag(r,'dc:description'))
+
+
+# Keywords
+
+            if self.get_tag(r,'dc:subject'):
+                if len(self.get_tag(r,'dc:subject')) == 1:
+                    output_metadata['keywords'] = self.get_tag(r,'dc:subject')[0]
+                else:
+                    output_metadata['keywords'] = "; ".join(self.get_tag(r,'dc:subject'))
+
+
+# Properties
+
+#Note: for generic dublin core, I'm passing everything in 'dc:identifier';
+#for arXiv.org, the one you're interested in is the URL to the arxiv.org
+#abstract page
+
+            if self.get_tag(r,'dc:identifier'):
+                if len(self.get_tag(r,'dc:identifier')) == 1:
+                    output_metadata['properties'] = self.get_tag(r,'dc:identifier')[0]
+                else:
+                    output_metadata['properties'] = "  ".join(self.get_tag(r,'dc:identifier'))
+
+
+
 
         return output_metadata
-
 
 
 if __name__ == "__main__":
@@ -81,7 +142,23 @@ if __name__ == "__main__":
     dcx = DublinCoreParser()
 
     woo = None
-    with open('../test/arxiv.test/oai_ArXiv.org_1711_05739','rU') as fp:
+    with open('../../test_data/arxiv.test/oai_ArXiv.org_1711_05739','rU') as fp:
         woo = dcx.parse(fp)
 
-    print woo
+    print(woo)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
