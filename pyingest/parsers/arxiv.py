@@ -26,6 +26,13 @@ class EmptyParserException(Exception):
 
 class ArxivParser(DublinCoreParser):
 
+    def check_author_init(self,namestring):
+        n_ascii = namestring.encode('ascii','xmlcharrefreplace')
+        if n_ascii[0].isalpha():
+            return n_ascii[0].upper()
+        else:
+            return '.'
+
 
     def parse(self, fp, **kwargs):
 
@@ -59,7 +66,7 @@ class ArxivParser(DublinCoreParser):
                 year=u'20'+arx_yy
 
 # You're going to need to fix this for non-ascii first initials, but whatevs.
-            author_init=r['authors'][0]
+            author_init=self.check_author_init(r['authors'])
 
             bibcode1 = year+arx_field
             bibcode2 = arx_num+author_init
