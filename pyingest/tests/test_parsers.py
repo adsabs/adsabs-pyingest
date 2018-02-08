@@ -64,8 +64,8 @@ class TestArxiv(unittest.TestCase):
 #           print "file parsed ok"
 
     def test_parsing(self):
-        shouldbe = {'author':[u'Luger, Rodrigo', u'Lustig-Yaeger, Jacob', u'Agol, Eric'],
-                    'title':['Planet-Planet Occultations in TRAPPIST-1 and Other Exoplanet Systems'],
+        shouldbe = {'authors':u'Luger, Rodrigo; Lustig-Yaeger, Jacob; Agol, Eric',
+                    'title':u'Planet-Planet Occultations in TRAPPIST-1 and Other Exoplanet Systems',
                 'bibcode':u'2017arXiv171105739L'}
         with open('test_data/arxiv.test/oai_ArXiv.org_1711_05739','rU') as fp:
             parser = arxiv.ArxivParser()

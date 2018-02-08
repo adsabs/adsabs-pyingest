@@ -5,6 +5,8 @@
 
 import codecs
 from dubcore import DublinCoreParser
+from adsputils import u2asc
+
 
 class MissingAuthorException(Exception):
     pass
@@ -26,12 +28,10 @@ class EmptyParserException(Exception):
 
 class ArxivParser(DublinCoreParser):
 
-    def check_author_init(self,namestring):
-        import unicodedata
-        nlol = u'&Oacute;rtiz, Bob'
-        namestring = nlol.encode('utf8','ascii')
-        print (namestring)
-        return unicodedata.normalize('NFD',namestring[0]).encode('utf8','ignore')
+    def get_author_init(self,namestring):
+        print ("lol, I am in get_author_init")
+        output = u2asc(namestring)
+        return output[0]
 
 
     def parse(self, fp, **kwargs):
@@ -66,7 +66,7 @@ class ArxivParser(DublinCoreParser):
                 year=u'20'+arx_yy
 
 # You're going to need to fix this for non-ascii first initials, but whatevs.
-            author_init=self.check_author_init(r['authors'])
+            author_init=self.get_author_init(r['authors'])
 
             bibcode1 = year+arx_field
             bibcode2 = arx_num+author_init
