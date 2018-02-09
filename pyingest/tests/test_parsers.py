@@ -14,7 +14,7 @@ stubdata_dir = os.path.join(os.path.dirname(__file__), 'test_data/stubdata')
 class TestZenodo(unittest.TestCase):
 
     def setUp(self):
-        self.inputdocs = glob.glob(os.path.join(stubdata_dir, 'input/zenodo.*'))
+        self.inputdocs = glob.glob(os.path.join(stubdata_dir, 'test_data/zenodo.*'))
         self.outputdir = os.path.join(stubdata_dir, 'parsed')
 #        sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
 
@@ -50,19 +50,12 @@ class TestZenodo(unittest.TestCase):
 
 class TestArxiv(unittest.TestCase):
 
-#   def test_bad_xml(self):
-#       with self.assertRaises(arxiv.EmptyParserException):
-#           with open('test_data/arxiv.test/readme.txt','rU') as fp:
-#               parser = arxiv.ArxivParser()
-#               document = parser.parse(fp)
-
-#   def test_no_xml_file(self):
-#       with self.assertRaises(arxiv.EmptyParserException):
-#           fp=None
-#           parser = arxiv.ArxivParser()
-#           document = parser.parse(fp)
-#           print "file parsed ok"
-
+    def test_bad_xml(self):
+        with self.assertRaises(arxiv.EmptyParserException):
+            with open('test_data/arxiv.test/readme.txt','rU') as fp:
+                parser = arxiv.ArxivParser()
+                document = parser.parse(fp)
+ 
     def test_parsing(self):
         shouldbe = {'authors':u'Luger, Rodrigo; Lustig-Yaeger, Jacob; Agol, Eric',
                     'title':u'Planet-Planet Occultations in TRAPPIST-1 and Other Exoplanet Systems',
@@ -75,5 +68,18 @@ class TestArxiv(unittest.TestCase):
         shouldbe['title'] = 'Paper that has nothing to do with TRAPPIST-1'
         self.assertNotEqual(shouldbe['title'],document['title'])
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_unicode_init(self):
+        shouldbe = {'bibcode':u'2009arXiv.09012443O'}
+        with open('test_data/arxiv.test/oai_ArXiv.org_0901_2443','rU') as fp:
+            parser = arxiv.ArxivParser()
+            document = parser.parse(fp)
+            self.assertEqual(document['bibcode'],shouldbe['bibcode'])
+
+    def test_old_style_subjects(self):
+        testfiles = ['test_data/arxiv.test/oai_ArXiv.org_astro-ph_9501013','test_data/arxiv.test/oai_ArXiv.org_math_0306266','test_data/arxiv.test/oai_ArXiv.org_hep-th_0408048','test_data/arxiv.test/oai_ArXiv.org_cond-mat_9706061'] 
+        shouldbe = [{'bibcode':u'1995astro.ph..1013H'},{'bibcode':u'2003math......6266C'},{'bibcode':u'2004hep.th....8048S'},{'bibcode':u'1997cond.mat..6061A'}]
+        for f,b in zip(testfiles,shouldbe):
+            with open(f,'rU') as fp:
+                parser = arxiv.ArxivParser()
+                document = parser.parse(fp)
+                self.assertEqual(document['bibcode'],b['bibcode'])

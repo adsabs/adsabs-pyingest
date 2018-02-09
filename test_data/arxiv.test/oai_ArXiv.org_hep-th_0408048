@@ -1,0 +1,35 @@
+<record>
+<header>
+ <identifier>oai:arXiv.org:hep-th/0408048</identifier>
+ <datestamp>2017-08-23</datestamp>
+ <setSpec>physics:hep-th</setSpec>
+</header>
+<metadata>
+ <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+ <dc:title>An invitation to loop quantum gravity</dc:title>
+ <dc:creator>Smolin, Lee</dc:creator>
+ <dc:subject>High Energy Physics - Theory</dc:subject>
+ <dc:description>  We describe the basic assumptions and key results of loop quantum gravity,
+which is a background independent approach to quantum gravity. The emphasis is
+on the basic physical principles and how one deduces predictions from them, at
+a level suitable for physicsts in other areas such as string theory, cosmology,
+particle physics, astrophysics and condensed matter physics. No details are
+given, but references are provided to guide the interested reader to the
+literature. The present state of knowledge is summarized in a list of 35 key
+results on topics including the hamiltonian and path integral quantizations,
+coupling to matter, extensions to supergravity and higher dimensional theories,
+as well as applications to black holes, cosmology and Plank scale
+phenomenology. We describe the near term prospects for observational tests of
+quantum theories of gravity and the expectations that loop quantum gravity may
+provide predictions for their outcomes. Finally, we provide answers to
+frequently asked questions and a list of key open problems.
+</dc:description>
+ <dc:description>Comment: 50 pages, to be submitted to Reviews of Modern Physics</dc:description>
+ <dc:date>2004-08-05</dc:date>
+ <dc:date>2005-06-28</dc:date>
+ <dc:type>text</dc:type>
+ <dc:identifier>http://arxiv.org/abs/hep-th/0408048</dc:identifier>
+ <dc:identifier>doi:10.1142/9789812702340_0078</dc:identifier>
+ </oai_dc:dc>
+</metadata>
+</record>

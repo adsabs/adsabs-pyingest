@@ -6,6 +6,7 @@
 import codecs
 from dubcore import DublinCoreParser
 from adsputils import u2asc
+from xml.parsers import expat
 
 
 class MissingAuthorException(Exception):
@@ -33,13 +34,19 @@ class ArxivParser(DublinCoreParser):
         for c in output:
             if c.isalpha():
                 return c
+        return u'.'
 
 
     def parse(self, fp, **kwargs):
 
         arx = dict()
 
-        r = super(self.__class__, self).parse(fp, **kwargs)
+        try:
+            r = super(self.__class__, self).parse(fp, **kwargs)
+        except expat.ExpatError:
+            raise EmptyParserException("Not parseable xml")
+        else:
+            pass
 
         if r['abstract']:
             r['abstract']=r['abstract'][0]
@@ -84,40 +91,39 @@ class ArxivParser(DublinCoreParser):
                     r['properties'] = x
 
         return r
-
-if __name__ == '__main__':
-
-    import glob
-
-    test = ArxivParser()
-
-    fl = []
-    meta_dir='/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/'
-
-# old style, pre-07 astro-ph:
-    fl.append(meta_dir+'astro-ph/9501013')
-
-# old style, pre-07 non astro-ph:
-    fl.append(meta_dir+'math/0306266')
-
-# new style, with a unicode (&#hhh;) as first author initial:
-    fl.append(meta_dir+'0901/2443')
-
-# Gerard 't Hooft... regardless of what classic has, arxiv meta is "Hooft, Gerard 't" in every case I checked.
-    fl.append(meta_dir+'hep-th/0408148')
-    fl.append(meta_dir+'1709/02874')
-
-# old style, weird case where arxiv meta is fine, but classic parsed it weirdly:
-    fl.append(meta_dir+'cond-mat/9706161')
-
-# new style, random tests:
-    fl.append(meta_dir+'1711/04702')
-    fl.append(meta_dir+'1711/05739')
-
-
-    for f in fl:
-        with open(f,'rU') as fp:
-            woo = test.parse(fp)
-            print(woo)
-            print("\n\n\n")
-
+#
+#if __name__ == '__main__':
+#
+#    import glob
+#
+#    test = ArxivParser()
+#
+#    fl = []
+#    meta_dir='/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/'
+#
+## old style, pre-07 astro-ph:
+#    fl.append(meta_dir+'astro-ph/9501013')
+#
+## old style, pre-07 non astro-ph:
+#    fl.append(meta_dir+'math/0306266')
+#
+## new style, with a unicode (&#hhh;) as first author initial:
+#    fl.append(meta_dir+'0901/2443')
+#
+## Gerard 't Hooft... regardless of what classic has, arxiv meta is "Hooft, Gerard 't" in every case I checked.
+#    fl.append(meta_dir+'hep-th/0408148')
+#    fl.append(meta_dir+'1709/02874')
+#
+## old style, weird case where arxiv meta is fine, but classic parsed it weirdly:
+#    fl.append(meta_dir+'cond-mat/9706161')
+#
+## new style, random tests:
+#    fl.append(meta_dir+'1711/04702')
+#    fl.append(meta_dir+'1711/05739')
+#
+#
+#    for f in fl:
+#        with open(f,'rU') as fp:
+#            woo = test.parse(fp)
+#            print(woo)
+#            print("\n\n\n")
