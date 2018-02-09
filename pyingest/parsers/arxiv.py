@@ -29,9 +29,10 @@ class EmptyParserException(Exception):
 class ArxivParser(DublinCoreParser):
 
     def get_author_init(self,namestring):
-        print ("lol, I am in get_author_init")
         output = u2asc(namestring)
-        return output[0]
+        for c in output:
+            if c.isalpha():
+                return c
 
 
     def parse(self, fp, **kwargs):
@@ -86,12 +87,34 @@ class ArxivParser(DublinCoreParser):
 
 if __name__ == '__main__':
 
+    import glob
+
     test = ArxivParser()
 
-    fl = ['/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/astro-ph/9501013',
-          '/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/math/0306266',
-          '/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/1711/04702',
-          '/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/1711/05739']
+    fl = []
+    meta_dir='/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/'
+
+# old style, pre-07 astro-ph:
+    fl.append(meta_dir+'astro-ph/9501013')
+
+# old style, pre-07 non astro-ph:
+    fl.append(meta_dir+'math/0306266')
+
+# new style, with a unicode (&#hhh;) as first author initial:
+    fl.append(meta_dir+'0901/2443')
+
+# Gerard 't Hooft... regardless of what classic has, arxiv meta is "Hooft, Gerard 't" in every case I checked.
+    fl.append(meta_dir+'hep-th/0408148')
+    fl.append(meta_dir+'1709/02874')
+
+# old style, weird case where arxiv meta is fine, but classic parsed it weirdly:
+    fl.append(meta_dir+'cond-mat/9706161')
+
+# new style, random tests:
+    fl.append(meta_dir+'1711/04702')
+    fl.append(meta_dir+'1711/05739')
+
+
     for f in fl:
         with open(f,'rU') as fp:
             woo = test.parse(fp)
