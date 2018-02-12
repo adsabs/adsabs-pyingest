@@ -7,7 +7,7 @@ due time as our metadata models become more sophisticated.
 
 We are now starting to implement parsers that can be used to ingest directly
 into Solr (e.g. dubcore/arxiv).  See the repository ADS_Direct_Import for
-an example of this application
+an example of this application.
 
 # Maintainers
 
