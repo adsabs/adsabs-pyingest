@@ -54,6 +54,7 @@ class ArxivParser(DublinCoreParser):
         if r['bibcode']:
             idarray = r['bibcode'].split(':')
             arxiv_id = idarray[-1]
+            print ("arxiv_id:",arxiv_id)
 
             if arxiv_id[0].isalpha():
                 arx_field = arxiv_id.split('/')[0].replace('-','.')
@@ -66,14 +67,20 @@ class ArxivParser(DublinCoreParser):
             else:
                 arx_field = 'arXiv'
                 arx_num = arxiv_id.replace('.','')
+                n1 = arx_num[0:4]
+                n2 = arx_num[4:]
+                if len(n2) < 5:
+                    arx_num = n1 + u'.' + n2
+                else:
+                    arx_num = n1 + n2
                 arx_yy = arx_num[0:2]
 
+            print("arx_field,arx_num:",(arx_field,arx_num))
             if int(arx_yy) > 90:
                 year=u'19'+arx_yy
             else:
                 year=u'20'+arx_yy
 
-# You're going to need to fix this for non-ascii first initials, but whatevs.
             author_init=self.get_author_init(r['authors'])
 
             bibcode1 = year+arx_field
@@ -88,42 +95,42 @@ class ArxivParser(DublinCoreParser):
         if r['properties']:
             for x in r['properties']:
                 if 'http://arxiv.org' in x:
-                    r['properties'] = x
+                    r['properties'] = {'ELECTR':x}
 
         return r
-#
-#if __name__ == '__main__':
-#
-#    import glob
-#
-#    test = ArxivParser()
-#
-#    fl = []
-#    meta_dir='/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/'
-#
-## old style, pre-07 astro-ph:
-#    fl.append(meta_dir+'astro-ph/9501013')
-#
-## old style, pre-07 non astro-ph:
-#    fl.append(meta_dir+'math/0306266')
-#
-## new style, with a unicode (&#hhh;) as first author initial:
-#    fl.append(meta_dir+'0901/2443')
-#
-## Gerard 't Hooft... regardless of what classic has, arxiv meta is "Hooft, Gerard 't" in every case I checked.
-#    fl.append(meta_dir+'hep-th/0408148')
-#    fl.append(meta_dir+'1709/02874')
-#
-## old style, weird case where arxiv meta is fine, but classic parsed it weirdly:
-#    fl.append(meta_dir+'cond-mat/9706161')
-#
-## new style, random tests:
-#    fl.append(meta_dir+'1711/04702')
-#    fl.append(meta_dir+'1711/05739')
-#
-#
-#    for f in fl:
-#        with open(f,'rU') as fp:
-#            woo = test.parse(fp)
-#            print(woo)
-#            print("\n\n\n")
+
+if __name__ == '__main__':
+
+    import glob
+
+    test = ArxivParser()
+
+    fl = []
+    meta_dir='/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/'
+
+# old style, pre-07 astro-ph:
+    fl.append(meta_dir+'astro-ph/9501013')
+
+# old style, pre-07 non astro-ph:
+    fl.append(meta_dir+'math/0306266')
+
+# new style, with a unicode (&#hhh;) as first author initial:
+    fl.append(meta_dir+'0901/2443')
+
+# Gerard 't Hooft... regardless of what classic has, arxiv meta is "Hooft, Gerard 't" in every case I checked.
+    fl.append(meta_dir+'hep-th/0408148')
+    fl.append(meta_dir+'1709/02874')
+
+# old style, weird case where arxiv meta is fine, but classic parsed it weirdly:
+    fl.append(meta_dir+'cond-mat/9706161')
+
+# new style, random tests:
+    fl.append(meta_dir+'1711/04702')
+    fl.append(meta_dir+'1711/05739')
+
+
+    for f in fl:
+        with open(f,'rU') as fp:
+            woo = test.parse(fp)
+            print(woo)
+            print("\n\n\n")
