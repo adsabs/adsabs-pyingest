@@ -1,0 +1,17 @@
+%R 2003math......6266C
+%T The Lovasz number of random graphs
+%A Coja-Oghlan, Amin
+%D 2003/06
+%K Mathematics - Combinatorics; 05C80, 05C15
+%B We study the Lovasz number theta along with two further SDP relaxations
+theta1, theta1/2 of the independence number and the corresponding relaxations
+of the chromatic number on random graphs G(n,p). We prove that these
+relaxations are concentrated about their means Moreover, extending a result of
+Juhasz, we compute the asymptotic value of the relaxations for essentially the
+entire range of edge probabilities p. As an application, we give an improved
+algorithm for approximating the independence number in polynomial expected
+time, thereby extending a result of Krivelevich and Vu. We also improve on the
+analysis of an algorithm of Krivelevich for deciding whether G(n,p) is
+k-colorable.
+%I DOI: doi:10.1017/S0963548305006826; HTML: http://arxiv.org/abs/math/0306266
+

@@ -69,7 +69,7 @@ class TestArxiv(unittest.TestCase):
         self.assertNotEqual(shouldbe['title'],document['title'])
 
     def test_unicode_init(self):
-        shouldbe = {'bibcode':u'2009arXiv.09012443O'}
+        shouldbe = {'bibcode':u'2009arXiv0901.2443O'}
         with open('test_data/arxiv.test/oai_ArXiv.org_0901_2443','rU') as fp:
             parser = arxiv.ArxivParser()
             document = parser.parse(fp)

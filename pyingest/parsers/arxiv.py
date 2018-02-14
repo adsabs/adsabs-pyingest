@@ -93,9 +93,13 @@ class ArxivParser(DublinCoreParser):
             r['bibcode'] = bibcode
 
         if r['properties']:
+            prop = {}
             for x in r['properties']:
                 if 'http://arxiv.org' in x:
-                    r['properties'] = {'ELECTR':x}
+                    prop['HTML'] = x
+                if 'doi:' in x:
+                    prop['DOI'] = x
+            r['properties'] = prop
 
         return r
 
