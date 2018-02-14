@@ -54,7 +54,6 @@ class ArxivParser(DublinCoreParser):
         if r['bibcode']:
             idarray = r['bibcode'].split(':')
             arxiv_id = idarray[-1]
-            print ("arxiv_id:",arxiv_id)
 
             if arxiv_id[0].isalpha():
                 arx_field = arxiv_id.split('/')[0].replace('-','.')
@@ -75,7 +74,6 @@ class ArxivParser(DublinCoreParser):
                     arx_num = n1 + n2
                 arx_yy = arx_num[0:2]
 
-            print("arx_field,arx_num:",(arx_field,arx_num))
             if int(arx_yy) > 90:
                 year=u'19'+arx_yy
             else:
