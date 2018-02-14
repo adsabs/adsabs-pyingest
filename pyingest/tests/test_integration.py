@@ -10,10 +10,6 @@ import cStringIO
 from pyingest.parsers import arxiv
 from pyingest.serializers import classic
 
-stubdata_dir = os.path.join(os.path.dirname(__file__), 'test_data/stubdata')
-
-
-
 class TestParseAndSerialize(unittest.TestCase):
 
     def test_arxiv_to_classic(self):

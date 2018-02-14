@@ -197,19 +197,17 @@ class DataCite3Parser(BaseXmlToDictParser):
             'references': self.get_references(r),
             'source': pub
             }
-
-    
-if __name__ == "__main__":
-    
-    # allows program to print utf-8 encoded output sensibly
-    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
-    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
-
-    dc3 = DataCite3Parser()
-    for file in sys.argv[1:]:
-        d = None
-        with open(file, 'r') as fp:
-            d = dc3.parse(fp)
-            print json.dumps(d, indent=2)
-
-
+#
+#    
+#if __name__ == "__main__":
+#    
+#    # allows program to print utf-8 encoded output sensibly
+#    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
+#    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
+#
+#    dc3 = DataCite3Parser()
+#    for file in sys.argv[1:]:
+#        d = None
+#        with open(file, 'r') as fp:
+#            d = dc3.parse(fp)
+#            print json.dumps(d, indent=2)

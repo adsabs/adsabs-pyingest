@@ -234,20 +234,18 @@ class TeiXmlParser(BaseXmlToDictParser):
         if abstract: res['abstract'] = abstract
         if references: res['references'] = references
         return res
-
-    
-if __name__ == "__main__":
-    
-    # allows program to print utf-8 encoded output sensibly
-    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
-    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
-
-    p = TeiXmlParser()
-    for file in sys.argv[1:]:
-        d = None
-        with open(file, 'r') as fp:
-            print p.parse(fp)
-            d = p.parse(fp)
-            print json.dumps(d, indent=2)
-
-
+#
+#    
+#if __name__ == "__main__":
+#    
+#    # allows program to print utf-8 encoded output sensibly
+#    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
+#    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
+#
+#    p = TeiXmlParser()
+#    for file in sys.argv[1:]:
+#        d = None
+#        with open(file, 'r') as fp:
+#            print p.parse(fp)
+#            d = p.parse(fp)
+#            print json.dumps(d, indent=2)

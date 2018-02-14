@@ -54,20 +54,18 @@ class ZenodoParser(DataCite3Parser):
             doc['source'] = 'ZENODO'
 
         return doc
-
-    
-if __name__ == "__main__":
-    
-    # allows program to print utf-8 encoded output sensibly
-    import codecs
-    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
-    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
-
-    parser = ZenodoParser()
-    for file in sys.argv[1:]:
-        d = None
-        with open(file, 'r') as fp:
-            d = parser.parse(fp)
-            print json.dumps(d, indent=2)
-
-
+#
+#    
+#if __name__ == "__main__":
+#    
+#    # allows program to print utf-8 encoded output sensibly
+#    import codecs
+#    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
+#    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
+#
+#    parser = ZenodoParser()
+#    for file in sys.argv[1:]:
+#        d = None
+#        with open(file, 'r') as fp:
+#            d = parser.parse(fp)
+#            print json.dumps(d, indent=2)

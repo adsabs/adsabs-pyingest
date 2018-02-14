@@ -124,33 +124,17 @@ class DublinCoreParser(BaseXmlToDictParser):
 
 
         return output_metadata
-
-
-if __name__ == "__main__":
-
-    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
-    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
-
-    dcx = DublinCoreParser()
-
-    woo = None
-    with open('../../test_data/arxiv.test/oai_ArXiv.org_1711_05739','rU') as fp:
-        woo = dcx.parse(fp)
-
-    print(woo)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#
+#
+#if __name__ == "__main__":
+#
+#    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
+#    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
+#
+#    dcx = DublinCoreParser()
+#
+#    woo = None
+#    with open('../../test_data/arxiv.test/oai_ArXiv.org_1711_05739','rU') as fp:
+#        woo = dcx.parse(fp)
+#
+#    print(woo)

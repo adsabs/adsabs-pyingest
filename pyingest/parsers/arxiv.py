@@ -102,39 +102,39 @@ class ArxivParser(DublinCoreParser):
             r['properties'] = prop
 
         return r
-
-if __name__ == '__main__':
-
-    import glob
-
-    test = ArxivParser()
-
-    fl = []
-    meta_dir='/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/'
-
-# old style, pre-07 astro-ph:
-    fl.append(meta_dir+'astro-ph/9501013')
-
-# old style, pre-07 non astro-ph:
-    fl.append(meta_dir+'math/0306266')
-
-# new style, with a unicode (&#hhh;) as first author initial:
-    fl.append(meta_dir+'0901/2443')
-
-# Gerard 't Hooft... regardless of what classic has, arxiv meta is "Hooft, Gerard 't" in every case I checked.
-    fl.append(meta_dir+'hep-th/0408148')
-    fl.append(meta_dir+'1709/02874')
-
-# old style, weird case where arxiv meta is fine, but classic parsed it weirdly:
-    fl.append(meta_dir+'cond-mat/9706161')
-
-# new style, random tests:
-    fl.append(meta_dir+'1711/04702')
-    fl.append(meta_dir+'1711/05739')
-
-
-    for f in fl:
-        with open(f,'rU') as fp:
-            woo = test.parse(fp)
-            print(woo)
-            print("\n\n\n")
+#
+#if __name__ == '__main__':
+#
+#    import glob
+#
+#    test = ArxivParser()
+#
+#    fl = []
+#    meta_dir='/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/'
+#
+## old style, pre-07 astro-ph:
+#    fl.append(meta_dir+'astro-ph/9501013')
+#
+## old style, pre-07 non astro-ph:
+#    fl.append(meta_dir+'math/0306266')
+#
+## new style, with a unicode (&#hhh;) as first author initial:
+#    fl.append(meta_dir+'0901/2443')
+#
+## Gerard 't Hooft... regardless of what classic has, arxiv meta is "Hooft, Gerard 't" in every case I checked.
+#    fl.append(meta_dir+'hep-th/0408148')
+#    fl.append(meta_dir+'1709/02874')
+#
+## old style, weird case where arxiv meta is fine, but classic parsed it weirdly:
+#    fl.append(meta_dir+'cond-mat/9706161')
+#
+## new style, random tests:
+#    fl.append(meta_dir+'1711/04702')
+#    fl.append(meta_dir+'1711/05739')
+#
+#
+#    for f in fl:
+#        with open(f,'rU') as fp:
+#            woo = test.parse(fp)
+#            print(woo)
+#            print("\n\n\n")

@@ -57,4 +57,3 @@ class BaseXmlToDictParser(object):
             return d
         else:
             return d
-
