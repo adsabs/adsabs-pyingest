@@ -1,0 +1,32 @@
+%R 2017arXiv171104702G
+%T wTO: an R package for computing weighted topological overlap and
+  consensus networks with an integrated visualization tool
+%A Gysi, Deisy Morselli; Voigt, Andre; Fragoso, Tiago de Miranda; Almaas, Eivind; Nowick, Katja
+%D 2017/11
+%K Quantitative Biology - Molecular Networks
+%B Background: Gene co-expression network analyses have become a central
+approach for the systems-level analysis of biological data. Several software
+packages exist for generating and analyzing such networks, either from
+correlation scores or the absolute value of a transformed score called weighted
+topological overlap (wTO). However, since some genes are able to up- or
+down-regulate other genes, it is important to explicitly consider both positive
+and negative correlations when constructing a gene co-expression network.
+Additionally, there has been a growing interest in the systematic comparison of
+multiple networks to identify deferentially changed links. Typically, such
+analyses are focused on the comparison of networks or data from two different
+conditions. Results: Here, we present an R package for calculating the weighted
+topological overlap (wTO), that explicitly addresses the sign of wTO values.
+The package includes the calculation of p-values (raw and adjusted) for each
+pairwise gene score. Our package also allows the calculation of networks from
+time series, without replicates. Additionally, our R package incorporates a
+novel method for calculating a consensus network (CN) from two or more
+networks. To visualize the resulting networks, the R package contains a
+visualization tool which allows for the direct network manipulation and access
+of node and link information. When testing the package on a standard laptop
+computer, we can conduct all calculations for systems of 20,000 genes in under
+two hours. Conclusion: In this work, we developed an R package that allows the
+computation of wTO networks, CNs and a visualization tool in the R statistical
+environment. It is publicly available on CRAN repositories under the GPL-2 Open
+Source License (https://cran.r-project.org/web/packages/wTO/).
+%I HTML: http://arxiv.org/abs/1711.04702
+

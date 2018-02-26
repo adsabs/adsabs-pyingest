@@ -1,3 +1,7 @@
-jsonschema
-namedentities
-python-dateutil
+git+git://github.com/adsabs/ADSPipelineUtils.git
+functools32==3.2.3.post2
+jsonschema==2.6.0
+namedentities==1.9.4
+python-dateutil==2.6.1
+six==1.11.0
+xmltodict==0.11.0

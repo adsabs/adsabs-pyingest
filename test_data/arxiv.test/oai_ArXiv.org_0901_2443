@@ -1,0 +1,38 @@
+<record>
+<header>
+ <identifier>oai:arXiv.org:0901.2443</identifier>
+ <datestamp>2009-01-19</datestamp>
+ <setSpec>physics:nucl-ex</setSpec>
+</header>
+<metadata>
+ <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+ <dc:title>Excitation energy and strength of the pygmy dipole resonance in stable
+  tin isotopes</dc:title>
+ <dc:creator>&#xd6;zel, B.</dc:creator>
+ <dc:creator>Enders, J.</dc:creator>
+ <dc:creator>Lenske, H.</dc:creator>
+ <dc:creator>von Neumann-Cosel, P.</dc:creator>
+ <dc:creator>Poltoratska, I.</dc:creator>
+ <dc:creator>Ponomarev, V. Yu.</dc:creator>
+ <dc:creator>Richter, A.</dc:creator>
+ <dc:creator>Savran, D.</dc:creator>
+ <dc:creator>Tsoneva, N.</dc:creator>
+ <dc:subject>Nuclear Experiment</dc:subject>
+ <dc:description>  The $^{112,120}$Sn$(\gamma,\gamma')$ reactions have been studied at the
+S-DALINAC. Electric dipole (E1) strength distributions have been determined
+including contributions from unresolved strength extracted by a fluctuation
+analysis. Together with available data on $^{116,124}$Sn, an experimental
+systematics of the pygmy dipole resonance (PDR) in stable even-mass tin
+isotopes is established. The PDR centroid excitation energies and summed
+strengths are in reasonable agreement with quasiparticle-phonon model
+calculations based on a nonrelativistic description of the mean field but
+disagree with relativistic quasiparticle random-phase approximation
+predictions.
+</dc:description>
+ <dc:description>Comment: submitted to Phys. Lett. B</dc:description>
+ <dc:date>2009-01-16</dc:date>
+ <dc:type>text</dc:type>
+ <dc:identifier>http://arxiv.org/abs/0901.2443</dc:identifier>
+ </oai_dc:dc>
+</metadata>
+</record>

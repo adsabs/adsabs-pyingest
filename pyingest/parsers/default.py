@@ -1,5 +1,5 @@
 import sys
-from lib import xmltodict as xmltodict_parser
+import xmltodict as xmltodict_parser
 
 class MissingParser(Exception):
     pass
@@ -57,4 +57,3 @@ class BaseXmlToDictParser(object):
             return d
         else:
             return d
-

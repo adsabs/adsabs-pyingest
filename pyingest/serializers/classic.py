@@ -66,6 +66,3 @@ class Tagged(object):
                 logging.error("error writing content for tag {0}: {1}\n".format(d.get('tag'), named_entities(content)))
                 raise
         fp.write('\n')
-
-
-
