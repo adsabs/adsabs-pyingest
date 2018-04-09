@@ -83,3 +83,9 @@ class TestArxiv(unittest.TestCase):
                 parser = arxiv.ArxivParser()
                 document = parser.parse(fp)
                 self.assertEqual(document['bibcode'],b['bibcode'])
+
+
+class TestAPSJATS(unittest.TestCase):
+
+    def init(self):
+        pass
