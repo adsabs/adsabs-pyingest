@@ -8,6 +8,7 @@ import glob
 import json
 from pyingest.parsers import zenodo
 from pyingest.parsers import arxiv
+from pyingest.parsers import apsjats
 
 stubdata_dir = os.path.join(os.path.dirname(__file__), 'test_data/stubdata')
 
@@ -87,5 +88,5 @@ class TestArxiv(unittest.TestCase):
 
 class TestAPSJATS(unittest.TestCase):
 
-    def init(self):
-        pass
+    def test_parsing(self):
+        self.assertEqual(0,0)
