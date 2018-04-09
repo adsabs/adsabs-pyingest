@@ -74,8 +74,9 @@ class APSJATSParser(BaseXmlToDictParser):
             pub_dates = metadata['pub-date']
             for d in pub_dates:
                 if d['@publication-format'] == 'print':
-                    fulldate = d['@iso-8601-date'].split('-')
-                    output_metadata['pubdate'] = fulldate[1]+"/"+fulldate[0]
+#                   fulldate = d['@iso-8601-date'].split('-')
+#                   output_metadata['pubdate'] = fulldate[1]+"/"+fulldate[0]
+                    output_metadata['pubdate'] = d['@iso-8601-date']
 
 # Authors & Affils
             affil=dict()
@@ -109,9 +110,13 @@ class APSJATSParser(BaseXmlToDictParser):
                 auth_affil = auth_affil.rstrip('; ')
                 aanew.append(auth_affil)
                 alnew.append(n)
-            output_metadata['authors']=alnew
+            output_metadata['authors']='; '.join(alnew)
             output_metadata['affiliations']=aanew
 
+# DOI
+            id_info = metadata['article-id']
+            if id_info['@pub-id-type'] == 'doi':
+                output_metadata['properties'] = {'DOI': 'doi:'+id_info['#text']}
 
 
 # Bibcode
@@ -123,15 +128,15 @@ class APSJATSParser(BaseXmlToDictParser):
         return output_metadata
 ## 
 # 
-#if __name__ == "__main__":
-# 
-#     sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
-#     sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
-# 
-#     jatsx = APSJATSParser()
-# 
-#     woo = None
-#     with open('/Users/mtempleton/adsaps.work/fulltext.xml','rU') as fp:
-#         woo = jatsx.parse(fp)
-# 
-#     print(woo)
+if __name__ == "__main__":
+ 
+    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
+    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
+ 
+    jatsx = APSJATSParser()
+ 
+    woo = None
+    with open('/Users/mtempleton/adsaps.work/fulltext.xml','rU') as fp:
+        woo = jatsx.parse(fp)
+ 
+    print(woo)
