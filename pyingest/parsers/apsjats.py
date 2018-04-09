@@ -3,7 +3,7 @@
 import sys
 import json
 import codecs
-#from adsputils import u2asc
+from adsputils import u2asc
 from default import BaseXmlToDictParser
 
 class NoSchemaException(Exception):
@@ -22,6 +22,12 @@ class APSJATSParser(BaseXmlToDictParser):
     # make sure we are utf-8 clean on stdout, stderr
         self.JATS_SCHEMA = ""
 
+    def get_author_init(self,namestring):
+        output = u2asc(namestring)
+        for c in output:
+            if c.isalpha():
+                return c
+        return u'.'
 
     def resource_dict(self, fp, **kwargs):
         d = self.xmltodict(fp, **kwargs)
@@ -39,14 +45,32 @@ class APSJATSParser(BaseXmlToDictParser):
         else:
             pass
 
-    def get_tag(self, r, tag):
-        value = []
-        for s in self._array(r.get(tag,[])):
-            value.append(self._text(s))
-        if len(value) == 0:
-            value = None
-        return value
+    def aps_journals(self, pid):
+#       mapping journal-meta/journal-id/publisher-id to bibstems
+        publisher_ids = {'PRL': 'PhRvL', 'PRX': 'PhRvX', 'RMP': 'RvMP',
+                         'PRA': 'PhRvA', 'PRB': 'PhRvB', 'PRC': 'PhRvC',
+                         'PRD': 'PhRvD', 'PRE': 'PhRvE', 'PRAB': 'PhRvS',
+                         'PRSTAB': 'PhRvS', 'PRAPPLIED': 'PhRvP',
+                         'PRFLUIDS': 'PhRvF', 'PRMATERIALS': 'PhRvM', 
+                         'PRPER': 'PRPER', 'PRSTPER': 'PRSTP', 'PR': 'PhRv',
+                         'PRI': 'PhRvI'}
+        try:
+            bibstem = publisher_ids[pid]
+        except KeyError:
+            return 'XSTEM'
+        else:
+            return bibstem
 
+    def doi_parse(self, doi):
+        doi_string = doi[4:].split('/')[1]
+        doi_array = doi_string.split('.')
+        vol , idsix = doi_array[1], doi_array[2]
+        vol = vol.rjust(4,'.')
+        idtwo = chr(96+int(idsix[0:2]))
+        print "hoo hoo:",idtwo
+        idfour = idsix[2:]
+        return vol, idtwo + idfour
+        
 
     def parse(self, fp, **kwargs):
 
@@ -56,8 +80,8 @@ class APSJATSParser(BaseXmlToDictParser):
         back_matter = r.get('back',{})
         body_matter = r.get('body',{})
         metadata = r.get('front').get('article-meta')
+        journaldata = r.get('front').get('journal-meta')
 
-        idtag = None
 
         if metadata:
 # Abstract
@@ -74,8 +98,6 @@ class APSJATSParser(BaseXmlToDictParser):
             pub_dates = metadata['pub-date']
             for d in pub_dates:
                 if d['@publication-format'] == 'print':
-#                   fulldate = d['@iso-8601-date'].split('-')
-#                   output_metadata['pubdate'] = fulldate[1]+"/"+fulldate[0]
                     output_metadata['pubdate'] = d['@iso-8601-date']
 
 # Authors & Affils
@@ -118,9 +140,24 @@ class APSJATSParser(BaseXmlToDictParser):
             if id_info['@pub-id-type'] == 'doi':
                 output_metadata['properties'] = {'DOI': 'doi:'+id_info['#text']}
 
+# Journal
+            j_info = journaldata['journal-title-group']
+            j_name = j_info['journal-title']
+            j_short = j_info['abbrev-journal-title']
+            for i in journaldata['journal-id']:
+                if i['@journal-id-type'] == 'publisher-id':
+                    j_bibstem = self.aps_journals(i['#text'])
+            print ('lololol:',j_bibstem)
+            
+
 
 # Bibcode
-#       if idtag is not None:
+            year = output_metadata['pubdate'][0:4]
+            bibstem = j_bibstem.ljust(5,'.')
+            volume, idno = self.doi_parse(output_metadata['properties']['DOI'])
+            author_init = self.get_author_init(output_metadata['authors'])
+            output_metadata['bibcode'] = year + bibstem + volume + idno + author_init
+
 #           output_metadata['bibcode'] = self.make_dubc_bibcode(idtag)
 
 
