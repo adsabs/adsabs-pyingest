@@ -10,17 +10,20 @@ from pyingest.parsers import zenodo
 from pyingest.parsers import arxiv
 from pyingest.parsers import apsjats
 
-stubdata_dir = os.path.join(os.path.dirname(__file__), 'test_data/stubdata')
 
 class TestZenodo(unittest.TestCase):
 
     def setUp(self):
-        self.inputdocs = glob.glob(os.path.join(stubdata_dir, 'test_data/zenodo.*'))
+        stubdata_dir = os.path.join(os.path.dirname(__file__), '../../test_data/stubdata')
+        print("lol ha ha:",stubdata_dir)
+        self.inputdocs = glob.glob(os.path.join(stubdata_dir, 'input/zenodo*'))
+        print("lol wut:",self.inputdocs)
         self.outputdir = os.path.join(stubdata_dir, 'parsed')
-#        sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
+        sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
 
     def test_zenodo_parser(self):
         parser = zenodo.ZenodoParser()
+        sys.stdout.write("LOL self.inputdocs: %s"%self.inputdocs)
         for file in self.inputdocs:
             # this will raise exceptions if something is wrong
             with open(file, 'r') as fp:
@@ -88,5 +91,10 @@ class TestArxiv(unittest.TestCase):
 
 class TestAPSJATS(unittest.TestCase):
 
-    def test_parsing(self):
-        self.assertEqual(0,0)
+    def test_unicode_initial(self):
+        testfile = 'test_data/stubdata/input/apsjats_10.1103.PhysRevB.96.081117.fulltext.xml'
+        shouldbe = {'bibcode': '2017PhRvB..96h1117S'}
+        with open(testfile,'rU') as fp:
+            parser = apsjats.APSJATSParser()
+            document = parser.parse(fp)
+        self.assertEqual(document['bibcode'],shouldbe['bibcode'])
