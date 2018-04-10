@@ -34,17 +34,6 @@ class APSJATSParser(BaseXmlToDictParser):
         r = d.get('article',{})
         return r
 
-    def check_schema(self, r):
-        schema_spec = []
-        for s in self._array(r[u'@xmlns:oai_dc']):
-            schema_spec.append(self._text(s))
-        if len(schema_spec) == 0:
-            raise NoSchemaException("Unknown record schema.")
-        elif schema_spec[0] != self.DUBC_SCHEMA:
-            raise WrongSchemaException("Wrong schema.")
-        else:
-            pass
-
     def aps_journals(self, pid):
 #       mapping journal-meta/journal-id/publisher-id to bibstems
         publisher_ids = {'PRL': 'PhRvL', 'PRX': 'PhRvX', 'RMP': 'RvMP',
@@ -67,7 +56,6 @@ class APSJATSParser(BaseXmlToDictParser):
         vol , idsix = doi_array[1], doi_array[2]
         vol = vol.rjust(4,'.')
         idtwo = chr(96+int(idsix[0:2]))
-        print "hoo hoo:",idtwo
         idfour = idsix[2:]
         return vol, idtwo + idfour
         
@@ -83,7 +71,7 @@ class APSJATSParser(BaseXmlToDictParser):
         journaldata = r.get('front').get('journal-meta')
 
 
-        if metadata:
+        try:
 # Abstract
             output_metadata['abstract'] = metadata['abstract']['p']
 # Title
@@ -97,15 +85,26 @@ class APSJATSParser(BaseXmlToDictParser):
 # Pubdate
             pub_dates = metadata['pub-date']
             for d in pub_dates:
-                if d['@publication-format'] == 'print':
-                    output_metadata['pubdate'] = d['@iso-8601-date']
+                try:
+                   d['@publication-format']
+                except KeyError:
+                   try:
+                       d['@pub-type']
+                   except KeyError:
+                       pass
+                   else:
+                       if d['@pub-type'] == 'ppub':
+                           output_metadata['pubdate'] = d['@iso-8601-date']
+                else:
+                   if d['@publication-format'] == 'print':
+                       output_metadata['pubdate'] = d['@iso-8601-date']
 
 # Authors & Affils
             affil=dict()
-
             note_data = metadata['author-notes']
             id_string = note_data['fn']['@id']
-            affil[id_string] = note_data['fn']['p']['email']
+#           affil[id_string] = note_data['fn']['p']['email']
+            affil[id_string] = note_data['fn']['p']
             auth_data = metadata['contrib-group']
             for a in auth_data['aff']:
                 id_string = a['@id']
@@ -147,9 +146,6 @@ class APSJATSParser(BaseXmlToDictParser):
             for i in journaldata['journal-id']:
                 if i['@journal-id-type'] == 'publisher-id':
                     j_bibstem = self.aps_journals(i['#text'])
-            print ('lololol:',j_bibstem)
-            
-
 
 # Bibcode
             year = output_metadata['pubdate'][0:4]
@@ -157,23 +153,24 @@ class APSJATSParser(BaseXmlToDictParser):
             volume, idno = self.doi_parse(output_metadata['properties']['DOI'])
             author_init = self.get_author_init(output_metadata['authors'])
             output_metadata['bibcode'] = year + bibstem + volume + idno + author_init
-
-#           output_metadata['bibcode'] = self.make_dubc_bibcode(idtag)
-
-
+        except:
+# send to logger?
+            print "parsing failed."
+        else:
+            pass
 
         return output_metadata
 ## 
 # 
-if __name__ == "__main__":
- 
-    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
-    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
- 
-    jatsx = APSJATSParser()
- 
-    woo = None
-    with open('/Users/mtempleton/adsaps.work/fulltext.xml','rU') as fp:
-        woo = jatsx.parse(fp)
- 
-    print(woo)
+#if __name__ == "__main__":
+# 
+#    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
+#    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
+# 
+#    jatsx = APSJATSParser()
+# 
+#    woo = None
+#    with open('/Users/mtempleton/adsaps.work/fulltext.xml','rU') as fp:
+#        woo = jatsx.parse(fp)
+# 
+#    print(woo)
