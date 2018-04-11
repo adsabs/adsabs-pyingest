@@ -34,6 +34,14 @@ class APSJATSParser(BaseXmlToDictParser):
         r = d.get('article',{})
         return r
 
+    def get_tag(self, r, tag):
+        value = []
+        for s in self._array(r.get(tag,[])):
+            value.append(self._text(s))
+        if len(value) == 0:
+            value = None
+        return value
+
     def aps_journals(self, pid):
 #       mapping journal-meta/journal-id/publisher-id to bibstems
         publisher_ids = {'PRL': 'PhRvL', 'PRX': 'PhRvX', 'RMP': 'RvMP',
@@ -71,7 +79,8 @@ class APSJATSParser(BaseXmlToDictParser):
         journaldata = r.get('front').get('journal-meta')
 
 
-        try:
+        if metadata:
+
 # Abstract
             output_metadata['abstract'] = metadata['abstract']['p']
 # Title
@@ -98,13 +107,22 @@ class APSJATSParser(BaseXmlToDictParser):
                 else:
                    if d['@publication-format'] == 'print':
                        output_metadata['pubdate'] = d['@iso-8601-date']
+            if output_metadata['pubdate'][-2:] == '00':
+                 output_metadata['pubdate'] = output_metadata['pubdate'][0:-2]+'01'
 
 # Authors & Affils
             affil=dict()
-            note_data = metadata['author-notes']
-            id_string = note_data['fn']['@id']
-#           affil[id_string] = note_data['fn']['p']['email']
-            affil[id_string] = note_data['fn']['p']
+            try:
+                metadata['author-notes']
+            except KeyError:
+                pass
+            else:
+                foopy = metadata.get('author-notes')
+                print 'foopy',foopy
+                note_data = metadata['author-notes']['fn']
+                for n in note_data:
+                    id_string = n['@id']
+                        
             auth_data = metadata['contrib-group']
             for a in auth_data['aff']:
                 id_string = a['@id']
@@ -153,11 +171,6 @@ class APSJATSParser(BaseXmlToDictParser):
             volume, idno = self.doi_parse(output_metadata['properties']['DOI'])
             author_init = self.get_author_init(output_metadata['authors'])
             output_metadata['bibcode'] = year + bibstem + volume + idno + author_init
-        except:
-# send to logger?
-            print "parsing failed."
-        else:
-            pass
 
         return output_metadata
 ## 
