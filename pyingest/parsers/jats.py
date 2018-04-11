@@ -71,11 +71,14 @@ class JATSParser(BaseXmlToDictParser):
                     pass
 
 # Author(s)
+                authors = []
                 try:
-                    output_metadata['authors'] = article_meta['contrib-group']['contrib']
-                    for a in output_metadata['authors']:
+                    author_meta = article_meta['contrib-group']['contrib']
+                    for a in author_meta:
                         if self._attr(a,'contrib-type') == 'author':
-                            print "Author: %s, %s"%(a['name']['surname'],a['name']['given-names'])
+                            authors.append(a['name']['surname']+", "+a['name']['given-names'])
+                    if len(authors) > 0:
+                        output_metadata['authors'] = '; '.join(authors)
                 except KeyError:
                     pass
 
