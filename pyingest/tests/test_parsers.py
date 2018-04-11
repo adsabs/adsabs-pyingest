@@ -15,15 +15,12 @@ class TestZenodo(unittest.TestCase):
 
     def setUp(self):
         stubdata_dir = os.path.join(os.path.dirname(__file__), '../../test_data/stubdata')
-        print("lol ha ha:",stubdata_dir)
         self.inputdocs = glob.glob(os.path.join(stubdata_dir, 'input/zenodo*'))
-        print("lol wut:",self.inputdocs)
         self.outputdir = os.path.join(stubdata_dir, 'parsed')
         sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
 
     def test_zenodo_parser(self):
         parser = zenodo.ZenodoParser()
-        sys.stdout.write("LOL self.inputdocs: %s"%self.inputdocs)
         for file in self.inputdocs:
             # this will raise exceptions if something is wrong
             with open(file, 'r') as fp:
