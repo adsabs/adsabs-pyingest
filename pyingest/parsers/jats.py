@@ -35,6 +35,7 @@ class JATSParser(BaseXmlToDictParser):
                 attribs[k] = r[k]
         return attribs
 
+
     def parse(self, fp, **kwargs):
 
         output_metadata=dict()
@@ -69,6 +70,39 @@ class JATSParser(BaseXmlToDictParser):
                     output_metadata['abstract'] = article_meta['abstract']['p']
                 except KeyError:
                     pass
+
+# Keywords
+                try:
+                    art_cats = article_meta['article-categories']
+                except KeyError:
+                    pass
+                else:
+                    for c in art_cats['subj-group']:
+                        if c['@subj-group-type'] == 'toc-minor':
+                            output_metadata['keywords'] = c['subject'].replace(',',';')
+            
+# Pubdate
+                try:
+                    pub_dates = article_meta['pub-date']
+                except KeyError:
+                    pass
+                else:
+                    for d in pub_dates:
+                        try:
+                           d['@publication-format']
+                        except KeyError:
+                           try:
+                               d['@pub-type']
+                           except KeyError:
+                               pass
+                           else:
+                               if d['@pub-type'] == 'ppub':
+                                   output_metadata['pubdate'] = d['@iso-8601-date']
+                        else:
+                           if d['@publication-format'] == 'print':
+                               output_metadata['pubdate'] = d['@iso-8601-date']
+                    if output_metadata['pubdate'][-2:] == '00':
+                         output_metadata['pubdate'] = output_metadata['pubdate'][0:-2]+'01'
 
 # Author Affil(s)
 # Data passed to output_metadata with Authors
@@ -118,6 +152,50 @@ class JATSParser(BaseXmlToDictParser):
                         
                 except KeyError:
                     pass
+
+# DOI
+                try:
+                    id_meta = article_meta['article-id']
+                    if id_meta['@pub-id-type'] == 'doi':
+                        output_metadata['properties'] = {'DOI': 'doi:'+id_meta['#text']}
+                except KeyError:
+                    pass
+
+# Journal
+                try:
+                    j_info = journal_meta['journal-title-group']
+                except KeyError:
+                    pass
+                else:
+                    output_metadata['journal'] = j_info['journal-title']
+# Journal-pub-id
+                try:
+                    for i in journal_meta['journal-id']:
+                        if i['@journal-id-type'] == 'publisher-id':
+                            output_metadata['pub-id'] = i['#text']
+                except KeyError:
+                    pass
+
+# Volume
+                try:
+                    output_metadata['volume'] = article_meta['volume']
+                except KeyError:
+                    pass
+
+# Pages
+                try:
+                    output_metadata['page'] = article_meta['fpage'] + "-" + article_meta['lpage']
+                except KeyError:
+                    pass
+
+# Issue
+                try:
+                    output_metadata['issue'] = article_meta['issue']
+                except KeyError:
+                    pass
+       
+
+
 
         return output_metadata
 
