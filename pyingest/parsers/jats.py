@@ -70,15 +70,52 @@ class JATSParser(BaseXmlToDictParser):
                 except KeyError:
                     pass
 
+# Author Affil(s)
+# Data passed to output_metadata with Authors
+
+                affils = {}
+
+                try:
+                    notes_meta = article_meta['author-notes']
+                    affils[notes_meta['fn']['@id']] = "<EMAIL>" + notes_meta['fn']['p']['email'] + "</EMAIL>"
+                except KeyError:
+                    pass
+
+                try:
+                    affil_meta = article_meta['contrib-group']['aff']
+                    for a in affil_meta:
+                        affils[a['@id']] = a['institution'] + ', ' + a['#text']
+                except KeyError:
+                    pass
+
 # Author(s)
-                authors = []
+                authors = list(dict())
                 try:
                     author_meta = article_meta['contrib-group']['contrib']
                     for a in author_meta:
                         if self._attr(a,'contrib-type') == 'author':
-                            authors.append(a['name']['surname']+", "+a['name']['given-names'])
+                            author_name = a['name']['surname']+", "+a['name']['given-names']
+                            author_xref = a['xref']
+                            if type(author_xref) == type([]):
+                                xref_id = ''
+                                for x in author_xref:
+                                    xref_id = xref_id + " " + x['@rid']
+                            else:
+                                xref_id = author_xref['@rid']
+                            author_afftag = xref_id.split()
+                            authors.append({'name': author_name, 'affil': author_afftag})
                     if len(authors) > 0:
-                        output_metadata['authors'] = '; '.join(authors)
+                        for x in authors:
+                            auth_list = [x['name'] for x in authors]
+                            aff_list = [x['affil'] for x in authors]
+                            output_metadata['authors'] = '; '.join(auth_list)
+                            output_metadata['affiliations'] = list()
+                        for x in aff_list:
+                            aff_string=''
+                            for y in x:
+                                aff_string = aff_string + '; ' + affils[y]
+                            output_metadata['affiliations'].append(aff_string)
+                        
                 except KeyError:
                     pass
 
