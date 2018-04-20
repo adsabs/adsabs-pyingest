@@ -5,6 +5,7 @@ import json
 import codecs
 from adsputils import u2asc
 from default import BaseXmlToDictParser
+from xmltodict import unparse
 
 class NoSchemaException(Exception):
     pass
@@ -35,167 +36,222 @@ class JATSParser(BaseXmlToDictParser):
                 attribs[k] = r[k]
         return attribs
 
+    def _gettext(self, r):
+        if isinstance(r,list):
+            return "; ".join(self._gettext(x) for x in r)
+        elif isinstance(r,tuple):
+            return ": ".join(self._gettext(x) for x in r)
+        elif isinstance(r,dict):
+            return self._gettext(r.items())
+        elif isinstance(r,basestring):
+            return r
+
+
 
     def parse(self, fp, **kwargs):
 
         output_metadata=dict()
 
-        r = self.resource_dict(fp, **kwargs)
+        raw_jats_data = fp.read()
 
-        article_attr = self._attribs(r)
+        r = self.resource_dict(raw_jats_data, **kwargs)
+
+
+#       article_attr = self._attribs(r)
         front_meta = r.get('front')
         back_meta = r.get('back')
 
         try:
             front_keys, back_keys = (front_meta.keys(),back_meta.keys())
         except AttributeError:
-            return
+            raise WrongSchemaException("Could not parse front and back matter.")
         else:
             article_meta = front_meta.get('article-meta')
             journal_meta = front_meta.get('journal-meta')
             try:
-                article_keys, journal_keys = (article_meta.keys(),back_meta.keys())
+                article_keys, journal_keys = (article_meta.keys(),journal_meta.keys())
             except AttributeError:
-                return
+                raise WrongSchemaException("Could not parse article and journal metadata.")
             else:
+                base_metadata = {}
 
-# Title
+#Title:
                 try:
-                    output_metadata['title'] = article_meta['title-group']['article-title']
-                except KeyError:
+                    title = article_meta['title-group']['article-title']
+                except:
                     pass
+                else:
+                    try:
+                        base_metadata['title'] = self._text(title)
+                    except:
+                        pass
 
-# Abstract
+#Abstract:
                 try:
-                    output_metadata['abstract'] = article_meta['abstract']['p']
-                except KeyError:
+                    abstract = article_meta['abstract']['p']
+#                   print "ABTRACK LOLZ:",json.dumps(abstract, indent=2)
+                except:
                     pass
+                if type(abstract) == unicode:
+                    base_metadata['abstract'] = abstract
+                else:
+                    try:
+                        base_metadata['abstract'] = self._text(abstract['#text'])
+                    except:
+                        pass
 
-# Keywords
+#Authors and Affiliations: 
+#Affiliations first:
+                affils = {}
+#Affil notes first:
                 try:
-                    art_cats = article_meta['article-categories']
+                    notes_meta = article_meta['author-notes']
                 except KeyError:
                     pass
                 else:
-                    for c in art_cats['subj-group']:
+                    try:
+                        note = notes_meta['fn']
+                    except KeyError:
+                        pass
+                    else:
+                        if type(note) != list:
+                            note = [note]
+                        for n in note:
+                            affils[self._attr(n,'id')] = self._gettext(n['p']) 
+                        
+#Author affs next:
+                try:
+                    affil_meta = article_meta['contrib-group']['aff']
+                except KeyError:
+                    pass
+                else:
+                    for a in affil_meta:
+                        try:
+                            affils[self._attr(a,'id')] = a['institution'] + ', ' + self._text(a)
+                        except KeyError:
+                            pass
+
+
+
+#Authors and note keys
+                try:
+                    author_meta = article_meta['contrib-group']['contrib']
+                except KeyError:
+                    pass
+                else:
+                    base_metadata['authors'] = list()
+                    base_metadata['affiliations'] = list()
+                    for a in author_meta:
+                        if self._attr(a,'contrib-type') == 'author':
+                            try:
+                                pre = a['name']['prefix']+' '
+                            except:
+                                pre = ''
+                            try:
+                                suf = ' '+a['name']['suffix']
+                            except:
+                                suf = ''
+                            base_metadata['authors'].append(a['name']['surname']+", "+pre+a['name']['given-names']+suf)
+                            try:
+                                affs = self._array(a['xref'])
+                                aid = self._gettext([self._attr(x,'rid') for x in affs]).replace(';',' ').split()
+                            except:
+                                base_metadata['affiliations'].append('')
+                            else:
+                                aff_string = "; ".join([affils[x] for x in aid])
+                                base_metadata['affiliations'].append(aff_string)
+
+#Keywords:
+                try:
+                    art_cats = article_meta['article-categories']['subj-group']
+                except:
+                    pass
+                else:
+                    for c in art_cats:
                         if c['@subj-group-type'] == 'toc-minor':
-                            output_metadata['keywords'] = c['subject'].replace(',',';')
-            
-# Pubdate
+                            base_metadata['keywords'] = c['subject'].replace(',',';')            
+
+
+#Pubdate:
                 try:
                     pub_dates = article_meta['pub-date']
-                except KeyError:
+                except:
                     pass
                 else:
                     for d in pub_dates:
-                        try:
-                           d['@publication-format']
-                        except KeyError:
-                           try:
-                               d['@pub-type']
-                           except KeyError:
-                               pass
-                           else:
-                               if d['@pub-type'] == 'ppub':
-                                   output_metadata['pubdate'] = d['@iso-8601-date']
-                        else:
-                           if d['@publication-format'] == 'print':
-                               output_metadata['pubdate'] = d['@iso-8601-date']
-                    if output_metadata['pubdate'][-2:] == '00':
-                         output_metadata['pubdate'] = output_metadata['pubdate'][0:-2]+'01'
+                        a = self._attr(d,'publication-format')
+                        b = self._attr(d,'pub-type')
+                        if (a == 'print' or b == 'ppub'):
+                            base_metadata['pubdate'] = self._attr(d,'iso-8601-date')
+                            if base_metadata['pubdate'][-2:] == '00':
+                                base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
 
-# Author Affil(s)
-# Data passed to output_metadata with Authors
-
-                affils = {}
-
-                try:
-                    notes_meta = article_meta['author-notes']
-                    affils[notes_meta['fn']['@id']] = "<EMAIL>" + notes_meta['fn']['p']['email'] + "</EMAIL>"
-                except KeyError:
-                    pass
-
-                try:
-                    affil_meta = article_meta['contrib-group']['aff']
-                    for a in affil_meta:
-                        affils[a['@id']] = a['institution'] + ', ' + a['#text']
-                except KeyError:
-                    pass
-
-# Author(s)
-                authors = list(dict())
-                try:
-                    author_meta = article_meta['contrib-group']['contrib']
-                    for a in author_meta:
-                        if self._attr(a,'contrib-type') == 'author':
-                            author_name = a['name']['surname']+", "+a['name']['given-names']
-                            author_xref = a['xref']
-                            if type(author_xref) == type([]):
-                                xref_id = ''
-                                for x in author_xref:
-                                    xref_id = xref_id + " " + x['@rid']
-                            else:
-                                xref_id = author_xref['@rid']
-                            author_afftag = xref_id.split()
-                            authors.append({'name': author_name, 'affil': author_afftag})
-                    if len(authors) > 0:
-                        for x in authors:
-                            auth_list = [x['name'] for x in authors]
-                            aff_list = [x['affil'] for x in authors]
-                            output_metadata['authors'] = '; '.join(auth_list)
-                            output_metadata['affiliations'] = list()
-                        for x in aff_list:
-                            aff_string=''
-                            for y in x:
-                                aff_string = aff_string + '; ' + affils[y]
-                            output_metadata['affiliations'].append(aff_string)
-                        
-                except KeyError:
-                    pass
-
-# DOI
+#DOI:
                 try:
                     id_meta = article_meta['article-id']
-                    if id_meta['@pub-id-type'] == 'doi':
-                        output_metadata['properties'] = {'DOI': 'doi:'+id_meta['#text']}
-                except KeyError:
+                    try:
+                        if self._attr(id_meta,'pub-id-type') == 'doi':
+                            base_metadata['properties'] = {'DOI': 'doi:'+self._text(id_meta)}
+                    except:
+                        pass
+                except:
                     pass
 
-# Journal
+#Journal name:
                 try:
-                    j_info = journal_meta['journal-title-group']
-                except KeyError:
+                    base_metadata['publication'] = journal_meta['journal-title-group']['journal-title']
+                except:
                     pass
-                else:
-                    output_metadata['journal'] = j_info['journal-title']
-# Journal-pub-id
+#Journal ID:
                 try:
                     for i in journal_meta['journal-id']:
-                        if i['@journal-id-type'] == 'publisher-id':
-                            output_metadata['pub-id'] = i['#text']
-                except KeyError:
+                        if self._attr(i,'journal-id-type') == 'publisher-id':
+                            base_metadata['pub-id'] = self._text(i)
+                except:
                     pass
 
-# Volume
+#Volume:
                 try:
-                    output_metadata['volume'] = article_meta['volume']
-                except KeyError:
+                    base_metadata['volume'] = article_meta['volume']
+                except:
                     pass
 
-# Pages
+#Issue:
                 try:
-                    output_metadata['page'] = article_meta['fpage'] + "-" + article_meta['lpage']
-                except KeyError:
+                    base_metadata['issue'] = article_meta['issue']
+                except:
                     pass
 
-# Issue
+#Pages:
                 try:
-                    output_metadata['issue'] = article_meta['issue']
-                except KeyError:
+                    fpage = article_meta['fpage']
+                except:
+                    try:
+                        fpage = article_meta['elocation-id']
+                    except:
+                        pass
+                try:
+                    fpage
+                except NameError:
                     pass
-       
+                else:
+                    try:
+                        lpage = article_meta['lpage']
+                    except KeyError:
+                        pass
+                    else:
+                        if lpage == fpage:
+                            del lpage
+                    try:
+                        lpage
+                    except NameError:
+                        base_metadata['page'] = fpage
+                    else:
+                        base_metadata['page'] = fpage + "-" + lpage
 
 
+
+                output_metadata = base_metadata
 
         return output_metadata
 
@@ -214,4 +270,4 @@ if __name__ == "__main__":
     with open('/Users/mtempleton/adsaps.work/fulltext.xml','rU') as fp:
         woo = jatsx.parse(fp)
  
-    print(woo)
+#   print(woo)
