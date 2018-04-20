@@ -41,6 +41,8 @@ class APSJATSParser(JATSParser):
         else:
             return bibstem
 
+#   def make_journal_field
+
     def doi_parse(self, doi):
         doi_string = doi[4:].split('/')[1]
         doi_array = doi_string.split('.')
@@ -65,10 +67,44 @@ class APSJATSParser(JATSParser):
             year = output_metadata['pubdate'][0:4]
             bibstem = j_bibstem.ljust(5,'.')
             volume, idno = self.doi_parse(output_metadata['properties']['DOI'])
-            author_init = self.get_author_init(output_metadata['authors'])
+            try:
+                author_init = self.get_author_init(output_metadata['authors'][0])
+            except:
+                author_init = '.'
             output_metadata['bibcode'] = year + bibstem + volume + idno + author_init
             del output_metadata['pub-id']
 
+
+# Publication +
+        try:
+            pubstring = output_metadata['publication']
+        except:
+            pass
+        else:
+            try:
+                output_metadata['volume']
+            except:
+                pass
+            else:
+                pubstring = pubstring +', Volume '+ output_metadata['volume']
+            
+            try:
+                output_metadata['issue']
+            except:
+                pass
+            else:
+                pubstring = pubstring +', Issue '+ output_metadata['issue']
+            
+            try:
+                output_metadata['page']
+            except:
+                pass
+            else:
+                pubstring = pubstring +', id.'+ output_metadata['page']
+
+            output_metadata['publication'] = pubstring
+            
+# Return
         return output_metadata
  
  
