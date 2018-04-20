@@ -8,7 +8,7 @@ import glob
 import json
 from pyingest.parsers import zenodo
 from pyingest.parsers import arxiv
-from pyingest.parsers import apsjats
+from pyingest.parsers import aps
 
 
 class TestZenodo(unittest.TestCase):
@@ -92,6 +92,6 @@ class TestAPSJATS(unittest.TestCase):
         testfile = 'test_data/stubdata/input/apsjats_10.1103.PhysRevB.96.081117.fulltext.xml'
         shouldbe = {'bibcode': '2017PhRvB..96h1117S'}
         with open(testfile,'rU') as fp:
-            parser = apsjats.APSJATSParser()
+            parser = aps.APSJATSParser()
             document = parser.parse(fp)
         self.assertEqual(document['bibcode'],shouldbe['bibcode'])

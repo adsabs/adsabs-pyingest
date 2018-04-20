@@ -106,16 +106,16 @@ class APSJATSParser(JATSParser):
             
 # Return
         return output_metadata
- 
- 
-if __name__ == "__main__":
- 
-    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
-    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
- 
-    jatsx = APSJATSParser()
- 
-    with open('/Users/mtempleton/adsaps.work/fulltext.xml','rU') as fp:
-        woo = jatsx.parse(fp)
- 
-    print(woo)
+# 
+# 
+#if __name__ == "__main__":
+# 
+#    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
+#    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
+# 
+#    jatsx = APSJATSParser()
+# 
+#    with open('/Users/mtempleton/adsaps.work/fulltext.xml','rU') as fp:
+#        woo = jatsx.parse(fp)
+# 
+#    print(woo)
