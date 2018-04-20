@@ -19,8 +19,7 @@ class UnparseableException(Exception):
 class JATSParser(BaseXmlToDictParser):
 
     def __init__(self):
-    # make sure we are utf-8 clean on stdout, stderr
-        self.JATS_SCHEMA = ""
+        pass
 
     def resource_dict(self, fp, **kwargs):
         d = self.xmltodict(fp, **kwargs)
@@ -52,6 +51,10 @@ class JATSParser(BaseXmlToDictParser):
 
         output_metadata=dict()
 
+# The storage of the raw jats data is a kludge to deal with cases where you
+# need to deal with titles and/or abstracts with <inline-formula>s.  See
+# the Title and Abstract sections below.
+
         raw_jats_data = fp.read()
 
         r = self.resource_dict(raw_jats_data, **kwargs)
@@ -81,24 +84,20 @@ class JATSParser(BaseXmlToDictParser):
                 except:
                     pass
                 else:
-                    try:
-                        base_metadata['title'] = self._text(title)
-                    except:
-                        pass
+                    if isinstance(title,unicode):
+                        base_metadata['title'] = title
+                    else:
+                        base_metadata['title'] = raw_jats_data.split('<title-group>')[1].split('<article-title>')[1].split('</article-title>')[0].decode('utf-8')
 
 #Abstract:
                 try:
                     abstract = article_meta['abstract']['p']
-#                   print "ABTRACK LOLZ:",json.dumps(abstract, indent=2)
                 except:
                     pass
-                if type(abstract) == unicode:
+                if isinstance(abstract,unicode):
                     base_metadata['abstract'] = abstract
                 else:
-                    try:
-                        base_metadata['abstract'] = self._text(abstract['#text'])
-                    except:
-                        pass
+                    base_metadata['abstract'] = raw_jats_data.split('<abstract>')[1].split('<p>')[1].split('</p>')[0].decode('utf-8')
 
 #Authors and Affiliations: 
 #Affiliations first:
@@ -254,20 +253,20 @@ class JATSParser(BaseXmlToDictParser):
                 output_metadata = base_metadata
 
         return output_metadata
-
-
-
-
-
-if __name__ == "__main__":
- 
-    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
-    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
- 
-    jatsx = JATSParser()
- 
-    woo = None
-    with open('/Users/mtempleton/adsaps.work/fulltext.xml','rU') as fp:
-        woo = jatsx.parse(fp)
- 
-#   print(woo)
+#
+#
+#
+#
+#
+#if __name__ == "__main__":
+# 
+#    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
+#    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
+# 
+#    jatsx = JATSParser()
+# 
+#    woo = None
+#    with open('/Users/mtempleton/adsaps.work/fulltext.xml','rU') as fp:
+#        woo = jatsx.parse(fp)
+# 
+##   print(woo)
