@@ -10,13 +10,18 @@ RUN add-apt-repository -y ppa:webupd8team/java && \
     	python-pip
 RUN pip install supervisor --upgrade
 
+RUN pip install --upgrade pip
+RUN pip install --upgrade setuptools
+RUN pip install --upgrade setuptools
+
 ENV JAVA_HOME "/usr/lib/jvm/java-8-oracle"
 
 RUN git clone https://github.com/kermitt2/grobid.git
-RUN cd /grobid && mvn -Dmaven.test.skip=true clean install
+#RUN cd /grobid && mvn -Dmaven.test.skip=true clean install
+RUN cd /grobid && mvn -DskipTests=true clean install
 RUN echo '#!/bin/sh' > /grobid/run.sh && \
     echo 'cd /grobid/grobid-service' >> /grobid/run.sh && \
-    echo 'exec /usr/bin/mvn -Dmaven.test.skip=true jetty:run-war > /tmp/grobid-service.log 2>&1' >> /grobid/run.sh && \
+    echo 'exec /usr/bin/mvn -DskipTests=true jetty:run-war > /tmp/grobid-service.log 2>&1' >> /grobid/run.sh && \
     chmod +x /grobid/run.sh
 
 RUN echo '[supervisord]' > /grobid/supervisor.conf && \

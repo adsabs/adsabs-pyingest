@@ -159,6 +159,7 @@ class JATSParser(BaseXmlToDictParser):
                             else:
                                 aff_string = "; ".join([affils[x] for x in aid])
                                 base_metadata['affiliations'].append(aff_string)
+                    base_metadata['authors'] = "; ".join(base_metadata['authors'])
 
 #Keywords:
                 try:
