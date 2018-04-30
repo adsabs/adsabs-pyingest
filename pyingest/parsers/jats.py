@@ -134,6 +134,8 @@ class JATSParser(BaseXmlToDictParser):
                     if type(contrib_group) == type(list()):
                         print "article_meta['contrib-group'] is a list!"
 
+# YOU NEED TO DO SOMETHING HERE IF IT IS A LIST!
+
                     else:
                         print "article_meta['contrib-group'] is NOT a list!"
                 
