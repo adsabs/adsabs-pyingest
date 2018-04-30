@@ -3,6 +3,8 @@ import cStringIO
 import pyingest.parsers.aps as aps
 import pyingest.serializers.classic
 import traceback
+import json
+import xmltodict
 
 #funky inline-forumal in abstract:
 #testfile = ['test_data/stubdata/input/apsjats_10.1103.PhysRevB.96.081117.fulltext.xml']
@@ -11,10 +13,24 @@ import traceback
 #testfile = ['test_data/stubdata/input/apsjats_10.1103.PhysRevA.97.043801.fulltext.xml']
 
 #multiple testfiles
-testfile = glob.glob('test_data/stubdata/input/apsjats*')
+#testfile = glob.glob('test_data/stubdata/input/apsjats*')
+
+#daily payload:
+testfile = list()
+logfile = '/proj/ads/abstracts/sources/APS/logs/aps-update.out.2018-04-25'
+with open(logfile,'rU') as fpp:
+    for l in fpp.readlines():
+        foo,bar,baz = l.split('\t')
+        testfile.append(bar)
+
+print("There are %s files.\n\n\n"%len(testfile))
+     
+
 for f in testfile:
     try:
         with open(f,'rU') as fp:
+            lol = fp.read()
+            fp.seek(0)
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
 
@@ -23,5 +39,8 @@ for f in testfile:
             serializer.write(document,outputfp)
             outputfp.close()
     except: 
-        print "\n\nERROR!\n%s\n\n"%f
+        print "ERROR!\n%s\n"%f
+#       print(json.dumps(xmltodict.parse(lol),sort_keys=True,indent=1))
         traceback.print_exc()
+
+    print ("\n\n\n\n\n")

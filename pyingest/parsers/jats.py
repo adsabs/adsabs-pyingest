@@ -62,10 +62,11 @@ class JATSParser(BaseXmlToDictParser):
 
 #       article_attr = self._attribs(r)
         front_meta = r.get('front')
-        back_meta = r.get('back')
+#       back_meta = r.get('back')
 
         try:
-            front_keys, back_keys = (front_meta.keys(),back_meta.keys())
+#           front_keys, back_keys = (front_meta.keys(),back_meta.keys())
+            front_keys = front_meta.keys()
         except AttributeError:
             raise WrongSchemaException("Could not parse front and back matter.")
         else:
@@ -94,10 +95,11 @@ class JATSParser(BaseXmlToDictParser):
                     abstract = article_meta['abstract']['p']
                 except:
                     pass
-                if isinstance(abstract,unicode):
-                    base_metadata['abstract'] = abstract
                 else:
-                    base_metadata['abstract'] = raw_jats_data.split('<abstract>')[1].split('<p>')[1].split('</p>')[0].decode('utf-8')
+                    if isinstance(abstract,unicode):
+                        base_metadata['abstract'] = abstract
+                    else:
+                        base_metadata['abstract'] = raw_jats_data.split('<abstract>')[1].split('<p>')[1].split('</p>')[0].decode('utf-8')
 
 #Authors and Affiliations: 
 #Affiliations first:
@@ -118,48 +120,65 @@ class JATSParser(BaseXmlToDictParser):
                         for n in note:
                             affils[self._attr(n,'id')] = self._gettext(n['p']) 
                         
-#Author affs next:
                 try:
-                    affil_meta = article_meta['contrib-group']['aff']
-                except KeyError:
-                    pass
+                    contrib_group = article_meta['contrib-group']
+                except:
+                    print "could not get article_meta['contrib-group']"
                 else:
-                    for a in affil_meta:
+                    if type(contrib_group) == type(list()):
+                        print "article_meta['contrib-group'] is a list!"
+
+                    else:
+                        print "article_meta['contrib-group'] is NOT a list!"
+                
+#Author affs next:
                         try:
-                            affils[self._attr(a,'id')] = a['institution'] + ', ' + self._text(a)
+                            affil_meta = contrib_group['aff']
                         except KeyError:
                             pass
+                        else:
+                            if type(affil_meta) == type(list()):
+                                for a in affil_meta:
+                                    try:
+                                        affils[self._attr(a,'id')] = a['institution'] + ', ' + self._text(a)
+                                    except KeyError:
+                                        pass
+                            else:
+                                try:
+                                    affils[self._attr(affil_meta,'id')] = affil_meta['institution'] + ', ' + self._text(affil_meta)
+                                except KeyError:
+                                    pass
 
 
 
 #Authors and note keys
-                try:
-                    author_meta = article_meta['contrib-group']['contrib']
-                except KeyError:
-                    pass
-                else:
-                    base_metadata['authors'] = list()
-                    base_metadata['affiliations'] = list()
-                    for a in author_meta:
-                        if self._attr(a,'contrib-type') == 'author':
-                            try:
-                                pre = a['name']['prefix']+' '
-                            except:
-                                pre = ''
-                            try:
-                                suf = ' '+a['name']['suffix']
-                            except:
-                                suf = ''
-                            base_metadata['authors'].append(a['name']['surname']+", "+pre+a['name']['given-names']+suf)
-                            try:
-                                affs = self._array(a['xref'])
-                                aid = self._gettext([self._attr(x,'rid') for x in affs]).replace(';',' ').split()
-                            except:
-                                base_metadata['affiliations'].append('')
-                            else:
-                                aff_string = "; ".join([affils[x] for x in aid])
-                                base_metadata['affiliations'].append(aff_string)
-                    base_metadata['authors'] = "; ".join(base_metadata['authors'])
+                        try:
+                            author_meta = contrib_group['contrib']
+                        except KeyError:
+                            pass
+                        else:
+                            base_metadata['authors'] = list()
+                            base_metadata['affiliations'] = list()
+                            for a in author_meta:
+                                if self._attr(a,'contrib-type') == 'author':
+                                    try:
+                                        pre = a['name']['prefix']+' '
+                                    except:
+                                        pre = ''
+                                    try:
+                                        suf = ' '+a['name']['suffix']
+                                    except:
+                                        suf = ''
+                                    base_metadata['authors'].append(a['name']['surname']+", "+pre+a['name']['given-names']+suf)
+                                    try:
+                                        affs = self._array(a['xref'])
+                                        aid = self._gettext([self._attr(x,'rid') for x in affs]).replace(';',' ').split()
+                                    except:
+                                        base_metadata['affiliations'].append('')
+                                    else:
+                                        aff_string = "; ".join([affils[x] for x in aid])
+                                        base_metadata['affiliations'].append(aff_string)
+                            base_metadata['authors'] = "; ".join(base_metadata['authors'])
 
 #Keywords:
                 try:
@@ -167,9 +186,13 @@ class JATSParser(BaseXmlToDictParser):
                 except:
                     pass
                 else:
-                    for c in art_cats:
-                        if c['@subj-group-type'] == 'toc-minor':
-                            base_metadata['keywords'] = c['subject'].replace(',',';')            
+                    if type(art_cats) == type(list()):
+                        for c in art_cats:
+                            if c['@subj-group-type'] == 'toc-minor':
+                                base_metadata['keywords'] = c['subject'].replace(',',';')            
+                    else:
+                        if art_cats['@subj-group-type'] == 'toc-minor':
+                            base_metadata['keywords'] = art_cats['subject'].replace(',',';')            
 
 
 #Pubdate:
