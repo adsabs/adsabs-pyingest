@@ -118,7 +118,13 @@ class JATSParser(BaseXmlToDictParser):
                         if type(note) != list:
                             note = [note]
                         for n in note:
-                            affils[self._attr(n,'id')] = self._gettext(n['p']) 
+                            try:
+                                affils[self._attr(n,'id')] = self._gettext(n['p']) 
+                            except:
+                                try:
+                                    affils[self._attr(n,'id')] = self._gettext(n)
+                                except:
+                                    affils[self._attr(n,'id')] = ''
                         
                 try:
                     contrib_group = article_meta['contrib-group']
@@ -140,12 +146,28 @@ class JATSParser(BaseXmlToDictParser):
                             if type(affil_meta) == type(list()):
                                 for a in affil_meta:
                                     try:
-                                        affils[self._attr(a,'id')] = a['institution'] + ', ' + self._text(a)
+                                        a['institution']
+                                    except KeyError:
+                                        a['institution'] = ''
+                                    try:
+                                        print('inst_a:',type(a['institution']),'text_a:',type(self._text(a)))
+                                        if type(a['institution']) == type(list()):
+                                            affils[self._attr(a,'id')] = ', '.join(a['institution']) + ', ' + self._text(a)
+                                        else:
+                                            affils[self._attr(a,'id')] = a['institution'] + ', ' + self._text(a)
                                     except KeyError:
                                         pass
                             else:
                                 try:
-                                    affils[self._attr(affil_meta,'id')] = affil_meta['institution'] + ', ' + self._text(affil_meta)
+                                    affil_meta['institution']
+                                except KeyError:
+                                    affil_meta['institution'] = ''
+                                try:
+                                    print('inst_a:',type(affil_meta['institution']),'text_a:',type(self._text(affil_meta)))
+                                    if type(affil_meta['institution']) == type(list()):
+                                        affils[self._attr(affil_meta,'id')] = ', '.join(affil_meta['institution']) + ', ' + self._text(affil_meta)
+                                    else:
+                                        affils[self._attr(affil_meta,'id')] = affil_meta['institution'] + ', ' + self._text(affil_meta)
                                 except KeyError:
                                     pass
 
@@ -169,7 +191,18 @@ class JATSParser(BaseXmlToDictParser):
                                         suf = ' '+a['name']['suffix']
                                     except:
                                         suf = ''
-                                    base_metadata['authors'].append(a['name']['surname']+", "+pre+a['name']['given-names']+suf)
+                                    try:
+                                        sur = a['name']['surname']
+                                    except:
+                                        sur = 'Anonymous'
+                                    try:
+                                        giv = a['name']['given-names']
+                                    except:
+                                        giv = ''
+                                    if (pre+giv+suf) == '':
+                                        base_metadata['authors'].append(sur)
+                                    else:
+                                        base_metadata['authors'].append(sur+", "+pre+giv+suf)
                                     try:
                                         affs = self._array(a['xref'])
                                         aid = self._gettext([self._attr(x,'rid') for x in affs]).replace(';',' ').split()
@@ -201,13 +234,31 @@ class JATSParser(BaseXmlToDictParser):
                 except:
                     pass
                 else:
-                    for d in pub_dates:
-                        a = self._attr(d,'publication-format')
-                        b = self._attr(d,'pub-type')
+                    if(type(pub_dates)) == type(list()):
+                        for d in pub_dates:
+                            a = self._attr(d,'publication-format')
+                            b = self._attr(d,'pub-type')
+                            if (a == 'print' or b == 'ppub'):
+                                base_metadata['pubdate'] = self._attr(d,'iso-8601-date')
+                                if base_metadata['pubdate'][-2:] == '00':
+                                    base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
+                            else:
+                                if (b == 'epub'):
+                                    base_metadata['pubdate'] = self._attr(d,'iso-8601-date')
+                                    if base_metadata['pubdate'][-2:] == '00':
+                                        base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
+                    else:
+                        a = self._attr(pub_dates,'publication-format')
+                        b = self._attr(pub_dates,'pub-type')
                         if (a == 'print' or b == 'ppub'):
-                            base_metadata['pubdate'] = self._attr(d,'iso-8601-date')
+                            base_metadata['pubdate'] = self._attr(pub_dates,'iso-8601-date')
                             if base_metadata['pubdate'][-2:] == '00':
                                 base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
+                        else:
+                            if (b == 'epub'):
+                                base_metadata['pubdate'] = self._attr(pub_dates,'iso-8601-date')
+                                if base_metadata['pubdate'][-2:] == '00':
+                                    base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
 
 #DOI:
                 try:
@@ -223,6 +274,8 @@ class JATSParser(BaseXmlToDictParser):
 #Journal name:
                 try:
                     base_metadata['publication'] = journal_meta['journal-title-group']['journal-title']
+                    if type(base_metadata['publication']) == type(list()):
+                        base_metadata['publication'] = base_metadata['publication'][0]
                 except:
                     pass
 #Journal ID:

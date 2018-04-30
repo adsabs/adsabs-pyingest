@@ -17,7 +17,7 @@ import xmltodict
 
 #daily payload:
 testfile = list()
-logfile = '/proj/ads/abstracts/sources/APS/logs/aps-update.out.2018-04-25'
+logfile = '/proj/ads/abstracts/sources/APS/logs/aps-update.out.2018-04-24'
 with open(logfile,'rU') as fpp:
     for l in fpp.readlines():
         foo,bar,baz = l.split('\t')

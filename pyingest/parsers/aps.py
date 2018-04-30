@@ -33,7 +33,7 @@ class APSJATSParser(JATSParser):
                          'PRSTAB': 'PhRvS', 'PRAPPLIED': 'PhRvP',
                          'PRFLUIDS': 'PhRvF', 'PRMATERIALS': 'PhRvM', 
                          'PRPER': 'PRPER', 'PRSTPER': 'PRSTP', 'PR': 'PhRv',
-                         'PRI': 'PhRvI'}
+                         'PRI': 'PhRvI','PHYSICS': 'PhyOJ'}
         try:
             bibstem = publisher_ids[pid]
         except KeyError:
@@ -48,8 +48,12 @@ class APSJATSParser(JATSParser):
         doi_array = doi_string.split('.')
         vol , idsix = doi_array[1], doi_array[2]
         vol = vol.rjust(4,'.')
-        idtwo = chr(96+int(idsix[0:2]))
-        idfour = idsix[2:]
+        if len(idsix) == 6:
+            idtwo = chr(96+int(idsix[0:2]))
+            idfour = idsix[2:]
+        else:
+            idtwo = ''
+            idfour = idsix.rjust(5,'.')
         return vol, idtwo + idfour
         
 
@@ -89,11 +93,9 @@ class APSJATSParser(JATSParser):
                 pubstring = pubstring +', Volume '+ output_metadata['volume']
             
             try:
-                output_metadata['issue']
-            except:
-                pass
-            else:
                 pubstring = pubstring +', Issue '+ output_metadata['issue']
+            except TypeError:
+                pass
             
             try:
                 output_metadata['page']
