@@ -6,7 +6,7 @@ import traceback
 import json
 import xmltodict
 
-#funky inline-formal in abstract:
+#inline-formula in abstract:
 #testfile = ['test_data/stubdata/input/apsjats_10.1103.PhysRevB.96.081117.fulltext.xml']
 
 #generic testfile
