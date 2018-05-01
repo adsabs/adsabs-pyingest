@@ -111,12 +111,10 @@ class JATSParser(BaseXmlToDictParser):
                     pass
                 else:
                     try:
-                        note = notes_meta['fn']
+                        note = self._array(notes_meta['fn'])
                     except KeyError:
                         pass
                     else:
-                        if type(note) != list:
-                            note = [note]
                         for n in note:
                             try:
                                 affils[self._attr(n,'id')] = self._gettext(n['p']) 
@@ -127,57 +125,34 @@ class JATSParser(BaseXmlToDictParser):
                                     affils[self._attr(n,'id')] = ''
                         
                 try:
-                    contrib_group = article_meta['contrib-group']
+                    contrib_group = self._array(article_meta['contrib-group'])
                 except:
-                    print "could not get article_meta['contrib-group']"
+                    print "could not get [article_meta['contrib-group']]"
                 else:
-                    if type(contrib_group) == type(list()):
-                        print "article_meta['contrib-group'] is a list!"
-
-# YOU NEED TO DO SOMETHING HERE IF IT IS A LIST!
-
-                    else:
-                        print "article_meta['contrib-group'] is NOT a list!"
-                
-#Author affs next:
+                    for g in contrib_group:
                         try:
-                            affil_meta = contrib_group['aff']
+                            affil_meta = self._array(g['aff'])
                         except KeyError:
                             pass
                         else:
-                            if type(affil_meta) == type(list()):
-                                for a in affil_meta:
-                                    try:
-                                        a['institution']
-                                    except KeyError:
-                                        a['institution'] = ''
-                                    try:
-                                        print('inst_a:',type(a['institution']),'text_a:',type(self._text(a)))
-                                        if type(a['institution']) == type(list()):
-                                            affils[self._attr(a,'id')] = ', '.join(a['institution']) + ', ' + self._text(a)
-                                        else:
-                                            affils[self._attr(a,'id')] = a['institution'] + ', ' + self._text(a)
-                                    except KeyError:
-                                        pass
-                            else:
+                            for a in affil_meta:
                                 try:
-                                    affil_meta['institution']
+                                    a['institution']
                                 except KeyError:
-                                    affil_meta['institution'] = ''
+                                    a['institution']=''
                                 try:
-                                    print('inst_a:',type(affil_meta['institution']),'text_a:',type(self._text(affil_meta)))
-                                    if type(affil_meta['institution']) == type(list()):
-                                        affils[self._attr(affil_meta,'id')] = ', '.join(affil_meta['institution']) + ', ' + self._text(affil_meta)
+#                                   print('inst_a:',type(a['institution']),'text_a:',type(self._text(a)))
+                                    if type(a['institution']) == type(list()):
+                                        affils[self._attr(a,'id')] = ', '.join(a['institution']) + ', ' + self._text(a)
                                     else:
-                                        affils[self._attr(affil_meta,'id')] = affil_meta['institution'] + ', ' + self._text(affil_meta)
+                                        affils[self._attr(a,'id')] = a['institution'] + ', ' + self._text(a)
                                 except KeyError:
                                     pass
-
-
+                 
 
 #Authors and note keys
                         try:
-                            author_meta = contrib_group['contrib']
+                            author_meta = self._array(g['contrib'])
                         except KeyError:
                             pass
                         else:

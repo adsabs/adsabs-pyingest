@@ -6,7 +6,7 @@ import traceback
 import json
 import xmltodict
 
-#funky inline-forumal in abstract:
+#funky inline-formal in abstract:
 #testfile = ['test_data/stubdata/input/apsjats_10.1103.PhysRevB.96.081117.fulltext.xml']
 
 #generic testfile
@@ -17,13 +17,13 @@ import xmltodict
 
 #daily payload:
 testfile = list()
-logfile = '/proj/ads/abstracts/sources/APS/logs/aps-update.out.2018-04-24'
+logfile = '/proj/ads/abstracts/sources/APS/logs/aps-update.out.2018-03-05'
 with open(logfile,'rU') as fpp:
     for l in fpp.readlines():
         foo,bar,baz = l.split('\t')
         testfile.append(bar)
 
-print("There are %s files.\n\n\n"%len(testfile))
+#print("There are %s files.\n\n\n"%len(testfile))
      
 
 for f in testfile:
@@ -42,5 +42,5 @@ for f in testfile:
         print "ERROR!\n%s\n"%f
 #       print(json.dumps(xmltodict.parse(lol),sort_keys=True,indent=1))
         traceback.print_exc()
-
-    print ("\n\n\n\n\n")
+    else:
+        print "OK:",f
