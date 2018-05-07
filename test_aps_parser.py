@@ -17,7 +17,7 @@ import xmltodict
 
 #daily payload:
 testfile = list()
-logfile = '/proj/ads/abstracts/sources/APS/logs/aps-update.out.2018-03-05'
+logfile = '/proj/ads/abstracts/sources/APS/logs/aps-update.out.2018-05-07'
 with open(logfile,'rU') as fpp:
     for l in fpp.readlines():
         foo,bar,baz = l.split('\t')
@@ -43,4 +43,5 @@ for f in testfile:
 #       print(json.dumps(xmltodict.parse(lol),sort_keys=True,indent=1))
         traceback.print_exc()
     else:
-        print "OK:",f
+        pass
+#       print "OK:",f

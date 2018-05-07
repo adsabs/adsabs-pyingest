@@ -99,7 +99,10 @@ class JATSParser(BaseXmlToDictParser):
                     if isinstance(abstract,unicode):
                         base_metadata['abstract'] = abstract
                     else:
-                        base_metadata['abstract'] = raw_jats_data.split('<abstract>')[1].split('<p>')[1].split('</p>')[0].decode('utf-8')
+                        try:
+                            base_metadata['abstract'] = raw_jats_data.split('<abstract>')[1].split('<p>')[1].split('</p>')[0].decode('utf-8')
+                        except:
+                            pass
 
 #Authors and Affiliations: 
 #Affiliations first:
@@ -127,7 +130,7 @@ class JATSParser(BaseXmlToDictParser):
                 try:
                     contrib_group = self._array(article_meta['contrib-group'])
                 except:
-                    print "could not get [article_meta['contrib-group']]"
+                    pass
                 else:
                     for g in contrib_group:
                         try:
@@ -141,16 +144,19 @@ class JATSParser(BaseXmlToDictParser):
                                 except KeyError:
                                     a['institution']=''
                                 try:
-#                                   print('inst_a:',type(a['institution']),'text_a:',type(self._text(a)))
                                     if type(a['institution']) == type(list()):
+                                        li = [x for x in a['institution'] if isinstance(x,basestring)]
+                                        a['institution'] = li
                                         affils[self._attr(a,'id')] = ', '.join(a['institution']) + ', ' + self._text(a)
                                     else:
                                         affils[self._attr(a,'id')] = a['institution'] + ', ' + self._text(a)
                                 except KeyError:
                                     pass
                  
+                        
 
 #Authors and note keys
+                    for g in contrib_group:
                         try:
                             author_meta = self._array(g['contrib'])
                         except KeyError:
@@ -164,18 +170,24 @@ class JATSParser(BaseXmlToDictParser):
                                         pre = a['name']['prefix']+' '
                                     except:
                                         pre = ''
+                                    if pre == None:
+                                        pre = ''
                                     try:
                                         suf = ' '+a['name']['suffix']
                                     except:
+                                        suf = ''
+                                    if suf == None:
                                         suf = ''
                                     try:
                                         sur = a['name']['surname']
                                     except:
                                         sur = 'Anonymous'
                                     try:
-                                        giv = a['name']['given-names']
+                                        giv = a['name']['given-names'].rstrip()
                                     except:
                                         giv = ''
+                                    if giv == None:
+                                        pre = ''
                                     if (pre+giv+suf) == '':
                                         base_metadata['authors'].append(sur)
                                     else:
@@ -307,20 +319,3 @@ class JATSParser(BaseXmlToDictParser):
                 output_metadata = base_metadata
 
         return output_metadata
-#
-#
-#
-#
-#
-#if __name__ == "__main__":
-# 
-#    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
-#    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
-# 
-#    jatsx = JATSParser()
-# 
-#    woo = None
-#    with open('/Users/mtempleton/adsaps.work/fulltext.xml','rU') as fp:
-#        woo = jatsx.parse(fp)
-# 
-##   print(woo)
