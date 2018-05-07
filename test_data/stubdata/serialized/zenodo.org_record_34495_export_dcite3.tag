@@ -1,6 +1,6 @@
 %T The GTC Public Archive
 %A Alacid, J. Manuel; Solano, Enrique
-%F AA(Centro de Astrobiolog&iacute;a (INTA-CSIC), Spain); AB(Centro de Astrobiolog&iacute;a (INTA-CSIC), Spain)
+%F AA(Centro de Astrobiolog&iacute;a (INTA-CSIC), Spain), AB(Centro de Astrobiolog&iacute;a (INTA-CSIC), Spain)
 %D 2015/12
 %G Zenodo
 %K Science data management

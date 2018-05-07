@@ -10,8 +10,8 @@ import argparse
 import multiprocessing
 import time
 
-GROBID_SERVER = 'http://localhost:8081'
-GROBID_HANDLER = 'processFulltextDocument'
+GROBID_SERVER = 'http://localhost:8080'
+GROBID_HANDLER = 'api/processFulltextDocument'
 DEFAULT_THREADS = multiprocessing.cpu_count() / 2;
 DEFAULT_TIMEOUT = 60       # timeout on connection after this delay
 DEFAULT_MAX_RETRIES = 3    # try to reconnect these many times to grobid server
