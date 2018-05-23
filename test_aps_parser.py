@@ -29,8 +29,6 @@ with open(logfile,'rU') as fpp:
 for f in testfile:
     try:
         with open(f,'rU') as fp:
-            lol = fp.read()
-            fp.seek(0)
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
 
@@ -40,7 +38,6 @@ for f in testfile:
             outputfp.close()
     except: 
         print "ERROR!\n%s\n"%f
-#       print(json.dumps(xmltodict.parse(lol),sort_keys=True,indent=1))
         traceback.print_exc()
     else:
         pass
