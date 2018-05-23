@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 
-import sys
+import cgi
 import json
-import codecs
+import re
+import sys
 from adsputils import u2asc
-from default import BaseXmlToDictParser
-from xmltodict import unparse
+from default import BaseBeautifulSoupParser
+
 
 class NoSchemaException(Exception):
     pass
@@ -16,15 +17,15 @@ class WrongSchemaException(Exception):
 class UnparseableException(Exception):
     pass
 
-class JATSParser(BaseXmlToDictParser):
+class JATSParser(BaseBeautifulSoupParser):
 
     def __init__(self):
         pass
 
     def resource_dict(self, fp, **kwargs):
-        d = self.xmltodict(fp, **kwargs)
+        d = self.bstodict(fp, **kwargs)
 # this returns the root of a JATS article, which is the element <article>
-        r = d.get('article',{})
+        r = d.article
         return r
 
     def _attribs(self, r, **kwargs):
@@ -45,277 +46,227 @@ class JATSParser(BaseXmlToDictParser):
         elif isinstance(r,basestring):
             return r
 
+    def _munge(self, r):
+# to retain any formatting tags inside a beautifulsoup tag, you need to 
+# turn it into a string with prettify(), and then split the string 
+# on linefeeds and remove multiple blank spaces.
+        if type(r) is not type(None):
+            s = (' '.join(r.prettify().split('\n'))).lstrip().rstrip()
+            t = re.sub('\s{2,}',' ',s)
+            try:
+                x1 = re.search('<.*?> ',t).group()
+                x2 = re.sub('<','</',x1)
+                x3 = re.sub(' .*?>','>',x2.rstrip())
+                u = t.replace(x1,'').replace(x3,'')
+                v = u.replace(x3,'')
+            except:
+                v = t
+            return v.lstrip().rstrip()
+        else:
+            return ''
 
 
     def parse(self, fp, **kwargs):
 
         output_metadata=dict()
 
-# The storage of the raw jats data is a kludge to deal with cases where you
-# need to deal with titles and/or abstracts with <inline-formula>s.  See
-# the Title and Abstract sections below.
+        r = self.resource_dict(fp, **kwargs)
 
-        raw_jats_data = fp.read()
+        article_meta = r.front.find('article-meta')
+        journal_meta = r.front.find('journal-meta')
 
-        r = self.resource_dict(raw_jats_data, **kwargs)
-
-
-#       article_attr = self._attribs(r)
-        front_meta = r.get('front')
-#       back_meta = r.get('back')
-
-        try:
-#           front_keys, back_keys = (front_meta.keys(),back_meta.keys())
-            front_keys = front_meta.keys()
-        except AttributeError:
-            raise WrongSchemaException("Could not parse front and back matter.")
-        else:
-            article_meta = front_meta.get('article-meta')
-            journal_meta = front_meta.get('journal-meta')
-            try:
-                article_keys, journal_keys = (article_meta.keys(),journal_meta.keys())
-            except AttributeError:
-                raise WrongSchemaException("Could not parse article and journal metadata.")
-            else:
-                base_metadata = {}
+        base_metadata = {}
 
 #Title:
-                try:
-                    title = article_meta['title-group']['article-title']
-                except:
-                    pass
+        title = article_meta.find('title-group').find('article-title')
+        base_metadata['title'] = self._munge(title)
+
+#Authors and Affiliations:
+#     # Set up affils storage
+        affils = {}
+
+#     # Author notes/note ids 
+        try:
+            notes = article_meta.find('author-notes').find_all('fn')
+        except:
+            pass
+        else:
+            for n in notes:
+                key = n['id']
+                note_text_arr = [x.get_text() for x in n]
+                note_text = ' '.join(note_text_arr)
+                affils[key] = note_text
+
+#     # Affils/affil ids
+        try:
+            affil = article_meta.find('contrib-group').find_all('aff')
+        except:
+            pass
+        else:
+            for a in affil:
+                key = a['id']
+                num = key.lstrip('a') 
+                aff_text = a.get_text().lstrip(num)
+                affils[key] = aff_text
+        
+
+#Author name and affil/note lists:
+        try:
+            authors = article_meta.find('contrib-group').find_all('contrib')
+        except:
+            pass
+        else:
+            base_metadata['authors']=[]
+            base_metadata['affiliations']=[]
+            for a in authors:
+#             # Author names
+                if a.find('surname') is not None:
+                    surname = a.surname.get_text()
                 else:
-                    if isinstance(title,unicode):
-                        base_metadata['title'] = title
-                    else:
-                        base_metadata['title'] = raw_jats_data.split('<title-group>')[1].split('<article-title>')[1].split('</article-title>')[0].decode('utf-8')
+                    surname = 'Anonymous'
+                if a.find('prefix') is not None:
+                    prefix = a.prefix.get_text()+' '
+                else:
+                    prefix = ''
+                if a.find('suffix') is not None:
+                    suffix = ' '+a.suffix.get_text()
+                else:
+                    suffix = ''
+                if a.find('given-names') is not None:
+                    given = a.find('given-names').get_text()
+                else:
+                    given = ''
+                forename = prefix+given+suffix
+                if forename == '':
+                    base_metadata['authors'].append(surname)
+                else:
+                    base_metadata['authors'].append(surname+', '+forename)
+
+#             # Author affil/note ids
+                aid = a.find_all('xref')
+                if len(aid) > 0:
+                    aid_str = ' '.join([x['rid'] for x in aid])
+                    aid_arr = aid_str.split()
+                else:
+                    aid_arr = []
+
+                aff_text = '; '.join(affils[x] for x in aid_arr) 
+                base_metadata['affiliations'].append(aff_text)
+             
+            
+
+
+            if len(base_metadata['authors']) > 0:
+                base_metadata['authors'] = "; ".join(base_metadata['authors'])
+            else:
+                del base_metadata['authors']
+
 
 #Abstract:
-                try:
-                    abstract = article_meta['abstract']['p']
-                except:
-                    pass
-                else:
-                    if isinstance(abstract,unicode):
-                        base_metadata['abstract'] = abstract
-                    else:
-                        try:
-                            base_metadata['abstract'] = raw_jats_data.split('<abstract>')[1].split('<p>')[1].split('</p>')[0].decode('utf-8')
-                        except:
-                            pass
-
-#Authors and Affiliations: 
-#Affiliations first:
-                affils = {}
-#Affil notes first:
-                try:
-                    notes_meta = article_meta['author-notes']
-                except KeyError:
-                    pass
-                else:
-                    try:
-                        note = self._array(notes_meta['fn'])
-                    except KeyError:
-                        pass
-                    else:
-                        for n in note:
-                            try:
-                                affils[self._attr(n,'id')] = self._gettext(n['p']) 
-                            except:
-                                try:
-                                    affils[self._attr(n,'id')] = self._gettext(n)
-                                except:
-                                    affils[self._attr(n,'id')] = ''
-                        
-                try:
-                    contrib_group = self._array(article_meta['contrib-group'])
-                except:
-                    pass
-                else:
-                    for g in contrib_group:
-                        try:
-                            affil_meta = self._array(g['aff'])
-                        except KeyError:
-                            pass
-                        else:
-                            for a in affil_meta:
-                                try:
-                                    a['institution']
-                                except KeyError:
-                                    a['institution']=''
-                                try:
-                                    if type(a['institution']) == type(list()):
-                                        li = [x for x in a['institution'] if isinstance(x,basestring)]
-                                        a['institution'] = li
-                                        affils[self._attr(a,'id')] = ', '.join(a['institution']) + ', ' + self._text(a)
-                                    else:
-                                        affils[self._attr(a,'id')] = a['institution'] + ', ' + self._text(a)
-                                except KeyError:
-                                    pass
-                 
-                        
-
-#Authors and note keys
-                    for g in contrib_group:
-                        try:
-                            author_meta = self._array(g['contrib'])
-                        except KeyError:
-                            pass
-                        else:
-                            base_metadata['authors'] = list()
-                            base_metadata['affiliations'] = list()
-                            for a in author_meta:
-                                if self._attr(a,'contrib-type') == 'author':
-                                    try:
-                                        pre = a['name']['prefix']+' '
-                                    except:
-                                        pre = ''
-                                    if pre == None:
-                                        pre = ''
-                                    try:
-                                        suf = ' '+a['name']['suffix']
-                                    except:
-                                        suf = ''
-                                    if suf == None:
-                                        suf = ''
-                                    try:
-                                        sur = a['name']['surname']
-                                    except:
-                                        sur = 'Anonymous'
-                                    try:
-                                        giv = a['name']['given-names'].rstrip()
-                                    except:
-                                        giv = ''
-                                    if giv == None:
-                                        pre = ''
-                                    if (pre+giv+suf) == '':
-                                        base_metadata['authors'].append(sur)
-                                    else:
-                                        base_metadata['authors'].append(sur+", "+pre+giv+suf)
-                                    try:
-                                        affs = self._array(a['xref'])
-                                        aid = self._gettext([self._attr(x,'rid') for x in affs]).replace(';',' ').split()
-                                    except:
-                                        base_metadata['affiliations'].append('')
-                                    else:
-                                        aff_string = "; ".join([affils[x] for x in aid])
-                                        base_metadata['affiliations'].append(aff_string)
-                            base_metadata['authors'] = "; ".join(base_metadata['authors'])
+        try:
+            abstract = article_meta.abstract.p
+        except:
+            pass
+        else:
+            base_metadata['abstract'] = self._munge(abstract)
 
 #Keywords:
-                try:
-                    art_cats = article_meta['article-categories']['subj-group']
-                except:
-                    pass
-                else:
-                    if type(art_cats) == type(list()):
-                        for c in art_cats:
-                            if c['@subj-group-type'] == 'toc-minor':
-                                base_metadata['keywords'] = c['subject'].replace(',',';')            
-                    else:
-                        if art_cats['@subj-group-type'] == 'toc-minor':
-                            base_metadata['keywords'] = art_cats['subject'].replace(',',';')            
-
-
-#Pubdate:
-                try:
-                    pub_dates = article_meta['pub-date']
-                except:
-                    pass
-                else:
-                    if(type(pub_dates)) == type(list()):
-                        for d in pub_dates:
-                            a = self._attr(d,'publication-format')
-                            b = self._attr(d,'pub-type')
-                            if (a == 'print' or b == 'ppub'):
-                                base_metadata['pubdate'] = self._attr(d,'iso-8601-date')
-                                if base_metadata['pubdate'][-2:] == '00':
-                                    base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
-                            else:
-                                if (b == 'epub'):
-                                    base_metadata['pubdate'] = self._attr(d,'iso-8601-date')
-                                    if base_metadata['pubdate'][-2:] == '00':
-                                        base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
-                    else:
-                        a = self._attr(pub_dates,'publication-format')
-                        b = self._attr(pub_dates,'pub-type')
-                        if (a == 'print' or b == 'ppub'):
-                            base_metadata['pubdate'] = self._attr(pub_dates,'iso-8601-date')
-                            if base_metadata['pubdate'][-2:] == '00':
-                                base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
-                        else:
-                            if (b == 'epub'):
-                                base_metadata['pubdate'] = self._attr(pub_dates,'iso-8601-date')
-                                if base_metadata['pubdate'][-2:] == '00':
-                                    base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
-
-#DOI:
-                try:
-                    id_meta = article_meta['article-id']
-                    try:
-                        if self._attr(id_meta,'pub-id-type') == 'doi':
-                            base_metadata['properties'] = {'DOI': 'doi:'+self._text(id_meta)}
-                    except:
-                        pass
-                except:
-                    pass
-
-#Journal name:
-                try:
-                    base_metadata['publication'] = journal_meta['journal-title-group']['journal-title']
-                    if type(base_metadata['publication']) == type(list()):
-                        base_metadata['publication'] = base_metadata['publication'][0]
-                except:
-                    pass
-#Journal ID:
-                try:
-                    for i in journal_meta['journal-id']:
-                        if self._attr(i,'journal-id-type') == 'publisher-id':
-                            base_metadata['pub-id'] = self._text(i)
-                except:
-                    pass
+        keywords = article_meta.find('article-categories').find_all('subj-group')
+        for c in keywords:
+            if c['subj-group-type'] == 'toc-minor':
+                base_metadata['keywords'] = self._munge(c.subject)
 
 #Volume:
-                try:
-                    base_metadata['volume'] = article_meta['volume']
-                except:
-                    pass
+        volume = article_meta.volume
+        base_metadata['volume'] = self._munge(volume)
 
 #Issue:
-                try:
-                    base_metadata['issue'] = article_meta['issue']
-                except:
-                    pass
+        issue = article_meta.issue
+        base_metadata['issue'] = self._munge(issue)
 
-#Pages:
-                try:
-                    fpage = article_meta['fpage']
-                except:
+#Journal name:
+        journal = journal_meta.find('journal-title-group').find('journal-title')
+        base_metadata['publication'] = self._munge(journal)
+
+#Journal ID:
+        jid = journal_meta.find_all('journal-id')
+        for j in jid:
+            if j['journal-id-type'] == 'publisher-id':
+                base_metadata['pub-id'] = self._munge(j)
+
+#DOI:
+        ids = article_meta.find_all('article-id')
+        for d in ids:
+            if d['pub-id-type'] == 'doi':
+                base_metadata['properties'] = {'DOI': 'doi:'+self._munge(d)}
+
+#Pubdate:
+
+        pub_dates = article_meta.find_all('pub-date')
+        for d in pub_dates:
+            try:
+                a = d['publication-format']
+            except KeyError:
+                a = ''
+            try:
+                b = d['pub-type']
+            except KeyError:
+                b = ''
+            if (a == 'print' or b == 'ppub'):
+                base_metadata['pubdate'] = d['iso-8601-date']
+                if base_metadata['pubdate'][-2:] == '00':
+                    base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
+            else:
+                if (a == 'electronic' or b == 'epub'):
                     try:
-                        fpage = article_meta['elocation-id']
-                    except:
-                        pass
-                try:
-                    fpage
-                except NameError:
-                    pass
-                else:
-                    try:
-                        lpage = article_meta['lpage']
+                         base_metadata['pubdate']
                     except KeyError:
+                        base_metadata['pubdate'] = d['iso-8601-date']
+                        if base_metadata['pubdate'][-2:] == '00':
+                            base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
+                    else:
                         pass
-                    else:
-                        if lpage == fpage:
-                            del lpage
-                    try:
-                        lpage
-                    except NameError:
-                        base_metadata['page'] = fpage
-                    else:
-                        base_metadata['page'] = fpage + "-" + lpage
+#Pages:
+
+        fpage = article_meta.fpage
+        if fpage == None:
+            fpage = article_meta.find('elocation-id')
+            if fpage == None:
+                del fpage
+        try:
+            fpage
+        except NameError:
+            pass
+        else:
+            lpage = article_meta.lpage
+            if lpage == None:
+                del lpage
+            else:
+                if lpage == fpage:
+                    del lpage
+            try:
+                lpage
+            except NameError:
+                base_metadata['page'] = self._munge(fpage)
+            else:
+                base_metadata['page'] = self._munge(fpage) + "-" + self._munge(lpage)
 
 
-
-                output_metadata = base_metadata
-
+        output_metadata = base_metadata
         return output_metadata
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
