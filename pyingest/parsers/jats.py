@@ -80,6 +80,8 @@ class JATSParser(BaseBeautifulSoupParser):
 #Title:
         title = article_meta.find('title-group').find('article-title')
         base_metadata['title'] = self._munge(title)
+        base_metadata['title'] = self._dehtml(base_metadata['title'])
+
 
 #Authors and Affiliations:
 #     # Set up affils storage
@@ -169,6 +171,7 @@ class JATSParser(BaseBeautifulSoupParser):
             pass
         else:
             base_metadata['abstract'] = self._munge(abstract)
+            base_metadata['abstract'] = self._dehtml(base_metadata['abstract'])
 
 #Keywords:
         keywords = article_meta.find('article-categories').find_all('subj-group')
