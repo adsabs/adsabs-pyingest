@@ -95,3 +95,11 @@ class TestAPSJATS(unittest.TestCase):
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
         self.assertEqual(document['bibcode'],shouldbe['bibcode'])
+
+    def test_dehtml(self):
+        testfile = 'test_data/stubdata/input/apsjats_10.1103.PhysRevA.97.019999.fulltext.xml'
+        shouldbe = {'title': 'Finite-error metrological bounds on multiparameter Hamiltonian estimation'}
+        with open(testfile,'rU') as fp:
+            parser = aps.APSJATSParser()
+            document = parser.parse(fp)
+        self.assertEqual(document['title'],shouldbe['title'])

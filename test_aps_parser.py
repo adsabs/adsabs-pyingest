@@ -13,15 +13,15 @@ import xmltodict
 #testfile = ['test_data/stubdata/input/apsjats_10.1103.PhysRevA.97.043801.fulltext.xml']
 
 #multiple testfiles
-testfile = glob.glob('test_data/stubdata/input/apsjats*')
+#testfile = glob.glob('test_data/stubdata/input/apsjats*')
 
 #daily payload:
-#testfile = list()
-#logfile = '/proj/ads/abstracts/sources/APS/logs/aps-update.out.2018-05-07'
-#with open(logfile,'rU') as fpp:
-#    for l in fpp.readlines():
-#        foo,bar,baz = l.split('\t')
-#        testfile.append(bar)
+testfile = list()
+logfile = '/proj/ads/abstracts/sources/APS/logs/aps-update.out.2018-05-07'
+with open(logfile,'rU') as fpp:
+    for l in fpp.readlines():
+        foo,bar,baz = l.split('\t')
+        testfile.append(bar)
 
 #print("There are %s files.\n\n\n"%len(testfile))
      
