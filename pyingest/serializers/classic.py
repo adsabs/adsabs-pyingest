@@ -38,6 +38,7 @@ class Tagged(object):
                              ('publication',  { 'tag': 'J' }),
                              ('source',       { 'tag': 'G'  }),
                              ('keywords',     { 'tag': 'K', 'join': ', ' }),
+                             ('database',     { 'tag': 'W', 'join': '; ' }),
                              ('abstract',     { 'tag': 'B' }),
                              ('properties',   { 'tag': 'I', 'join': '; ' }),
                              ('references',   { 'tag': 'Z', 'join': "\n   " }),

@@ -35,7 +35,16 @@ class APSJATSParser(JATSParser):
         else:
             return bibstem
 
-#   def make_journal_field
+    def dbfromkw(self, d, **kwargs):
+        ast_words = [x.lower() for x in APS_ASTRO_KEYWORDS]
+        db = 'PHY'
+        if isinstance(d['keywords'],basestring):
+            keywords = d['keywords'].split(',')
+            for k in keywords:
+                if k.lower() in ast_words:
+                    db = db+'; AST'
+                    return db
+        return db
 
 
     def parse(self, fp, **kwargs):
@@ -94,6 +103,13 @@ class APSJATSParser(JATSParser):
                 author_init = '.'
             output_metadata['bibcode'] = year + bibstem + volume + idno + author_init
             del output_metadata['pub-id']
+
+# Database (from APS keywords)
+        try:
+            output_metadata['database'] = self.dbfromkw(output_metadata)
+        except:
+            pass
+            
 
 
 # Return
