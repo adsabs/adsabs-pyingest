@@ -29,7 +29,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 newr.find(t).contents
             else:
                 newr.find(t).unwrap()
-        return unicode(newr)
+        return unicode(newr).replace("  "," ")
 
     def resource_dict(self, fp, **kwargs):
         d = self.bsfiletodict(fp, **kwargs)
@@ -84,7 +84,10 @@ class JATSParser(BaseBeautifulSoupParser):
             pass
         else:
             for a in affil:
-                a.label.decompose()
+                try:
+                    a.label.decompose()
+                except:
+                    pass
                 key = a['id']
                 aff_text = self._detag(a,JATS_TAGSET['affiliations'])
                 affils[key] = aff_text
