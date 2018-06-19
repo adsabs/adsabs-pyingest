@@ -128,3 +128,27 @@ APS_ASTRO_KEYWORDS = [
             'r process',
             's process'
 ]
+
+JATS_TAGS_DANGER = ['php','script','css']
+
+JATS_TAGS_MATH = ['inline-formula',
+            'mml:math',
+            'mml:semantics', 
+            'mml:mrow', 
+            'mml:munder', 
+            'mml:mo', 
+            'mml:mi', 
+            'mml:msub', 
+            'mml:mover', 
+            'mml:mn', 
+            'mml:annotation'
+]
+
+JATS_TAGS_HTML = ['sub','sup','a','astrobj']
+
+JATS_TAGSET = {'title':JATS_TAGS_MATH + JATS_TAGS_HTML,
+            'abstract':JATS_TAGS_MATH + JATS_TAGS_HTML + ['pre','br'],
+            'comments':JATS_TAGS_MATH + JATS_TAGS_HTML + ['pre','br'],
+            'affiliations':['email','orcid'],
+            'keywords':['astrobj']
+        }

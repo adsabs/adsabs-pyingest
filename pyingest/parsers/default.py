@@ -1,7 +1,10 @@
 import re
 import sys
-import bs4 as bs_parser
+import bs4
 import xmltodict as xmltodict_parser
+
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, module='bs4')
 
 class MissingParser(Exception):
     pass
@@ -18,18 +21,6 @@ class BaseXmlToDictParser(object):
     out of the input XML stream
     """
 
-    def _dehtml(self,r):
-        bad_tags = ['p','a','img','hr','font','br','iframe','div','link','html','head','body','title','style','meta','!doctype','span','noscript','button','form','b','li','ul','ol','svg','option','label','text','g','rect','details','summary','strong','header','h1','h2','h3','h4','nav','textarea','include-fragment','details-dialog','time','polygon','footer','path','small','section','circle']
-        dx = r.replace('\n',' ').replace('\r',' ')
-        for t in bad_tags:
-            p1 = '<'+t+' ?.*?>'
-            p2 = '</'+t+' ?>'
-            d1 = re.sub(p1,' ',dx,flags=re.I)
-            dx = re.sub(p2,' ',d1,flags=re.I)
-        dx = re.sub('<!--.*?-->',' ',dx,flags=re.I)
-        dx = re.sub('<script ?.*?>*?</script>',' ',dx,flags=re.I)
-        return re.sub('\s+',' ',dx).strip()
-    
     def xmltodict(self, fp, **kwargs):
         """returns a dict as created by xmltodict"""
         return xmltodict_parser.parse(fp, **kwargs)
@@ -75,10 +66,14 @@ class BaseXmlToDictParser(object):
 class BaseBeautifulSoupParser(BaseXmlToDictParser):
     """
     An XML parser which uses BeautifulSoup to create a dictionary
-    out of the input XML stream
+    out of the input XML stream.  Used by jats.py and aps.py
     """
 
-    def bstodict(self, fp, **kwargs):
-        """returns a dict as created by xmltodict"""
-        return bs_parser.BeautifulSoup(fp.read(), "xml", **kwargs)
+    def bsfiletodict(self, fp, **kwargs):
+        """returns a BeautifulSoup tree"""
+        return bs4.BeautifulSoup(fp.read(), "xml", **kwargs)
+        
+    def bsstrtodict(self, r, **kwargs):
+        """returns a BeautifulSoup tree"""
+        return bs4.BeautifulSoup(r, "xml", **kwargs)
         

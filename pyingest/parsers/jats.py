@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 
-import cgi
-import json
-import re
-import sys
-from adsputils import u2asc
+import bs4
 from default import BaseBeautifulSoupParser
+from pyingest.config.config import *
 
 
 class NoSchemaException(Exception):
@@ -22,65 +19,46 @@ class JATSParser(BaseBeautifulSoupParser):
     def __init__(self):
         pass
 
+    def _detag(self, r, tags_keep, **kwargs):
+        newr = bs4.BeautifulSoup(unicode(r),'lxml')
+        tag_list = list(set([x.name for x in newr.find_all()]))
+        for t in tag_list:
+            if t in JATS_TAGS_DANGER:
+                newr.find(t).decompose()
+            elif t in tags_keep:
+                newr.find(t).contents
+            else:
+                newr.find(t).unwrap()
+        return unicode(newr)
+
     def resource_dict(self, fp, **kwargs):
-        d = self.bstodict(fp, **kwargs)
-# this returns the root of a JATS article, which is the element <article>
-        r = d.article
+        d = self.bsfiletodict(fp, **kwargs)
+        r = self.bsstrtodict(unicode(d.article), **kwargs)
         return r
-
-    def _attribs(self, r, **kwargs):
-        kl = self._dict(r).keys()
-        attribs = {}
-        for k in kl:
-            if k[0] == '@':
-                attribs[k] = r[k]
-        return attribs
-
-    def _gettext(self, r):
-        if isinstance(r,list):
-            return "; ".join(self._gettext(x) for x in r)
-        elif isinstance(r,tuple):
-            return ": ".join(self._gettext(x) for x in r)
-        elif isinstance(r,dict):
-            return self._gettext(r.items())
-        elif isinstance(r,basestring):
-            return r
-
-    def _munge(self, r):
-# to retain any formatting tags inside a beautifulsoup tag, you need to 
-# turn it into a string with prettify(), and then split the string 
-# on linefeeds and remove multiple blank spaces.
-        if type(r) is not type(None):
-            s = (' '.join(r.prettify().split('\n'))).lstrip().rstrip()
-            t = re.sub('\s{2,}',' ',s)
-            try:
-                x1 = re.search('<.*?> ',t).group()
-                x2 = re.sub('<','</',x1)
-                x3 = re.sub(' .*?>','>',x2.rstrip())
-                u = t.replace(x1,'').replace(x3,'')
-                v = u.replace(x3,'')
-            except:
-                v = t
-            return v.lstrip().rstrip()
-        else:
-            return ''
 
 
     def parse(self, fp, **kwargs):
 
         output_metadata=dict()
 
-        r = self.resource_dict(fp, **kwargs)
+        r = self.resource_dict(fp, **kwargs).front
 
-        article_meta = r.front.find('article-meta')
-        journal_meta = r.front.find('journal-meta')
+        article_meta = r.find('article-meta')
+        journal_meta = r.find('journal-meta')
 
         base_metadata = {}
 
 #Title:
         title = article_meta.find('title-group').find('article-title')
-        base_metadata['title'] = self._munge(title)
-        base_metadata['title'] = self._dehtml(base_metadata['title'])
+        base_metadata['title'] = self._detag(title,JATS_TAGSET['title'])
+
+#Abstract:
+        try:
+            abstract = article_meta.abstract.p
+        except:
+            pass
+        else:
+            base_metadata['abstract'] = self._detag(abstract,JATS_TAGSET['abstract'])
 
 
 #Authors and Affiliations:
@@ -94,9 +72,9 @@ class JATSParser(BaseBeautifulSoupParser):
             pass
         else:
             for n in notes:
+                n.label.decompose()
                 key = n['id']
-                note_text_arr = [x.get_text() for x in n]
-                note_text = ' '.join(note_text_arr)
+                note_text = self._detag(n,JATS_TAGSET['affiliations'])
                 affils[key] = note_text
 
 #     # Affils/affil ids
@@ -106,9 +84,9 @@ class JATSParser(BaseBeautifulSoupParser):
             pass
         else:
             for a in affil:
+                a.label.decompose()
                 key = a['id']
-                num = key.lstrip('a') 
-                aff_text = a.get_text().lstrip(num)
+                aff_text = self._detag(a,JATS_TAGSET['affiliations'])
                 affils[key] = aff_text
         
 
@@ -123,19 +101,19 @@ class JATSParser(BaseBeautifulSoupParser):
             for a in authors:
 #             # Author names
                 if a.find('surname') is not None:
-                    surname = a.surname.get_text()
+                    surname = self._detag(a.surname,[])
                 else:
                     surname = 'Anonymous'
                 if a.find('prefix') is not None:
-                    prefix = a.prefix.get_text()+' '
+                    prefix = self._detag(a.prefix,[])+' '
                 else:
                     prefix = ''
                 if a.find('suffix') is not None:
-                    suffix = ' '+a.suffix.get_text()
+                    suffix = ' '+self._detag(a.suffix,[])
                 else:
                     suffix = ''
                 if a.find('given-names') is not None:
-                    given = a.find('given-names').get_text()
+                    given = self._detag(a.find('given-names'),[])
                 else:
                     given = ''
                 forename = prefix+given+suffix
@@ -164,44 +142,35 @@ class JATSParser(BaseBeautifulSoupParser):
                 del base_metadata['authors']
 
 
-#Abstract:
-        try:
-            abstract = article_meta.abstract.p
-        except:
-            pass
-        else:
-            base_metadata['abstract'] = self._munge(abstract)
-            base_metadata['abstract'] = self._dehtml(base_metadata['abstract'])
-
 #Keywords:
         keywords = article_meta.find('article-categories').find_all('subj-group')
         for c in keywords:
             if c['subj-group-type'] == 'toc-minor':
-                base_metadata['keywords'] = self._munge(c.subject)
+                base_metadata['keywords'] = self._detag(c.subject,JATS_TAGSET['keywords'])
 
 #Volume:
         volume = article_meta.volume
-        base_metadata['volume'] = self._munge(volume)
+        base_metadata['volume'] = self._detag(volume,[])
 
 #Issue:
         issue = article_meta.issue
-        base_metadata['issue'] = self._munge(issue)
+        base_metadata['issue'] = self._detag(issue,[])
 
 #Journal name:
         journal = journal_meta.find('journal-title-group').find('journal-title')
-        base_metadata['publication'] = self._munge(journal)
+        base_metadata['publication'] = self._detag(journal,[])
 
 #Journal ID:
         jid = journal_meta.find_all('journal-id')
         for j in jid:
             if j['journal-id-type'] == 'publisher-id':
-                base_metadata['pub-id'] = self._munge(j)
+                base_metadata['pub-id'] = self._detag(j,[])
 
 #DOI:
         ids = article_meta.find_all('article-id')
         for d in ids:
             if d['pub-id-type'] == 'doi':
-                base_metadata['properties'] = {'DOI': 'doi:'+self._munge(d)}
+                base_metadata['properties'] = {'DOI': 'doi:'+self._detag(d,[])}
 
 #Pubdate:
 
@@ -250,26 +219,10 @@ class JATSParser(BaseBeautifulSoupParser):
             try:
                 lpage
             except NameError:
-                base_metadata['page'] = self._munge(fpage)
+                base_metadata['page'] = self._detag(fpage,[])
             else:
-                base_metadata['page'] = self._munge(fpage) + "-" + self._munge(lpage)
-
+                base_metadata['page'] = self._detag(fpage,[]) + "-" + self._detag(lpage,[])
 
         output_metadata = base_metadata
         return output_metadata
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
