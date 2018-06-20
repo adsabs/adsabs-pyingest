@@ -28,7 +28,7 @@
 <title-group>
 <article-title>Fake article title with <script>VERY VERY DANGEROUS PROGRAMS AND</script> <i>other kinds of markup</i> inside <a href="http://www.reddit.com/r/aww">it</a> <p>including paragraph tags that really have no place in a title.</p></article-title>
 <alt-title alt-title-type="running-title">FAKE ARTICLE …</alt-title>
-<alt-title alt-title-type="running-authors">MATTHEW TEMPLETON AND ISAAC NEWTON</alt-title>
+<alt-title alt-title-type="running-authors">MATTHEW TEMPLETON AND HARRY "SNAPPER" ORGANS</alt-title>
 </title-group>
 <contrib-group>
 <contrib contrib-type="author"><name><surname>Templeton</surname><given-names>Matthew</given-names></name>
