@@ -19,6 +19,8 @@ class UnparseableException(Exception):
 
 class APSJATSParser(JATSParser):
 
+    AST_WORDS = [x.lower() for x in APS_ASTRO_KEYWORDS]
+
     def get_author_init(self,namestring):
         output = u2asc(namestring)
         for c in output:
@@ -36,13 +38,12 @@ class APSJATSParser(JATSParser):
             return bibstem
 
     def dbfromkw(self, d, **kwargs):
-        ast_words = [x.lower() for x in APS_ASTRO_KEYWORDS]
-        db = 'PHY'
-        if isinstance(d['keywords'],basestring):
-            keywords = d['keywords'].split(',')
+        db = ['PHY']
+        if isinstance(d,basestring):
+            keywords = d.split(',')
             for k in keywords:
-                if k.lower() in ast_words:
-                    db = db+'; AST'
+                if k.lower() in AST_WORDS:
+                    db.append('AST')
                     return db
         return db
 
@@ -106,7 +107,7 @@ class APSJATSParser(JATSParser):
 
 # Database (from APS keywords)
         try:
-            output_metadata['database'] = self.dbfromkw(output_metadata)
+            output_metadata['database'] = self.dbfromkw(output_metadata['keywords'])
         except:
             pass
             

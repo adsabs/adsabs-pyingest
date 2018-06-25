@@ -63,7 +63,7 @@ class BaseXmlToDictParser(object):
         else:
             return d
 
-class BaseBeautifulSoupParser(BaseXmlToDictParser):
+class BaseBeautifulSoupParser(object):
     """
     An XML parser which uses BeautifulSoup to create a dictionary
     out of the input XML stream.  Used by jats.py and aps.py
