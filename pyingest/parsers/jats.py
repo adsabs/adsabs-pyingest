@@ -207,7 +207,9 @@ class JATSParser(BaseBeautifulSoupParser):
         if fpage == None:
             fpage = article_meta.find('elocation-id')
             if fpage == None:
-                del fpage
+                fpage = article_meta.pageStart
+                if fpage == None:
+                    del fpage
         try:
             fpage
         except NameError:
@@ -215,7 +217,9 @@ class JATSParser(BaseBeautifulSoupParser):
         else:
             lpage = article_meta.lpage
             if lpage == None:
-                del lpage
+                lpage = article_meta.pageEnd
+                if lpage == None:
+                    del lpage
             else:
                 if lpage == fpage:
                     del lpage
