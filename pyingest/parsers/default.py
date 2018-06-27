@@ -1,5 +1,10 @@
+import re
 import sys
+import bs4
 import xmltodict as xmltodict_parser
+
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, module='bs4')
 
 class MissingParser(Exception):
     pass
@@ -15,7 +20,7 @@ class BaseXmlToDictParser(object):
     An XML parser which uses xmltodict to create a dictionary
     out of the input XML stream
     """
-    
+
     def xmltodict(self, fp, **kwargs):
         """returns a dict as created by xmltodict"""
         return xmltodict_parser.parse(fp, **kwargs)
@@ -57,3 +62,18 @@ class BaseXmlToDictParser(object):
             return d
         else:
             return d
+
+class BaseBeautifulSoupParser(object):
+    """
+    An XML parser which uses BeautifulSoup to create a dictionary
+    out of the input XML stream.  Used by jats.py and aps.py
+    """
+
+    def bsfiletodict(self, fp, **kwargs):
+        """returns a BeautifulSoup tree"""
+        return bs4.BeautifulSoup(fp.read(), "xml", **kwargs)
+        
+    def bsstrtodict(self, r, **kwargs):
+        """returns a BeautifulSoup tree"""
+        return bs4.BeautifulSoup(r, "xml", **kwargs)
+        

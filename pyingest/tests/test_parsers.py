@@ -8,15 +8,16 @@ import glob
 import json
 from pyingest.parsers import zenodo
 from pyingest.parsers import arxiv
+from pyingest.parsers import aps
 
-stubdata_dir = os.path.join(os.path.dirname(__file__), 'test_data/stubdata')
 
 class TestZenodo(unittest.TestCase):
 
     def setUp(self):
-        self.inputdocs = glob.glob(os.path.join(stubdata_dir, 'test_data/zenodo.*'))
+        stubdata_dir = os.path.join(os.path.dirname(__file__), '../../test_data/stubdata')
+        self.inputdocs = glob.glob(os.path.join(stubdata_dir, 'input/zenodo*'))
         self.outputdir = os.path.join(stubdata_dir, 'parsed')
-#        sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
+        sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
 
     def test_zenodo_parser(self):
         parser = zenodo.ZenodoParser()
@@ -83,3 +84,30 @@ class TestArxiv(unittest.TestCase):
                 parser = arxiv.ArxivParser()
                 document = parser.parse(fp)
                 self.assertEqual(document['bibcode'],b['bibcode'])
+
+
+class TestAPSJATS(unittest.TestCase):
+
+    def test_unicode_initial(self):
+        testfile = 'test_data/stubdata/input/apsjats_10.1103.PhysRevB.96.081117.fulltext.xml'
+        shouldbe = {'bibcode': '2017PhRvB..96h1117S'}
+        with open(testfile,'rU') as fp:
+            parser = aps.APSJATSParser()
+            document = parser.parse(fp)
+        self.assertEqual(document['bibcode'],shouldbe['bibcode'])
+
+    def test_dehtml(self):
+        testfile = 'test_data/stubdata/input/apsjats_10.1103.PhysRevA.97.019999.fulltext.xml'
+        shouldbe = {'title': 'Finite-error metrological bounds on multiparameter Hamiltonian estimation'}
+        with open(testfile,'rU') as fp:
+            parser = aps.APSJATSParser()
+            document = parser.parse(fp)
+        self.assertEqual(document['title'],shouldbe['title'])
+
+    def test_dehtml2(self):
+        testfile = 'test_data/stubdata/input/apsjats_10.1103.PhysRevA.95.129999.fulltext.xml'
+        shouldbe = {'bibcode': u'2015PhRvA..95l9999T', 'publication': u'Physical Review A, Volume 95, Issue 1, id.129999', 'pubdate': u'2015-07-01', 'title': u'Fake article title with other kinds of markup inside <a href="http://www.reddit.com/r/aww">it</a> including paragraph tags that really have no place in a title.', 'abstract': u'<a href="http://naughtywebsite.gov">Fake URLs</a> are an increasing problem when trying to write fake abstracts. It\'s unlikely that a .gov domain would host a bad website, but then again what times are we living in now? Also, <inline-formula><mml:math><mml:mi>\u03b4</mml:mi></mml:math></inline-formula>. Also also, <inline-formula><mml:math>this is some math</mml:math></inline-formula>.', 'database': ['PHY'], 'page': u'129999', 'volume': u'95', 'affiliations': [u'NASA-ADS, Harvard-Smithsonian Center for Astrophysics, 60 Garden St., Cambridge, MA 02138, United States', u'Monty Python lol.'], 'authors': u'Templeton, Matthew; Organs, Harry Snapper', 'keywords': u'Fundamental concepts', 'issue': u'1', 'properties': {'DOI': u'doi:10.1103/PhysRevA.95.129999'}}
+        with open(testfile, 'rU') as fp:
+            parser = aps.APSJATSParser()
+            document = parser.parse(fp)
+        self.assertDictEqual(document, shouldbe)

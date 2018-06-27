@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD with OASIS Tables with MathML3 v1.2d1 20170631//EN" "JATS-journalpublishing-oasis-article1-mathml3.dtd">
+<article article-type="research-article" xml:lang="en" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:oasis="http://www.niso.org/standards/z39-96/ns/oasis-exchange/table">
+<front>
+<journal-meta>
+<journal-id journal-id-type="publisher-id">PRA</journal-id>
+<journal-id journal-id-type="coden">PLRAAN</journal-id>
+<journal-title-group>
+<journal-title>Physical Review A</journal-title>
+<abbrev-journal-title>Phys. Rev. A</abbrev-journal-title>
+</journal-title-group>
+<issn pub-type="ppub">2469-9926</issn>
+<issn pub-type="epub">2469-9934</issn>
+<publisher>
+<publisher-name>American Physical Society</publisher-name>
+</publisher>
+</journal-meta>
+<article-meta>
+<article-id pub-id-type="doi">10.1103/PhysRevA.95.129999</article-id>
+<article-categories>
+<subj-group subj-group-type="toc-major">
+<subject>ARTICLES</subject>
+</subj-group>
+<subj-group subj-group-type="toc-minor">
+<subject>Fundamental concepts</subject>
+</subj-group>
+</article-categories>
+<title-group>
+<article-title>Fake article title with <script>VERY VERY DANGEROUS PROGRAMS AND</script> <i>other kinds of markup</i> inside <a href="http://www.reddit.com/r/aww">it</a> <p>including paragraph tags that really have no place in a title.</p></article-title>
+<alt-title alt-title-type="running-title">FAKE ARTICLE …</alt-title>
+<alt-title alt-title-type="running-authors">MATTHEW TEMPLETON AND HARRY "SNAPPER" ORGANS</alt-title>
+</title-group>
+<contrib-group>
+<contrib contrib-type="author"><name><surname>Templeton</surname><given-names>Matthew</given-names></name>
+<xref ref-type="aff" rid="a1"><sup>1</sup></xref>
+</contrib>
+<contrib contrib-type="author"><name><surname>Organs</surname><given-names>Harry <a href="http://news.bbc.co.uk">Snapper</a></given-names></name>
+<xref ref-type="aff" rid="a2"><sup>2</sup></xref>
+</contrib>
+<aff id="a1"><label><sup>1</sup></label>NASA-ADS, <institution>Harvard-Smithsonian Center for Astrophysics</institution>, 60 Garden St., Cambridge, MA 02138, United States</aff>
+<aff id="a2"><label><sup>2</sup></label><institution>Monty Python lol.</institution></aff>
+</contrib-group>
+<pub-date publication-format="electronic" iso-8601-date="2015-06-20" date-type="pub"><day>3</day><month>January</month><year>2018</year></pub-date>
+<pub-date publication-format="print" iso-8601-date="2015-07-00" date-type="pub"><month>July</month><year>2015</year></pub-date>
+<volume>95</volume>
+<issue>1</issue>
+<elocation-id>129999</elocation-id>
+<pub-history>
+<event>
+<date iso-8601-date="2017-09-08" date-type="received"><day>8</day><month>September</month><year>2017</year></date>
+</event>
+</pub-history>
+<permissions>
+<copyright-statement>©2018 American Physical Society</copyright-statement>
+<copyright-year>2018</copyright-year>
+<copyright-holder>American Physical Society</copyright-holder>
+</permissions>
+<abstract><p><a href="http://naughtywebsite.gov">Fake URLs</a> are an increasing <b>problem</b> when trying to write fake abstracts.  It's unlikely that a .gov domain would host a bad website, but then again <em>what times are we living in now?</em>  Also, <inline-formula><mml:math><mml:mi>δ</mml:mi></mml:math></inline-formula>. Also also, <inline-formula><mml:math>this is <php>not</php> some math</mml:math></inline-formula>.</p></abstract>
+<funding-group>
+<award-group award-type="contract">
+<funding-source country="JP">
+<institution-wrap>
+<institution>Japan Society for the Promotion of Science</institution>
+<institution-id institution-id-type="doi" vocab="open-funder-registry" vocab-identifier="10.13039/open_funder_registry">10.13039/501100001691</institution-id>
+</institution-wrap>
+</funding-source>
+<award-id>26287088</award-id>
+<award-id>15H05855</award-id>
+</award-group>
+<award-group award-type="contract">
+<funding-source country="JP">
+<institution-wrap>
+<institution>Ministry of Education, Culture, Sports, Science and Technology</institution>
+<institution-id institution-id-type="doi" vocab="open-funder-registry" vocab-identifier="10.13039/open_funder_registry">10.13039/501100001700</institution-id>
+</institution-wrap>
+</funding-source>
+<award-id/>
+</award-group>
+</funding-group>
+<counts>
+<page-count count="9"/>
+</counts>
+</article-meta>
+</front>
+<body>Lol.
+</body>
+<back>
+<ack>
+<title>ACKNOWLEDGMENTS</title>
+<p>We gratefully acknowledge waking up this morning.</p>
+</ack>
+<app-group>
+<app id="app1">
+<label>APPENDIX A:</label><title>THE PROOF OF THEOREM 1</title>
+<p>I'm right, so <b>there</b>
+</p></app>
+</app-group>
+<ref-list>
+<title>REFERENCES</title>
+<ref id="c1"><label>[1]</label><mixed-citation publication-type="journal"><object-id>1</object-id><person-group person-group-type="author"><string-name>A. S. Holevo</string-name></person-group>, <source>J. Multivariate Anal.</source> <volume>3</volume>, <page-range>337</page-range> (<year>1973</year>).<pub-id pub-id-type="coden">JMVAAI</pub-id><issn>0047-259X</issn><pub-id pub-id-type="doi" specific-use="suppress-display" assigning-authority="crossref">10.1016/0047-259X(73)90028-6</pub-id></mixed-citation>
+</ref>
+</ref-list>
+</back>
+</article>
