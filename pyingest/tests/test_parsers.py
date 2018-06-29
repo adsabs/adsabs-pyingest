@@ -3,12 +3,18 @@ Test parsers
 """
 
 import unittest
+import filecmp
 import sys, os
 import glob
 import json
+from mock import patch, Mock
+
 from pyingest.parsers import zenodo
 from pyingest.parsers import arxiv
 from pyingest.parsers import aps
+from pyingest.parsers import procsci
+
+from pyingest.serializers import classic
 
 
 class TestZenodo(unittest.TestCase):
@@ -111,3 +117,44 @@ class TestAPSJATS(unittest.TestCase):
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
         self.assertDictEqual(document, shouldbe)
+
+
+class MockResponse(object):
+
+    def __init__(self, resp_data):
+        self.resp_data = resp_data
+
+    def read(self):
+        return self.resp_data
+
+    
+class TestProcSci(unittest.TestCase):
+
+    def setUp(self):
+        "Mock procsci.PoSParser.urllib.urlopen"
+        self.patcher = patch('urllib.urlopen')
+        self.urlopen_mock = self.patcher.start()
+
+    def test_output(self):
+        parser = procsci.PoSParser()
+        mock_infile = "test_data/stubdata/input/pos_sissa_it_299.html"
+        mock_data = open(mock_infile,'rU').read()
+        self.urlopen_mock.return_value = MockResponse(mock_data)
+        test_data = parser.parse("this is not a URL but it should be")
+        test_outfile = "test_pos.tag"
+        standard_outfile = "test_data/stubdata/serialized/procsci_299.tag"
+        try:
+            os.remove(test_outfile)
+        except:
+            pass
+        for d in test_data:
+            serializer = classic.Tagged()
+            outputfp = open(test_outfile,'a')
+            serializer.write(d,outputfp)
+            outputfp.close()
+        result = filecmp.cmp(test_outfile,standard_outfile)
+        self.assertEqual(result, True)
+        os.remove(test_outfile)
+
+    def tearDown(self):
+        self.patcher.stop()

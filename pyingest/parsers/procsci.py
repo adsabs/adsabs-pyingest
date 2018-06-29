@@ -8,7 +8,7 @@ class PoSParser(BaseBeautifulSoupParser):
 
 # PoSParser will return a list of articles taken from a Proceedings of Science
 # (pos.sissa.it) conference page.  Instead of the typical parser that returns
-# just one record, it will return a TOC document where each element in the
+# just one record, it will return a TOC-format list where each element in the
 # list can be passed to the serializer (e.g. classic.Tagged())
 
     def __init__(self):
@@ -27,7 +27,6 @@ class PoSParser(BaseBeautifulSoupParser):
 
         pos_toc = [{}]
 
-        parser = BaseBeautifulSoupParser()
         data = self.resource_dict(self.get_buffer(url))
              
 
