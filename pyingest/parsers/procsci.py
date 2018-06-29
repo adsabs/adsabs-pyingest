@@ -59,20 +59,25 @@ class PoSParser(BaseBeautifulSoupParser):
             title = p.find("span", {"class":"contrib_title"})
             pdf = p.find("span", {"class":"contrib_file"})
             auths = p.find("span", {"class":"contrib_authors"})
-            if not isinstance(title,type(None)):
-        # Title:
-                article['title'] = title.get_text()
-            if not isinstance(auths,type(None)):
-        # Authors:
-                article['authors'] = [auths.get_text()]
-            if not isinstance(pdf,type(None)):
-                url = pdf.a["href"]
-        # Page:
-                article['page'] = str(int(url.split('/')[2]))
+            page = p.find("span", {"class":"contrib_code"})
 
-        # Properties (PDF URL):
-                url = 'https://pos.sissa.it' + url
-                article['properties'] = {'PDF':url}
+            # Title:
+            if not isinstance(title,type(None)):
+                article['title'] = title.get_text()
+
+            # Authors:
+            if not isinstance(auths,type(None)):
+                article['authors'] = [auths.get_text()]
+
+            # Page:
+            if not isinstance(page,type(None)):
+                article['page'] = str(int(page.a["href"].split('/')[2]))
+
+            # Properties (PDF URL):
+            if not isinstance(pdf,type(None)):
+                if not isinstance(pdf.a,type(None)):
+                    url = "https://pos.sissa.it" + pdf.a['href']
+                    article['properties'] = {'PDF':url}
 
             if article != dict():
                 pos_toc.append(article)
