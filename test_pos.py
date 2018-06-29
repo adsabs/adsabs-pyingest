@@ -1,19 +1,13 @@
-
 #!/usr/bin/env python
 
-from argparse import ArgumentParser
-import urllib
 from pyingest.parsers.procsci import PoSParser
-import pyingest.serializers.classic
-
+from pyingest.serializers.classic import Tagged
 
 parser = PoSParser()
-documents = parser.parse('https://pos.sissa.it/299')
+documents = parser.parse('https://pos.sissa.it/324')
 
-
-
+outputfp = open('pos.tag','a')
 for d in documents:
-    serializer = pyingest.serializers.classic.Tagged()
-    outputfp = open('pos.tag','a')
+    serializer = Tagged()
     serializer.write(d,outputfp)
-    outputfp.close()
+outputfp.close()
