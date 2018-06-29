@@ -14,6 +14,6 @@ documents = parser.parse('https://pos.sissa.it/299')
 
 for d in documents:
     serializer = pyingest.serializers.classic.Tagged()
-    outputfp = open('aps.tag','a')
+    outputfp = open('pos.tag','a')
     serializer.write(d,outputfp)
     outputfp.close()
