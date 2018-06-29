@@ -22,13 +22,13 @@ APS-JATS format fulltext.xml file (see the subdirectories under
 /proj/ads/fulltext/sources/downloads/cache/APS).  Such a file could be
 parsed with:
 
-"""
+```
 from pyingest.parsers.aps import APSJATSParser
 infile = "data_directory/apsjats-doi-fulltext.xml"
 parser = APSJATSParser()
 with open(infile,'rU') as fp:
     output = parser.parse(fp)
-"""
+```
 
 All parsers are designed to give output in a format that can be serialized
 by pyingest.serializers.classic.Tagged() to create an output file in ADS
