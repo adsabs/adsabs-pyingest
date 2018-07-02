@@ -140,7 +140,7 @@ class TestProcSci(unittest.TestCase):
         mock_infile = "test_data/stubdata/input/pos_sissa_it_299.html"
         mock_data = open(mock_infile,'rU').read()
         self.urlopen_mock.return_value = MockResponse(mock_data)
-        test_data = parser.parse("this is not a URL but it should be")
+        test_data = parser.parse("https://pos.sissa.it/299")
         test_outfile = "test_pos.tag"
         standard_outfile = "test_data/stubdata/serialized/procsci_299.tag"
         try:
@@ -155,6 +155,11 @@ class TestProcSci(unittest.TestCase):
         result = filecmp.cmp(test_outfile,standard_outfile)
         self.assertEqual(result, True)
         os.remove(test_outfile)
+
+    def test_badsite(self):
+        parser = procsci.PoSParser()
+        with self.assertRaises(procsci.URLError):
+            test_data = parser.parse("https://www.cnn.com")
 
     def tearDown(self):
         self.patcher.stop()
