@@ -20,7 +20,7 @@ class JATSParser(BaseBeautifulSoupParser):
         pass
 
     def _detag(self, r, tags_keep, **kwargs):
-        newr = bs4.BeautifulSoup(unicode(r),'lxml')
+        newr = bs4.BeautifulSoup(unicode(r),"lxml")
         tag_list = list(set([x.name for x in newr.find_all()]))
         for t in tag_list:
             if t in JATS_TAGS_DANGER:

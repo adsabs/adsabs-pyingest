@@ -61,16 +61,14 @@ class PoSParser(BaseBeautifulSoupParser):
                 # Abstract:
                 abstract = body.find("div", {"id":"abstract"}).get_text().replace('\r','').replace('\n','').lstrip().rstrip()
 
-                conf_info  = body.find_all("DIV")
-                dstring = "conference_date>"
+                conf_info  = body.find_all("div", {"class":"conference_date"})
                 for c in conf_info:
-                    if dstring in c.get_text():
-                        for x in c.find_all("BR"):
-                            x.replaceWith(". ")
+                    for x in c.find_all("br"):
+                        x.replaceWith(". ")
                 # Pubdate:
-                        pubdate = c.get_text().split()[2] + "/01"
+                    pubdate = c.get_text().split()[2] + "/01"
                 # Publication:
-                        publication = title + ". " + c.get_text().replace(dstring,'').replace(' .','.')
+                    publication = title + ". " + c.get_text().replace(' .','.')
 
                 pos_toc.append({'title':title,'abstract':abstract,'pubdate':pubdate,'publication':publication})
 
