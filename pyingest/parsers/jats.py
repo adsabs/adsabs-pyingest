@@ -20,8 +20,11 @@ class JATSParser(BaseBeautifulSoupParser):
         pass
 
     def _detag(self, r, tags_keep, **kwargs):
-        newr = bs4.BeautifulSoup(unicode(r),"lxml")
-        tag_list = list(set([x.name for x in newr.find_all()]))
+        newr = bs4.BeautifulSoup(unicode(r),'lxml')
+#       tag_list = list(set([x.name for x in newr.find_all()]))
+# if you combine the above tag_list with unwrap(), you'll find that it
+# only unwraps the *first* instance of each tag, not all of them!
+        tag_list = [x.name for x in newr.find_all()]
         for t in tag_list:
             if t in JATS_TAGS_DANGER:
                 newr.find(t).decompose()
@@ -29,7 +32,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 newr.find(t).contents
             else:
                 newr.find(t).unwrap()
-        return unicode(newr).replace("  "," ")
+        return unicode(newr).replace("\n"," ").rstrip().lstrip().replace("  "," ")
 
     def resource_dict(self, fp, **kwargs):
         d = self.bsfiletodict(fp, **kwargs)
@@ -79,7 +82,8 @@ class JATSParser(BaseBeautifulSoupParser):
 
 #     # Affils/affil ids
         try:
-            affil = article_meta.find('contrib-group').find_all('aff')
+#           affil = article_meta.find('contrib-group').find_all('aff')
+            affil = article_meta.find_all('aff')
         except:
             pass
         else:
@@ -133,8 +137,11 @@ class JATSParser(BaseBeautifulSoupParser):
                 else:
                     aid_arr = []
 
-                aff_text = '; '.join(affils[x] for x in aid_arr) 
-                base_metadata['affiliations'].append(aff_text)
+                try:
+                    aff_text = '; '.join(affils[x] for x in aid_arr) 
+                    base_metadata['affiliations'].append(aff_text)
+                except:
+                    pass
              
             
 
@@ -146,7 +153,13 @@ class JATSParser(BaseBeautifulSoupParser):
 
 
 #Keywords:
-        keywords = article_meta.find('article-categories').find_all('subj-group')
+        try:
+            keywords = article_meta.find('article-categories').find_all('subj-group')
+        except:
+            try:
+                keywords = article_meta.find('kwd-group').find('kwd')
+            except:
+                pass
         for c in keywords:
             if c['subj-group-type'] == 'toc-minor':
                 base_metadata['keywords'] = self._detag(c.subject,JATS_TAGSET['keywords'])
@@ -179,6 +192,19 @@ class JATSParser(BaseBeautifulSoupParser):
 
         pub_dates = article_meta.find_all('pub-date')
         for d in pub_dates:
+            pubdate_string = ''
+            try:
+                pubdate_string = d['iso-8601-date']
+            except:
+                try:
+                    dd = d.find('day')
+                    mm = d.find('month')
+                    yyyy = d.find('year')
+                    pubdate_string = "-".join([yyyy,mm,dd])
+                except:
+                    pass
+            if pubdate_string[-2:] == '00':
+                pubdate_string = pubdate_string[0:-2]+'01'
             try:
                 a = d['publication-format']
             except KeyError:
@@ -188,19 +214,16 @@ class JATSParser(BaseBeautifulSoupParser):
             except KeyError:
                 b = ''
             if (a == 'print' or b == 'ppub'):
-                base_metadata['pubdate'] = d['iso-8601-date']
-                if base_metadata['pubdate'][-2:] == '00':
-                    base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
+                base_metadata['pubdate'] = pubdate_string
             else:
                 if (a == 'electronic' or b == 'epub'):
                     try:
-                         base_metadata['pubdate']
+                        base_metadata['pubdate']
                     except KeyError:
-                        base_metadata['pubdate'] = d['iso-8601-date']
-                        if base_metadata['pubdate'][-2:] == '00':
-                            base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
+                        base_metadata['pubdate'] = pubdate_string
                     else:
                         pass
+
 #Pages:
 
         fpage = article_meta.fpage
