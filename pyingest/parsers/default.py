@@ -71,9 +71,9 @@ class BaseBeautifulSoupParser(object):
 
     def bsfiletodict(self, fp, **kwargs):
         """returns a BeautifulSoup tree"""
-        return bs4.BeautifulSoup(fp.read(), "xml", **kwargs)
+        return bs4.BeautifulSoup(fp.read(), "lxml", **kwargs)
         
     def bsstrtodict(self, r, **kwargs):
         """returns a BeautifulSoup tree"""
-        return bs4.BeautifulSoup(r, "xml", **kwargs)
+        return bs4.BeautifulSoup(r, "lxml", **kwargs)
         

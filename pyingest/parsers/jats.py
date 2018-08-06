@@ -232,4 +232,3 @@ class JATSParser(BaseBeautifulSoupParser):
 
         output_metadata = base_metadata
         return output_metadata
-
