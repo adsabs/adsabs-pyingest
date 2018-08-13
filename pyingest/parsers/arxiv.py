@@ -49,11 +49,14 @@ class ArxivParser(DublinCoreParser):
             pass
 
         if r['abstract']:
+            r['comments']=[x.replace('Comment:','').strip() for x in r['abstract'][1:]]
             r['abstract']=r['abstract'][0]
 
         if r['bibcode']:
             idarray = r['bibcode'].split(':')
             arxiv_id = idarray[-1]
+
+            r['publication'] = 'eprint arXiv:'+arxiv_id
 
             if arxiv_id[0].isalpha():
                 arx_field = arxiv_id.split('/')[0].replace('-','.')

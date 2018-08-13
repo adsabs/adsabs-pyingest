@@ -2,6 +2,9 @@
 %T Planet-Planet Occultations in TRAPPIST-1 and Other Exoplanet Systems
 %A Luger, Rodrigo; Lustig-Yaeger, Jacob; Agol, Eric
 %D 2017/11
+%J eprint arXiv:1711.05739
+%X 36 pages, 25 figures. Accepted to ApJ. Multi-purpose photodynamical
+  code available at github.com/rodluger/planetplanet
 %K Astrophysics - Earth and Planetary Astrophysics
 %B We explore the occurrence and detectability of planet-planet occultations
 (PPOs) in exoplanet systems. These are events during which a planet occults the
