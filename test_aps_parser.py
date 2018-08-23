@@ -1,6 +1,7 @@
 import glob
 import cStringIO
 import pyingest.parsers.aps as aps
+import pyingest.parsers.arxiv as arxiv
 import pyingest.serializers.classic
 import traceback
 import json
@@ -29,23 +30,39 @@ testfile = ['test_data/stubdata/input/apsjats_10.1103.PhysRevA.95.129999.fulltex
 #     
 #testfile = [testfile[1]]
 
+#for f in testfile:
+#    try:
+#        with open(f,'rU') as fp:
+#            parser = aps.APSJATSParser()
+#            document = parser.parse(fp)
+#            print(document)
+##           for k in document.keys():
+##               print k,type(document[k])
+#
+#            serializer = pyingest.serializers.classic.Tagged()
+#            outputfp = open('aps.tag','a')
+#            serializer.write(document,outputfp)
+#            outputfp.close()
+#    except: 
+#        print "ERROR!\n%s\n"%f
+#        traceback.print_exc()
+#        pass
+#    else:
+#        pass
+#        print "OK:",f
+
+
+testfile = glob.glob('test_data/arxiv.test/oai*')
 for f in testfile:
     try:
         with open(f,'rU') as fp:
-            parser = aps.APSJATSParser()
+            parser = arxiv.ArxivParser()
             document = parser.parse(fp)
-            print(document)
-#           for k in document.keys():
-#               print k,type(document[k])
-
             serializer = pyingest.serializers.classic.Tagged()
-            outputfp = open('aps.tag','a')
+            outputfp = open('arxiv.tag','a')
             serializer.write(document,outputfp)
             outputfp.close()
-    except: 
+    except:
         print "ERROR!\n%s\n"%f
         traceback.print_exc()
         pass
-    else:
-        pass
-        print "OK:",f

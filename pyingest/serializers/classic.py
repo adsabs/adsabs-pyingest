@@ -36,7 +36,7 @@ class Tagged(object):
                              ('affiliations', { 'tag': 'F', 'join': ', ', 'fmt': format_affids }),
                              ('pubdate',      { 'tag': 'D', 'fmt': format_pubdate }),
                              ('publication',  { 'tag': 'J' }),
-                             ('comments',     { 'tag': 'X' }),
+                             ('comments',     { 'tag': 'X', 'join': '; ' }),
                              ('source',       { 'tag': 'G'  }),
                              ('keywords',     { 'tag': 'K', 'join': ', ' }),
                              ('database',     { 'tag': 'W', 'join': '; ' }),
