@@ -95,12 +95,20 @@ class ArxivParser(DublinCoreParser):
 
         if r['properties']:
             prop = {}
+            pubnote_prop = []
             for x in r['properties']:
                 if 'http://arxiv.org' in x:
                     prop['HTML'] = x
-                if 'doi:' in x:
-                    prop['DOI'] = x
+                else:
+                    if 'doi:' in x:
+                        prop['DOI'] = x
+                    pubnote_prop.append(x)
             r['properties'] = prop
+
+            if r['comments']:
+                if len(pubnote_prop) > 0:
+                    r['comments'] = r['comments'] + pubnote_prop
+                    r['comments'] = "; ".join(r['comments'])
 
         return r
 #
