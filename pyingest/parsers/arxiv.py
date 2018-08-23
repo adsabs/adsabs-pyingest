@@ -108,7 +108,6 @@ class ArxivParser(DublinCoreParser):
             if r['comments']:
                 if len(pubnote_prop) > 0:
                     r['comments'] = r['comments'] + pubnote_prop
-                    r['comments'] = "; ".join(r['comments'])
 
         return r
 #
