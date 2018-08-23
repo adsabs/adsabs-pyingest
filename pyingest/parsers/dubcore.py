@@ -92,7 +92,7 @@ class DublinCoreParser(BaseXmlToDictParser):
 # Pubdate
 
             if self.get_tag(r,'dc:date'):
-                output_metadata['pubdate'] = self.get_tag(r,'dc:date')[-1]
+                output_metadata['pubdate'] = self.get_tag(r,'dc:date')[0]
 
             
 # Abstract
