@@ -139,6 +139,7 @@ class ArxivParser(DublinCoreParser):
 ## new style, random tests:
 #    fl.append(meta_dir+'1711/04702')
 #    fl.append(meta_dir+'1711/05739')
+#    fl.append(meta_dir+'1807/03779')
 #
 #
 #    for f in fl:
