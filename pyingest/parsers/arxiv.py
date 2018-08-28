@@ -111,15 +111,15 @@ class ArxivParser(DublinCoreParser):
 
         return r
 #
-#if __name__ == '__main__':
-#
-#    import glob
-#
-#    test = ArxivParser()
-#
-#    fl = []
-#    meta_dir='/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/'
-#
+if __name__ == '__main__':
+
+    import glob
+
+    test = ArxivParser()
+
+    fl = []
+    meta_dir='/proj/ads/abstracts/sources/ArXiv/oai/arXiv.org/'
+
 ## old style, pre-07 astro-ph:
 #    fl.append(meta_dir+'astro-ph/9501013')
 #
@@ -139,10 +139,11 @@ class ArxivParser(DublinCoreParser):
 ## new style, random tests:
 #    fl.append(meta_dir+'1711/04702')
 #    fl.append(meta_dir+'1711/05739')
-#
-#
-#    for f in fl:
-#        with open(f,'rU') as fp:
-#            woo = test.parse(fp)
-#            print(woo)
-#            print("\n\n\n")
+    fl.append(meta_dir+'1807/03779')
+
+
+    for f in fl:
+        with open(f,'rU') as fp:
+            woo = test.parse(fp)
+            print(woo)
+            print("\n\n\n")
