@@ -20,7 +20,7 @@ class DataCite3Parser(BaseXmlToDictParser):
 
     def __init__(self):
         # make sure we are utf-8 clean on stdout, stderr
-        self.DC3_SCHEMA = 'http://datacite.org/schema/kernel-3'
+        self.DC3_SCHEMAS = ['http://datacite.org/schema/kernel-3', 'http://datacite.org/schema/kernel-4']
         self.OA_URIS = [ 'info:eu-repo/semantics/openAccess' ]
         self.OA_TEXT = [ 'Open Access' ]
 
@@ -65,9 +65,9 @@ class DataCite3Parser(BaseXmlToDictParser):
 
         # check for namespace to make sure it's datacite3
         schema = r.get('@xmlns')
-        if schema != self.DC3_SCHEMA:
+        if schema not in self.DC3_SCHEMAS:
             raise WrongSchemaException("Unexpected XML schema \"%s\"" % schema)
-    
+
         if 'DOI' != r.get('identifier',{}).get('@identifierType',''):
             raise MissingDoiException("//identifier['@identifierType'] not DOI!")
         doi = r.get('identifier').get('#text')
@@ -133,7 +133,7 @@ class DataCite3Parser(BaseXmlToDictParser):
             caffils.append(aff.strip())
 
         # for now we are ignoring <dates> until it's clear what goes in there...
-    
+
         # we should probably look at what's in '@resourceTypeGeneral'...
         rtype = self._text(r.get('resourceType'))
 
@@ -184,7 +184,7 @@ class DataCite3Parser(BaseXmlToDictParser):
         if doi:
             properties['DOI'] = doi
 
-        return { 
+        return {
             'bibcode': bibcode or '',
             'authors': authors,
             'affiliations': aaffils,
@@ -198,9 +198,9 @@ class DataCite3Parser(BaseXmlToDictParser):
             'source': pub
             }
 #
-#    
+#
 #if __name__ == "__main__":
-#    
+#
 #    # allows program to print utf-8 encoded output sensibly
 #    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
 #    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
