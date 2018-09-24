@@ -1,12 +1,41 @@
-from setuptools import setup
 import os
+from subprocess import Popen, PIPE
 
-# no github commands in install requires, will require an official release.
-os.system('pip install --upgrade git+https://github.com/adsabs/ADSPipelineUtils.git')
+try:
+    from setuptools import setup, find_packages
+except ImportError:
+    from distutils.core import setup, find_packages
+
+try:
+    import pypandoc
+    long_description = pypandoc.convert('README.md', 'rst')
+except (IOError, ImportError):
+    long_description = ""
+
+with open('requirements.txt') as f:
+    required = f.read().splitlines()
+
+def get_git_version(default="v0.0.1"):
+    try:
+        p = Popen(['git', 'describe', '--tags'], stdout=PIPE, stderr=PIPE)
+        p.stderr.close()
+        line = p.stdout.readlines()[0]
+        line = line.strip()
+        return line
+    except:
+        return default
 
 setup(
     name='pyingest',
-    version='0.5.0',
-    packages=['pyingest','pyingest.config','pyingest.extractors','pyingest.parsers','pyingest.serializers','pyingest.validators','pyingest.extractors.grobid'],
-    install_requires=['bs4<=0.0.1', 'lxml<=4.2.1', 'functools32<=3.2.3.post2', 'jsonschema<=2.6.0', 'namedentities<=1.9.4', 'python-dateutil<=2.6.0', 'six<=1.11.0', 'xmltodict<=0.11.0']
-)
+    version=get_git_version(default="v0.0.1"),
+    url='https://github.com/adsabs/adsabs-pyingest',
+    license='MIT',
+    author="NASA/SAO ADS",
+    description='ADS collection or python parsers, validators, and serializers for adsabs ingest pipeline',
+    long_description=long_description,
+    packages=find_packages(),
+    include_package_data=True,
+    zip_safe=False,
+    platforms='any',
+    install_requires=required,
+  )
