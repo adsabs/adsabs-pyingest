@@ -21,6 +21,8 @@
     }, 
     "pubdate": "1975-08-29", 
     "references": [], 
+    "doctype": "misc",
+    "version": "",
     "source": "Zenodo", 
     "title": "The Use of a Self-Scanning Silicon Photodiode Array for Astronomical Spectroscopy"
 }

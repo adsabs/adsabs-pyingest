@@ -5,6 +5,7 @@
 import sys
 import json
 import codecs
+from collections import OrderedDict
 from default import BaseXmlToDictParser
 
 class WrongSchemaException(Exception):
@@ -16,11 +17,12 @@ class MissingAuthorsException(Exception):
 class MissingTitleException(Exception):
     pass
 
-class DataCite3Parser(BaseXmlToDictParser):
+class DataCiteParser(BaseXmlToDictParser):
+    """DataCiteParser compatible with schema versions 3 and 4"""
 
     def __init__(self):
         # make sure we are utf-8 clean on stdout, stderr
-        self.DC3_SCHEMAS = ['http://datacite.org/schema/kernel-3', 'http://datacite.org/schema/kernel-4']
+        self.DC_SCHEMAS = ['http://datacite.org/schema/kernel-3', 'http://datacite.org/schema/kernel-4']
         self.OA_URIS = [ 'info:eu-repo/semantics/openAccess' ]
         self.OA_TEXT = [ 'Open Access' ]
 
@@ -48,6 +50,26 @@ class DataCite3Parser(BaseXmlToDictParser):
                 references = c.split('\n')
         return references
 
+    def get_doctype(self, r):
+        datacite_resourcetype_mapping = {
+            'audiovisual': 'misc',
+            'collection': 'misc',
+            'datapaper': 'misc',
+            'dataset': 'misc',
+            'event': 'misc',
+            'image': 'misc',
+            'interactiveresource': 'misc',
+            'model': 'misc',
+            'physicalobject': 'misc',
+            'service': 'misc',
+            'software': 'software',
+            'sound': 'misc',
+            'text': 'misc',
+            'workflow': 'misc',
+            'other': 'misc',
+        }
+        return datacite_resourcetype_mapping.get(r.get('resourceType', {}).get('@resourceTypeGeneral', None), "misc")
+
     def resource_dict(self, fp, **kwargs):
         d = self.xmltodict(fp, **kwargs)
         # as a convenience, remove the OAI wrapper if it's there
@@ -63,9 +85,9 @@ class DataCite3Parser(BaseXmlToDictParser):
         """
         r = self.resource_dict(fp, **kwargs)
 
-        # check for namespace to make sure it's datacite3
+        # check for namespace to make sure it's a compatible datacite schema
         schema = r.get('@xmlns')
-        if schema not in self.DC3_SCHEMAS:
+        if schema not in self.DC_SCHEMAS:
             raise WrongSchemaException("Unexpected XML schema \"%s\"" % schema)
 
         if 'DOI' != r.get('identifier',{}).get('@identifierType',''):
@@ -76,7 +98,10 @@ class DataCite3Parser(BaseXmlToDictParser):
         authors = []
         aaffils = []
         for a in self._array(self._dict(r.get('creators')).get('creator',[])):
-            authors.append(a.get('creatorName'))
+            creator_name = a.get('creatorName')
+            if type(creator_name) is OrderedDict:
+                creator_name = creator_name.get("#text")
+            authors.append(creator_name)
             aff = a.get('affiliation','')
             for i in self._array(a.get('nameIdentifier')):
                 if 'ORCID' == i.get('@nameIdentifierScheme') or \
@@ -184,6 +209,8 @@ class DataCite3Parser(BaseXmlToDictParser):
         if doi:
             properties['DOI'] = doi
 
+        version = r.get('version', "")
+
         return {
             'bibcode': bibcode or '',
             'authors': authors,
@@ -195,6 +222,8 @@ class DataCite3Parser(BaseXmlToDictParser):
             'keywords': keywords,
             'abstract': self.get_abstract(r),
             'references': self.get_references(r),
+            'doctype': self.get_doctype(r),
+            'version': version,
             'source': pub
             }
 #
@@ -205,9 +234,9 @@ class DataCite3Parser(BaseXmlToDictParser):
 #    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
 #    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
 #
-#    dc3 = DataCite3Parser()
+#    dc = DataCiteParser()
 #    for file in sys.argv[1:]:
 #        d = None
 #        with open(file, 'r') as fp:
-#            d = dc3.parse(fp)
+#            d = dc.parse(fp)
 #            print json.dumps(d, indent=2)

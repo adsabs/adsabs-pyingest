@@ -21,6 +21,8 @@
     }, 
     "pubdate": "2002-05-06", 
     "references": [], 
+    "doctype": "misc",
+    "version": "",
     "source": "Zenodo", 
     "title": "Spectroscopy:  Instrumentation and Applications to the Galaxy and to the Large Scale Structure of the Universe"
 }

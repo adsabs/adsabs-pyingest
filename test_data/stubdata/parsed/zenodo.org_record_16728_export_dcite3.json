@@ -22,6 +22,8 @@
     }, 
     "pubdate": "1996-06-14", 
     "references": [], 
+    "doctype": "misc",
+    "version": "",
     "source": "Zenodo", 
     "title": "Planetary Atmospheres: Probing Structure through Millimeterwave Observations of Carbon Monoxide"
 }

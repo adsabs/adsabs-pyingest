@@ -20,6 +20,8 @@
     }, 
     "pubdate": "2015-12-01", 
     "references": [], 
+    "doctype": "misc",
+    "version": "",
     "source": "Zenodo", 
     "title": "The GTC Public Archive"
 }

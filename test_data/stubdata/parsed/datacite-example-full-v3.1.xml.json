@@ -1,0 +1,23 @@
+{
+    "abstract": "XML example of all DataCite Metadata Schema v3.1 properties.", 
+    "affiliations": [
+        "DataCite <ORCID>0000-0001-5000-0007</ORCID>"
+    ], 
+    "authors": [
+        "Miller, Elizabeth"
+    ], 
+    "bibcode": "", 
+    "doctype": "misc", 
+    "keywords": [
+        "000 computer science"
+    ], 
+    "properties": {
+        "DOI": "10.5072/example-full", 
+        "ELECTR": "http://schema.datacite.org/schema/meta/kernel-3.1/example/datacite-example-full-v3.1.xml"
+    }, 
+    "pubdate": "2014", 
+    "references": [], 
+    "source": "DataCite", 
+    "title": "Demonstration of DataCite Properties.", 
+    "version": "3.1"
+}
