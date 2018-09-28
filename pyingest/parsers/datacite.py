@@ -38,14 +38,50 @@ class DataCiteParser(BaseXmlToDictParser):
                 abstract = self._text(s)
         return abstract
 
+    def get_versions(self, r):
+        """
+        It relates an unversioned code repository to one of its specific software versions.
+            Page 71: https://schema.datacite.org/meta/kernel-4.1/doc/DataCite-MetadataKernel_v4.1.pdf
+        """
+        relation_type = 'HasVersion'
+        return self._get_related_identifiers(r, relation_type)
+
+    def get_version_of(self, r):
+        """
+        It relates a specific version of a software package to its software code repository.
+            Page 71: https://schema.datacite.org/meta/kernel-4.1/doc/DataCite-MetadataKernel_v4.1.pdf
+        """
+        relation_type = 'IsVersionOf'
+        return self._get_related_identifiers(r, relation_type)
+
+    def get_forked_from(self, r):
+        """
+        It denotes software that is a fork of other software
+            Page 71: https://schema.datacite.org/meta/kernel-4.1/doc/DataCite-MetadataKernel_v4.1.pdf
+        """
+        relation_type = 'IsDerivedFrom'
+        return self._get_related_identifiers(r, relation_type)
+
+    def get_forks(self, r):
+        """
+        It denotes software that is the origin of a fork
+            Page 71: https://schema.datacite.org/meta/kernel-4.1/doc/DataCite-MetadataKernel_v4.1.pdf
+        """
+        relation_type = 'IsSourceOf'
+        return self._get_related_identifiers(r, relation_type)
+
     def get_references(self, r):
-        references = []
+        relation_type = 'Cites'
+        return self._get_related_identifiers(r, relation_type)
+
+    def _get_related_identifiers(self, r, relation_type):
+        related_identifiers = []
         for s in self._array(self._dict(r.get('relatedIdentifiers')).get('relatedIdentifier',[])):
             t = s.get('@relationType')
             c = self._text(s)
-            if t == 'Cites':
-                references.append(c)
-        return references
+            if t == relation_type:
+                related_identifiers.append(c)
+        return related_identifiers
 
     def get_doctype(self, r):
         datacite_resourcetype_mapping = {
@@ -221,8 +257,13 @@ class DataCiteParser(BaseXmlToDictParser):
             'references': self.get_references(r),
             'doctype': self.get_doctype(r),
             'version': version,
+            'versions': self.get_versions(r),
+            'version_of': self.get_version_of(r),
+            'forked_from': self.get_forked_from(r),
+            'forks': self.get_forks(r),
             'source': pub
             }
+
 #
 #
 #if __name__ == "__main__":

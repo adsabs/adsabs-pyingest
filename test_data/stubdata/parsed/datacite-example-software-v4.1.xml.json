@@ -20,6 +20,8 @@
     ], 
     "bibcode": "", 
     "doctype": "misc", 
+    "forked_from": [], 
+    "forks": [], 
     "keywords": [
         "UHRMS", 
         "ESI", 
@@ -35,5 +37,9 @@
     "references": [], 
     "source": "Apollo - University of Cambridge Repository", 
     "title": "Code supporting \"A new processing scheme for ultra-high resolution direct infusion mass spectrometry data\"", 
-    "version": "2.0"
+    "version": "2.0",
+    "version_of": [
+        "doi:10.5072/example-software-repository"
+    ], 
+    "versions": []
 }

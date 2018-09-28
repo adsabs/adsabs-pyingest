@@ -21,7 +21,11 @@
     "pubdate": "2009-06-30", 
     "references": [], 
     "doctype": "misc",
+    "forked_from": [], 
+    "forks": [], 
     "version": "",
+    "version_of": [], 
+    "versions": [],
     "source": "Zenodo", 
     "title": "Simulation and Analysis of Magnetic Reconnection in a Laboratory Plasma Astrophysics Experiment"
 }

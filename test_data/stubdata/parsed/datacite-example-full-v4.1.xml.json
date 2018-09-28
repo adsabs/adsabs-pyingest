@@ -8,6 +8,8 @@
     ], 
     "bibcode": "", 
     "doctype": "misc", 
+    "forked_from": [], 
+    "forks": [], 
     "keywords": [
         "000 computer science"
     ], 
@@ -19,5 +21,7 @@
     "references": [], 
     "source": "DataCite", 
     "title": "Demonstration of DataCite Properties.", 
-    "version": "4.1"
+    "version": "4.1",
+    "version_of": [], 
+    "versions": []
 }
