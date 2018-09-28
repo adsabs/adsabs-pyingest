@@ -38,6 +38,23 @@ class DataCiteParser(BaseXmlToDictParser):
                 abstract = self._text(s)
         return abstract
 
+    def get_described_by(self, r):
+        """
+        Record that describes the current record.
+            Page 52: https://schema.datacite.org/meta/kernel-4.1/doc/DataCite-MetadataKernel_v4.1.pdf
+        """
+        relation_type = 'IsDescribedBy'
+        return self._get_related_identifiers(r, relation_type)
+
+    def get_description_of(self, r):
+        """
+        Current record is a description of a given record.
+            Page 52: https://schema.datacite.org/meta/kernel-4.1/doc/DataCite-MetadataKernel_v4.1.pdf
+        """
+        relation_type = 'Describes'
+        return self._get_related_identifiers(r, relation_type)
+
+
     def get_versions(self, r):
         """
         It relates an unversioned code repository to one of its specific software versions.
@@ -70,6 +87,10 @@ class DataCiteParser(BaseXmlToDictParser):
         relation_type = 'IsSourceOf'
         return self._get_related_identifiers(r, relation_type)
 
+    def get_citations(self, r):
+        relation_type = 'IsCitedBy'
+        return self._get_related_identifiers(r, relation_type)
+
     def get_references(self, r):
         relation_type = 'Cites'
         return self._get_related_identifiers(r, relation_type)
@@ -84,22 +105,26 @@ class DataCiteParser(BaseXmlToDictParser):
         return related_identifiers
 
     def get_doctype(self, r):
+        """
+        Resource type
+            Page 43: https://schema.datacite.org/meta/kernel-4.1/doc/DataCite-MetadataKernel_v4.1.pdf
+        """
         datacite_resourcetype_mapping = {
-            'audiovisual': 'misc',
-            'collection': 'misc',
-            'datapaper': 'misc',
-            'dataset': 'misc',
-            'event': 'misc',
-            'image': 'misc',
-            'interactiveresource': 'misc',
-            'model': 'misc',
-            'physicalobject': 'misc',
-            'service': 'misc',
-            'software': 'software',
-            'sound': 'misc',
-            'text': 'misc',
-            'workflow': 'misc',
-            'other': 'misc',
+            'Audiovisual': 'misc',
+            'Collection': 'misc',
+            'DataPaper': 'misc',
+            'Dataset': 'misc',
+            'Event': 'misc',
+            'Image': 'misc',
+            'InteractiveResource': 'misc',
+            'Model': 'misc',
+            'PhysicalObject': 'misc',
+            'Service': 'misc',
+            'Software': 'software',
+            'Sound': 'misc',
+            'Text': 'misc',
+            'Workflow': 'misc',
+            'Other': 'misc',
         }
         return datacite_resourcetype_mapping.get(r.get('resourceType', {}).get('@resourceTypeGeneral', None), "misc")
 
@@ -255,12 +280,15 @@ class DataCiteParser(BaseXmlToDictParser):
             'keywords': keywords,
             'abstract': self.get_abstract(r),
             'references': self.get_references(r),
+            'citations': self.get_citations(r),
             'doctype': self.get_doctype(r),
             'version': version,
             'versions': self.get_versions(r),
             'version_of': self.get_version_of(r),
             'forked_from': self.get_forked_from(r),
             'forks': self.get_forks(r),
+            'described_by': self.get_described_by(r),
+            'description_of': self.get_description_of(r),
             'source': pub
             }
 
