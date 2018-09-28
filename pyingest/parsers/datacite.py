@@ -39,15 +39,12 @@ class DataCiteParser(BaseXmlToDictParser):
         return abstract
 
     def get_references(self, r):
-        # as of version 3.1 of datacite schema, "References" is not an
-        # allowed description type but here we try just for kicks
         references = []
-        for s in self._array(self._dict(r.get('descriptions')).get('description',[])):
-            t = s.get('@descriptionType')
+        for s in self._array(self._dict(r.get('relatedIdentifiers')).get('relatedIdentifier',[])):
+            t = s.get('@relationType')
             c = self._text(s)
-            if t == 'References':
-                # XXX not supported yet, but one can only hope...
-                references = c.split('\n')
+            if t == 'Cites':
+                references.append(c)
         return references
 
     def get_doctype(self, r):
