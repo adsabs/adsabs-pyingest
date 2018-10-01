@@ -5,6 +5,7 @@
 import sys
 import json
 import codecs
+from collections import OrderedDict
 from default import BaseXmlToDictParser
 
 class WrongSchemaException(Exception):
@@ -16,11 +17,12 @@ class MissingAuthorsException(Exception):
 class MissingTitleException(Exception):
     pass
 
-class DataCite3Parser(BaseXmlToDictParser):
+class DataCiteParser(BaseXmlToDictParser):
+    """DataCiteParser compatible with schema versions 3 and 4"""
 
     def __init__(self):
         # make sure we are utf-8 clean on stdout, stderr
-        self.DC3_SCHEMA = 'http://datacite.org/schema/kernel-3'
+        self.DC_SCHEMAS = ['http://datacite.org/schema/kernel-3', 'http://datacite.org/schema/kernel-4']
         self.OA_URIS = [ 'info:eu-repo/semantics/openAccess' ]
         self.OA_TEXT = [ 'Open Access' ]
 
@@ -36,17 +38,95 @@ class DataCite3Parser(BaseXmlToDictParser):
                 abstract = self._text(s)
         return abstract
 
+    def get_described_by(self, r):
+        """
+        Record that describes the current record.
+            Page 52: https://schema.datacite.org/meta/kernel-4.1/doc/DataCite-MetadataKernel_v4.1.pdf
+        """
+        relation_type = 'IsDescribedBy'
+        return self._get_related_identifiers(r, relation_type)
+
+    def get_description_of(self, r):
+        """
+        Current record is a description of a given record.
+            Page 52: https://schema.datacite.org/meta/kernel-4.1/doc/DataCite-MetadataKernel_v4.1.pdf
+        """
+        relation_type = 'Describes'
+        return self._get_related_identifiers(r, relation_type)
+
+
+    def get_versions(self, r):
+        """
+        It relates an unversioned code repository to one of its specific software versions.
+            Page 71: https://schema.datacite.org/meta/kernel-4.1/doc/DataCite-MetadataKernel_v4.1.pdf
+        """
+        relation_type = 'HasVersion'
+        return self._get_related_identifiers(r, relation_type)
+
+    def get_version_of(self, r):
+        """
+        It relates a specific version of a software package to its software code repository.
+            Page 71: https://schema.datacite.org/meta/kernel-4.1/doc/DataCite-MetadataKernel_v4.1.pdf
+        """
+        relation_type = 'IsVersionOf'
+        return self._get_related_identifiers(r, relation_type)
+
+    def get_forked_from(self, r):
+        """
+        It denotes software that is a fork of other software
+            Page 71: https://schema.datacite.org/meta/kernel-4.1/doc/DataCite-MetadataKernel_v4.1.pdf
+        """
+        relation_type = 'IsDerivedFrom'
+        return self._get_related_identifiers(r, relation_type)
+
+    def get_forks(self, r):
+        """
+        It denotes software that is the origin of a fork
+            Page 71: https://schema.datacite.org/meta/kernel-4.1/doc/DataCite-MetadataKernel_v4.1.pdf
+        """
+        relation_type = 'IsSourceOf'
+        return self._get_related_identifiers(r, relation_type)
+
+    def get_citations(self, r):
+        relation_type = 'IsCitedBy'
+        return self._get_related_identifiers(r, relation_type)
+
     def get_references(self, r):
-        # as of version 3.1 of datacite schema, "References" is not an
-        # allowed description type but here we try just for kicks
-        references = []
-        for s in self._array(self._dict(r.get('descriptions')).get('description',[])):
-            t = s.get('@descriptionType')
+        relation_type = 'Cites'
+        return self._get_related_identifiers(r, relation_type)
+
+    def _get_related_identifiers(self, r, relation_type):
+        related_identifiers = []
+        for s in self._array(self._dict(r.get('relatedIdentifiers')).get('relatedIdentifier',[])):
+            t = s.get('@relationType')
             c = self._text(s)
-            if t == 'References':
-                # XXX not supported yet, but one can only hope...
-                references = c.split('\n')
-        return references
+            if t == relation_type:
+                related_identifiers.append(c)
+        return related_identifiers
+
+    def get_doctype(self, r):
+        """
+        Resource type
+            Page 43: https://schema.datacite.org/meta/kernel-4.1/doc/DataCite-MetadataKernel_v4.1.pdf
+        """
+        datacite_resourcetype_mapping = {
+            'Audiovisual': 'misc',
+            'Collection': 'misc',
+            'DataPaper': 'misc',
+            'Dataset': 'misc',
+            'Event': 'misc',
+            'Image': 'misc',
+            'InteractiveResource': 'misc',
+            'Model': 'misc',
+            'PhysicalObject': 'misc',
+            'Service': 'misc',
+            'Software': 'software',
+            'Sound': 'misc',
+            'Text': 'misc',
+            'Workflow': 'misc',
+            'Other': 'misc',
+        }
+        return datacite_resourcetype_mapping.get(r.get('resourceType', {}).get('@resourceTypeGeneral', None), "misc")
 
     def resource_dict(self, fp, **kwargs):
         d = self.xmltodict(fp, **kwargs)
@@ -63,11 +143,11 @@ class DataCite3Parser(BaseXmlToDictParser):
         """
         r = self.resource_dict(fp, **kwargs)
 
-        # check for namespace to make sure it's datacite3
+        # check for namespace to make sure it's a compatible datacite schema
         schema = r.get('@xmlns')
-        if schema != self.DC3_SCHEMA:
+        if schema not in self.DC_SCHEMAS:
             raise WrongSchemaException("Unexpected XML schema \"%s\"" % schema)
-    
+
         if 'DOI' != r.get('identifier',{}).get('@identifierType',''):
             raise MissingDoiException("//identifier['@identifierType'] not DOI!")
         doi = r.get('identifier').get('#text')
@@ -76,7 +156,10 @@ class DataCite3Parser(BaseXmlToDictParser):
         authors = []
         aaffils = []
         for a in self._array(self._dict(r.get('creators')).get('creator',[])):
-            authors.append(a.get('creatorName'))
+            creator_name = a.get('creatorName')
+            if type(creator_name) is OrderedDict:
+                creator_name = creator_name.get("#text")
+            authors.append(creator_name)
             aff = a.get('affiliation','')
             for i in self._array(a.get('nameIdentifier')):
                 if 'ORCID' == i.get('@nameIdentifierScheme') or \
@@ -133,7 +216,7 @@ class DataCite3Parser(BaseXmlToDictParser):
             caffils.append(aff.strip())
 
         # for now we are ignoring <dates> until it's clear what goes in there...
-    
+
         # we should probably look at what's in '@resourceTypeGeneral'...
         rtype = self._text(r.get('resourceType'))
 
@@ -184,7 +267,9 @@ class DataCite3Parser(BaseXmlToDictParser):
         if doi:
             properties['DOI'] = doi
 
-        return { 
+        version = r.get('version', "")
+
+        return {
             'bibcode': bibcode or '',
             'authors': authors,
             'affiliations': aaffils,
@@ -195,19 +280,29 @@ class DataCite3Parser(BaseXmlToDictParser):
             'keywords': keywords,
             'abstract': self.get_abstract(r),
             'references': self.get_references(r),
+            'citations': self.get_citations(r),
+            'doctype': self.get_doctype(r),
+            'version': version,
+            'versions': self.get_versions(r),
+            'version_of': self.get_version_of(r),
+            'forked_from': self.get_forked_from(r),
+            'forks': self.get_forks(r),
+            'described_by': self.get_described_by(r),
+            'description_of': self.get_description_of(r),
             'source': pub
             }
+
 #
-#    
+#
 #if __name__ == "__main__":
-#    
+#
 #    # allows program to print utf-8 encoded output sensibly
 #    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
 #    sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
 #
-#    dc3 = DataCite3Parser()
+#    dc = DataCiteParser()
 #    for file in sys.argv[1:]:
 #        d = None
 #        with open(file, 'r') as fp:
-#            d = dc3.parse(fp)
+#            d = dc.parse(fp)
 #            print json.dumps(d, indent=2)

@@ -1,0 +1,48 @@
+{
+    "abstract": "Set of scripts used to process direct infusion mass spectrometry data as described in the associated paper", 
+    "affiliations": [
+        "<ORCID>0000-0002-2997-2175</ORCID>", 
+        "", 
+        "", 
+        "", 
+        "", 
+        "", 
+        ""
+    ], 
+    "authors": [
+        "Zielinski, AT", 
+        "Kalberer, M", 
+        "Bortolini, C", 
+        "Giorio, C", 
+        "Fuller, SJ", 
+        "Kourtchev, I", 
+        "Popoola, O"
+    ], 
+    "bibcode": "", 
+    "citations": [], 
+    "described_by": [], 
+    "description_of": [], 
+    "doctype": "software", 
+    "forked_from": [], 
+    "forks": [], 
+    "keywords": [
+        "UHRMS", 
+        "ESI", 
+        "APPI", 
+        "Environmental samples", 
+        "direct infusion", 
+        "Orbitrap"
+    ], 
+    "properties": {
+        "DOI": "10.5072/example-software-2.0"
+    }, 
+    "pubdate": "2017-05-08", 
+    "references": [], 
+    "source": "Apollo - University of Cambridge Repository", 
+    "title": "Code supporting \"A new processing scheme for ultra-high resolution direct infusion mass spectrometry data\"", 
+    "version": "2.0",
+    "version_of": [
+        "doi:10.5072/example-software-repository"
+    ], 
+    "versions": []
+}

@@ -7,6 +7,9 @@
         "Battersby, Cara"
     ], 
     "bibcode": "2013PhDT.......193B", 
+    "citations": [], 
+    "described_by": [], 
+    "description_of": [], 
     "keywords": [], 
     "properties": {
         "DOI": "10.5281/zenodo.16738", 
@@ -16,6 +19,12 @@
     }, 
     "pubdate": "2013-08-10", 
     "references": [], 
+    "doctype": "misc",
+    "forked_from": [], 
+    "forks": [], 
+    "version": "",
+    "version_of": [], 
+    "versions": [],
     "source": "Zenodo", 
     "title": "The Structure and Evolution of Massive Star and Cluster Forming Regions"
 }

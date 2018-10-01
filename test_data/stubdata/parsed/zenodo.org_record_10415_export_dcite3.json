@@ -7,6 +7,9 @@
         "Sanders, Nathan"
     ], 
     "bibcode": "2014PhDT........11S", 
+    "citations": [], 
+    "described_by": [], 
+    "description_of": [], 
     "keywords": [
         "Astronomy", 
         "Astrophysics", 
@@ -290,6 +293,12 @@
         "Leibundgut, B., Kirshner, R., Huchra, J.,  Daugherty, D. 1991, IAU Circ., 5237, 2", 
         "Leitherer, C., Robert, C.,  Drissen, L. 1992, ApJ, 401, 596"
     ], 
+    "doctype": "misc",
+    "forked_from": [], 
+    "forks": [], 
+    "version": "",
+    "version_of": [], 
+    "versions": [],
     "source": "Zenodo", 
     "title": "Core-collapse Supernova Progenitors in the Era of Untargeted Transient Searches"
 }

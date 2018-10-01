@@ -7,6 +7,9 @@
         "Geary, John Charles"
     ], 
     "bibcode": "1975PhDT........53G", 
+    "citations": [], 
+    "described_by": [], 
+    "description_of": [], 
     "keywords": [
         "Astronomy", 
         "Astronomical spectroscopy", 
@@ -21,6 +24,12 @@
     }, 
     "pubdate": "1975-08-29", 
     "references": [], 
+    "doctype": "misc",
+    "forked_from": [], 
+    "forks": [], 
+    "version": "",
+    "version_of": [], 
+    "versions": [],
     "source": "Zenodo", 
     "title": "The Use of a Self-Scanning Silicon Photodiode Array for Astronomical Spectroscopy"
 }

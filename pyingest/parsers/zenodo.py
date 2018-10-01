@@ -6,13 +6,13 @@ import sys
 import json
 import re
 import logging
-from datacite3 import DataCite3Parser
+from datacite import DataCiteParser
 
 
 class WrongPublisherException(Exception):
     pass
 
-class ZenodoParser(DataCite3Parser):
+class ZenodoParser(DataCiteParser):
 
     def get_references(self, r):
         # as of version 3.1 of datacite schema, "References" is not an
@@ -55,9 +55,9 @@ class ZenodoParser(DataCite3Parser):
 
         return doc
 #
-#    
+#
 #if __name__ == "__main__":
-#    
+#
 #    # allows program to print utf-8 encoded output sensibly
 #    import codecs
 #    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)

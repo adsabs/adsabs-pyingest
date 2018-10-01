@@ -7,6 +7,9 @@
         "Gurwell, Mark Andrew"
     ], 
     "bibcode": "1996PhDT.........1G", 
+    "citations": [], 
+    "described_by": [], 
+    "description_of": [], 
     "keywords": [
         "TITAN", 
         "MARS", 
@@ -22,6 +25,12 @@
     }, 
     "pubdate": "1996-06-14", 
     "references": [], 
+    "doctype": "misc",
+    "forked_from": [], 
+    "forks": [], 
+    "version": "",
+    "version_of": [], 
+    "versions": [],
     "source": "Zenodo", 
     "title": "Planetary Atmospheres: Probing Structure through Millimeterwave Observations of Carbon Monoxide"
 }
