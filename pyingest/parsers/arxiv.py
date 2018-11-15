@@ -33,7 +33,7 @@ class ArxivParser(DublinCoreParser):
         output = u2asc(namestring)
         for c in output:
             if c.isalpha():
-                return c
+                return c.upper()
         return u'.'
 
 
