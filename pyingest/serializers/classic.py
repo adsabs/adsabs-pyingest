@@ -25,8 +25,11 @@ def format_affids(affils):
     return formatted
 
 def format_pubdate(date):
-    parsed = dateparser(date)
-    return parsed.strftime("%Y/%m")
+    if len(date) == 4 and (1*date == date):
+        return date+"/00"
+    else:
+        parsed = dateparser(date)
+        return parsed.strftime("%Y/%m")
 
 class Tagged(object):
     
