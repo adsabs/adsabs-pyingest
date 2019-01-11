@@ -161,6 +161,8 @@ class DataCiteParser(BaseXmlToDictParser):
                 creator_name = creator_name.get("#text")
             authors.append(creator_name)
             aff = a.get('affiliation','')
+            if aff is None:
+                aff = ''
             for i in self._array(a.get('nameIdentifier')):
                 if 'ORCID' == i.get('@nameIdentifierScheme') or \
                         'http://orcid.org' == i.get('@schemeURI'):
@@ -209,6 +211,8 @@ class DataCiteParser(BaseXmlToDictParser):
             contribs.append(a.get('contributorName'))
             ctypes.append(a.get('@contributorType',''))
             aff = a.get('affiliation','')
+            if aff is None:
+                aff = ''
             for i in self._array(a.get('nameIdentifier')):
                 if 'ORCID' == i.get('@nameIdentifierScheme') or \
                         'http://orcid.org' == i.get('@schemeURI'):
