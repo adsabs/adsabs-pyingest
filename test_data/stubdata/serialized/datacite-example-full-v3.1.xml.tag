@@ -1,7 +1,7 @@
 %T Demonstration of DataCite Properties.
 %A Miller, Elizabeth
 %F AA(DataCite <ORCID>0000-0001-5000-0007</ORCID>)
-%D 2014/09
+%D 2014/00
 %G DataCite
 %K 000 computer science
 %B XML example of all DataCite Metadata Schema v3.1 properties.
