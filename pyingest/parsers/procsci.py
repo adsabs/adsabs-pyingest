@@ -66,7 +66,17 @@ class PoSParser(BaseBeautifulSoupParser):
                     for x in c.find_all("br"):
                         x.replaceWith(". ")
                 # Pubdate:
-                    pubdate = c.get_text().split()[2] + "/01"
+                    pubdate_array = c.get_text().split()
+#                   print "PUBDATE ARRAY:",pubdate_array
+                    pubdate = "0000"
+                    for item in pubdate_array:
+                        if len(item) == 4:
+                            try:
+                                int(item)
+                            except:
+                                pass
+                            else:
+                                pubdate = item
                 # Publication:
                     publication = title + ". " + c.get_text().replace(' .','.')
 
