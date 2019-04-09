@@ -71,8 +71,6 @@ def check_collab(instring,first_names,last_names):
 
 
 def reorder_names(instring,first_names,last_names):
-#   a = ads_ex.UNICODE_HANDLER.ent2u(instring)
-#   a = ads_ex.UNICODE_HANDLER.remove_control_chars(a)
     a = ads_ex.RE_INITIAL.sub('. ', instring)
     a = a.strip().strip(';')
     collab_check = check_collab(a,first_names,last_names)
