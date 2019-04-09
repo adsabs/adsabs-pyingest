@@ -71,9 +71,9 @@ def check_collab(instring,first_names,last_names):
 
 
 def reorder_names(instring,first_names,last_names):
-    a = ads_ex.UNICODE_HANDLER.ent2u(instring)
-    a = ads_ex.UNICODE_HANDLER.remove_control_chars(a)
-    a = ads_ex.RE_INITIAL.sub('. ', a)
+#   a = ads_ex.UNICODE_HANDLER.ent2u(instring)
+#   a = ads_ex.UNICODE_HANDLER.remove_control_chars(a)
+    a = ads_ex.RE_INITIAL.sub('. ', instring)
     a = a.strip().strip(';')
     collab_check = check_collab(a,first_names,last_names)
     if collab_check is not None:
@@ -141,7 +141,8 @@ def reorder_names(instring,first_names,last_names):
     except:
         return "ERROR RETURNING NAME"
     else:
-        return auth_string
+        print "LOLLLL: ",auth_string
+        return ads_ex.UNICODE_HANDLER.ent2u(auth_string).replace('  ',' ')
 
 
 def ads_name_adjust(instring):
@@ -159,14 +160,18 @@ def ads_name_adjust(instring):
         first_names = []
         last_names = []
 
-    instring_clean = named_entities(instring)
-    author_list = instring_clean.split(config.AUTHOR_SEP)
+# ERROR IS HERE: YOU CAN'T SPLIT ON SEMICOLON UNTIL YOU'VE CONVERTED TO UTF8
+#... BUT ONCE YOU DO THAT, YOU FAIL ON THE OUTSTRING JOIN BELOW!
+    author_list = instring.split(config.AUTHOR_SEP)
+    author_list_clean = [named_entities(n) for n in author_list]
+    print "WOOOOO",author_list_clean
 #   lists for pre- and post-nameparser comparison
 
     author_out = []
-    for a in author_list:
+    for a in author_list_clean:
         for name in reorder_names(a,first_names,last_names).split(';'):
             author_out.append(name)
-        outstring = '; '.join(author_out).encode('utf-8').replace(' ,',',').replace('  ',' ')
+#       outstring = '; '.join(author_out).encode('utf-8').replace(' ,',',').replace('  ',' ')
+        outstring = '; '.join(author_out).replace(' ,',',').replace('  ',' ')
     return outstring
 
