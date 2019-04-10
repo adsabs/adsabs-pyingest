@@ -72,12 +72,15 @@ def check_collab(instring,first_names,last_names):
 
 def reorder_names(instring,first_names,last_names):
     a = ads_ex.RE_INITIAL.sub('. ', instring)
-    a = a.strip().strip(';')
+#   a = a.strip().strip(';')
+    a = a.strip()
     collab_check = check_collab(a,first_names,last_names)
     if collab_check is not None:
         return collab_check
     else:
         author = config.HumanName(a)
+#       print "unprocessed name: ",str(author),str(author.middle)
+        
 
         if (author.middle):
             add_to_first = []
@@ -88,7 +91,7 @@ def reorder_names(instring,first_names,last_names):
 
             try:
                 for subname in parts:
-                    if (len(subname.strip('.').strip('-')) <= 2 and subname.upper() not in last_names) or (subname.upper() in first_names):
+                    if (len(ads_ex.UNICODE_HANDLER.ent2u(subname).strip('.').strip('-')) <= 2 and subname.upper() not in last_names and "'" not in subname) or (subname.upper() in first_names and subname.upper() not in last_names):
                         if llast:
                             add_to_last.reverse()
                             while add_to_last:
@@ -116,13 +119,14 @@ def reorder_names(instring,first_names,last_names):
 
 # YOU NEED TO CHECK THAT NO FIRST NAMES APPEAR IN LAST
         if (author.last):
+#           print "\tmoving any lasts to first: ",str(author.last)
             parts = author.last.split()
             author_last_new = [parts[-1]]
             r_parts = parts[:-1]
             r_parts.reverse()
             try:
                 for subname in r_parts:
-                    if subname.upper() in first_names:
+                    if subname.upper() in first_names and subname.upper() not in last_names:
                         author.first = [author.first, subname]
                     else:
                         author_last_new.append(subname)
@@ -139,7 +143,7 @@ def reorder_names(instring,first_names,last_names):
     except:
         return "ERROR RETURNING NAME"
     else:
-        print "LOLLLL: ",auth_string
+#       print "LOLLLL: ",auth_string
         return ads_ex.UNICODE_HANDLER.ent2u(auth_string).replace('  ',' ')
 
 
@@ -154,6 +158,7 @@ def ads_name_adjust(instring):
             config.CONSTANTS.titles.add(s)
         for s in suffix_names:
             config.CONSTANTS.suffix_acronyms.add(s)
+            config.CONSTANTS.suffix_not_acronyms.add(s)
     except Exception as e:
         first_names = []
         last_names = []
@@ -162,7 +167,7 @@ def ads_name_adjust(instring):
 #... BUT ONCE YOU DO THAT, YOU FAIL ON THE OUTSTRING JOIN BELOW!
     author_list = instring.split(config.AUTHOR_SEP)
     author_list_clean = [named_entities(n) for n in author_list]
-    print "WOOOOO",author_list_clean
+#   print "WOOOOO",author_list_clean
 #   lists for pre- and post-nameparser comparison
 
     author_out = []
@@ -170,6 +175,6 @@ def ads_name_adjust(instring):
         for name in reorder_names(a,first_names,last_names).split(';'):
             author_out.append(name)
 #       outstring = '; '.join(author_out).encode('utf-8').replace(' ,',',').replace('  ',' ')
-        outstring = '; '.join(author_out).replace(' ,',',').replace('  ',' ')
+        outstring = '; '.join(author_out).replace(' ,',',').replace('  ',' ').replace('. -','.-')
     return outstring
 
