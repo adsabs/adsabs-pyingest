@@ -54,7 +54,12 @@ class ArxivParser(DublinCoreParser):
             r['abstract']=r['abstract'][0]
 
         if r['authors']:
-            r['authors'] = ads_nameparser.ads_name_adjust(r['authors'])
+            try:
+                reparsed_name = ads_nameparser.ads_name_adjust(r['authors'])
+            except:
+                pass
+            else:
+                r['authors'] = reparsed_name
 
         if r['bibcode']:
             idarray = r['bibcode'].split(':')
