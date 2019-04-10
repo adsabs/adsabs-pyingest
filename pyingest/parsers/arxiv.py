@@ -56,8 +56,8 @@ class ArxivParser(DublinCoreParser):
         if r['authors']:
             try:
                 reparsed_name = ads_nameparser.ads_name_adjust(r['authors'])
-            except:
-                pass
+            except exception as e:
+                print("Error in arxiv name parsing: ",e)
             else:
                 r['authors'] = reparsed_name
 
