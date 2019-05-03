@@ -15,6 +15,10 @@ except ImportError:
 import pyingest.config.config as config
 from adsputils import u2asc
 
+etal = re.compile(r",? et ?al\.?")
+reand = re.compile(r" and ")
+redash = re.compile(r"^-")
+
 first_names = []
 last_names = []
 
@@ -35,6 +39,10 @@ def init_namelists():
         last_names = read_datfile(config.LAST_NAMES)
         prefix_names = read_datfile(config.PREFIX_NAMES)
         suffix_names = read_datfile(config.SUFFIX_NAMES)
+# try adding some extras?
+        last_names.append('Y')
+        last_names.append('O')
+        first_names.append('Md')
     except Exception as e:
         raise BaseException(e)
     return first_names,last_names,prefix_names,suffix_names
@@ -72,14 +80,19 @@ def check_collab(instring,first_names,last_names):
 
 def reorder_names(instring,first_names,last_names):
     a = ads_ex.RE_INITIAL.sub('. ', instring)
-#   a = a.strip().strip(';')
-    a = a.strip()
+    a = etal.sub('',a)
+    a = reand.sub(' ',a)
+    a = a.replace(' .','.').replace('  ',' ').replace(' ,',',')
+    a = a.lstrip().rstrip().strip()
     collab_check = check_collab(a,first_names,last_names)
     if collab_check is not None:
         return collab_check
     else:
         author = config.HumanName(a)
-#       print "unprocessed name: ",str(author),str(author.middle)
+        if author.first == u'Jr.' and author.suffix != '':
+            author.first = author.suffix
+            author.suffix = u'Jr.'
+        print author.as_dict()
         
 
         if (author.middle):
@@ -91,7 +104,9 @@ def reorder_names(instring,first_names,last_names):
 
             try:
                 for subname in parts:
-                    if (len(ads_ex.UNICODE_HANDLER.ent2u(subname).strip('.').strip('-')) <= 2 and subname.upper() not in last_names and "'" not in subname) or (subname.upper() in first_names and subname.upper() not in last_names):
+                    subup = subname.upper()
+#                   if (len(ads_ex.UNICODE_HANDLER.ent2u(subname).strip('.').strip('-')) <= 2 and subup not in last_names and "'" not in subname) or (subup in first_names and subup not in last_names):
+                    if (len(ads_ex.UNICODE_HANDLER.ent2u(subname).strip('.').strip('-')) <= 2 and subup not in last_names and "'" not in subname) or ((subup in first_names and subup not in last_names) or ((redash.sub('',subup)) in first_names and (redash.sub('',subup)) not in last_names)):
                         if llast:
                             add_to_last.reverse()
                             while add_to_last:
@@ -119,7 +134,6 @@ def reorder_names(instring,first_names,last_names):
 
 # YOU NEED TO CHECK THAT NO FIRST NAMES APPEAR IN LAST
         if (author.last):
-#           print "\tmoving any lasts to first: ",str(author.last)
             parts = author.last.split()
             author_last_new = [parts[-1]]
             r_parts = parts[:-1]
@@ -136,14 +150,11 @@ def reorder_names(instring,first_names,last_names):
                 author_last_new.reverse()
                 author.last = author_last_new
                 
-#       if (author.last):
-
     try:
         auth_string = str(author)
     except:
         return "ERROR RETURNING NAME"
     else:
-#       print "LOLLLL: ",auth_string
         return ads_ex.UNICODE_HANDLER.ent2u(auth_string).replace('  ',' ')
 
 
@@ -163,18 +174,16 @@ def ads_name_adjust(instring):
         first_names = []
         last_names = []
 
-# ERROR IS HERE: YOU CAN'T SPLIT ON SEMICOLON UNTIL YOU'VE CONVERTED TO UTF8
-#... BUT ONCE YOU DO THAT, YOU FAIL ON THE OUTSTRING JOIN BELOW!
     author_list = instring.split(config.AUTHOR_SEP)
     author_list_clean = [named_entities(n) for n in author_list]
-#   print "WOOOOO",author_list_clean
 #   lists for pre- and post-nameparser comparison
 
     author_out = []
     for a in author_list_clean:
         for name in reorder_names(a,first_names,last_names).split(';'):
             author_out.append(name)
-#       outstring = '; '.join(author_out).encode('utf-8').replace(' ,',',').replace('  ',' ')
-        outstring = '; '.join(author_out).replace(' ,',',').replace('  ',' ').replace('. -','.-')
+#       outstring = '; '.join(author_out).replace(' ,',',').replace('  ',' ').replace('. -','.-')
+        outstring = '; '.join(author_out).replace(', , ',', ')
+        outstring = outstring.replace(' -','-').replace(' ~','~')
     return outstring
 

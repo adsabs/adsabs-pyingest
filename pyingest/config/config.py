@@ -184,4 +184,4 @@ COLLAB_SPLIT = True
 AUTHOR_SEP = ';'
 PRIORITY_LAST = True
 
-CONSTANTS.string_format = u'{last}, {first} "{nickname}", {suffix}'
+CONSTANTS.string_format = u'{last}, {first} "{nickname}", {suffix}, {title}'
