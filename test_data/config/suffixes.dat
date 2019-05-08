@@ -1,0 +1,13 @@
+#
+# $Id$
+# 
+# This is a list of suffixes that we know about.
+# It is used to properly format names in canonical form.
+
+Jr
+Sr
+II
+III
+IV
+# V is too dangerous (could be first name initial)
+VI

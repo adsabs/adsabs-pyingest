@@ -160,10 +160,13 @@ JATS_TAGSET = {'title':JATS_TAGS_MATH + JATS_TAGS_HTML,
 
 from nameparser import HumanName
 from nameparser.config import CONSTANTS
+import os
 
 # Name overrides from CLASSIC name parser
 
 AUTH_CONFIG = '/proj/ads/abstracts/config/Authors'
+if not os.path.isdir(AUTH_CONFIG):
+    AUTH_CONFIG = 'test_data/config'
 FIRST_NAMES = AUTH_CONFIG + '/first.dat'
 LAST_NAMES = AUTH_CONFIG + '/last.dat'
 PREFIX_NAMES = AUTH_CONFIG + '/prefixes.dat'
