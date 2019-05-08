@@ -18,6 +18,7 @@ from adsputils import u2asc
 etal = re.compile(r",? et ?al\.?")
 reand = re.compile(r" and ")
 redash = re.compile(r"^-")
+requot = re.compile(r"^'")
 
 first_names = []
 last_names = []
@@ -92,7 +93,7 @@ def reorder_names(instring,first_names,last_names):
         if author.first == u'Jr.' and author.suffix != '':
             author.first = author.suffix
             author.suffix = u'Jr.'
-        print author.as_dict()
+#       print author.as_dict()
         
 
         if (author.middle):
@@ -106,7 +107,7 @@ def reorder_names(instring,first_names,last_names):
                 for subname in parts:
                     subup = subname.upper()
 #                   if (len(ads_ex.UNICODE_HANDLER.ent2u(subname).strip('.').strip('-')) <= 2 and subup not in last_names and "'" not in subname) or (subup in first_names and subup not in last_names):
-                    if (len(ads_ex.UNICODE_HANDLER.ent2u(subname).strip('.').strip('-')) <= 2 and subup not in last_names and "'" not in subname) or ((subup in first_names and subup not in last_names) or ((redash.sub('',subup)) in first_names and (redash.sub('',subup)) not in last_names)):
+                    if (len(ads_ex.UNICODE_HANDLER.ent2u(subname).strip('.').strip('-')) <= 2 and subup not in last_names and "'" not in subname) or ((subup in first_names and subup not in last_names) or ((redash.sub('',subup)) in first_names and (redash.sub('',subup)) not in last_names) or ((requot.sub('',subup)) in first_names and (requot.sub('',subup)) not in last_names)):
                         if llast:
                             add_to_last.reverse()
                             while add_to_last:
