@@ -12,7 +12,6 @@ from pyingest.serializers import classic
 
 class TestParseAndSerialize(unittest.TestCase):
 
-    @unittest.skipIf(not arxiv, "arxiv tests not available")
     def test_arxiv_to_classic(self):
         testfiles = glob.glob('test_data/arxiv.test/oai*')
         shouldbe = [f.replace('/oai','/tagged/oai') + '.tagged' for f in testfiles]
