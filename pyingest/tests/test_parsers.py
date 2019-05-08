@@ -94,12 +94,14 @@ class TestZenodo(unittest.TestCase):
 
 class TestArxiv(unittest.TestCase):
 
+    @unittest.skipIf(not ads_ex,"ads.CachedExports not available")
     def test_bad_xml(self):
         with self.assertRaises(arxiv.EmptyParserException):
             with open('test_data/arxiv.test/readme.txt','rU') as fp:
                 parser = arxiv.ArxivParser()
                 document = parser.parse(fp)
 
+    @unittest.skipIf(not ads_ex,"ads.CachedExports not available")
     def test_parsing(self):
         shouldbe = {'authors':u'Luger, Rodrigo; Lustig-Yaeger, Jacob; Agol, Eric',
                     'title':u'Planet-Planet Occultations in TRAPPIST-1 and Other Exoplanet Systems',
@@ -112,6 +114,7 @@ class TestArxiv(unittest.TestCase):
         shouldbe['title'] = 'Paper that has nothing to do with TRAPPIST-1'
         self.assertNotEqual(shouldbe['title'],document['title'])
 
+    @unittest.skipIf(not ads_ex,"ads.CachedExports not available")
     def test_unicode_init(self):
         shouldbe = {'bibcode':u'2009arXiv0901.2443O'}
         with open('test_data/arxiv.test/oai_ArXiv.org_0901_2443','rU') as fp:
@@ -119,6 +122,7 @@ class TestArxiv(unittest.TestCase):
             document = parser.parse(fp)
             self.assertEqual(document['bibcode'],shouldbe['bibcode'])
 
+    @unittest.skipIf(not ads_ex,"ads.CachedExports not available")
     def test_old_style_subjects(self):
         testfiles = ['test_data/arxiv.test/oai_ArXiv.org_astro-ph_9501013','test_data/arxiv.test/oai_ArXiv.org_math_0306266','test_data/arxiv.test/oai_ArXiv.org_hep-th_0408048','test_data/arxiv.test/oai_ArXiv.org_cond-mat_9706061']
         shouldbe = [{'bibcode':u'1995astro.ph..1013H'},{'bibcode':u'2003math......6266C'},{'bibcode':u'2004hep.th....8048S'},{'bibcode':u'1997cond.mat..6061A'}]

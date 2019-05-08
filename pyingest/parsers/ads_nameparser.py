@@ -15,6 +15,7 @@ except ImportError:
 import pyingest.config.config as config
 from adsputils import u2asc
 
+RE_INITIAL = re.compile('\. *(?!,)')
 etal = re.compile(r",? et ?al\.?")
 reand = re.compile(r" and ")
 redash = re.compile(r"^-")
@@ -80,7 +81,7 @@ def check_collab(instring,first_names,last_names):
 
 
 def reorder_names(instring,first_names,last_names):
-    a = ads_ex.RE_INITIAL.sub('. ', instring)
+    a = RE_INITIAL.sub('. ', instring)
     a = etal.sub('',a)
     a = reand.sub(' ',a)
     a = a.replace(' .','.').replace('  ',' ').replace(' ,',',')
