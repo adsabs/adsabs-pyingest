@@ -2,16 +2,6 @@ import sys
 import re
 from namedentities import named_entities, unicode_entities
 
-try:
-    import ads.ADSCachedExports as ads_ex
-except ImportError:
-    sys.path.append('/proj/ads/soft/python/lib/site-packages')
-    try:
-        import ads.ADSCachedExports as ads_ex
-    except ImportError as e:
-        print 'Unable to import ads libraries: {}'.format(e)
-
-
 import pyingest.config.config as config
 from adsputils import u2asc
 
