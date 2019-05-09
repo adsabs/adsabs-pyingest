@@ -1,6 +1,6 @@
 import sys
 import re
-from namedentities import named_entities
+from namedentities import named_entities, unicode_entities
 
 try:
     import ads.ADSCachedExports as ads_ex
@@ -24,7 +24,6 @@ requot = re.compile(r"^'")
 first_names = []
 last_names = []
 
-
 def read_datfile(filename):
     output_list = []
     with open(filename,'rU') as fp:
@@ -32,22 +31,24 @@ def read_datfile(filename):
             if l.strip() != '' and l[0] != '#':
                 output_list.append(l.strip())
     return output_list
-
-
-def init_namelists():
-
-    try:
-        first_names = read_datfile(config.FIRST_NAMES)
-        last_names = read_datfile(config.LAST_NAMES)
-        prefix_names = read_datfile(config.PREFIX_NAMES)
-        suffix_names = read_datfile(config.SUFFIX_NAMES)
+try:
+    first_names = read_datfile(config.FIRST_NAMES)
+    last_names = read_datfile(config.LAST_NAMES)
+    prefix_names = read_datfile(config.PREFIX_NAMES)
+    suffix_names = read_datfile(config.SUFFIX_NAMES)
 # try adding some extras?
-        last_names.append('Y')
-        last_names.append('O')
-        first_names.append('Md')
-    except Exception as e:
-        raise BaseException(e)
-    return first_names,last_names,prefix_names,suffix_names
+    last_names.append('Y')
+# removed 'O' by request of CSG -- failing more often than not
+#   last_names.append('O')
+    first_names.append('Md')
+    for s in prefix_names:
+        config.CONSTANTS.titles.add(s)
+    for s in suffix_names:
+        config.CONSTANTS.suffix_acronyms.add(s)
+        config.CONSTANTS.suffix_not_acronyms.add(s)
+except Exception as e:
+    raise BaseException(e)
+
 
 
 def check_collab(instring,first_names,last_names):
@@ -107,8 +108,9 @@ def reorder_names(instring,first_names,last_names):
             try:
                 for subname in parts:
                     subup = subname.upper()
-#                   if (len(ads_ex.UNICODE_HANDLER.ent2u(subname).strip('.').strip('-')) <= 2 and subup not in last_names and "'" not in subname) or (subup in first_names and subup not in last_names):
-                    if (len(ads_ex.UNICODE_HANDLER.ent2u(subname).strip('.').strip('-')) <= 2 and subup not in last_names and "'" not in subname) or ((subup in first_names and subup not in last_names) or ((redash.sub('',subup)) in first_names and (redash.sub('',subup)) not in last_names) or ((requot.sub('',subup)) in first_names and (requot.sub('',subup)) not in last_names)):
+#                   if (len(subname.strip('.').strip('-')) <= 2 and subup not in last_names and "'" not in subname) or ((subup in first_names and subup not in last_names) or ((redash.sub('',subup)) in first_names and (redash.sub('',subup)) not in last_names) or ((requot.sub('',subup)) in first_names and (requot.sub('',subup)) not in last_names)):
+#                   if (len(ads_ex.UNICODE_HANDLER.ent2u(subname).strip('.').strip('-')) <= 2 and subup not in last_names and "'" not in subname) or ((subup in first_names and subup not in last_names) or ((redash.sub('',subup)) in first_names and (redash.sub('',subup)) not in last_names) or ((requot.sub('',subup)) in first_names and (requot.sub('',subup)) not in last_names)):
+                    if (len(unicode_entities(subname).strip('.').strip('-')) <= 2 and subup not in last_names and "'" not in subname) or ((subup in first_names and subup not in last_names) or ((redash.sub('',subup)) in first_names and (redash.sub('',subup)) not in last_names) or ((requot.sub('',subup)) in first_names and (requot.sub('',subup)) not in last_names)):
                         if llast:
                             add_to_last.reverse()
                             while add_to_last:
@@ -157,24 +159,15 @@ def reorder_names(instring,first_names,last_names):
     except:
         return "ERROR RETURNING NAME"
     else:
-        return ads_ex.UNICODE_HANDLER.ent2u(auth_string).replace('  ',' ')
+#       return auth_string.replace('  ',' ')
+#       return ads_ex.UNICODE_HANDLER.ent2u(auth_string).replace('  ',' ')
+        return unicode_entities(auth_string).replace('  ',' ')
 
 
 def ads_name_adjust(instring):
     
 # assumes 'instring' is in standardized name format, with individual authors
 # separated by semicolons
-
-    try:
-        (first_names, last_names, prefix_names, suffix_names) = init_namelists()
-        for s in prefix_names:
-            config.CONSTANTS.titles.add(s)
-        for s in suffix_names:
-            config.CONSTANTS.suffix_acronyms.add(s)
-            config.CONSTANTS.suffix_not_acronyms.add(s)
-    except Exception as e:
-        first_names = []
-        last_names = []
 
     author_list = instring.split(config.AUTHOR_SEP)
     author_list_clean = [named_entities(n) for n in author_list]
