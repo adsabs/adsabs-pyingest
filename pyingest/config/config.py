@@ -152,3 +152,39 @@ JATS_TAGSET = {'title':JATS_TAGS_MATH + JATS_TAGS_HTML,
             'affiliations':['email','orcid'],
             'keywords':['astrobj']
         }
+
+
+
+
+# NAME-PARSING DEFAULTS: used by parsers/arxiv.py
+
+from nameparser import HumanName
+from nameparser.config import CONSTANTS
+import os
+
+# Name overrides from CLASSIC name parser
+
+AUTH_CONFIG = '/proj/ads/abstracts/config/Authors'
+if not os.path.isdir(AUTH_CONFIG):
+    AUTH_CONFIG = 'test_data/config'
+FIRST_NAMES = AUTH_CONFIG + '/first.dat'
+LAST_NAMES = AUTH_CONFIG + '/last.dat'
+PREFIX_NAMES = AUTH_CONFIG + '/prefixes.dat'
+SUFFIX_NAMES = AUTH_CONFIG + '/suffixes.dat'
+
+# Names/titles being added
+
+# To remove *all* of the preset titles:
+CONSTANTS.titles.remove(*CONSTANTS.titles)
+CONSTANTS.suffix_acronyms.remove(*CONSTANTS.suffix_acronyms)
+CONSTANTS.suffix_not_acronyms.remove(*CONSTANTS.suffix_not_acronyms)
+
+# check for these strings to find collaborations
+COLLAB_STRINGS = ['group', 'team', 'collaboration']
+COLLAB_REMOVE_THE = False
+COLLAB_SPLIT = True
+
+AUTHOR_SEP = ';'
+PRIORITY_LAST = True
+
+CONSTANTS.string_format = u'{last}, {first} "{nickname}", {suffix}, {title}'

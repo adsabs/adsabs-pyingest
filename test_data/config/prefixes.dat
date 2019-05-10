@@ -1,0 +1,33 @@
+#
+# $Id$
+#
+# This is a list of prefixes (aka "salutations") that we know about.
+# It is used to properly format the names into their canonical form.
+
+Dr
+Esq
+Prof
+Rev
+Sir
+# Lord
+Lady
+Admiral
+Commander
+Captain
+Archdeacon
+Capt
+Col
+# Gen
+Lieut
+Comm
+Lieut.-Col
+Lieut.-Colonel
+General
+Colonel
+Commander
+# Major
+Major-General
+# Baron
+Father
+Sj
+# Ritter

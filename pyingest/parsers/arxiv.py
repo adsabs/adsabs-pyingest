@@ -5,6 +5,7 @@
 
 import codecs
 from dubcore import DublinCoreParser
+import ads_nameparser
 from adsputils import u2asc
 from xml.parsers import expat
 
@@ -51,6 +52,9 @@ class ArxivParser(DublinCoreParser):
         if r['abstract']:
             r['comments']=[x.replace('Comment:','').strip() for x in r['abstract'][1:]]
             r['abstract']=r['abstract'][0]
+
+        if r['authors']:
+            r['authors'] = ads_nameparser.ads_name_adjust(r['authors'])
 
         if r['bibcode']:
             idarray = r['bibcode'].split(':')
