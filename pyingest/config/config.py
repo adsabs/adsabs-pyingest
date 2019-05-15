@@ -178,13 +178,4 @@ SUFFIX_NAMES = os.path.join(BASE_DIR, 'suffixes.dat')
 CONSTANTS.titles.remove(*CONSTANTS.titles)
 CONSTANTS.suffix_acronyms.remove(*CONSTANTS.suffix_acronyms)
 CONSTANTS.suffix_not_acronyms.remove(*CONSTANTS.suffix_not_acronyms)
-
-# check for these strings to find collaborations
-COLLAB_STRINGS = ['group', 'team', 'collaboration']
-COLLAB_REMOVE_THE = False
-COLLAB_SPLIT = True
-
-AUTHOR_SEP = ';'
-PRIORITY_LAST = True
-
 CONSTANTS.string_format = u'{last}, {first} "{nickname}", {suffix}, {title}'
