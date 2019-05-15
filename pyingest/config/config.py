@@ -133,14 +133,14 @@ JATS_TAGS_DANGER = ['php','script','css']
 
 JATS_TAGS_MATH = ['inline-formula',
             'mml:math',
-            'mml:semantics', 
-            'mml:mrow', 
-            'mml:munder', 
-            'mml:mo', 
-            'mml:mi', 
-            'mml:msub', 
-            'mml:mover', 
-            'mml:mn', 
+            'mml:semantics',
+            'mml:mrow',
+            'mml:munder',
+            'mml:mo',
+            'mml:mi',
+            'mml:msub',
+            'mml:mover',
+            'mml:mn',
             'mml:annotation'
 ]
 
@@ -164,13 +164,13 @@ import os
 
 # Name overrides from CLASSIC name parser
 
-AUTH_CONFIG = '/proj/ads/abstracts/config/Authors'
-if not os.path.isdir(AUTH_CONFIG):
-    AUTH_CONFIG = 'test_data/config'
-FIRST_NAMES = AUTH_CONFIG + '/first.dat'
-LAST_NAMES = AUTH_CONFIG + '/last.dat'
-PREFIX_NAMES = AUTH_CONFIG + '/prefixes.dat'
-SUFFIX_NAMES = AUTH_CONFIG + '/suffixes.dat'
+BASE_DIR = '/proj/ads/abstracts/config/Authors'
+if not os.path.isdir(BASE_DIR):
+    BASE_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../../test_data/config/")
+FIRST_NAMES = os.path.join(BASE_DIR, 'first.dat')
+LAST_NAMES = os.path.join(BASE_DIR, 'last.dat')
+PREFIX_NAMES = os.path.join(BASE_DIR, 'prefixes.dat')
+SUFFIX_NAMES = os.path.join(BASE_DIR, 'suffixes.dat')
 
 # Names/titles being added
 
