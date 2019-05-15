@@ -167,16 +167,19 @@ def ads_name_adjust(authors_str, delimiter=u';', default_to_last_name=True, coll
     default_collaborations_params.update(collaborations_params)
     collaborations_params = default_collaborations_params
 
-    author_list = authors_str.split(delimiter)
-    author_list_clean = [named_entities(n) for n in author_list]
-    # lists for pre- and post-nameparser comparison
+    # Split and convert unicode characters and numerical HTML
+    # (e.g. 'u'both em\u2014and&#x2013;dashes&hellip;' -> 'both em&mdash;and&ndash;dashes&hellip;')
+    authors_list = [unicode(named_entities(n)) for n in authors_str.split(delimiter)]
 
-    author_out = []
-    for a in author_list_clean:
-        for name in _reorder_names(a, first_names, last_names, delimiter, default_to_last_name, collaborations_params).split(delimiter):
-            author_out.append(name)
-        #outstring = (delimiter+u' ').join(author_out).replace(' ,', ',').replace('  ', ' ').replace('. -', '.-')
-        outstring = (delimiter+u' ').join(author_out).replace(u', , ', u', ')
-        outstring = outstring.replace(u' -', u'-').replace(u' ~', u'~')
-    return outstring
+    corrected_authors_list = []
+    for author_str in authors_list:
+        for corrected_author_str in _reorder_names(author_str, first_names, last_names, delimiter, default_to_last_name, collaborations_params).split(delimiter):
+            corrected_authors_list.append(corrected_author_str)
+    corrected_authors_str = (delimiter+u' ').join(corrected_authors_list)
+
+    # Last minute global corrections due to manually detected problems in our processing
+    #corrected_authors_str = corrected_authors_str.replace(' ,', ',').replace('  ', ' ').replace('. -', '.-')
+    corrected_authors_str = corrected_authors_str.replace(u', , ', u', ')
+    corrected_authors_str = corrected_authors_str.replace(u' -', u'-').replace(u' ~', u'~')
+    return corrected_authors_str
 
