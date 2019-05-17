@@ -153,29 +153,3 @@ JATS_TAGSET = {'title':JATS_TAGS_MATH + JATS_TAGS_HTML,
             'keywords':['astrobj']
         }
 
-
-
-
-# NAME-PARSING DEFAULTS: used by parsers/arxiv.py
-
-from nameparser import HumanName
-from nameparser.config import CONSTANTS
-import os
-
-# Name overrides from CLASSIC name parser
-
-BASE_DIR = '/proj/ads/abstracts/config/Authors'
-if not os.path.isdir(BASE_DIR):
-    BASE_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../../test_data/config/")
-FIRST_NAMES = os.path.join(BASE_DIR, 'first.dat')
-LAST_NAMES = os.path.join(BASE_DIR, 'last.dat')
-PREFIX_NAMES = os.path.join(BASE_DIR, 'prefixes.dat')
-SUFFIX_NAMES = os.path.join(BASE_DIR, 'suffixes.dat')
-
-# Names/titles being added
-
-# To remove *all* of the preset titles:
-CONSTANTS.titles.remove(*CONSTANTS.titles)
-CONSTANTS.suffix_acronyms.remove(*CONSTANTS.suffix_acronyms)
-CONSTANTS.suffix_not_acronyms.remove(*CONSTANTS.suffix_not_acronyms)
-CONSTANTS.string_format = u'{last}, {first} "{nickname}", {suffix}, {title}'
