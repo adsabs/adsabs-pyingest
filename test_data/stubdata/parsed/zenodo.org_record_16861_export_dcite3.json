@@ -10,11 +10,17 @@
     "citations": [], 
     "described_by": [], 
     "description_of": [], 
+    "doctype": "misc", 
+    "forked_from": [], 
+    "forks": [], 
     "keywords": [
         "Astronomy", 
         "Astronomical spectroscopy", 
         "Astronomical instruments", 
         "Silicon diodes"
+    ], 
+    "normalized_authors": [
+        "Geary, J C"
     ], 
     "properties": {
         "DOI": "10.5281/zenodo.16861", 
@@ -24,12 +30,9 @@
     }, 
     "pubdate": "1975-08-29", 
     "references": [], 
-    "doctype": "misc",
-    "forked_from": [], 
-    "forks": [], 
-    "version": "",
-    "version_of": [], 
-    "versions": [],
     "source": "Zenodo", 
-    "title": "The Use of a Self-Scanning Silicon Photodiode Array for Astronomical Spectroscopy"
+    "title": "The Use of a Self-Scanning Silicon Photodiode Array for Astronomical Spectroscopy", 
+    "version": "", 
+    "version_of": [], 
+    "versions": []
 }

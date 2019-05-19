@@ -10,7 +10,13 @@
     "citations": [], 
     "described_by": [], 
     "description_of": [], 
+    "doctype": "misc", 
+    "forked_from": [], 
+    "forks": [], 
     "keywords": [], 
+    "normalized_authors": [
+        "Battersby, C"
+    ], 
     "properties": {
         "DOI": "10.5281/zenodo.16738", 
         "ELECTR": "http://zenodo.org/record/16738", 
@@ -19,12 +25,9 @@
     }, 
     "pubdate": "2013-08-10", 
     "references": [], 
-    "doctype": "misc",
-    "forked_from": [], 
-    "forks": [], 
-    "version": "",
-    "version_of": [], 
-    "versions": [],
     "source": "Zenodo", 
-    "title": "The Structure and Evolution of Massive Star and Cluster Forming Regions"
+    "title": "The Structure and Evolution of Massive Star and Cluster Forming Regions", 
+    "version": "", 
+    "version_of": [], 
+    "versions": []
 }

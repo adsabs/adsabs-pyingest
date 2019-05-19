@@ -10,11 +10,17 @@
     "citations": [], 
     "described_by": [], 
     "description_of": [], 
+    "doctype": "misc", 
+    "forked_from": [], 
+    "forks": [], 
     "keywords": [
         "spectroscopy", 
         "galaxies", 
         "Milky Way", 
         "spectrograph design"
+    ], 
+    "normalized_authors": [
+        "Brown, W R"
     ], 
     "properties": {
         "DOI": "10.5281/zenodo.16839", 
@@ -24,12 +30,9 @@
     }, 
     "pubdate": "2002-05-06", 
     "references": [], 
-    "doctype": "misc",
-    "forked_from": [], 
-    "forks": [], 
-    "version": "",
-    "version_of": [], 
-    "versions": [],
     "source": "Zenodo", 
-    "title": "Spectroscopy:  Instrumentation and Applications to the Galaxy and to the Large Scale Structure of the Universe"
+    "title": "Spectroscopy:  Instrumentation and Applications to the Galaxy and to the Large Scale Structure of the Universe", 
+    "version": "", 
+    "version_of": [], 
+    "versions": []
 }

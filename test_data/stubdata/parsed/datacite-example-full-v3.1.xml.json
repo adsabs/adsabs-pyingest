@@ -16,6 +16,9 @@
     "keywords": [
         "000 computer science"
     ], 
+    "normalized_authors": [
+        "Miller, E"
+    ], 
     "properties": {
         "DOI": "10.5072/example-full", 
         "ELECTR": "http://schema.datacite.org/schema/meta/kernel-3.1/example/datacite-example-full-v3.1.xml"
@@ -24,7 +27,7 @@
     "references": [], 
     "source": "DataCite", 
     "title": "Demonstration of DataCite Properties.", 
-    "version": "3.1",
+    "version": "3.1", 
     "version_of": [], 
     "versions": []
 }

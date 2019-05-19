@@ -33,6 +33,15 @@
         "direct infusion", 
         "Orbitrap"
     ], 
+    "normalized_authors": [
+        "Zielinski, A", 
+        "Kalberer, M", 
+        "Bortolini, C", 
+        "Giorio, C", 
+        "Fuller, S", 
+        "Kourtchev, I", 
+        "Popoola, O"
+    ], 
     "properties": {
         "DOI": "10.5072/example-software-2.0"
     }, 
@@ -40,7 +49,7 @@
     "references": [], 
     "source": "Apollo - University of Cambridge Repository", 
     "title": "Code supporting \"A new processing scheme for ultra-high resolution direct infusion mass spectrometry data\"", 
-    "version": "2.0",
+    "version": "2.0", 
     "version_of": [
         "doi:10.5072/example-software-repository"
     ], 

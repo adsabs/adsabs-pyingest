@@ -10,10 +10,16 @@
     "citations": [], 
     "described_by": [], 
     "description_of": [], 
+    "doctype": "misc", 
+    "forked_from": [], 
+    "forks": [], 
     "keywords": [
         "Astronomy", 
         "Astrophysics", 
         "Core-collapse supernovae"
+    ], 
+    "normalized_authors": [
+        "Sanders, N"
     ], 
     "properties": {
         "DOI": "10.5281/zenodo.10415", 
@@ -293,12 +299,9 @@
         "Leibundgut, B., Kirshner, R., Huchra, J.,  Daugherty, D. 1991, IAU Circ., 5237, 2", 
         "Leitherer, C., Robert, C.,  Drissen, L. 1992, ApJ, 401, 596"
     ], 
-    "doctype": "misc",
-    "forked_from": [], 
-    "forks": [], 
-    "version": "",
-    "version_of": [], 
-    "versions": [],
     "source": "Zenodo", 
-    "title": "Core-collapse Supernova Progenitors in the Era of Untargeted Transient Searches"
+    "title": "Core-collapse Supernova Progenitors in the Era of Untargeted Transient Searches", 
+    "version": "", 
+    "version_of": [], 
+    "versions": []
 }

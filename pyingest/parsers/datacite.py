@@ -7,6 +7,7 @@ import json
 import codecs
 from collections import OrderedDict
 from default import BaseXmlToDictParser
+from author_names import AuthorNames
 
 class WrongSchemaException(Exception):
     pass
@@ -25,6 +26,13 @@ class DataCiteParser(BaseXmlToDictParser):
         self.DC_SCHEMAS = ['http://datacite.org/schema/kernel-3', 'http://datacite.org/schema/kernel-4']
         self.OA_URIS = [ 'info:eu-repo/semantics/openAccess' ]
         self.OA_TEXT = [ 'Open Access' ]
+        self.author_names = AuthorNames()
+        self.author_collaborations_params = {
+            'keywords': ['group', 'team', 'collaboration'],
+            'first_author_delimiter': ':',
+            'remove_the': False,
+            'fix_arXiv_mixed_collaboration_string': False,
+        }
 
     def get_abstract(self, r):
         # abstract, references are all in the "descriptions" section
@@ -154,12 +162,16 @@ class DataCiteParser(BaseXmlToDictParser):
 
         # authors
         authors = []
+        normalized_authors = []
         aaffils = []
         for a in self._array(self._dict(r.get('creators')).get('creator',[])):
             creator_name = a.get('creatorName')
             if type(creator_name) is OrderedDict:
                 creator_name = creator_name.get("#text")
+            creator_name = self.author_names.parse(creator_name, collaborations_params=self.author_collaborations_params)
+            normalized_creator_name = self.author_names.normalize(creator_name, collaborations_params=self.author_collaborations_params)
             authors.append(creator_name)
+            normalized_authors.append(normalized_creator_name)
             aff = a.get('affiliation','')
             if aff is None:
                 aff = ''
@@ -276,6 +288,7 @@ class DataCiteParser(BaseXmlToDictParser):
         return {
             'bibcode': bibcode or '',
             'authors': authors,
+            'normalized_authors': normalized_authors,
             'affiliations': aaffils,
 #            'contributors': contributors,
             'title': title,
