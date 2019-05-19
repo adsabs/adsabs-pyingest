@@ -14,6 +14,7 @@ from pyingest.parsers import zenodo
 from pyingest.parsers import arxiv
 from pyingest.parsers import aps
 from pyingest.parsers import procsci
+from pyingest.parsers.author_names import AuthorNames
 
 from pyingest.serializers import classic
 
@@ -91,6 +92,75 @@ class TestZenodo(unittest.TestCase):
                 sys.stderr.write("parsed output dumped in %s\n" % target_saved)
 
 
+class TestAuthorNames(unittest.TestCase):
+
+    def setUp(self):
+        self.author_names = AuthorNames()
+
+    def test_default_author_names(self):
+        authors_str = u"robert white smith; m. power; maria antonia de la paz; bla., bli.; the collaboration: john stuart; collaboration, Gaia; John; github_handle;;.."
+        expected_authors_str = u"white smith, robert; power, m.; de la paz, maria antonia; bla., bli.; the collaboration; stuart, john; collaboration, Gaia; John; github_handle; Unknown, Unknown; .."
+        # Default
+        corrected_authors_str = self.author_names.parse(authors_str)
+        self.assertEqual(corrected_authors_str, expected_authors_str)
+
+    def test_normalize_author_names(self):
+        authors_str = u"robert white smith; m. power; maria antonia de la paz; bla., bli.; the collaboration: john stuart; collaboration, Gaia; John; github_handle;;.."
+        corrected_authors_str = u"white smith, robert; power, m; de la paz, maria antonia; bla, bli; the collaboration; stuart, john; collaboration, Gaia; John; github_handle; Unknown, Unknown; Unknown, Unknown"
+        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; the collaboration; Stuart, J; collaboration Gaia; John; github_handle; Unknown, U; Unknown, U"
+        # Normalize
+        normalized_authors_str = self.author_names.normalize(corrected_authors_str)
+        self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
+        normalized_authors_str = self.author_names.parse(authors_str, normalize=True)
+        self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
+
+    def test_ignore_collaborations_in_author_names(self):
+        authors_str = u"robert white smith; m. power; maria antonia de la paz; bla., bli.; the collaboration: john stuart; collaboration, Gaia; John; github_handle;;.."
+        expected_normalized_authors_str = "White Smith, R; Power, M; De La Paz, M A; Bla, B; Stuart, T C J; Collaboration, G; John; github_handle; Unknown, U; Unknown, U"
+        collaborations_params = {
+            'keywords': [],
+            'first_author_delimiter': None,
+            'remove_the': False,
+            'fix_arXiv_mixed_collaboration_string': False,
+        }
+        normalized_authors_str = self.author_names.parse(authors_str, normalize=True, collaborations_params=collaborations_params)
+        self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
+
+    def test_remove_the_from_collaborations_in_author_names(self):
+        authors_str = u"robert white smith; m. power; maria antonia de la paz; bla., bli.; the collaboration: john stuart; collaboration, Gaia; John; github_handle;;.."
+        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; collaboration; Stuart, J; collaboration Gaia; John; github_handle; Unknown, U; Unknown, U"
+        collaborations_params = {
+            'keywords': ['group', 'team', 'collaboration'],
+            'first_author_delimiter': ':',
+            'remove_the': True,
+            'fix_arXiv_mixed_collaboration_string': False,
+        }
+        normalized_authors_str = self.author_names.parse(authors_str, normalize=True, collaborations_params=collaborations_params)
+        self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
+
+    def test_ignore_names_in_collaborations_in_author_names(self):
+        authors_str = u"robert white smith; m. power; maria antonia de la paz; bla., bli.; the collaboration: john stuart; collaboration, Gaia; John; github_handle;;.."
+        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; the collaboration: john stuart; collaboration Gaia; John; github_handle; Unknown, U; Unknown, U"
+        collaborations_params = {
+            'keywords': ['group', 'team', 'collaboration'],
+            'first_author_delimiter': None,
+            'remove_the': False,
+            'fix_arXiv_mixed_collaboration_string': False,
+        }
+        normalized_authors_str = self.author_names.parse(authors_str, normalize=True, collaborations_params=collaborations_params)
+        self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
+
+    def test_fix_arXiv_mixed_collaboration_string(self):
+        authors_str = u"robert white smith; m. power; maria antonia de la paz; bla., bli.; the collaboration: john stuart; collaboration, Gaia; John; github_handle;;.."
+        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; the collaboration: john stuart; Gaia collaboration; John; github_handle; Unknown, U; Unknown, U"
+        collaborations_params = {
+            'keywords': ['group', 'team', 'collaboration'],
+            'first_author_delimiter': None,
+            'remove_the': False,
+            'fix_arXiv_mixed_collaboration_string': True,
+        }
+        normalized_authors_str = self.author_names.parse(authors_str, normalize=True, collaborations_params=collaborations_params)
+        self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
 
 class TestArxiv(unittest.TestCase):
 
