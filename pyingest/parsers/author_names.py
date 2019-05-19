@@ -24,7 +24,9 @@ class AuthorNames(object):
                         output_list.append(l.strip())
         return output_list
 
-    def __init__(self, data_dirname='/proj/ads/abstracts/config/Authors'):
+    def __init__(self, data_dirname='/proj/ads/abstracts/config/Authors', unknown_author_str=u"Unknown, Unknown", max_first_name_initials=6):
+        self.max_first_name_initials = max(1, max_first_name_initials)
+
         # Paths
         if not os.path.isdir(data_dirname):
             data_dirname = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../../test_data/authors/")
@@ -61,6 +63,19 @@ class AuthorNames(object):
         self.regex_dash = re.compile(r"^-")
         self.regex_quote = re.compile(r"^'")
         self.regex_the = re.compile(r"^[Tt]he ")
+        self.regex_author = re.compile(r"^(?P<last_name>[^,]+),\s*(?P<initial0>\S)\w*"+"".join(["(?:\s*(?P<initial{}>\S)\S*)?".format(i+1) for i in xrange(self.max_first_name_initials-1)]))
+
+        # Default collaboration parameters
+        self.default_collaborations_params = {
+            'keywords': ['group', 'team', 'collaboration'],
+            'first_author_delimiter': ':',
+            'remove_the': False,
+            'fix_arXiv_mixed_collaboration_string': False,
+        }
+
+        # Default unknown author
+        self.unknown_author_str = unknown_author_str
+        self.normalized_unknown_author_str = self.normalize(self.unknown_author_str)
 
 
 
@@ -75,7 +90,7 @@ class AuthorNames(object):
             for keyword in collaborations_params['keywords']:
                 if keyword in collaboration_str.lower():
                     if collaborations_params['remove_the']:
-                        corrected_collaboration_str = regex_the.sub(u'', collaboration_str)
+                        corrected_collaboration_str = self.regex_the.sub(u'', collaboration_str)
                     else:
                         corrected_collaboration_str = collaboration_str
 
@@ -199,16 +214,18 @@ class AuthorNames(object):
                 author.last = verified_last_name_list
 
         try:
-            reordered_author_str = str(author)
+            reordered_author_str = str(author).strip()
         except:
             logging.exception("Unexpected error converting detected name into a string")
             # TODO: Implement better error control
-            return "ERROR RETURNING NAME"
+            reordered_author_str = self.unknown_author_str
         else:
-            return unicode_entities(reordered_author_str).replace('  ', ' ')
+            if len(reordered_author_str) == 0:
+                reordered_author_str = self.unknown_author_str
+        return unicode_entities(reordered_author_str).replace('  ', ' ')
 
 
-    def parse(self, authors_str, delimiter=u';', default_to_last_name=True, collaborations_params={}):
+    def parse(self, authors_str, normalize=False, delimiter=u';', default_to_last_name=True, collaborations_params={}):
         """
         Receives an authors string with individual author names separated by a
         delimiter and returns re-formatted authors string where all author names
@@ -229,14 +246,9 @@ class AuthorNames(object):
         strings. Default: ':'
         - fix_arXiv_mixed_collaboration_string [boolean]: Some arXiv entries mix the
         collaboration string with the collaboration string.
-        (e.g. 'collaboration, Gaia'). Default: True
+        (e.g. 'collaboration, Gaia'). Default: False
         """
-        default_collaborations_params = {
-            'keywords': ['group', 'team', 'collaboration'],
-            'first_author_delimiter': ':',
-            'remove_the': False,
-            'fix_arXiv_mixed_collaboration_string': True,
-        }
+        default_collaborations_params = self.default_collaborations_params.copy()
         default_collaborations_params.update(collaborations_params)
         collaborations_params = default_collaborations_params
 
@@ -261,5 +273,72 @@ class AuthorNames(object):
         #corrected_authors_str = corrected_authors_str.replace(' ,', ',').replace('  ', ' ').replace('. -', '.-')
         corrected_authors_str = corrected_authors_str.replace(u', , ', u', ')
         corrected_authors_str = corrected_authors_str.replace(u' -', u'-').replace(u' ~', u'~')
-        return corrected_authors_str
+        if normalize:
+            return self.normalize(corrected_authors_str, delimiter=delimiter, collaborations_params=collaborations_params)
+        else:
+            return corrected_authors_str
+
+
+    def _normalize_author(self, author_str, collaborations_params):
+        """
+        Normalizes an author name string ensuring capitalization and transforming
+        first name to only initials
+        """
+        try:
+            # Transliterates unicode characters to ASCII
+            author_str = u2asc(author_str.strip())
+        except UnicodeHandlerError:
+            logging.exception("Unexpected error transliterating author name unicode string to ASCII")
+            # TODO: Implement better error control
+            return self._normalize_author(self.unknown_author_str, collaborations_params)
+
+        normalized_author_str = u''
+        # Check first if it is a collaboration, given that collaboration strings
+        # may have commas and it may be wrongly interpreted as a name
+        collaboration = False
+        for keyword in collaborations_params['keywords']:
+            if keyword in author_str.lower():
+                collaboration = True
+                break
+        if collaboration:
+            # Make sure there are no commas to avoid interpreting this name as 'last, first name'
+            normalized_author_str = author_str.replace(",", "")
+        else:
+            match = self.regex_author.search(author_str)
+            if match:
+                # Last name detected
+                last_name = match.group('last_name').strip().title()
+                initials_list = []
+                # Collect initials from first name if it is present
+                for i in xrange(self.max_first_name_initials):
+                    key = 'initial'+str(i)
+                    if match.group(key):
+                        initials_list.append(match.group(key).strip().upper())
+                initials_str = u" ".join(initials_list)
+                # Form normalized author string where capitalization is guaranteed
+                normalized_author_str = "{}, {}".format(last_name, initials_str)
+                # Make sure there are no dots
+                normalized_author_str = normalized_author_str.replace(u".", u"")
+            else:
+                # Make sure there are no commas to avoid interpreting this name as 'last, first name'
+                normalized_author_str = author_str.replace(u",", u"")
+                # Make sure there are no dots or commas
+                normalized_author_str = normalized_author_str.replace(u".", u"")
+
+        normalized_author_str = normalized_author_str.strip()
+        if len(normalized_author_str) == 0:
+            normalized_author_str = self.normalized_unknown_author_str
+        return normalized_author_str
+
+    def normalize(self, authors_str, delimiter=u';', collaborations_params={}):
+        """
+        Normalizes a string of author name separated by some delimiter
+        """
+        default_collaborations_params = self.default_collaborations_params.copy()
+        default_collaborations_params.update(collaborations_params)
+        collaborations_params = default_collaborations_params
+        normalized_authors_list = []
+        for author_str in authors_str.split(delimiter):
+            normalized_authors_list.append(self._normalize_author(author_str, collaborations_params))
+        return (delimiter+u' ').join(normalized_authors_list)
 

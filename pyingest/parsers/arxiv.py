@@ -33,6 +33,13 @@ class ArxivParser(DublinCoreParser):
     def __init__(self):
         super(self.__class__, self).__init__()
         self.author_names = AuthorNames()
+        self.author_collaborations_params = {
+            'keywords': ['group', 'team', 'collaboration'],
+            'first_author_delimiter': ':',
+            'remove_the': False,
+            'fix_arXiv_mixed_collaboration_string': True,
+        }
+
 
     def get_author_init(self,namestring):
         output = u2asc(namestring)
@@ -58,7 +65,7 @@ class ArxivParser(DublinCoreParser):
             r['abstract']=r['abstract'][0]
 
         if r['authors']:
-            r['authors'] = self.author_names.parse(r['authors'])
+            r['authors'] = self.author_names.parse(r['authors'], collaborations_params=self.author_collaborations_params)
 
         if r['bibcode']:
             idarray = r['bibcode'].split(':')
