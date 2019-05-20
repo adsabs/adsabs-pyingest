@@ -1,4 +1,5 @@
 import os
+import glob
 from subprocess import Popen, PIPE
 
 try:
@@ -34,6 +35,7 @@ setup(
     description='ADS collection or python parsers, validators, and serializers for adsabs ingest pipeline',
     long_description=long_description,
     packages=find_packages(),
+    data_files=[(basedir, [filename for filename in glob.iglob('{}/*.*'.format(basedir))]) for basedir in glob.iglob("test_data/config/*.dat")],
     include_package_data=True,
     zip_safe=False,
     platforms='any',

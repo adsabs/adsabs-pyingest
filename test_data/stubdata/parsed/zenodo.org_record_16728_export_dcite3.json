@@ -10,12 +10,18 @@
     "citations": [], 
     "described_by": [], 
     "description_of": [], 
+    "doctype": "misc", 
+    "forked_from": [], 
+    "forks": [], 
     "keywords": [
         "TITAN", 
         "MARS", 
         "VENUS", 
         "INTERFEROMETRY", 
         "OVRO"
+    ], 
+    "normalized_authors": [
+        "Gurwell, M A"
     ], 
     "properties": {
         "DOI": "10.5281/zenodo.16728", 
@@ -25,12 +31,9 @@
     }, 
     "pubdate": "1996-06-14", 
     "references": [], 
-    "doctype": "misc",
-    "forked_from": [], 
-    "forks": [], 
-    "version": "",
-    "version_of": [], 
-    "versions": [],
     "source": "Zenodo", 
-    "title": "Planetary Atmospheres: Probing Structure through Millimeterwave Observations of Carbon Monoxide"
+    "title": "Planetary Atmospheres: Probing Structure through Millimeterwave Observations of Carbon Monoxide", 
+    "version": "", 
+    "version_of": [], 
+    "versions": []
 }

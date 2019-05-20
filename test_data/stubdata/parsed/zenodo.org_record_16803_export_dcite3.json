@@ -10,10 +10,16 @@
     "citations": [], 
     "described_by": [], 
     "description_of": [], 
+    "doctype": "misc", 
+    "forked_from": [], 
+    "forks": [], 
     "keywords": [
         "Magnetic reconnection", 
         "Plasma physics", 
         "Computational magnetohydrodynamics"
+    ], 
+    "normalized_authors": [
+        "Murphy, N"
     ], 
     "properties": {
         "DOI": "10.5281/zenodo.16803", 
@@ -23,12 +29,9 @@
     }, 
     "pubdate": "2009-06-30", 
     "references": [], 
-    "doctype": "misc",
-    "forked_from": [], 
-    "forks": [], 
-    "version": "",
-    "version_of": [], 
-    "versions": [],
     "source": "Zenodo", 
-    "title": "Simulation and Analysis of Magnetic Reconnection in a Laboratory Plasma Astrophysics Experiment"
+    "title": "Simulation and Analysis of Magnetic Reconnection in a Laboratory Plasma Astrophysics Experiment", 
+    "version": "", 
+    "version_of": [], 
+    "versions": []
 }

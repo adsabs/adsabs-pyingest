@@ -12,8 +12,15 @@
     "citations": [], 
     "described_by": [], 
     "description_of": [], 
+    "doctype": "misc", 
+    "forked_from": [], 
+    "forks": [], 
     "keywords": [
         "Science data management"
+    ], 
+    "normalized_authors": [
+        "Alacid, J  M", 
+        "Solano, E"
     ], 
     "properties": {
         "DOI": "10.5281/zenodo.34495", 
@@ -23,12 +30,9 @@
     }, 
     "pubdate": "2015-12-01", 
     "references": [], 
-    "doctype": "misc",
-    "forked_from": [], 
-    "forks": [], 
-    "version": "",
-    "version_of": [], 
-    "versions": [],
     "source": "Zenodo", 
-    "title": "The GTC Public Archive"
+    "title": "The GTC Public Archive", 
+    "version": "", 
+    "version_of": [], 
+    "versions": []
 }
