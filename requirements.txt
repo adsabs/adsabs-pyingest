@@ -1,4 +1,4 @@
-adsputils==1.0.7
+adsputils==1.0.12
 bs4==0.0.1
 lxml==4.2.1
 functools32==3.2.3.post2
