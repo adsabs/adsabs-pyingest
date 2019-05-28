@@ -13,7 +13,7 @@ from pyingest.serializers import classic
 class TestParseAndSerialize(unittest.TestCase):
 
     def test_arxiv_to_classic(self):
-        testfiles = glob.glob('test_data/arxiv.test/oai*')
+        testfiles = glob.glob(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai*'))
         shouldbe = [f.replace('/oai','/tagged/oai') + '.tagged' for f in testfiles]
         for f,b in zip(testfiles,shouldbe):
             with open(f,'rU') as fp:

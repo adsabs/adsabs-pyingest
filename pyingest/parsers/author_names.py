@@ -29,7 +29,7 @@ class AuthorNames(object):
 
         # Paths
         if not os.path.isdir(data_dirname):
-            data_dirname = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../../test_data/authors/")
+            data_dirname = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../tests/data/authors/")
         logging.info("Loading ADS author names from: %s", data_dirname)
         self.first_names = self._read_datfile(os.path.join(data_dirname, 'first.dat'))
         self.last_names = self._read_datfile(os.path.join(data_dirname, 'last.dat'))
