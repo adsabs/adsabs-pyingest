@@ -1,0 +1,1 @@
+include pyingest/tests/data/authors/*.dat

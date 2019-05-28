@@ -13,7 +13,7 @@ import pyingest.serializers.classic
 class TestClassic(unittest.TestCase):
 
     def setUp(self):
-        stubdata_dir = os.path.join(os.path.dirname(__file__), '../../test_data/stubdata')
+        stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata')
         self.inputdocs = glob.glob(os.path.join(stubdata_dir, 'parsed/*.json'))
         self.outputdir = os.path.join(stubdata_dir, 'serialized')
 #        sys.stderr.write("test cases are: {}\n".format(self.inputdocs))

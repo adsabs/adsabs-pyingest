@@ -79,7 +79,7 @@ class DublinCoreParser(BaseXmlToDictParser):
                     output_metadata['title'] = self.get_tag(r,'dc:title')[0]
                 else:
                     output_metadata['title'] = ": ".join(self.get_tag(r,'dc:title'))
-               
+
 
 # Authors
             if self.get_tag(r,'dc:creator'):
@@ -94,7 +94,7 @@ class DublinCoreParser(BaseXmlToDictParser):
             if self.get_tag(r,'dc:date'):
                 output_metadata['pubdate'] = self.get_tag(r,'dc:date')[0]
 
-            
+
 # Abstract
 
 # Note: for generic dublin core, I'm passing all entries tagged with
@@ -134,7 +134,7 @@ class DublinCoreParser(BaseXmlToDictParser):
 #    dcx = DublinCoreParser()
 #
 #    woo = None
-#    with open('../../test_data/arxiv.test/oai_ArXiv.org_1711_05739','rU') as fp:
+#    with open('../tests/data/arxiv.test/oai_ArXiv.org_1711_05739','rU') as fp:
 #        woo = dcx.parse(fp)
 #
 #    print(woo)
