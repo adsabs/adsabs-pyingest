@@ -34,7 +34,15 @@ if __name__ == "__main__":
         d = None
         with open(file) as fp:
             logging.debug("parsing file %s" %file)
-            d = parser.parse(fp)
+            try:
+                # If a Zenodo records happens to be missing a DOI, 
+                # we don't want an Exception to have the process crap out
+                # In that case skip the file and write a message to stderr
+                d = parser.parse(fp)
+            except Exception, err:
+                sys.stderr.write("unable to parse file: %s (%s)\n" % (file, err))
+                logging.debug("unable to parse file: %s (%s)" % (file, err))
+                continue
             if args.debug:
                 sys.stderr.write("document: %s" % json.dumps(d))
             logging.debug("validating file %s" %file)
