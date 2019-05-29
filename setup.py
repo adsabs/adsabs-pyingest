@@ -39,5 +39,5 @@ setup(
     include_package_data=True,
     zip_safe=False,
     platforms='any',
-    install_requires=required,
+    install_requires=required
   )
