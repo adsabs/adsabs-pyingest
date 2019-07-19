@@ -203,7 +203,18 @@ class JATSParser(BaseBeautifulSoupParser):
                 except:
                     pubdate = pubdate + "00"
                 else:
-                    pubdate = pubdate + self._detag(d.month,[])
+                    try:
+                        int(self._detag(d.month,[]))
+                    except Exception as err:
+                        month_name = self._detag(d.month,[])[0:3].lower()
+                        month = MONTH_TO_NUMBER[month_name]
+                    else:
+                        month = self._detag(d.month,[])
+                    if month < 10:
+                        month = "0"+str(month)
+                    else:
+                        month = str(month)
+                    pubdate = pubdate + month
             except Exception as err:
                 print "Error in pubdate:",err
             else:
