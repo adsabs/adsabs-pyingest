@@ -75,7 +75,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 n.label.decompose()
                 key = n['id']
                 note_text = self._detag(n,JATS_TAGSET['affiliations'])
-                affils[key] = note_text
+                affils[key] = note_text.strip()
 
 #     # Affils/affil ids
         try:
@@ -90,7 +90,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     pass
                 key = a['id']
                 aff_text = self._detag(a,JATS_TAGSET['affiliations'])
-                affils[key] = aff_text
+                affils[key] = aff_text.strip()
         
 
 #Author name and affil/note lists:
@@ -133,8 +133,17 @@ class JATSParser(BaseBeautifulSoupParser):
                 else:
                     aid_arr = []
 
-                aff_text = '; '.join(affils[x] for x in aid_arr) 
-                base_metadata['affiliations'].append(aff_text)
+                try:
+                    new_aid_arr = []
+                    for a in affils.keys():
+                        if a in aid_arr:
+                            new_aid_arr.append(a)
+                    aid_arr = new_aid_arr
+                      
+                    aff_text = '; '.join(affils[x] for x in aid_arr) 
+                    base_metadata['affiliations'].append(aff_text)
+                except Exception as error:
+                    base_metadata['affiliations'].append('')
              
             
 
@@ -187,20 +196,27 @@ class JATSParser(BaseBeautifulSoupParser):
                 b = d['pub-type']
             except KeyError:
                 b = ''
-            if (a == 'print' or b == 'ppub'):
-                base_metadata['pubdate'] = d['iso-8601-date']
-                if base_metadata['pubdate'][-2:] == '00':
-                    base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
+            try:
+                pubdate = self._detag(d.year,[]) + "/"
+                try:
+                    d.month
+                except:
+                    pubdate = pubdate + "00"
+                else:
+                    pubdate = pubdate + self._detag(d.month,[])
+            except Exception as err:
+                print "Error in pubdate:",err
             else:
-                if (a == 'electronic' or b == 'epub'):
+                if (a == 'print' or b == 'ppub'):
+                    base_metadata['pubdate'] = pubdate
+                elif (a == 'electronic' or b == 'epub'):
                     try:
-                         base_metadata['pubdate']
-                    except KeyError:
-                        base_metadata['pubdate'] = d['iso-8601-date']
-                        if base_metadata['pubdate'][-2:] == '00':
-                            base_metadata['pubdate'] = base_metadata['pubdate'][0:-2]+'01'
-                    else:
-                        pass
+                        base_metadata['pubdate']
+                    except Exception as e:
+                        base_metadata['pubdate'] = pubdate
+                    # else:
+                    #     print 'pubdate already defined from print edition'
+
 #Pages:
 
         fpage = article_meta.fpage
