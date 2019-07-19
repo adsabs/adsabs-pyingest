@@ -226,7 +226,6 @@ class TestAPSJATS(unittest.TestCase):
         with open(testfile, 'rU') as fp:
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
-        print "OMG:",document
         self.assertDictEqual(document, shouldbe)
 
 
