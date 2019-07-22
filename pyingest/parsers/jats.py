@@ -224,7 +224,7 @@ class JATSParser(BaseBeautifulSoupParser):
         ids = article_meta.find_all('article-id')
         for d in ids:
             if d['pub-id-type'] == 'doi':
-                base_metadata['properties'] = {'DOI': 'doi:'+self._detag(d,[])}
+                base_metadata['properties'] = {'DOI': self._detag(d,[])}
 
 #Pubdate:
 

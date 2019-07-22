@@ -20,7 +20,7 @@ class UnparseableException(Exception):
 
 class RNAASJATSParser(JATSParser):
 
-    AST_WORDS = [x.lower() for x in APS_ASTRO_KEYWORDS]
+    AST_WORDS = [x.lower() for x in UAT_ASTRO_KEYWORDS]
 
     def get_author_init(self,namestring):
         output = u2asc(namestring)
@@ -41,7 +41,7 @@ class RNAASJATSParser(JATSParser):
             return bibstem
 
     def dbfromkw(self, d, **kwargs):
-        db = ['PHY']
+        db = []
         if isinstance(d,basestring):
             keywords = d.split(',')
             for k in keywords:
