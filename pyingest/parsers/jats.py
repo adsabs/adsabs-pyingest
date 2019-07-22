@@ -41,10 +41,14 @@ class JATSParser(BaseBeautifulSoupParser):
 
         output_metadata=dict()
 
-        r = self.resource_dict(fp, **kwargs).front
+        document = self.resource_dict(fp, **kwargs)
+        r = document.front
 
         article_meta = r.find('article-meta')
         journal_meta = r.find('journal-meta')
+
+        back_meta = document.back
+
 
         base_metadata = {}
 
@@ -91,6 +95,24 @@ class JATSParser(BaseBeautifulSoupParser):
                 key = a['id']
                 aff_text = self._detag(a,JATS_TAGSET['affiliations'])
                 affils[key] = aff_text.strip()
+
+#     # ORCIDs
+        orcids = []
+        try:
+            elt = article_meta.find('contrib-group').find_all('ext-link')
+        except:
+#           print "No orcids?"
+            pass
+        else:
+#           print "Yeah, I got orcids:",orcid
+            for o in elt:
+                try:
+                    if o['ext-link-type'] == 'orcid':
+                        orcids.append("<ID system=\"ORCID\">"+self._detag(o,[])+"</ID>")
+                    else:
+                        orcids.append(None)
+                except:
+                    pass
         
 
 #Author name and affil/note lists:
@@ -101,7 +123,7 @@ class JATSParser(BaseBeautifulSoupParser):
         else:
             base_metadata['authors']=[]
             base_metadata['affiliations']=[]
-            for a in authors:
+            for a, o in zip(authors,orcids):
 #             # Author names
                 if a.find('surname') is not None:
                     surname = self._detag(a.surname,[])
@@ -139,11 +161,16 @@ class JATSParser(BaseBeautifulSoupParser):
                         if a in aid_arr:
                             new_aid_arr.append(a)
                     aid_arr = new_aid_arr
-                      
+#orcid?
                     aff_text = '; '.join(affils[x] for x in aid_arr) 
+                    if o is not None:
+                        aff_text = aff_text + '; ' + o
                     base_metadata['affiliations'].append(aff_text)
                 except Exception as error:
-                    base_metadata['affiliations'].append('')
+                    if o is not None:
+                        base_metadata['affiliations'].append(o)
+                    else:
+                        base_metadata['affiliations'].append('')
              
             
 
@@ -256,6 +283,19 @@ class JATSParser(BaseBeautifulSoupParser):
                 base_metadata['page'] = self._detag(fpage,[])
             else:
                 base_metadata['page'] = self._detag(fpage,[]) + "-" + self._detag(lpage,[])
+
+
+#References (now using back_meta):
+
+        try:
+            reflist = back_meta.find('ref-list').find_all('ref')
+        except Exception as e:
+            print "References:",e
+        else:
+            for ref in reflist:
+                print ref.find('ext-link')
+
+
 
         output_metadata = base_metadata
         return output_metadata
