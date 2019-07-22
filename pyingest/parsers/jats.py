@@ -161,6 +161,7 @@ class JATSParser(BaseBeautifulSoupParser):
                         if a in aid_arr:
                             new_aid_arr.append(a)
                     aid_arr = new_aid_arr
+
 #orcid?
                     aff_text = '; '.join(affils[x] for x in aid_arr) 
                     if o is not None:
@@ -180,12 +181,26 @@ class JATSParser(BaseBeautifulSoupParser):
             else:
                 del base_metadata['authors']
 
+#Copyright:
+        try:
+            copyright = article_meta.find('copyright-statement')
+        except Exception as e:
+            pass
+        else:
+            base_metadata['copyright'] = self._detag(copyright,[])
 
 #Keywords:
         keywords = article_meta.find('article-categories').find_all('subj-group')
         for c in keywords:
             if c['subj-group-type'] == 'toc-minor':
                 base_metadata['keywords'] = self._detag(c.subject,JATS_TAGSET['keywords'])
+        if 'keywords' not in base_metadata:
+            keywords = article_meta.find('kwd-group').find_all('kwd')
+            kwd_arr = []
+            for c in keywords:
+                kwd_arr.append(self._detag(c,JATS_TAGSET['keywords']))
+            if len(kwd_arr) > 0:
+                base_metadata['keywords'] = ', '.join(kwd_arr)
 
 #Volume:
         volume = article_meta.volume
@@ -287,13 +302,13 @@ class JATSParser(BaseBeautifulSoupParser):
 
 #References (now using back_meta):
 
-        try:
-            reflist = back_meta.find('ref-list').find_all('ref')
-        except Exception as e:
-            print "References:",e
-        else:
-            for ref in reflist:
-                print ref.find('ext-link')
+#       try:
+#           reflist = back_meta.find('ref-list').find_all('ref')
+#       except Exception as e:
+#           print "References:",e
+#       else:
+#           for ref in reflist:
+#               print ref.find('ext-link')
 
 
 
