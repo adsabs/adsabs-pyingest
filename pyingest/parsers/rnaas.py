@@ -26,13 +26,13 @@ class RNAASJATSParser(JATSParser):
         output = u2asc(namestring)
         for c in output:
             if c.isalpha():
-                return c
+                return c.upper()
         return u'.'
 
     def iop_journals(self, pid):
 #       mapping journal-meta/journal-id/publisher-id to bibstems
-        IOP_PUBLISHER_IDS = {}
-        IOP_PUBLISHER_IDS['rnaas'] = u'RNAAS'
+#       IOP_PUBLISHER_IDS = {}
+#       IOP_PUBLISHER_IDS['rnaas'] = u'RNAAS'
         try:
             bibstem = IOP_PUBLISHER_IDS[pid]
         except KeyError:
@@ -90,10 +90,13 @@ class RNAASJATSParser(JATSParser):
         except KeyError:
             pass
         else:
-            year = output_metadata['pubdate'][0:4]
+            year = output_metadata['pubdate'][-4:]
             bibstem = j_bibstem.ljust(5,'.')
             volume = output_metadata['volume'].rjust(4,'.')
-            issue_letter = string.letters[int(output_metadata['issue'])-1]
+            if output_metadata['pub-id'] == 'rnaas':
+                issue_letter = string.letters[int(output_metadata['issue'])-1]
+            else:
+                issue_letter = '.'
             idno = output_metadata['page']
             if len(idno) == 6:
                 idtwo = string.letters[int(idno[0:2])]
@@ -103,7 +106,8 @@ class RNAASJATSParser(JATSParser):
                 idfour = idno.rjust(4,'.')
             idno = idtwo + idfour
             try:
-                author_init = self.get_author_init(output_metadata['authors'][0])
+            #   author_init = self.get_author_init(output_metadata['authors'][0])
+                author_init = self.get_author_init(output_metadata['authors'])
             except:
                 author_init = '.'
             output_metadata['bibcode'] = year + bibstem + volume + issue_letter + idno + author_init

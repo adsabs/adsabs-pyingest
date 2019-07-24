@@ -131,6 +131,9 @@ APS_ASTRO_KEYWORDS = [
             's process'
 ]
 
+IOP_PUBLISHER_IDS = {'rnaas': u'RNAAS', 'apj': u'ApJ'}
+IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical Society'}
+
 JATS_TAGS_DANGER = ['php','script','css']
 
 JATS_TAGS_MATH = ['inline-formula',

@@ -87,7 +87,7 @@ class APSJATSParser(JATSParser):
         except KeyError:
             pass
         else:
-            year = output_metadata['pubdate'][0:4]
+            year = output_metadata['pubdate'][-4:]
             bibstem = j_bibstem.ljust(5,'.')
             volume = output_metadata['volume'].rjust(4,'.')
             idno = output_metadata['page']
@@ -114,4 +114,5 @@ class APSJATSParser(JATSParser):
 
 
 # Return
+        print "LOL",output_metadata
         return output_metadata

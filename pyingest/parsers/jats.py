@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import bs4
+from collections import OrderedDict
 from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
 
@@ -54,7 +55,15 @@ class JATSParser(BaseBeautifulSoupParser):
 
 #Title:
         title = article_meta.find('title-group').find('article-title')
-        base_metadata['title'] = self._detag(title,JATS_TAGSET['title'])
+        try:
+            title.xref.extract()
+        except Exception as e:
+            pass
+        try:
+            title.fn.extract()
+        except Exception as e:
+            pass
+        base_metadata['title'] = self._detag(title,JATS_TAGSET['title']).strip()
 
 #Abstract:
         try:
@@ -67,7 +76,7 @@ class JATSParser(BaseBeautifulSoupParser):
 
 #Authors and Affiliations:
 #     # Set up affils storage
-        affils = {}
+        affils = OrderedDict()
 
 #     # Author notes/note ids 
         try:
@@ -93,8 +102,21 @@ class JATSParser(BaseBeautifulSoupParser):
                 except:
                     pass
                 key = a['id']
+                ekey = ''
+                try:
+                    email_a = a.find('ext-link')
+                    a.find('ext-link').extract()
+                    if email_a['ext-link-type'] == 'email':
+                        address = self._detag(email_a,JATS_TAGSET['affiliations'])
+                        address_new = "<EMAIL>" + address + "</EMAIL>"
+                        ekey = email_a['id']
+                except Exception as e:
+                    pass
+         
                 aff_text = self._detag(a,JATS_TAGSET['affiliations'])
                 affils[key] = aff_text.strip()
+                if ekey is not '':
+                    affils[ekey] = address_new
 
 #     # ORCIDs
         orcids = []
@@ -118,6 +140,9 @@ class JATSParser(BaseBeautifulSoupParser):
 #Author name and affil/note lists:
         try:
             authors = article_meta.find('contrib-group').find_all('contrib')
+            if len(orcids) == 0:
+                for a in authors:
+                    orcids.append(None)
         except:
             pass
         else:
@@ -164,6 +189,7 @@ class JATSParser(BaseBeautifulSoupParser):
 
 #orcid?
                     aff_text = '; '.join(affils[x] for x in aid_arr) 
+                    aff_text = aff_text.replace(';;',';').rstrip(';')
                     if o is not None:
                         aff_text = aff_text + '; ' + o
                     base_metadata['affiliations'].append(aff_text)
@@ -195,12 +221,15 @@ class JATSParser(BaseBeautifulSoupParser):
             if c['subj-group-type'] == 'toc-minor':
                 base_metadata['keywords'] = self._detag(c.subject,JATS_TAGSET['keywords'])
         if 'keywords' not in base_metadata:
-            keywords = article_meta.find('kwd-group').find_all('kwd')
-            kwd_arr = []
-            for c in keywords:
-                kwd_arr.append(self._detag(c,JATS_TAGSET['keywords']))
-            if len(kwd_arr) > 0:
-                base_metadata['keywords'] = ', '.join(kwd_arr)
+            try:
+                keywords = article_meta.find('kwd-group').find_all('kwd')
+                kwd_arr = []
+                for c in keywords:
+                    kwd_arr.append(self._detag(c,JATS_TAGSET['keywords']))
+                if len(kwd_arr) > 0:
+                    base_metadata['keywords'] = ', '.join(kwd_arr)
+            except Exception as e:
+                pass
 
 #Volume:
         volume = article_meta.volume
@@ -239,11 +268,11 @@ class JATSParser(BaseBeautifulSoupParser):
             except KeyError:
                 b = ''
             try:
-                pubdate = self._detag(d.year,[]) + "/"
+                pubdate = "/" + self._detag(d.year,[])
                 try:
                     d.month
                 except:
-                    pubdate = pubdate + "00"
+                    pubdate = "00" + pubdate
                 else:
                     try:
                         int(self._detag(d.month,[]))
@@ -256,7 +285,7 @@ class JATSParser(BaseBeautifulSoupParser):
                         month = "0"+str(month)
                     else:
                         month = str(month)
-                    pubdate = pubdate + month
+                    pubdate = month + pubdate
             except Exception as err:
                 print "Error in pubdate:",err
             else:
