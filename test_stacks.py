@@ -30,7 +30,7 @@ for p in papers:
 #   except Exception as e:
 #       print "OH NOES:",e
 
-fo = open('pos.tag','a')
+fo = open('apj878.tag','a')
 serializer = Tagged()
 for d in documents:
     serializer.write(d,fo)
