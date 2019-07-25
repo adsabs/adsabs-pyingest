@@ -213,8 +213,7 @@ class JATSParser(BaseBeautifulSoupParser):
             base_metadata['copyright'] = self._detag(copyright, [])
 
 # Keywords:
-        keywords = article_meta.find('article-categories').(
-            find_all('subj-group'))
+        keywords = article_meta.find('article-categories').find_all('subj-group')
         for c in keywords:
             if c['subj-group-type'] == 'toc-minor':
                 base_metadata['keywords'] = self._detag(c.subject, (
@@ -239,8 +238,7 @@ class JATSParser(BaseBeautifulSoupParser):
         base_metadata['issue'] = self._detag(issue, [])
 
 # Journal name:
-        journal = journal_meta.find('journal-title-group').(
-            find('journal-title'))
+        journal = journal_meta.find('journal-title-group').find('journal-title')
         base_metadata['publication'] = self._detag(journal, [])
 
 # Journal ID:
