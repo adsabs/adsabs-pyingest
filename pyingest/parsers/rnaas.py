@@ -3,6 +3,7 @@
 import sys
 import json
 import codecs
+import string
 from adsputils import u2asc
 from jats import JATSParser
 from pyingest.config.config import *
@@ -17,28 +18,30 @@ class UnparseableException(Exception):
     pass
 
 
-class APSJATSParser(JATSParser):
+class RNAASJATSParser(JATSParser):
 
-    AST_WORDS = [x.lower() for x in APS_ASTRO_KEYWORDS]
+    AST_WORDS = [x.lower() for x in UAT_ASTRO_KEYWORDS]
 
     def get_author_init(self,namestring):
         output = u2asc(namestring)
         for c in output:
             if c.isalpha():
-                return c
+                return c.upper()
         return u'.'
 
-    def aps_journals(self, pid):
+    def iop_journals(self, pid):
 #       mapping journal-meta/journal-id/publisher-id to bibstems
+#       IOP_PUBLISHER_IDS = {}
+#       IOP_PUBLISHER_IDS['rnaas'] = u'RNAAS'
         try:
-            bibstem = APS_PUBLISHER_IDS[pid]
+            bibstem = IOP_PUBLISHER_IDS[pid]
         except KeyError:
             return 'XSTEM'
         else:
             return bibstem
 
     def dbfromkw(self, d, **kwargs):
-        db = ['PHY']
+        db = []
         if isinstance(d,basestring):
             keywords = d.split(',')
             for k in keywords:
@@ -83,27 +86,33 @@ class APSJATSParser(JATSParser):
             
 # Bibcode
         try:
-            j_bibstem = self.aps_journals(output_metadata['pub-id'])
+            j_bibstem = self.iop_journals(output_metadata['pub-id'])
         except KeyError:
             pass
         else:
             year = output_metadata['pubdate'][-4:]
             bibstem = j_bibstem.ljust(5,'.')
             volume = output_metadata['volume'].rjust(4,'.')
+            if output_metadata['pub-id'] == 'rnaas':
+                issue_letter = string.letters[int(output_metadata['issue'])-1]
+            else:
+                issue_letter = '.'
             idno = output_metadata['page']
             if len(idno) == 6:
-                idtwo = chr(96+int(idno[0:2]))
+                idtwo = string.letters[int(idno[0:2])]
                 idfour = idno[2:]
             else:
                 idtwo = ''
-                idfour = idno.rjust(5,'.')
+                idfour = idno.rjust(4,'.')
             idno = idtwo + idfour
             try:
-                author_init = self.get_author_init(output_metadata['authors'][0])
+            #   author_init = self.get_author_init(output_metadata['authors'][0])
+                author_init = self.get_author_init(output_metadata['authors'])
             except:
                 author_init = '.'
-            output_metadata['bibcode'] = year + bibstem + volume + idno + author_init
+            output_metadata['bibcode'] = year + bibstem + volume + issue_letter + idno + author_init
             del output_metadata['pub-id']
+            del output_metadata['page']
 
 # Database (from APS keywords)
         try:
@@ -114,5 +123,4 @@ class APSJATSParser(JATSParser):
 
 
 # Return
-        print "LOL",output_metadata
         return output_metadata
