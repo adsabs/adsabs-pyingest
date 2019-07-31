@@ -289,7 +289,7 @@ class TestHSTProp(unittest.TestCase):
         self.urlopen_mock.return_value = MockResponse(mock_data)
         api_url = 'https://proper.stsci.edu/proper/adsProposalSearch/query'
         token = 'foo'
-        test_data = parser.parse(api_url, api_key=token, fromDate = '2019-01-01', maxRecords = 1)
+        test_data = parser.parse(api_url, api_key=token, fromDate = '2019-01-01', maxRecords = 1, test=True)
         test_outfile = "test_hst.tag"
         standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/hstprop.tag")
         try:
