@@ -5,6 +5,7 @@ import urllib
 import urllib2
 import json
 import sys
+import math
 
 class URLError(Exception):
     pass
@@ -24,7 +25,18 @@ class HSTParser():
         self.errors = []
         pass
 
-    def get_buffer(self, url, **kwargs):
+    def get_batch(self, api_token, api_url, **kwargs):
+        qparams = urllib.urlencode(kwargs)
+        print qparams
+        req = urllib2.Request("%s?%s"%(api_url, qparams))
+        req.add_header('Content-type', 'application/json')
+        req.add_header('Accept', 'text/plain')
+        req.add_header('apiKey', api_token)
+        resp = urllib2.urlopen(req)
+        buff = json.load(resp)
+        return buff
+
+    def get_records(self, url, **kwargs):
         if url.find('adsProposalSearch') == -1:
             raise URLError("This parser is only for the HST adsProposalSearch search.")
         if not kwargs.has_key('api_key'):
@@ -32,17 +44,41 @@ class HSTParser():
         token = kwargs['api_key']
         del kwargs['api_key']
         buff = {}
-        qparams = urllib.urlencode(kwargs)
+        records = []
+        # Store the value of maxRecords, if this was set
+        maxrecs = kwargs.get('maxRecords', 200)
+         # First get 1 record to determine the total amount of records
+        kwargs['maxRecords'] = 1
+        # Do the first query
         try:
-            req = urllib2.Request("%s?%s"%(url, qparams))
-            req.add_header('Content-type', 'application/json')
-            req.add_header('Accept', 'text/plain')
-            req.add_header('apiKey', token)
-            resp = urllib2.urlopen(req)
-            buff = json.load(resp)
+            batch = self.get_batch(token, url, **kwargs)
         except Exception, err:
             raise URLError("Request to HST blew up: %s"%err)
-        return buff
+        # How many records are there?
+        totrecs = batch['query']['total']
+        # Store the first batch of records
+        records = batch['programs']
+        # How often do we need to paginate to get them all?
+        num_paginates = int(math.ceil((totrecs) / (1.0*maxrecs))) - 1
+        # If we run in test mode, do not paginate
+        if kwargs.get('test'):
+            num_paginates = 0
+        # We harvested the first record to get the total number of records,
+        # so we continue with the 2nd
+        offset = 1
+        kwargs['maxRecords'] = maxrecs
+        for i in range(num_paginates):
+            kwargs['offset'] = offset
+            try:
+                batch = self.get_batch(token, url, **kwargs)
+            except Exception, err:
+                raise URLError("Request to HST blew up: %s"%err)
+            records += batch['programs']
+            offset += maxrecs
+        print num_paginates
+        print totrecs
+        print len(records)
+        return records
 
     def is_complete(self, rec):
         required_fields = ['bibstem','title','authorNames','date','link','comment','journalCode','affiliations','authorOrcidIdentifiers']
@@ -63,9 +99,9 @@ class HSTParser():
 
         hst_props = [{}]
         # retrieve data from HST API
-        data = self.get_buffer(url, **kwargs)
+        data = self.get_records(url, **kwargs)
         # process the new records
-        for d in data['programs']:
+        for d in data:
             if self.is_complete(d):
                 # The "journal field" is a composite from the "journalCode" and "comment" fields:
                 #  1. journalCode: expression of mission cycle ('HST Proposal. Cycle NN' or 'JWST Proposal. Cycle N')
