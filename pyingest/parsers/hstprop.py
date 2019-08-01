@@ -27,7 +27,6 @@ class HSTParser():
 
     def get_batch(self, api_token, api_url, **kwargs):
         qparams = urllib.urlencode(kwargs)
-        print qparams
         req = urllib2.Request("%s?%s"%(api_url, qparams))
         req.add_header('Content-type', 'application/json')
         req.add_header('Accept', 'text/plain')
@@ -59,7 +58,7 @@ class HSTParser():
         # Store the first batch of records
         records = batch['programs']
         # How often do we need to paginate to get them all?
-        num_paginates = int(math.ceil((totrecs) / (1.0*maxrecs))) - 1
+        num_paginates = int(math.ceil((totrecs) / (1.0*maxrecs)))
         # If we run in test mode, do not paginate
         if kwargs.get('test'):
             num_paginates = 0
@@ -75,9 +74,6 @@ class HSTParser():
                 raise URLError("Request to HST blew up: %s"%err)
             records += batch['programs']
             offset += maxrecs
-        print num_paginates
-        print totrecs
-        print len(records)
         return records
 
     def is_complete(self, rec):
