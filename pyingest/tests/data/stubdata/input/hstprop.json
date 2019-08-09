@@ -1,0 +1,41 @@
+{
+    "query": {
+        "total": 201, 
+        "max": 1, 
+        "size": 1, 
+        "fromDate": "2019-01-01", 
+        "offset": 0
+    }, 
+    "programs": [
+        {
+            "comment": "HST Proposal#15677", 
+            "date": "2019-01-02", 
+            "title": "Spectroscopy and Imaging of the Southern Crab Nebula", 
+            "journalCode": "HST Proposal. Cycle 26", 
+            "abstract": "We will obtain WFC3 imaging of the Southern Crab Nebula (also known as WRAY-16-47 and Hen 2-104) with four narrowband filters to detect key nebular emission features. We will also obtain high-quality STIS spectra, which will cover the core of the nebula and one of the bright limbs of the ejecta.", 
+            "bibstem": "2019hst..prop15677M", 
+            "authorNames": [
+                "Mutchler, Max", 
+                "Britt, Christopher", 
+                "DePasquale, Joseph", 
+                "Green, Joel David", 
+                "Monroe, TalaWanda R."
+            ], 
+            "affiliations": [
+                "Space Telescope Science Institute", 
+                "Space Telescope Science Institute", 
+                "Space Telescope Science Institute", 
+                "Space Telescope Science Institute", 
+                "Space Telescope Science Institute"
+            ], 
+            "link": "http://www.stsci.edu/cgi-bin/get-proposal-info?observatory=HST&id=15677", 
+            "authorOrcidIdentifiers": [
+                "http://orcid.org/0000-0002-0088-3021", 
+                "", 
+                "", 
+                "http://orcid.org/0000-0003-1665-5709", 
+                "http://orcid.org/0000-0001-6797-6081"
+            ]
+        }
+    ]
+}
