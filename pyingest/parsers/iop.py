@@ -18,7 +18,7 @@ class UnparseableException(Exception):
     pass
 
 
-class RNAASJATSParser(JATSParser):
+class IOPJATSParser(JATSParser):
 
     AST_WORDS = [x.lower() for x in UAT_ASTRO_KEYWORDS]
 

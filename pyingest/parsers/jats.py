@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import bs4
+from bs4 import Comment, CData, ProcessingInstruction
 from collections import OrderedDict
 from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
@@ -70,6 +71,19 @@ class JATSParser(BaseBeautifulSoupParser):
 # Abstract:
         try:
             abstract = article_meta.abstract.p
+        except Exception as e:
+            pass
+        try:
+            # print type(abstract)
+            cdata_string = self._detag(abstract.find('tex-math').extract(),[]).strip().lstrip('<?CDATA').rstrip('?>')
+#           print cdata_string
+#           print abstract
+            abstract.find('inline-formula').replace_with(" "+cdata_string+" ")
+        except Exception as e:
+            pass
+        try:
+            for element in abstract(text=lambda text: isinstance(text, Comment)):
+                element.extract()
         except Exception as e:
             pass
         else:
