@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from pyingest.parsers.iop import IOPJATSParser
+from pyingest.parsers.rnaas import RNAASJATSParser
 from pyingest.serializers.classic import Tagged
 from glob import glob
 
@@ -14,11 +14,11 @@ from glob import glob
 #outputfp.close()
 
 
-parser = IOPJATSParser()
+parser = RNAASJATSParser()
 #basedir = '/proj/ads/articles/sources/STACKS/2515-5172/3/7/'
-basedir = '/proj/ads/articles/sources/STACKS/0004-637X/878/1/'
-papers = glob(basedir+'*/*.xml')
-#papers = ['./apj_878_1_1.xml']
+#basedir = '/proj/ads/articles/sources/STACKS/0004-637X/878/1/'
+#papers = glob(basedir+'*/*.xml')
+papers = ['./apj_878_1_11.xml']
 #papers = ['./rnaas_3_7_92.xml']
 documents = []
 for p in papers:
