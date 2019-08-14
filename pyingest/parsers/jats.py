@@ -6,6 +6,7 @@ from collections import OrderedDict
 from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
 import re
+import copy
 
 
 class NoSchemaException(Exception):
@@ -27,14 +28,35 @@ class JATSParser(BaseBeautifulSoupParser):
 
     def _detag(self, r, tags_keep, **kwargs):
         newr = bs4.BeautifulSoup(unicode(r), 'lxml')
+        piffol = newr.contents
+        print piffol
         tag_list = list(set([x.name for x in newr.find_all()]))
         for t in tag_list:
             if t in JATS_TAGS_DANGER:
-                newr.find(t).decompose()
+                oldr = None
+                while oldr != newr:
+                    try:
+                        oldr = copy.deepcopy(newr)
+                        newr.find(t).decompose()
+                    except Exception as e:
+                        pass
             elif t in tags_keep:
-                newr.find(t).contents
+                oldr = None
+                while oldr != newr:
+                    try:
+                        oldr = copy.deepcopy(newr)
+                        newr.find(t).contents
+                    except Exception as e:
+                        pass
             else:
-                newr.find(t).unwrap()
+                oldr = None
+                while oldr != newr:
+                    try:
+                        oldr = copy.deepcopy(newr)
+                        newr.find(t).unwrap()
+                    except Exception as e:
+                        pass
+              # newr.find(t).unwrap()
         newr = unicode(newr)
 
         # deal with CDATA:
