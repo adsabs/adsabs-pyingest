@@ -30,29 +30,11 @@ class JATSParser(BaseBeautifulSoupParser):
         tag_list = list(set([x.name for x in newr.find_all()]))
         for t in tag_list:
             if t in JATS_TAGS_DANGER:
-                test = newr.find_all(t)
-                for x in test:
-                    try:
-                        newr.find(x).decompose()
-                    except Exception as e:
-                        pass
-                # newr.find_all(t).decompose()
+                newr.find(t).decompose()
             elif t in tags_keep:
-                test = newr.find_all(t)
-                for x in test:
-                    try:
-                        newr.find(t).contents
-                    except Exception as e:
-                        pass
-                # newr.find_all(t).contents
+                newr.find(t).contents
             else:
-                test = newr.find_all(t)
-                for x in test:
-                    try:
-                        newr.find(t).unwrap()
-                    except Exception as e:
-                        pass
-                # newr.find(t).unwrap()
+                newr.find(t).unwrap()
         newr = unicode(newr)
 
         # deal with CDATA:
