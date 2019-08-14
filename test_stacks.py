@@ -17,9 +17,10 @@ from glob import glob
 parser = IOPJATSParser()
 #basedir = '/proj/ads/articles/sources/STACKS/2515-5172/3/7/'
 basedir = '/proj/ads/articles/sources/STACKS/0004-637X/878/1/'
-papers = glob(basedir+'*/*.xml')
+#papers = glob(basedir+'*/*.xml')
 #papers = ['./apj_878_1_1.xml']
 #papers = ['./rnaas_3_7_92.xml']
+papers = glob(basedir+'*/*1_12.xml')
 documents = []
 for p in papers:
     print "FILE:",p

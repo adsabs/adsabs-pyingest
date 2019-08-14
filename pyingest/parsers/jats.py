@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
 import bs4
-from bs4 import Comment, CData, ProcessingInstruction
+from bs4 import Comment
 from collections import OrderedDict
 from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
+import re
 
 
 class NoSchemaException(Exception):
@@ -34,7 +35,19 @@ class JATSParser(BaseBeautifulSoupParser):
                 newr.find(t).contents
             else:
                 newr.find(t).unwrap()
-        return unicode(newr).replace("  ", " ")
+        newr = unicode(newr)
+
+        # deal with CDATA:
+        cdata_pat = r'(\<\?CDATA)(.*?)(\?\>)'
+        cdata = re.findall(cdata_pat,newr)
+        for s in cdata:
+            s_old = ''.join(s)
+            s_new = s[1]
+            newr = newr.replace(s_old,s_new)
+
+        newr = newr.replace("\n"," ").replace("  ", " ")
+
+        return newr
 
     def resource_dict(self, fp, **kwargs):
         d = self.bsfiletodict(fp, **kwargs)
@@ -73,22 +86,16 @@ class JATSParser(BaseBeautifulSoupParser):
             abstract = article_meta.abstract.p
         except Exception as e:
             pass
-        try:
-            # print type(abstract)
-            cdata_string = self._detag(abstract.find('tex-math').extract(),[]).strip().lstrip('<?CDATA').rstrip('?>')
-#           print cdata_string
-#           print abstract
-            abstract.find('inline-formula').replace_with(" "+cdata_string+" ")
-        except Exception as e:
-            pass
-        try:
-            for element in abstract(text=lambda text: isinstance(text, Comment)):
-                element.extract()
-        except Exception as e:
-            pass
         else:
-            base_metadata['abstract'] = (
-                self._detag(abstract, JATS_TAGSET['abstract']))
+            try:
+                for element in abstract(text=lambda text: isinstance(text, Comment)):
+                    element.extract()
+            except Exception as e:
+                pass
+            else:
+                abstract = (
+                    self._detag(abstract, JATS_TAGSET['abstract']))
+            base_metadata['abstract'] = abstract
 
 
 # Authors and Affiliations:
