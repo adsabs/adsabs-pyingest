@@ -2,11 +2,21 @@ import re
 import sys
 import bs4
 import xmltodict as xmltodict_parser
-
+import urllib
+import feedparser
+import bs4
+import lxml
 import warnings
+import ssl
 warnings.filterwarnings("ignore", category=UserWarning, module='bs4')
+# The following line is to avoid (when doing JOSS harvesting):
+# IOError: [Errno socket error] [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:727)
+ssl._create_default_https_context = ssl._create_unverified_context
 
 class MissingParser(Exception):
+    pass
+
+class UnknownHarvestMethod(Exception):
     pass
 
 class DefaultParser(object):
@@ -76,4 +86,54 @@ class BaseBeautifulSoupParser(object):
     def bsstrtodict(self, r, **kwargs):
         """returns a BeautifulSoup tree"""
         return bs4.BeautifulSoup(r, "lxml", **kwargs)
+
+class BaseRSSFeedParser(object):
+    """
+    A parser that takes an RSS/Atom feed
+    """
+
+    control_chars = ''.join(map(unichr, range(0,32) + range(127,160)))
+    control_char_re = re.compile('[%s]' % re.escape(control_chars))
+
+    def __init__(self):
+        self.errors = []
+        self.links = []
+        pass
+
+    def remove_control_chars(s):
+        return control_char_re.sub('', s)
+
+    def get_records(self, rssURL, data_tag='entry', method='bs', **kwargs):
+        qparams = urllib.urlencode(kwargs)
+        if qparams:
+            url = "%s?%s" % (rssURL, qparams)
+        else:
+            url = rssURL
+        source = urllib.urlopen(url)
+        if method == 'bs':
+            soup = bs4.BeautifulSoup(source,'lxml')
+            entries = soup.find_all(data_tag)
+            self.links = soup.find_all('link')
+        elif method == 'fp':
+            feed = feedparser.parse(url)
+            entries = [e for e in feed.entries]
+        else:
+            raise UnknownHarvestMethod
+        
+        return entries
+
+    def parse(self, url, **kwargs):
+        
+        rss_recs = [{}]
+        data = self.get_records(url, **kwargs)
+        for d in data:
+            try:
+                title = data.find('title').text
+            except:
+                title = ''
+            rss_recs.append({ 
+                'title': title,
+            })
+            
+        return rss_recs
         
