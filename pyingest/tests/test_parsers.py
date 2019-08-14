@@ -15,6 +15,7 @@ from pyingest.parsers import arxiv
 from pyingest.parsers import aps
 from pyingest.parsers import procsci
 from pyingest.parsers import hstprop
+from pyingest.parsers import joss
 from pyingest.parsers.author_names import AuthorNames
 
 from pyingest.serializers import classic
@@ -335,6 +336,38 @@ class TestHSTProp(unittest.TestCase):
         test_data = parser.parse(api_url, api_key=token, fromDate = '2019-01-01', maxRecords = 1)
         # Misaligned arrays should be reported
         self.assertEqual(parser.errors[0],'Found misaligned affiliation/ORCID arrays: 2019hst..prop15677M')
+
+    def tearDown(self):
+        self.patcher.stop()
+
+class TestJOSS(unittest.TestCase):
+    import pytest
+    def setUp(self):
+        "Mock joss.JOSSParser.urllib.urlopen"
+        self.patcher = patch('urllib.urlopen')
+        self.urlopen_mock = self.patcher.start()
+
+    def test_output(self):
+        parser = joss.JOSSParser()
+        mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/joss_atom.xml")
+        mock_data = open(mock_infile).read()
+        self.urlopen_mock.return_value = MockResponse(mock_data)
+        joss_url = 'https://joss.theoj.org/papers/published.atom'
+        test_data = parser.parse(joss_url,  since='2019-07-10', page=1)
+        test_outfile = "test_joss.tag"
+        standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/joss.tag")
+        try:
+            os.remove(test_outfile)
+        except:
+            pass
+        for d in test_data:
+            serializer = classic.Tagged()
+            outputfp = open(test_outfile,'a')
+            serializer.write(d,outputfp)
+            outputfp.close()
+        result = filecmp.cmp(test_outfile,standard_outfile)
+        self.assertEqual(result, True)
+        os.remove(test_outfile)
 
     def tearDown(self):
         self.patcher.stop()

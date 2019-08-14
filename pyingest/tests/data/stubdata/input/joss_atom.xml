@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
+  <id>tag:joss.theoj.org,2005:/papers/published</id>
+  <link rel="alternate" type="text/html" href="https://joss.theoj.org"/>
+  <link rel="self" type="application/atom+xml" href="https://joss.theoj.org/papers/published.atom"/>
+  <link rel="first" type="application/atom+xml" href="https://joss.theoj.org/papers/published.atom"/>
+  <link rel="next" type="application/atom+xml" href="https://joss.theoj.org/papers/published.atom?page=1"/>
+  <link rel="last" type="application/atom+xml" href="https://joss.theoj.org/papers/published.atom?page=1"/>
+  <title>Journal of Open Source Software</title>
+  <updated>2019-06-30T00:45:42Z</updated>
+  <entry>
+    <id>tag:joss.theoj.org,2005:Paper/1085</id>
+    <published>2019-06-30T00:45:42Z</published>
+    <updated>2019-08-13T16:36:41Z</updated>
+    <link rel="alternate" type="text/html" href="https://joss.theoj.org/papers/1d180e6004a0dd1e6b235eb24fe66276"/>
+    <title>bayestestR: Describing Effects and their Uncertainty, Existence and Significance within the Bayesian Framework</title>
+    <state>accepted</state>
+    <software_version>v0.2.3</software_version>
+    <issue>40</issue>
+    <volume>4</volume>
+    <year>2019</year>
+    <page>1541</page>
+    <authors>
+      <author sequence="first">
+        <given_name>Dominique</given_name>
+        <last_name>Makowski</last_name>
+        <affiliation>Nanyang Technological University, Singapore</affiliation>
+        <orcid>0000-0001-5375-9967</orcid>
+      </author>
+      <author sequence="additional">
+        <given_name>Mattan</given_name>
+        <middle_name>S.</middle_name>
+        <last_name>Ben-Shachar</last_name>
+        <affiliation>Ben-Gurion University of the Negev, Israel</affiliation>
+        <orcid>0000-0002-4287-4801</orcid>
+      </author>
+      <author sequence="additional">
+        <given_name>Daniel</given_name>
+        <last_name>Lüdecke</last_name>
+        <affiliation>University Medical Center Hamburg-Eppendorf, Germany</affiliation>
+        <orcid>0000-0002-8895-3206</orcid>
+      </author>
+    </authors>
+    <doi>10.21105/joss.01541</doi>
+    <archive_doi>https://doi.org/10.5281/zenodo.3361605</archive_doi>
+    <languages>R</languages>
+    <pdf_url>https://www.theoj.org/joss-papers/joss.01541/10.21105.joss.01541.pdf</pdf_url>
+    <tags>R, Bayesian statistics, rstan, eaystats, posterior distribution, Region of practical equivalence, ROPE, probability of direction, Bayes factor, Astronomy</tags>
+  </entry>
+</feed>
