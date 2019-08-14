@@ -32,20 +32,26 @@ class JATSParser(BaseBeautifulSoupParser):
             if t in JATS_TAGS_DANGER:
                 test = newr.find_all(t)
                 for x in test:
-                    if x is not None:
+                    try:
                         newr.find(x).decompose()
+                    except Exception as e:
+                        pass
                 # newr.find_all(t).decompose()
             elif t in tags_keep:
                 test = newr.find_all(t)
                 for x in test:
-                    if x is not None:
+                    try:
                         newr.find(t).contents
+                    except Exception as e:
+                        pass
                 # newr.find_all(t).contents
             else:
                 test = newr.find_all(t)
                 for x in test:
-                    if x is not None:
+                    try:
                         newr.find(t).unwrap()
+                    except Exception as e:
+                        pass
                 # newr.find(t).unwrap()
         newr = unicode(newr)
 
