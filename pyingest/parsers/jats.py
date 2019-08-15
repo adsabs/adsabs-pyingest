@@ -157,20 +157,25 @@ class JATSParser(BaseBeautifulSoupParser):
                 key = a['id']
                 ekey = ''
                 try:
-                    email_a = a.find('ext-link')
-                    a.find('ext-link').extract()
-                    if email_a['ext-link-type'] == 'email':
-                        address = self._detag(email_a, (
-                            JATS_TAGSET['affiliations']))
-                        address_new = "<EMAIL>" + address + "</EMAIL>"
-                        ekey = email_a['id']
+                    email_array = []
+                    email_a = a.find_all('ext-link')
+                    for em in email_a:
+                        if em['ext-link-type'] == 'email':
+                            address = self._detag(em, (
+                                JATS_TAGSET['affiliations']))
+                            address_new = "<EMAIL>" + address + "</EMAIL>"
+                            ekey = em['id']
+                            if ekey is not '':
+                                affils[ekey] = address_new
+                    while a.find('ext-link') is not None:
+                        a.find('ext-link').extract()
                 except Exception as e:
                     pass
 
                 aff_text = self._detag(a, JATS_TAGSET['affiliations'])
                 affils[key] = aff_text.strip()
-                if ekey is not '':
-                    affils[ekey] = address_new
+#               if ekey is not '':
+#                   affils[ekey] = address_new
 
 
 # Author name and affil/note lists:
@@ -186,15 +191,14 @@ class JATSParser(BaseBeautifulSoupParser):
                 # ORCIDs
                 orcid_out = None
                 try:
-                    orcids = a.find_all('ext-link')
-                    for o in orcids:
-                        try:
-                            if o['ext-link-type'] == 'orcid':
-                                orcid_out = (
-                                    "<ID system=\"ORCID\">"+self._detag(o, (
-                                     [])+"</ID>"))
-                        except Exception as e:
-                            pass
+#                   orcids = a.find_all('ext-link')
+                    orcids = a.find('ext-link')
+                    try:
+                        if orcids['ext-link-type'] == 'orcid':
+                            o = self._detag(orcids,[])
+                            orcid_out = "<ID system=\"ORCID\">"+o+"</ID>"
+                    except Exception as e:
+                        pass
                 except Exception as e:
                     pass
 
@@ -238,6 +242,7 @@ class JATSParser(BaseBeautifulSoupParser):
 
                     aff_text = '; '.join(affils[x] for x in aid_arr)
                     aff_text = aff_text.replace(';;', ';').rstrip(';')
+                    aff_text = aff_text.replace('; ,','').rstrip()
 
                     # Got ORCID?
                     if orcid_out is not None:
@@ -377,13 +382,18 @@ class JATSParser(BaseBeautifulSoupParser):
 
 
 # References (now using back_meta):
-#       try:
-#           reflist = back_meta.find('ref-list').find_all('ref')
-#       except Exception as e:
-#           print "References:", e
-#       else:
-#           for ref in reflist:
-#               print ref.find('ext-link')
+        try:
+            reflist = back_meta.find('ref-list').find_all('ref')
+        except Exception as e:
+            print "References:", e
+        else:
+            for ref in reflist:
+                x = ref.find('ext-link')
+                if x is not None:
+#                   print ref.find('ext-link')
+                    pass
+                else:
+                    print "uh oh",unicode(ref)
 
         output_metadata = base_metadata
         return output_metadata
