@@ -28,8 +28,6 @@ class JATSParser(BaseBeautifulSoupParser):
 
     def _detag(self, r, tags_keep, **kwargs):
         newr = bs4.BeautifulSoup(unicode(r), 'lxml')
-        piffol = newr.contents
-        print piffol
         tag_list = list(set([x.name for x in newr.find_all()]))
         for t in tag_list:
             if t in JATS_TAGS_DANGER:
@@ -67,7 +65,16 @@ class JATSParser(BaseBeautifulSoupParser):
             s_new = s[1]
             newr = newr.replace(s_old,s_new)
 
-        newr = newr.replace("\n"," ").replace("  ", " ")
+#       amp_pat = r'(?<=&amp\;)(.*?)(?=\;)'
+        amp_pat = r'(&amp;)(.*?)(;)'
+        amp_fix = re.findall(amp_pat,newr)
+        for s in amp_fix:
+            s_old = ''.join(s)
+            s_new = '&'+s[1]+';'
+            newr = newr.replace(s_old,s_new)
+
+        newr = newr.replace(u'\n',u' ').replace(u'  ',u' ')
+        newr = newr.replace('&nbsp;',' ')
 
         return newr
 
