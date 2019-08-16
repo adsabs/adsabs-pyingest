@@ -21,6 +21,8 @@ class UnparseableException(Exception):
 class IOPJATSParser(JATSParser):
 
     AST_WORDS = [x.lower() for x in UAT_ASTRO_KEYWORDS]
+    AST_WORDS = AST_WORDS + [x.lower() for x in AAS_ASTRO_KEYWORDS]
+    AST_WORDS = AST_WORDS + [x.lower() for x in APS_ASTRO_KEYWORDS]
 
     def get_author_init(self,namestring):
         output = u2asc(namestring)
@@ -76,11 +78,14 @@ class IOPJATSParser(JATSParser):
                 pass
             
             try:
-                output_metadata['page']
+                page_id = output_metadata['page']
             except:
                 pass
             else:
-                pubstring = pubstring +', id.'+ output_metadata['page']
+                if "-" in page_id:
+                    pubstring = pubstring +', pp.'+ page_id
+                else:
+                    pubstring = pubstring +', id.'+ page_id
 
             output_metadata['publication'] = pubstring
             
@@ -98,13 +103,16 @@ class IOPJATSParser(JATSParser):
             else:
                 issue_letter = '.'
             idno = output_metadata['page']
-            if len(idno) == 6:
-                idtwo = string.letters[int(idno[0:2])]
-                idfour = idno[2:]
+            if "-" in idno:
+                idno = idno.split("-")[0]
             else:
-                idtwo = ''
-                idfour = idno.rjust(4,'.')
-            idno = idtwo + idfour
+                if len(idno) == 6:
+                    idtwo = string.letters[int(idno[0:2])]
+                    idfour = idno[2:]
+                else:
+                    idtwo = ''
+                    idfour = idno.rjust(4,'.')
+                idno = idtwo + idfour
             try:
             #   author_init = self.get_author_init(output_metadata['authors'][0])
                 author_init = self.get_author_init(output_metadata['authors'])

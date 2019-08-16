@@ -28,7 +28,10 @@ class JATSParser(BaseBeautifulSoupParser):
 
     def _detag(self, r, tags_keep, **kwargs):
         newr = bs4.BeautifulSoup(unicode(r), 'lxml')
-        tag_list = list(set([x.name for x in newr.find_all()]))
+        try:
+            tag_list = list(set([x.name for x in newr.find_all()]))
+        except Exception as e:
+            tag_list=[]
         for t in tag_list:
             if t in JATS_TAGS_DANGER:
                 oldr = None
@@ -54,7 +57,6 @@ class JATSParser(BaseBeautifulSoupParser):
                         newr.find(t).unwrap()
                     except Exception as e:
                         pass
-              # newr.find(t).unwrap()
         newr = unicode(newr)
 
         # deal with CDATA:
@@ -90,15 +92,21 @@ class JATSParser(BaseBeautifulSoupParser):
         document = self.resource_dict(fp, **kwargs)
         r = document.front
 
-        article_meta = r.find('article-meta')
-        journal_meta = r.find('journal-meta')
+        try:
+            article_meta = r.find('article-meta')
+            journal_meta = r.find('journal-meta')
+        except Exception as e:
+            return {}
 
         back_meta = document.back
 
         base_metadata = {}
 
 # Title:
-        title = article_meta.find('title-group').find('article-title')
+        try:
+            title = article_meta.find('title-group').find('article-title')
+        except Exception as e:
+            pass
         try:
             title.xref.extract()
         except Exception as e:
@@ -268,11 +276,17 @@ class JATSParser(BaseBeautifulSoupParser):
             base_metadata['copyright'] = self._detag(copyright, [])
 
 # Keywords:
-        keywords = article_meta.find('article-categories').find_all('subj-group')
+        try:
+            keywords = article_meta.find('article-categories').find_all('subj-group')
+        except Exception as e:
+            keywords = []
         for c in keywords:
-            if c['subj-group-type'] == 'toc-minor':
-                base_metadata['keywords'] = self._detag(c.subject, (
-                    JATS_TAGSET['keywords']))
+            try:
+                if c['subj-group-type'] == 'toc-minor':
+                    base_metadata['keywords'] = self._detag(c.subject, (
+                        JATS_TAGSET['keywords']))
+            except:
+                pass
         if 'keywords' not in base_metadata:
             try:
                 keywords = article_meta.find('kwd-group').find_all('kwd')
@@ -293,24 +307,40 @@ class JATSParser(BaseBeautifulSoupParser):
         base_metadata['issue'] = self._detag(issue, [])
 
 # Journal name:
-        journal = journal_meta.find('journal-title-group').find('journal-title')
-        base_metadata['publication'] = self._detag(journal, [])
+        try:
+            journal = journal_meta.find('journal-title-group').find('journal-title')
+            base_metadata['publication'] = self._detag(journal, [])
+        except Exception as e:
+            try:
+                journal = journal_meta.find('journal-title')
+                base_metadata['publication'] = self._detag(journal, [])
+            except Exception as e:
+                pass
 
 # Journal ID:
-        jid = journal_meta.find_all('journal-id')
+        try:
+            jid = journal_meta.find_all('journal-id')
+        except Exception as e:
+            jid = []
         for j in jid:
             if j['journal-id-type'] == 'publisher-id':
                 base_metadata['pub-id'] = self._detag(j, [])
 
 # DOI:
-        ids = article_meta.find_all('article-id')
+        try:
+            ids = article_meta.find_all('article-id')
+        except Exception as e:
+            ids = []
         for d in ids:
             if d['pub-id-type'] == 'doi':
                 base_metadata['properties'] = {'DOI': self._detag(d, [])}
 
 # Pubdate:
 
-        pub_dates = article_meta.find_all('pub-date')
+        try:
+            pub_dates = article_meta.find_all('pub-date')
+        except Exception as e:
+            pub_dates = []
         for d in pub_dates:
             try:
                 a = d['publication-format']
@@ -340,7 +370,7 @@ class JATSParser(BaseBeautifulSoupParser):
                         month = str(month)
                     pubdate = month + pubdate
             except Exception as err:
-                print "Error in pubdate:", err
+                pass
             else:
                 if (a == 'print' or b == 'ppub'):
                     base_metadata['pubdate'] = pubdate
@@ -382,18 +412,18 @@ class JATSParser(BaseBeautifulSoupParser):
 
 
 # References (now using back_meta):
-        try:
-            reflist = back_meta.find('ref-list').find_all('ref')
-        except Exception as e:
-            print "References:", e
-        else:
-            for ref in reflist:
-                x = ref.find('ext-link')
-                if x is not None:
+#       try:
+#           reflist = back_meta.find('ref-list').find_all('ref')
+#       except Exception as e:
+#           print "References:", e
+#       else:
+#           for ref in reflist:
+#               x = ref.find('ext-link')
+#               if x is not None:
 #                   print ref.find('ext-link')
-                    pass
-                else:
-                    print "uh oh",unicode(ref)
+##                  pass
+#               else:
+#                   print "uh oh",unicode(ref)
 
         output_metadata = base_metadata
         return output_metadata
