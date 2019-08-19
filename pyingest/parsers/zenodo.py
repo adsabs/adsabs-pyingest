@@ -12,6 +12,7 @@ from datacite import DataCiteParser
 class WrongPublisherException(Exception):
     pass
 
+
 class ZenodoParser(DataCiteParser):
 
     def get_references(self, r):
@@ -19,7 +20,7 @@ class ZenodoParser(DataCiteParser):
         # allowed description type so Lars is shoving the references
         # in a section labeled as "Other" as a json structure
         references = []
-        for s in self._array(r.get('descriptions',{}).get('description',[])):
+        for s in self._array(r.get('descriptions', {}).get('description', [])):
             t = s.get('@descriptionType')
             c = self._text(s)
             if t == 'References':
@@ -28,7 +29,7 @@ class ZenodoParser(DataCiteParser):
             elif t == 'Other':
                 try:
                     j = json.loads(c)
-                    references = j.get('references',[])
+                    references = j.get('references', [])
                 except ValueError:
                     logging.warning(u'Ignoring unparsable "Other" description element: %s\n' % c)
         return references
@@ -54,9 +55,9 @@ class ZenodoParser(DataCiteParser):
             doc['source'] = 'ZENODO'
 
         return doc
+
 #
-#
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 #
 #    # allows program to print utf-8 encoded output sensibly
 #    import codecs

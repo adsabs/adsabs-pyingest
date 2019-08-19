@@ -2,21 +2,22 @@ import json
 import urllib
 
 
-def find(key,dictionary):
-    for k,v in dictionary.iteritems():
+def find(key, dictionary):
+    for k, v in dictionary.iteritems():
         if k == key:
             yield v
-        elif isinstance(v,dict):
-            for result in find(key,v):
+        elif isinstance(v, dict):
+            for result in find(key, v):
                 yield result
-        elif isinstance(v,list):
+        elif isinstance(v, list):
             for d in v:
-                for result in find(key,d):
+                for result in find(key, d):
                     yield result
 
 
-MONTH_TO_NUMBER = {'jan':1, 'feb':2, 'mar':3, 'apr':4, 'may':5, 'jun':6,
-                   'jul':7, 'aug':8, 'sep':9, 'oct':10, 'nov':11, 'dec':12}
+MONTH_TO_NUMBER = {'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
+                   'jul': 7, 'aug': 8, 'sep': 9, 'oct': 10, 'nov': 11,
+                   'dec': 12}
 # APS Journal dictionary: used by parsers/aps.py to get the bibstem
 
 APS_PUBLISHER_IDS = {'PRL': 'PhRvL', 'PRX': 'PhRvX', 'RMP': 'RvMP',
@@ -25,35 +26,38 @@ APS_PUBLISHER_IDS = {'PRL': 'PhRvL', 'PRX': 'PhRvX', 'RMP': 'RvMP',
                      'PRSTAB': 'PhRvS', 'PRAPPLIED': 'PhRvP',
                      'PRFLUIDS': 'PhRvF', 'PRMATERIALS': 'PhRvM',
                      'PRPER': 'PRPER', 'PRSTPER': 'PRSTP', 'PR': 'PhRv',
-                     'PRI': 'PhRvI','PHYSICS': 'PhyOJ'}
+                     'PRI': 'PhRvI', 'PHYSICS': 'PhyOJ'}
 
 
-IOP_PUBLISHER_IDS = {'rnaas': u'RNAAS', 'apj': u'ApJ', 'apjs': u'ApJS', 'apjl': u'ApJL', 'aj': 'AJ', 'jcap': u'JCAP', 'pasp': u'PASP'}
-IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical Society'}
+IOP_PUBLISHER_IDS = {'rnaas': u'RNAAS', 'apj': u'ApJ', 'apjs': u'ApJS',
+                     'apjl': u'ApJL', 'aj': 'AJ', 'jcap': u'JCAP',
+                     'pasp': u'PASP'}
+IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical
+                     Society'}
 
-JATS_TAGS_DANGER = ['php','script','css']
+JATS_TAGS_DANGER = ['php', 'script', 'css']
 
 JATS_TAGS_MATH = ['inline-formula',
-            'mml:math',
-            'mml:semantics',
-            'mml:mrow',
-            'mml:munder',
-            'mml:mo',
-            'mml:mi',
-            'mml:msub',
-            'mml:mover',
-            'mml:mn',
-            'mml:annotation'
-]
+                  'mml:math',
+                  'mml:semantics',
+                  'mml:mrow',
+                  'mml:munder',
+                  'mml:mo',
+                  'mml:mi',
+                  'mml:msub',
+                  'mml:mover',
+                  'mml:mn',
+                  'mml:annotation'
+                  ]
 
-JATS_TAGS_HTML = ['sub','sup','a','astrobj']
+JATS_TAGS_HTML = ['sub', 'sup', 'a', 'astrobj']
 
-JATS_TAGSET = {'title':JATS_TAGS_MATH + JATS_TAGS_HTML,
-            'abstract':JATS_TAGS_MATH + JATS_TAGS_HTML + ['pre','br'],
-            'comments':JATS_TAGS_MATH + JATS_TAGS_HTML + ['pre','br'],
-            'affiliations':['email','orcid'],
-            'keywords':['astrobj']
-        }
+JATS_TAGSET = {'title': JATS_TAGS_MATH + JATS_TAGS_HTML,
+               'abstract': JATS_TAGS_MATH + JATS_TAGS_HTML + ['pre', 'br'],
+               'comments': JATS_TAGS_MATH + JATS_TAGS_HTML + ['pre', 'br'],
+               'affiliations': ['email', 'orcid'],
+               'keywords': ['astrobj']
+               }
 
 # KEYWORDS
 
@@ -62,7 +66,7 @@ JATS_TAGSET = {'title':JATS_TAGS_MATH + JATS_TAGS_HTML,
 UAT_URL = 'https://raw.githubusercontent.com/astrothesaurus/UAT/master/UAT.json'
 remote = urllib.urlopen(UAT_URL)
 UAT_json = json.loads(remote.read())
-UAT_ASTRO_KEYWORDS =  list(find('name', UAT_json))
+UAT_ASTRO_KEYWORDS = list(find('name', UAT_json))
 
 # American Astronomical Society (superseded June 2019 by UAT)
 AAS_ASTRO_KEYWORDS = [
@@ -585,4 +589,4 @@ APS_ASTRO_KEYWORDS = [
             'X ray bursts',
             'r process',
             's process'
-]
+            ]

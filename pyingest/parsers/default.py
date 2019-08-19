@@ -4,20 +4,24 @@ import bs4
 import xmltodict as xmltodict_parser
 import urllib
 import feedparser
-import bs4
 import lxml
 import warnings
 import ssl
+
 warnings.filterwarnings("ignore", category=UserWarning, module='bs4')
 # The following line is to avoid (when doing JOSS harvesting):
-# IOError: [Errno socket error] [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:727)
+# IOError: [Errno socket error] [SSL: CERTIFICATE_VERIFY_FAILED] certificate
+# verify failed (_ssl.c:727)
 ssl._create_default_https_context = ssl._create_unverified_context
+
 
 class MissingParser(Exception):
     pass
 
+
 class UnknownHarvestMethod(Exception):
     pass
+
 
 class DefaultParser(object):
     """just a stub entry"""
@@ -34,19 +38,19 @@ class BaseXmlToDictParser(object):
     def xmltodict(self, fp, **kwargs):
         """returns a dict as created by xmltodict"""
         return xmltodict_parser.parse(fp, **kwargs)
-        
+
     def _array(self, e):
         """Ensures that e is an array"""
-        if type(e) == type(None):
+        if isinstance(e, None):
             return []
-        elif type(e) == type([]):
+        elif isinstance(e, None):
             return e
         else:
             return [e]
 
     def _dict(self, e, d={}):
         """Ensures that e is a dictionary"""
-        if type(e) == type(None):
+        if isinstance(e, None):
             return d
         elif isinstance(e, dict):
             return e
@@ -55,7 +59,7 @@ class BaseXmlToDictParser(object):
 
     def _text(self, e, d=''):
         """Returns text node of element e (or default d)"""
-        if type(e) == type(None):
+        if isinstance(e, None):
             return d
         elif isinstance(e, dict):
             return e.get('#text', d)
@@ -64,7 +68,7 @@ class BaseXmlToDictParser(object):
 
     def _attr(self, e, k, d=''):
         """Returns attribute k from element e (or default d)"""
-        if type(e) == type(None):
+        if isinstance(e, None):
             return d
         elif isinstance(e, dict):
             return e.get('@' + k, d)
@@ -72,6 +76,7 @@ class BaseXmlToDictParser(object):
             return d
         else:
             return d
+
 
 class BaseBeautifulSoupParser(object):
     """
@@ -82,17 +87,18 @@ class BaseBeautifulSoupParser(object):
     def bsfiletodict(self, fp, **kwargs):
         """returns a BeautifulSoup tree"""
         return bs4.BeautifulSoup(fp.read(), "lxml", **kwargs)
-        
+
     def bsstrtodict(self, r, **kwargs):
         """returns a BeautifulSoup tree"""
         return bs4.BeautifulSoup(r, "lxml", **kwargs)
+
 
 class BaseRSSFeedParser(object):
     """
     A parser that takes an RSS/Atom feed
     """
 
-    control_chars = ''.join(map(unichr, range(0,32) + range(127,160)))
+    control_chars = ''.join(map(unichr, range(0, 32) + range(127, 160)))
     control_char_re = re.compile('[%s]' % re.escape(control_chars))
 
     def __init__(self):
@@ -111,7 +117,7 @@ class BaseRSSFeedParser(object):
             url = rssURL
         source = urllib.urlopen(url)
         if method == 'bs':
-            soup = bs4.BeautifulSoup(source,'lxml')
+            soup = bs4.BeautifulSoup(source, 'lxml')
             entries = soup.find_all(data_tag)
             self.links = soup.find_all('link')
         elif method == 'fp':
@@ -119,21 +125,20 @@ class BaseRSSFeedParser(object):
             entries = [e for e in feed.entries]
         else:
             raise UnknownHarvestMethod
-        
+
         return entries
 
     def parse(self, url, **kwargs):
-        
+
         rss_recs = [{}]
         data = self.get_records(url, **kwargs)
         for d in data:
             try:
                 title = data.find('title').text
-            except:
+            except Exception, err:
                 title = ''
-            rss_recs.append({ 
+            rss_recs.append({
                 'title': title,
             })
-            
+
         return rss_recs
-        

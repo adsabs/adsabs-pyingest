@@ -2,8 +2,9 @@
 from default import BaseRSSFeedParser
 import urlparse
 
+
 class JOSSParser(BaseRSSFeedParser):
-    
+
     def extract_data(self, entry):
         rec = {}
         # By default we put these records in the General database
@@ -11,50 +12,51 @@ class JOSSParser(BaseRSSFeedParser):
         database = ['GEN']
         # Journal string template
         journal = 'Journal of Open Source Software, vol. %s, issue %s, p. %s'
-        # The following keywords are used for comparison with user-supplied keywords
-        # for the decision to put a record in the astronomy and/or physics collection
+        # The following keywords are used for comparison with user-supplied
+        # keywords for the decision to put a record in the astronomy and/or
+        # physics collection
         astro_kw = ['astronomy', 'astrophysics', 'planetary sciences', 'solar physics']
-        physics_kw= ['physics', 'engineering']
+        physics_kw = ['physics', 'engineering']
         # Start gathering the necessary fields
-        title =entry.find('title').text
+        title = entry.find('title').text
         links = {}
         try:
             doi = entry.find('doi').text
-        except:
+        except Exception, err:
             doi = ''
         try:
             spage = entry.find('page').text
-        except:
+        except Exception, err:
             spage = str(int(doi.split('.')[-1]))
         try:
             volume = entry.find('volume').text
-        except:
+        except Exception, err:
             volume = '0'
         try:
             issue = entry.find('issue').text
-        except:
+        except Exception, err:
             issue = '0'
         try:
             links['DOI'] = doi
-        except:
+        except Exception, err:
             pass
         try:
             links['PDF'] = entry.find('pdf_url').text
-        except:
+        except Exception, err:
             pass
         try:
             links['data'] = entry.find('archive_doi').text
-        except:
+        except Exception, err:
             pass
         # The user-defined tags are used as keywords
         try:
             keywords = entry.find('tags').text.split(',')
-        except:
+        except Exception, err:
             keywords = []
         # Add the programming languages as keywords
         try:
             keywords += entry.find('languages').text.split(',')
-        except:
+        except Exception, err:
             pass
         # strip spaces from keywords
         keywords = [k.strip() for k in keywords]
@@ -63,26 +65,26 @@ class JOSSParser(BaseRSSFeedParser):
             database = ['AST']
         if set([k.lower() for k in keywords]) & set(physics_kw):
             # if GEN is still in the list, remove it:
-            # GEN 
+            # GEN
             database.remove('GEN')
             database.append('PHY')
 
         pubdate = entry.find('published').text
 
         authors = []
-        affils  = []
+        affils = []
         for a in entry.find_all('author'):
             fn = a.find('given_name').text
             ln = a.find('last_name').text
             authors.append("%s, %s" % (ln, fn))
             try:
                 aff = a.find('affiliation').text
-            except:
+            except Exception, err:
                 aff = ''
             try:
                 orcid = a.find('orcid').text
                 aff += ' <ID system="ORCID">%s</ID>' % orcid.strip()
-            except:
+            except Exception, err:
                 pass
             affils.append(aff.strip())
 
@@ -104,7 +106,7 @@ class JOSSParser(BaseRSSFeedParser):
         joss_links = {}
         joss_recs = [{}]
         data = self.get_records(url, **kwargs)
-           
+
         res = [joss_links.update({l['rel'][0]:l['href']}) for l in self.links if l['rel']]
         for d in data:
             joss_recs.append(self.extract_data(d))
@@ -121,5 +123,5 @@ class JOSSParser(BaseRSSFeedParser):
             data += self.get_records(url, **kwargs)
             for d in data:
                 joss_recs.append(self.extract_data(d))
-                            
+
         return joss_recs

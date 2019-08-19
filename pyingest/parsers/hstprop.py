@@ -7,19 +7,22 @@ import json
 import sys
 import math
 
+
 class URLError(Exception):
     pass
+
 
 class RequestError(Exception):
     pass
 
+
 class DataError(Exception):
     pass
 
-class HSTParser():
 
-# HSTParser will return a list of articles taken from a HST API
-# (https://proper.stsci.edu/proper/adsProposalSearch/query)
+class HSTParser():
+    # HSTParser will return a list of articles taken from a HST API
+    # (https://proper.stsci.edu/proper/adsProposalSearch/query)
 
     def __init__(self):
         self.errors = []
@@ -27,7 +30,7 @@ class HSTParser():
 
     def get_batch(self, api_token, api_url, **kwargs):
         qparams = urllib.urlencode(kwargs)
-        req = urllib2.Request("%s?%s"%(api_url, qparams))
+        req = urllib2.Request("%s?%s" % (api_url, qparams))
         req.add_header('Content-type', 'application/json')
         req.add_header('Accept', 'text/plain')
         req.add_header('apiKey', api_token)
@@ -46,13 +49,13 @@ class HSTParser():
         records = []
         # Store the value of maxRecords, if this was set
         maxrecs = kwargs.get('maxRecords', 200)
-         # First get 1 record to determine the total amount of records
+        # First get 1 record to determine the total amount of records
         kwargs['maxRecords'] = 1
         # Do the first query
         try:
             batch = self.get_batch(token, url, **kwargs)
         except Exception, err:
-            raise URLError("Request to HST blew up: %s"%err)
+            raise URLError("Request to HST blew up: %s" % err)
         # How many records are there?
         totrecs = batch['query']['total']
         # Store the first batch of records
@@ -71,14 +74,14 @@ class HSTParser():
             try:
                 batch = self.get_batch(token, url, **kwargs)
             except Exception, err:
-                raise URLError("Request to HST blew up: %s"%err)
+                raise URLError("Request to HST blew up: %s" % err)
             records += batch['programs']
             offset += maxrecs
         return records
 
     def is_complete(self, rec):
-        required_fields = ['bibstem','title','authorNames','date','link','comment','journalCode','affiliations','authorOrcidIdentifiers']
-        return all(elem in rec.keys()  for elem in required_fields)
+        required_fields = ['bibstem', 'title', 'authorNames', 'date', 'link', 'comment', 'journalCode', 'affiliations', 'authorOrcidIdentifiers']
+        return all(elem in rec.keys() for elem in required_fields)
 
     def add_orcids(self, affs, orcids):
         if len(affs) != len(orcids):
@@ -86,7 +89,7 @@ class HSTParser():
         afflist = []
         for i in range(len(affs)):
             if orcids[i]:
-                afflist.append('%s <ID system="ORCID">%s</ID>' % (affs[i], orcids[i].replace('http://orcid.org/','')))
+                afflist.append('%s <ID system="ORCID">%s</ID>' % (affs[i], orcids[i].replace('http://orcid.org/', '')))
             else:
                 afflist.append(affs[i])
         return afflist
@@ -108,21 +111,21 @@ class HSTParser():
                 try:
                     affils = self.add_orcids(d['affiliations'], d['authorOrcidIdentifiers'])
                 except DataError:
-                    sys.stderr.write('Found misaligned affiliation/ORCID arrays: %s\n'%d['bibstem'])
-                    self.errors.append('Found misaligned affiliation/ORCID arrays: %s'%d['bibstem'])
+                    sys.stderr.write('Found misaligned affiliation/ORCID arrays: %s\n' % d['bibstem'])
+                    self.errors.append('Found misaligned affiliation/ORCID arrays: %s' % d['bibstem'])
                     affils = d['affiliations']
 
-                hst_props.append({'bibcode': d['bibstem'], 
+                hst_props.append({'bibcode': d['bibstem'],
                                 'authors': d['authorNames'],
                                 'affiliations': affils,
-                                'title': d['title'], 
+                                'title': d['title'],
                                 'pubdate': d['date'],
                                 'publication': journal,
                                 'abstract': d['abstract'],
                                 'properties': {'data': d['link']}})
             else:
                 recid = d.get('comment') or d.get('bibstem')
-                sys.stderr.write('Found record with missing data: %s\n'%recid)
-                self.errors.append('Found record with missing data: %s'%recid)
+                sys.stderr.write('Found record with missing data: %s\n' % recid)
+                self.errors.append('Found record with missing data: %s' % recid)
                 continue
         return hst_props

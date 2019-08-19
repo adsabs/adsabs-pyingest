@@ -13,8 +13,10 @@ try:
 except (IOError, ImportError):
     long_description = ""
 
+
 with open('requirements.txt') as f:
     required = f.read().splitlines()
+
 
 def get_git_version(default="v0.0.1"):
     try:
@@ -23,8 +25,9 @@ def get_git_version(default="v0.0.1"):
         line = p.stdout.readlines()[0]
         line = line.strip()
         return line
-    except:
+    except Exception as e:
         return default
+
 
 setup(
     name='pyingest',
@@ -33,7 +36,8 @@ setup(
     license='MIT',
     author="NASA/SAO ADS",
     author_email="ads@cfa.harvard.edu",
-    description='ADS collection or python parsers, validators, and serializers for adsabs ingest pipeline',
+    description='ADS collection or python parsers, validators, and \
+                 serializers for adsabs ingest pipeline',
     long_description=long_description,
     packages=find_packages(),
     include_package_data=True,
