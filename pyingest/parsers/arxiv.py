@@ -75,7 +75,7 @@ class ArxivParser(DublinCoreParser):
             idarray = r['bibcode'].split(':')
             arxiv_id = idarray[-1]
 
-            r['publication'] = 'eprint arXiv:'+arxiv_id
+            r['publication'] = 'eprint arXiv:' + arxiv_id
 
             if arxiv_id[0].isalpha():
                 arx_field = arxiv_id.split('/')[0].replace('-', '.')
@@ -116,13 +116,12 @@ class ArxivParser(DublinCoreParser):
             prop = {}
             pubnote_prop = []
             for x in r['properties']:
-                if x is not None:
-                    if 'http://arxiv.org' in x:
-                        prop['HTML'] = x
-                    else:
-                        if 'doi:' in x:
-                            prop['DOI'] = x
-                    pubnote_prop.append(x)
+                if 'http://arxiv.org' in x:
+                    prop['HTML'] = x
+                else:
+                    if 'doi:' in x:
+                        prop['DOI'] = x
+                pubnote_prop.append(x)
             r['properties'] = prop
 
             if r['comments']:
