@@ -121,7 +121,7 @@ class ArxivParser(DublinCoreParser):
                 else:
                     if 'doi:' in x:
                         prop['DOI'] = x
-                pubnote_prop.append(x)
+                    pubnote_prop.append(x)
             r['properties'] = prop
 
             if r['comments']:
