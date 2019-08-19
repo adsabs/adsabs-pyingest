@@ -4,6 +4,7 @@ import bs4
 import xmltodict as xmltodict_parser
 import urllib
 import feedparser
+import bs4
 import lxml
 import warnings
 import ssl
@@ -41,16 +42,16 @@ class BaseXmlToDictParser(object):
 
     def _array(self, e):
         """Ensures that e is an array"""
-        if isinstance(e, None):
+        if isinstance(e, type(None)):
             return []
-        elif isinstance(e, None):
+        elif isinstance(e, list):
             return e
         else:
             return [e]
 
     def _dict(self, e, d={}):
         """Ensures that e is a dictionary"""
-        if isinstance(e, None):
+        if isinstance(e, type(None)):
             return d
         elif isinstance(e, dict):
             return e
@@ -59,7 +60,7 @@ class BaseXmlToDictParser(object):
 
     def _text(self, e, d=''):
         """Returns text node of element e (or default d)"""
-        if isinstance(e, None):
+        if isinstance(e, type(None)):
             return d
         elif isinstance(e, dict):
             return e.get('#text', d)
@@ -68,7 +69,7 @@ class BaseXmlToDictParser(object):
 
     def _attr(self, e, k, d=''):
         """Returns attribute k from element e (or default d)"""
-        if isinstance(e, None):
+        if isinstance(e, type(None)):
             return d
         elif isinstance(e, dict):
             return e.get('@' + k, d)

@@ -84,8 +84,7 @@ class DublinCoreParser(BaseXmlToDictParser):
                     output_metadata['authors'] = "; ".join(self.get_tag(r, 'dc:creator'))
 
             # Pubdate
-            if self.get_tag(r, 'dc:date'):
-                output_metadata['pubdate'] = self.get_tag(r, 'dc:date')[0]
+            if self.get_tag(r, 'dc:date'): output_metadata['pubdate'] = self.get_tag(r, 'dc:date')[0]
 
             # Abstract
             # Note: for generic dublin core, I'm passing all entries tagged

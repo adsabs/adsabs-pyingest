@@ -31,8 +31,7 @@ class DataCiteParser(BaseXmlToDictParser):
 
     def __init__(self):
         # make sure we are utf-8 clean on stdout, stderr
-        self.DC_SCHEMAS = ['http://datacite.org/schema/kernel-3',
-                           'http://datacite.org/schema/kernel-4']
+        self.DC_SCHEMAS = ['http://datacite.org/schema/kernel-3', 'http://datacite.org/schema/kernel-4']
         self.OA_URIS = ['info:eu-repo/semantics/openAccess']
         self.OA_TEXT = ['Open Access']
         self.author_names = AuthorNames()

@@ -109,8 +109,7 @@ class AuthorNames(object):
                             # Based on an arXiv author case: "collaboration,
                             # Gaia"
                             string_list.reverse()
-                            corrected_collaboration_str =
-                            u' '.join(string_list).encode('utf-8')
+                            corrected_collaboration_str = u' '.join(string_list).encode('utf-8')
 
                     if collaborations_params['first_author_delimiter']:
                         # Based on an arXiv author case: "<tag>Collaboration:

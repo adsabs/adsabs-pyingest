@@ -99,18 +99,15 @@ class APSJATSParser(JATSParser):
                 idfour = idno.rjust(5, '.')
             idno = idtwo + idfour
             try:
-                author_init = self.get_author_init(
-                                   output_metadata['authors'][0])
+                author_init = self.get_author_init(output_metadata['authors'][0])
             except Exception, err:
                 author_init = '.'
-            output_metadata['bibcode'] = year + bibstem + volume + idno
-                                       + author_init
+            output_metadata['bibcode'] = year + bibstem + volume + idno + author_init
             del output_metadata['pub-id']
 
 # Database (from APS keywords)
         try:
-            output_metadata['database'] = self.dbfromkw(
-                                          output_metadata['keywords'])
+            output_metadata['database'] = self.dbfromkw(output_metadata['keywords'])
         except Exception, err:
             pass
 

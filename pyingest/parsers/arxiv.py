@@ -65,14 +65,11 @@ class ArxivParser(DublinCoreParser):
             pass
 
         if r['abstract']:
-            r['comments'] = [x.replace('Comment:', '').strip() for x in
-                             r['abstract'][1:]]
+            r['comments'] = [x.replace('Comment:', '').strip() for x in r['abstract'][1:]]
             r['abstract'] = r['abstract'][0]
 
         if r['authors']:
-            r['authors'] = self.author_names.parse(r['authors'],
-                                collaborations_params =
-                                self.author_collaborations_params)
+            r['authors'] = self.author_names.parse(r['authors'], collaborations_params=self.author_collaborations_params)
 
         if r['bibcode']:
             idarray = r['bibcode'].split(':')
@@ -119,11 +116,12 @@ class ArxivParser(DublinCoreParser):
             prop = {}
             pubnote_prop = []
             for x in r['properties']:
-                if 'http://arxiv.org' in x:
-                    prop['HTML'] = x
-                else:
-                    if 'doi:' in x:
-                        prop['DOI'] = x
+                if x is not None:
+                    if 'http://arxiv.org' in x:
+                        prop['HTML'] = x
+                    else:
+                        if 'doi:' in x:
+                            prop['DOI'] = x
                     pubnote_prop.append(x)
             r['properties'] = prop
 

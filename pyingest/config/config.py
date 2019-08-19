@@ -32,8 +32,7 @@ APS_PUBLISHER_IDS = {'PRL': 'PhRvL', 'PRX': 'PhRvX', 'RMP': 'RvMP',
 IOP_PUBLISHER_IDS = {'rnaas': u'RNAAS', 'apj': u'ApJ', 'apjs': u'ApJS',
                      'apjl': u'ApJL', 'aj': 'AJ', 'jcap': u'JCAP',
                      'pasp': u'PASP'}
-IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical
-                     Society'}
+IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical Society'}
 
 JATS_TAGS_DANGER = ['php', 'script', 'css']
 
