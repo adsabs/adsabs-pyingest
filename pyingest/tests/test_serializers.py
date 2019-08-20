@@ -3,7 +3,8 @@ Test serializer
 """
 
 import unittest
-import sys, os
+import sys
+import os
 import glob
 import json
 import cStringIO
@@ -51,5 +52,3 @@ class TestClassic(unittest.TestCase):
                 os.remove(target_saved)
             else:
                 sys.stderr.write("parsed output saved to %s\n" % target_saved)
-
-

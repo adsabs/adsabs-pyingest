@@ -7,16 +7,26 @@ import json
 import codecs
 from default import BaseXmlToDictParser
 
+
 class WrongSchemaException(Exception):
     pass
+
+
 class MissingHeaderException(Exception):
     pass
+
+
 class MissingTextException(Exception):
     pass
+
+
 class MissingAuthorsException(Exception):
     pass
+
+
 class MissingTitleException(Exception):
     pass
+
 
 class TeiXmlParser(BaseXmlToDictParser):
 
@@ -29,7 +39,7 @@ class TeiXmlParser(BaseXmlToDictParser):
         """
         abstract is found inside the section element "teiHeader/profileDesc/abstract"
         """
-        abstract = [ p for p in self._array(header.get('profileDesc',{}).get('abstract',{}).get('p',[])) ]
+        abstract = [p for p in self._array(header.get('profileDesc', {}).get('abstract', {}).get('p', []))]
         return "\n".join(abstract) if abstract else None
 
     def get_references(self, text):
@@ -37,14 +47,14 @@ class TeiXmlParser(BaseXmlToDictParser):
         references are found in "text/back/div/listBibl"
         """
         references = []
-        for div in self._array(text.get('back',{}).get('div',[])):
-            t = div.get('@type','')
+        for div in self._array(text.get('back', {}).get('div', [])):
+            t = div.get('@type', '')
             if t != 'references':
                 continue
-            for bib in self._array(div.get('listBibl',{}).get('biblStruct',[])):
-                title = self._text(bib.get('analytic',{}).get('title'))
-                authors = ", ".join([self.parse_author(a) for a in self._array(bib.get('analytic',{}).get('author',[]))])
-                monodict = self.parse_monograph(bib.get('monogr',{}))
+            for bib in self._array(div.get('listBibl', {}).get('biblStruct', [])):
+                title = self._text(bib.get('analytic', {}).get('title'))
+                authors = ", ".join([self.parse_author(a) for a in self._array(bib.get('analytic', {}).get('author', []))])
+                monodict = self.parse_monograph(bib.get('monogr', {}))
                 # now normalize this down to a string that our reference resolver does well with
                 refstring = ''
                 refstring += authors or monodict.get('authors') or monodict.get('editors')
@@ -76,36 +86,40 @@ class TeiXmlParser(BaseXmlToDictParser):
         if self.debug:
             sys.stderr.write("parsing monograph: {0}\n".format(monogr))
         editors = self._text(monogr.get('editor'))
-        bookauthors = [self.parse_author(a) for a in self._array(monogr.get('author',[]))]
+        bookauthors = [self.parse_author(a) for a in self._array(monogr.get('author', []))]
 
         # make dictionary out of all possible <title> combinations
-        titledict = dict([(self._attr(t, 'level'), self._text(t)) 
-                          for t in self._array(monogr.get('title',{}))])
+        titledict = dict([(self._attr(t, 'level'), self._text(t))
+                          for t in self._array(monogr.get('title', {}))])
         journal = titledict.get('j')
         booktitle = titledict.get('m')
         # biblscopes contains volume, page, etc
         # this works for cases where we have <imprint/>
-        imprint = monogr.get('imprint') or {} 
-        for s in self._array(imprint.get('biblScope',[])):
+        imprint = monogr.get('imprint') or {}
+        for s in self._array(imprint.get('biblScope', [])):
             if self.debug:
                 sys.stderr.write("biblScope array: {0}\n".format(s))
         bibscopes = dict([(self._attr(s, 'unit'), self._text(s))
-                          for s in self._array(imprint.get('biblScope',[]))])
+                          for s in self._array(imprint.get('biblScope', []))])
         # pubdates and the like
-        pubdates = dict([(self._attr(d, 'type'), self._attr(d, 'when')) 
-                         for d in self._array(imprint.get('date',[]))])
+        pubdates = dict([(self._attr(d, 'type'), self._attr(d, 'when'))
+                         for d in self._array(imprint.get('date', []))])
         pubdate = pubdates.get('published') or pubdates.get('online')
-        
+
         monodict = bibscopes
-        if bookauthors: monodict['authors'] = ", ".join(bookauthors)
-        if editors: monodict['editors'] = editors
-        if booktitle: monodict['title'] = booktitle
-        if journal: monodict['journal'] = journal
-        if pubdate: monodict['pubdate'] = pubdate
-        
+        if bookauthors:
+            monodict['authors'] = ", ".join(bookauthors)
+        if editors:
+            monodict['editors'] = editors
+        if booktitle:
+            monodict['title'] = booktitle
+        if journal:
+            monodict['journal'] = journal
+        if pubdate:
+            monodict['pubdate'] = pubdate
+
         return monodict
-            
-     
+
     def parse_author(self, author):
         """
         parses a TEI author structure into a string
@@ -118,15 +132,15 @@ class TeiXmlParser(BaseXmlToDictParser):
                         </persName>
                 </author>
         which is already parsed in the following input data structure:
-            {u'persName': {u'forename': {u'@type': u'first'}, {'#text': u'C'}}, 
-                          {u'forename': {u'@type': u'middle'}, {'#text': u'S'}}, 
+            {u'persName': {u'forename': {u'@type': u'first'}, {'#text': u'C'}},
+                          {u'forename': {u'@type': u'middle'}, {'#text': u'S'}},
                           {u'surname': u'Grant'}}
         """
         first_, middle, last_ = '', '', ''
         if self.debug:
             sys.stderr.write("parsing author: {0}\n".format(author))
-        last_ = self._text(author.get('persName',{}).get('surname')).strip()
-        for n in self._array(author.get('persName',{}).get('forename',[])):
+        last_ = self._text(author.get('persName', {}).get('surname')).strip()
+        for n in self._array(author.get('persName', {}).get('forename', [])):
             t = self._attr(n, 'type')
             if t == 'first':
                 first_ = self._text(n).strip()
@@ -135,12 +149,13 @@ class TeiXmlParser(BaseXmlToDictParser):
             else:
                 logging.debug("ignoring element type '%s' in persName" % t)
 
-        if first_ and len(first_) == 1: first_ += '.'
-        if middle and len(middle) == 1: middle += '.'
+        if first_ and len(first_) == 1:
+            first_ += '.'
+        if middle and len(middle) == 1:
+            middle += '.'
         a = (last_ + ', ' + first_ + ' ' + middle).strip()
         return a
-                                 
-     
+
     def parse_affiliation(self, author):
         """
         parses a TEI author structure into a string
@@ -153,24 +168,24 @@ class TeiXmlParser(BaseXmlToDictParser):
                         </persName>
                 </author>
         which is already parsed in the following input data structure:
-            {u'persName': {u'forename': {u'@type': u'first'}, {'#text': u'C'}}, 
-                          {u'forename': {u'@type': u'middle'}, {'#text': u'S'}}, 
+            {u'persName': {u'forename': {u'@type': u'first'}, {'#text': u'C'}},
+                          {u'forename': {u'@type': u'middle'}, {'#text': u'S'}},
                           {u'surname': u'Grant'}}
         """
         org, address = '', ''
-        print self._text(author.get('affiliation',{}).get('orgName'))
-        org = self._text(author.get('affiliation',{}).get('orgName')).strip()
-        ainfo = author.get('affiliation',{}).get('address',{})
-        affil = [ org ]
+        print self._text(author.get('affiliation', {}).get('orgName'))
+        org = self._text(author.get('affiliation', {}).get('orgName')).strip()
+        ainfo = author.get('affiliation', {}).get('address', {})
+        affil = [org]
         for k in ('settlement', 'region', 'postCode'):
-            if (ainfo.get(k)): affil.append(ainfo[k]) 
+            if (ainfo.get(k)):
+                affil.append(ainfo[k])
 
         return ", ".join(affil)
-                                 
 
     def resource_dict(self, fp, **kwargs):
         d = self.xmltodict(fp, **kwargs)
-        r = d.get('TEI',{})
+        r = d.get('TEI', {})
         return r
 
     def parse(self, fp, debug=False, **kwargs):
@@ -187,17 +202,17 @@ class TeiXmlParser(BaseXmlToDictParser):
         if schema != self.TEI_SCHEMA:
             raise WrongSchemaException("Unexpected XML schema \"%s\"" % schema)
 
-        header = r.get('teiHeader',{})
+        header = r.get('teiHeader', {})
         if not header:
             raise MissingHeaderException("TEI header not found")
-        text = r.get('text',{})
+        text = r.get('text', {})
         if not text:
             raise MissingTextException("TEI text not found")
 
         # authors
         authors = []
         aaffils = []
-        for a in self._array(header.get('fileDesc',{}).get('sourceDesc',{}).get('biblStruct',{}).get('analytic',{}).get('author',[])):
+        for a in self._array(header.get('fileDesc', {}).get('sourceDesc', {}).get('biblStruct', {}).get('analytic', {}).get('author', [])):
             authors.append(self.parse_author(a))
             aaffils.append(self.parse_affiliation(a))
         if not authors:
@@ -205,7 +220,7 @@ class TeiXmlParser(BaseXmlToDictParser):
 
         # title
         titles = []
-        for t in self._array(header.get('fileDesc',{}).get('titleStmt',{}).get('title',[])):
+        for t in self._array(header.get('fileDesc', {}).get('titleStmt', {}).get('title', [])):
             titles.append(self._text(t))
         if not titles:
             raise MissingTitleException("No title found")
@@ -216,10 +231,10 @@ class TeiXmlParser(BaseXmlToDictParser):
         # publication year and date
         pubdate = None
         dates = {}
-        for d in self._array(header.get('fileDesc',{}).get('publicationStmt',{}).get('date',[])):
+        for d in self._array(header.get('fileDesc', {}).get('publicationStmt', {}).get('date', [])):
             t = self._attr(d, 'type')
             dates[t] = self._attr(d, 'when')
-        for dt in [ 'created', 'submitted', 'published' ]:
+        for dt in ['created', 'submitted', 'published']:
             if dt in dates:
                 pubdate = dates[dt]
 
@@ -227,17 +242,23 @@ class TeiXmlParser(BaseXmlToDictParser):
         references = self.get_references(text)
 
         res = {}
-        if authors: res['authors'] = authors
-        if aaffils: res['affiliations'] = aaffils
-        if title: res['title'] = title
-        if pubdate: res['pubdate'] = pubdate
-        if abstract: res['abstract'] = abstract
-        if references: res['references'] = references
+        if authors:
+            res['authors'] = authors
+        if aaffils:
+            res['affiliations'] = aaffils
+        if title:
+            res['title'] = title
+        if pubdate:
+            res['pubdate'] = pubdate
+        if abstract:
+            res['abstract'] = abstract
+        if references:
+            res['references'] = references
         return res
-#
-#    
+
+
 if __name__ == "__main__":
-    
+
     # allows program to print utf-8 encoded output sensibly
     sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
     sys.stderr = codecs.getwriter('utf-8')(sys.stderr)

@@ -6,9 +6,10 @@ import logging.config
 import codecs
 import json
 
-sys.path.append(os.path.dirname(__file__))
 from pyingest.config.logging import loggingDict
 from pyingest.config.utils import import_class, parse_arguments
+
+sys.path.append(os.path.dirname(__file__))
 
 
 if __name__ == "__main__":
@@ -18,7 +19,7 @@ if __name__ == "__main__":
 
     args = parse_arguments()
     if args.debug:
-        loggingDict['loggers']['']['level'] = 'DEBUG';
+        loggingDict['loggers']['']['level'] = 'DEBUG'
     logging.config.dictConfig(loggingDict)
 
     # it is probably more user-friendly do do this kind
@@ -33,19 +34,20 @@ if __name__ == "__main__":
     for file in args.files:
         d = None
         with open(file) as fp:
-            logging.debug("parsing file %s" %file)
+            logging.debug("parsing file %s" % file)
             try:
-                # If a Zenodo records happens to be missing a DOI, 
+                # If a Zenodo records happens to be missing a DOI,
                 # we don't want an Exception to have the process crap out
                 # In that case skip the file and write a message to stderr
                 d = parser.parse(fp)
             except Exception, err:
-                sys.stderr.write("unable to parse file: %s (%s)\n" % (file, err))
+                sys.stderr.write("unable to parse file: %s (%s)\n"
+                                 % (file, err))
                 logging.debug("unable to parse file: %s (%s)" % (file, err))
                 continue
             if args.debug:
                 sys.stderr.write("document: %s" % json.dumps(d))
-            logging.debug("validating file %s" %file)
+            logging.debug("validating file %s" % file)
             validator.validate(d)
-            logging.debug("serializing file %s" %file)
+            logging.debug("serializing file %s" % file)
             serializer.write(d)

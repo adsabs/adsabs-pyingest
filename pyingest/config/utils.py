@@ -6,16 +6,17 @@ import os.path
 import argparse
 import importlib
 
+
 def import_class(name):
-    """                                                                                                                          
-    performs the proper imports at runtime and class instantiations;                                                             
-    for example if name='parsers.zenodo.ZenodoParser', this function                                                             
-    does the equivalent of calling:                                                                                              
-        import parsers.zenodo                                                                                                    
-        p = parsers.zenodo.ZenodoParser()                                                                                        
-        return p                                                                                                                 
     """
-    (mname,cname) = os.path.splitext(name)
+    performs the proper imports at runtime and class instantiations;
+    for example if name='parsers.zenodo.ZenodoParser', this function
+    does the equivalent of calling:
+        import parsers.zenodo
+        p = parsers.zenodo.ZenodoParser()
+        return p
+    """
+    (mname, cname) = os.path.splitext(name)
     if cname:
         cname = cname.strip('.')
     module = importlib.import_module(mname)
@@ -23,8 +24,8 @@ def import_class(name):
 
 
 def parse_arguments():
-    """                                                                                                                          
-    returns an argparse.ArgumentParser().parse_args() object                                                                     
+    """
+    returns an argparse.ArgumentParser().parse_args() object
     """
     argp = argparse.ArgumentParser()
     argp.add_argument(
@@ -57,4 +58,3 @@ def parse_arguments():
         )
     argp.add_argument('files', nargs='+')
     return argp.parse_args()
-

@@ -9,6 +9,7 @@ NULL_SCHEMA = os.path.join(os.path.dirname(__file__), 'null.schema.json')
 
 SCHEMA_VALIDATOR = jsonschema.validators.Draft4Validator
 
+
 class Validator(object):
 
     def __init__(self, file):
@@ -23,7 +24,7 @@ class Validator(object):
 
     def validate(self, document):
         """
-        Validates the dodcument.  
+        Validates the dodcument.
         Right now all we do is check the "simple" schema above.
         TODO: we should deal with proper encoding of the
         HTML entities allowed in ADS metadata fields.
@@ -31,13 +32,16 @@ class Validator(object):
         """
         self.validator.validate(document)
 
+
 class NullValidator(Validator):
     def __init__(self):
         super(self.__class__, self).__init__(NULL_SCHEMA)
 
+
 class SimpleValidator(Validator):
     def __init__(self):
         super(self.__class__, self).__init__(SIMPLE_SCHEMA)
+
 
 class ZenodoValidator(Validator):
     def __init__(self):

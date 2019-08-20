@@ -9,14 +9,22 @@ from collections import OrderedDict
 from default import BaseXmlToDictParser
 from author_names import AuthorNames
 
+
 class WrongSchemaException(Exception):
     pass
+
+
 class MissingDoiException(Exception):
     pass
+
+
 class MissingAuthorsException(Exception):
     pass
+
+
 class MissingTitleException(Exception):
     pass
+
 
 class DataCiteParser(BaseXmlToDictParser):
     """DataCiteParser compatible with schema versions 3 and 4"""
@@ -24,8 +32,8 @@ class DataCiteParser(BaseXmlToDictParser):
     def __init__(self):
         # make sure we are utf-8 clean on stdout, stderr
         self.DC_SCHEMAS = ['http://datacite.org/schema/kernel-3', 'http://datacite.org/schema/kernel-4']
-        self.OA_URIS = [ 'info:eu-repo/semantics/openAccess' ]
-        self.OA_TEXT = [ 'Open Access' ]
+        self.OA_URIS = ['info:eu-repo/semantics/openAccess']
+        self.OA_TEXT = ['Open Access']
         self.author_names = AuthorNames()
         self.author_collaborations_params = {
             'keywords': ['group', 'team', 'collaboration'],
@@ -40,7 +48,7 @@ class DataCiteParser(BaseXmlToDictParser):
         # allowed description type so Lars is shoving the references
         # in a section labeled as "Other" as a json structure
         abstract = None
-        for s in self._array(r.get('descriptions',{}).get('description',[])):
+        for s in self._array(r.get('descriptions', {}).get('description', [])):
             t = s.get('@descriptionType')
             if t == 'Abstract':
                 abstract = self._text(s)
@@ -61,7 +69,6 @@ class DataCiteParser(BaseXmlToDictParser):
         """
         relation_type = 'Describes'
         return self._get_related_identifiers(r, relation_type)
-
 
     def get_versions(self, r):
         """
@@ -105,7 +112,7 @@ class DataCiteParser(BaseXmlToDictParser):
 
     def _get_related_identifiers(self, r, relation_type):
         related_identifiers = []
-        for s in self._array(self._dict(r.get('relatedIdentifiers')).get('relatedIdentifier',[])):
+        for s in self._array(self._dict(r.get('relatedIdentifiers')).get('relatedIdentifier', [])):
             t = s.get('@relationType')
             c = self._text(s)
             if t == relation_type:
@@ -139,7 +146,7 @@ class DataCiteParser(BaseXmlToDictParser):
     def resource_dict(self, fp, **kwargs):
         d = self.xmltodict(fp, **kwargs)
         # as a convenience, remove the OAI wrapper if it's there
-        r = d.get('record',{}).get('metadata',{}).get('resource') or d.get('resource')
+        r = d.get('record', {}).get('metadata', {}).get('resource') or d.get('resource')
         return r
 
     def parse(self, fp, **kwargs):
@@ -156,7 +163,7 @@ class DataCiteParser(BaseXmlToDictParser):
         if schema not in self.DC_SCHEMAS:
             raise WrongSchemaException("Unexpected XML schema \"%s\"" % schema)
 
-        if 'DOI' != r.get('identifier',{}).get('@identifierType',''):
+        if 'DOI' != r.get('identifier', {}).get('@identifierType', ''):
             raise MissingDoiException("//identifier['@identifierType'] not DOI!")
         doi = r.get('identifier').get('#text')
 
@@ -164,7 +171,7 @@ class DataCiteParser(BaseXmlToDictParser):
         authors = []
         normalized_authors = []
         aaffils = []
-        for a in self._array(self._dict(r.get('creators')).get('creator',[])):
+        for a in self._array(self._dict(r.get('creators')).get('creator', [])):
             creator_name = a.get('creatorName')
             if type(creator_name) is OrderedDict:
                 creator_name = creator_name.get("#text")
@@ -172,7 +179,7 @@ class DataCiteParser(BaseXmlToDictParser):
             normalized_creator_name = self.author_names.normalize(creator_name, collaborations_params=self.author_collaborations_params)
             authors.append(creator_name)
             normalized_authors.append(normalized_creator_name)
-            aff = a.get('affiliation','')
+            aff = a.get('affiliation', '')
             if aff is None:
                 aff = ''
             for i in self._array(a.get('nameIdentifier')):
@@ -185,7 +192,7 @@ class DataCiteParser(BaseXmlToDictParser):
 
         # title
         titles = {}
-        for t in self._array(self._dict(r.get('titles')).get('title',[])):
+        for t in self._array(self._dict(r.get('titles')).get('title', [])):
             l = self._attr(t, 'lang', 'en')
             titles[l] = self._text(t)
         if not titles:
@@ -200,10 +207,10 @@ class DataCiteParser(BaseXmlToDictParser):
         year = self._text(r.get('publicationYear'))
         pubdate = None
         dates = {}
-        for d in self._array(self._dict(r.get('dates')).get('date',[])):
+        for d in self._array(self._dict(r.get('dates')).get('date', [])):
             t = self._attr(d, 'dateType')
             dates[t] = self._text(d)
-        for dt in [ 'Issued', 'Created', 'Submitted' ]:
+        for dt in ['Issued', 'Created', 'Submitted']:
             if dt in dates:
                 pubdate = dates[dt]
         if not pubdate:
@@ -211,7 +218,7 @@ class DataCiteParser(BaseXmlToDictParser):
 
         # keywords
         keywords = []
-        for k in self._array(self._dict(r.get('subjects')).get('subject',[])):
+        for k in self._array(self._dict(r.get('subjects')).get('subject', [])):
             # XXX we are ignoring keyword scheme
             keywords.append(self._text(k))
 
@@ -219,10 +226,10 @@ class DataCiteParser(BaseXmlToDictParser):
         contribs = []
         caffils = []
         ctypes = []
-        for a in self._array(self._dict(r.get('contributors')).get('contributor',[])):
+        for a in self._array(self._dict(r.get('contributors')).get('contributor', [])):
             contribs.append(a.get('contributorName'))
-            ctypes.append(a.get('@contributorType',''))
-            aff = a.get('affiliation','')
+            ctypes.append(a.get('@contributorType', ''))
+            aff = a.get('affiliation', '')
             if aff is None:
                 aff = ''
             for i in self._array(a.get('nameIdentifier')):
@@ -240,7 +247,7 @@ class DataCiteParser(BaseXmlToDictParser):
         # bibcodes should appear as <alternateIdentifiers>
         identifiers = {}
         bibcode, html, pdf = None, None, None
-        for i in self._array(self._dict(r.get('alternateIdentifiers')).get('alternateIdentifier',[])):
+        for i in self._array(self._dict(r.get('alternateIdentifiers')).get('alternateIdentifier', [])):
             t = i.get('@alternateIdentifierType')
             if t == 'URL':
                 html = self._text(i)
@@ -250,7 +257,7 @@ class DataCiteParser(BaseXmlToDictParser):
                 identifiers[t] = self._text(i)
 
         # related identifiers; bibcodes sometime appear in <relatedIdentifiers>
-        for i in self._array(self._dict(r.get('relatedIdentifiers')).get('relatedIdentifier',[])):
+        for i in self._array(self._dict(r.get('relatedIdentifiers')).get('relatedIdentifier', [])):
             t = i.get('@relatedIdentifierType')
             rt = i.get('@relationType')
             c = self._text(i)
@@ -263,7 +270,7 @@ class DataCiteParser(BaseXmlToDictParser):
 
         # access rights
         isoa = False
-        for i in self._array(self._dict(r.get('rightsList')).get('rights',[])):
+        for i in self._array(self._dict(r.get('rightsList')).get('rights', [])):
             u = self._attr(i, 'rightsURI')
             c = self._text(i)
             if u in self.OA_URIS or c in self.OA_TEXT:
@@ -290,7 +297,7 @@ class DataCiteParser(BaseXmlToDictParser):
             'authors': authors,
             'normalized_authors': normalized_authors,
             'affiliations': aaffils,
-#            'contributors': contributors,
+            # 'contributors': contributors,
             'title': title,
             'pubdate': pubdate,
             'properties': properties,
@@ -311,7 +318,7 @@ class DataCiteParser(BaseXmlToDictParser):
 
 #
 #
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 #
 #    # allows program to print utf-8 encoded output sensibly
 #    sys.stdout = codecs.getwriter('utf-8')(sys.stdout)

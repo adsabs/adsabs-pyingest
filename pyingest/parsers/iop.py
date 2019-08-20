@@ -8,11 +8,14 @@ from adsputils import u2asc
 from jats import JATSParser
 from pyingest.config.config import *
 
+
 class NoSchemaException(Exception):
     pass
 
+
 class WrongSchemaException(Exception):
     pass
+
 
 class UnparseableException(Exception):
     pass
@@ -21,8 +24,10 @@ class UnparseableException(Exception):
 class IOPJATSParser(JATSParser):
 
     AST_WORDS = [x.lower() for x in UAT_ASTRO_KEYWORDS]
+    AST_WORDS = AST_WORDS + [x.lower() for x in AAS_ASTRO_KEYWORDS]
+    AST_WORDS = AST_WORDS + [x.lower() for x in APS_ASTRO_KEYWORDS]
 
-    def get_author_init(self,namestring):
+    def get_author_init(self, namestring):
         output = u2asc(namestring)
         for c in output:
             if c.isalpha():
@@ -30,9 +35,9 @@ class IOPJATSParser(JATSParser):
         return u'.'
 
     def iop_journals(self, pid):
-#       mapping journal-meta/journal-id/publisher-id to bibstems
-#       IOP_PUBLISHER_IDS = {}
-#       IOP_PUBLISHER_IDS['rnaas'] = u'RNAAS'
+        # mapping journal-meta/journal-id/publisher-id to bibstems
+        # IOP_PUBLISHER_IDS = {}
+        # IOP_PUBLISHER_IDS['rnaas'] = u'RNAAS'
         try:
             bibstem = IOP_PUBLISHER_IDS[pid]
         except KeyError:
@@ -42,7 +47,7 @@ class IOPJATSParser(JATSParser):
 
     def dbfromkw(self, d, **kwargs):
         db = []
-        if isinstance(d,basestring):
+        if isinstance(d, basestring):
             keywords = d.split(',')
             for k in keywords:
                 if k.lower() in self.AST_WORDS:
@@ -50,77 +55,77 @@ class IOPJATSParser(JATSParser):
                     return db
         return db
 
-
     def parse(self, fp, **kwargs):
-
         output_metadata = super(self.__class__, self).parse(fp, **kwargs)
 
-
-
-# Publication +
+        # Publication +
         try:
             pubstring = output_metadata['publication']
-        except:
+        except Exception, err:
             pass
         else:
             try:
                 output_metadata['volume']
-            except:
+            except Exception, err:
                 pass
             else:
-                pubstring = pubstring +', Volume '+ output_metadata['volume']
-            
+                pubstring = pubstring + ', Volume ' + output_metadata['volume']
+
             try:
-                pubstring = pubstring +', Issue '+ output_metadata['issue']
+                pubstring = pubstring + ', Issue ' + output_metadata['issue']
             except TypeError:
                 pass
-            
+
             try:
-                output_metadata['page']
-            except:
+                page_id = output_metadata['page']
+            except Exception, err:
                 pass
             else:
-                pubstring = pubstring +', id.'+ output_metadata['page']
+                if "-" in page_id:
+                    pubstring = pubstring + ', pp.' + page_id
+                else:
+                    pubstring = pubstring + ', id.' + page_id
 
             output_metadata['publication'] = pubstring
-            
-# Bibcode
+
+        # Bibcode
         try:
             j_bibstem = self.iop_journals(output_metadata['pub-id'])
         except KeyError:
             pass
         else:
             year = output_metadata['pubdate'][-4:]
-            bibstem = j_bibstem.ljust(5,'.')
-            volume = output_metadata['volume'].rjust(4,'.')
+            bibstem = j_bibstem.ljust(5, '.')
+            volume = output_metadata['volume'].rjust(4, '.')
             if output_metadata['pub-id'] == 'rnaas':
                 issue_letter = string.letters[int(output_metadata['issue'])-1]
             else:
                 issue_letter = '.'
             idno = output_metadata['page']
-            if len(idno) == 6:
-                idtwo = string.letters[int(idno[0:2])]
-                idfour = idno[2:]
+            if "-" in idno:
+                idno = idno.split("-")[0]
             else:
-                idtwo = ''
-                idfour = idno.rjust(4,'.')
-            idno = idtwo + idfour
+                if len(idno) == 6:
+                    idtwo = string.letters[int(idno[0:2])]
+                    idfour = idno[2:]
+                else:
+                    idtwo = ''
+                    idfour = idno.rjust(4, '.')
+                idno = idtwo + idfour
             try:
-            #   author_init = self.get_author_init(output_metadata['authors'][0])
+                # author_init = self.get_author_init(output_metadata['authors'][0])
                 author_init = self.get_author_init(output_metadata['authors'])
-            except:
+            except Exception, err:
                 author_init = '.'
             output_metadata['bibcode'] = year + bibstem + volume + issue_letter + idno + author_init
             del output_metadata['pub-id']
             del output_metadata['page']
 
-# Database (from APS keywords)
+        # Database (from APS keywords)
         try:
             output_metadata['database'] = self.dbfromkw(output_metadata['keywords'])
-        except:
+        except Exception, err:
             pass
-            
 
-
-# Return
+        # Return
         return output_metadata

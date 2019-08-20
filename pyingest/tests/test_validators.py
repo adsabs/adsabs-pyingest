@@ -3,12 +3,14 @@ Test parsers
 """
 
 import unittest
-import sys, os
+import sys
+import os
 import glob
 import json
 import pyingest.validators.ads
 
 stubdata_dir = os.path.join(os.path.dirname(__file__), 'stubdata')
+
 
 class TestSimple(unittest.TestCase):
 
@@ -24,5 +26,3 @@ class TestSimple(unittest.TestCase):
                 document = json.load(fp)
                 self.assertIsNotNone(document, "%s: error reading doc" % file)
             validator.validate(document)
-
-
