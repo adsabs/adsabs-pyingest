@@ -34,6 +34,10 @@ IOP_PUBLISHER_IDS = {'rnaas': u'RNAAS', 'apj': u'ApJ', 'apjs': u'ApJS',
                      'pasp': u'PASP'}
 IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical Society'}
 
+OUP_PUBLISHER_IDS = {'mnras': u'MNRAS', 'mnrasl': u'MNRAS', 
+                     'pasj': u'PASJ', 'ptep': u'PTEP', 'gji': u'GeoJI'}
+OUP_PDFDIR = 'https://academic.oup.com'
+
 JATS_TAGS_DANGER = ['php', 'script', 'css']
 
 JATS_TAGS_MATH = ['inline-formula',
