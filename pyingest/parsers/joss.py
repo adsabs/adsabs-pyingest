@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from default import BaseRSSFeedParser
 import urlparse
+import sys
 
 
 class JOSSParser(BaseRSSFeedParser):
@@ -109,7 +110,11 @@ class JOSSParser(BaseRSSFeedParser):
 
         res = [joss_links.update({l['rel'][0]:l['href']}) for l in self.links if l['rel']]
         for d in data:
-            joss_recs.append(self.extract_data(d))
+            try:
+                joss_recs.append(self.extract_data(d))
+            except Exception, err:
+                sys.stderr.write('Failed to process record %s (%s). Skipping...\n'%(d.find('id').text, err))
+                continue
 
         parsed_path = urlparse.urlparse(joss_links['last'])
         urlparams = urlparse.parse_qs(parsed_path.query, keep_blank_values=1)
@@ -122,6 +127,10 @@ class JOSSParser(BaseRSSFeedParser):
             kwargs['page'] = i
             data += self.get_records(url, **kwargs)
             for d in data:
-                joss_recs.append(self.extract_data(d))
+                try:
+                    joss_recs.append(self.extract_data(d))
+                except Exception, err:
+                    sys.stderr.write('Failed to process record %s (%s). Skipping...\n'%(d.find('id').text, err))
+                    continue
 
         return joss_recs
