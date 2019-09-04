@@ -12,7 +12,7 @@ class JOSSParser(BaseRSSFeedParser):
         # This may be replaced by AST and/or PHY later on
         database = ['GEN']
         # Journal string template
-        journal = 'Journal of Open Source Software, vol. %s, issue %s, p. %s'
+        journal = 'Journal of Open Source Software, vol. %s, issue %s, id. %s'
         # The following keywords are used for comparison with user-supplied
         # keywords for the decision to put a record in the astronomy and/or
         # physics collection
@@ -29,6 +29,8 @@ class JOSSParser(BaseRSSFeedParser):
             spage = entry.find('page').text
         except Exception, err:
             spage = str(int(doi.split('.')[-1]))
+        if len(spage) <= 4:
+            pg = spage.rjust(4,'.')
         try:
             volume = entry.find('volume').text
         except Exception, err:
@@ -67,10 +69,13 @@ class JOSSParser(BaseRSSFeedParser):
         if set([k.lower() for k in keywords]) & set(physics_kw):
             # if GEN is still in the list, remove it:
             # GEN
-            database.remove('GEN')
+            try:
+                database.remove('GEN')
+            except:
+                pass
             database.append('PHY')
 
-        pubdate = entry.find('published').text
+        pubdate = entry.find('published_at').text
 
         authors = []
         affils = []
@@ -89,7 +94,13 @@ class JOSSParser(BaseRSSFeedParser):
                 pass
             affils.append(aff.strip())
 
+        try:
+            initial = authors[0][0]
+        except:
+            initial = '.'
+        bibcode = "%sJOSS.%s.%s%s" % (pubdate[:4],volume.rjust(4,'.'),pg,initial) 
         rec = {
+            'bibcode': bibcode,
             'title': title,
             'authors': authors,
             'affiliations': affils,
@@ -107,7 +118,6 @@ class JOSSParser(BaseRSSFeedParser):
         joss_links = {}
         joss_recs = [{}]
         data = self.get_records(url, **kwargs)
-
         res = [joss_links.update({l['rel'][0]:l['href']}) for l in self.links if l['rel']]
         for d in data:
             try:
