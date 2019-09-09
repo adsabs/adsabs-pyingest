@@ -411,28 +411,17 @@ class JATSParser(BaseBeautifulSoupParser):
 
 # References (now using back_meta):
         if back_meta is not None:
+         
+            ref_list_text = []
             try:
                 ref_results = back_meta.find('ref-list').find_all('ref')
-                print "NUMBER OF REFERENCES: %s"%len(ref_results)
-                ref_results = ref_results
-#               print ref_results
                 for r in ref_results:
-                    print "TYPE: %s"%type(r)
-                    print r.contents
-                #   s = unicode(r)
-                #   print s.strip('\n')
+#                   ref_list_text.append(unicode(r.contents[1]).replace('\n',''))
+                    ref_list_text.append(unicode(r.extract()).replace('\n',''))
             except Exception, err:
-                print "References:", err
+                print "jats.parse.references error:", err
             else:
-                base_metadata['references'] = 'lol'
-
-#           for ref in reflist:
-#               x = ref.find('ext-link')
-#               if x is not None:
-#                   print ref.find('ext-link')
-#                   pass
-#               else:
-#                   print "uh oh",unicode(ref)
+                base_metadata['references'] = ref_list_text
 
         output_metadata = base_metadata
         return output_metadata

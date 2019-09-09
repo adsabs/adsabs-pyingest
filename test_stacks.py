@@ -40,7 +40,6 @@ for issn in journal_ISSN.keys():
 #    for ff in fb.readlines():
 #        papers.append(ff.strip())
         
-
     # Try the parser
 
     documents = []
@@ -52,6 +51,7 @@ for issn in journal_ISSN.keys():
             documents.append(doc)
         except Exception as e:
             print "Error in IOP parser:",p,e
+        print "\n\n\n"
 
 
     # Write everything out in Classic tagged format
@@ -60,15 +60,9 @@ for issn in journal_ISSN.keys():
     serializer = Tagged()
 
     for d in documents:
-#       print "lol:",d['references']
-        print "lolbib:",d['bibcode']
         if 'references' in d:
-            print("\n\n\nRef set:")
-            print("OMFG:",type(d['references']))
-#           lol = json.loads(d['references'])
-#           print(type(lol))
-#           print(d['references'])
-            print("\nEnd Ref set\n\n\n")
             del(d['references'])
+#       else:
+#           print("References have been stripped!")
         serializer.write(d,fo)
     fo.close()
