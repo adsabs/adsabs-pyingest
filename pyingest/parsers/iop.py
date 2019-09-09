@@ -127,5 +127,18 @@ class IOPJATSParser(JATSParser):
         except Exception, err:
             pass
 
+        try:
+            output_metadata['references']
+        except Exception as e:
+            print "FNORD:",e
+        else:
+            print "REF OUTPUT START\n",output_metadata['bibcode']
+            i = len(output_metadata['references'])
+            print "There are %s references:"%i
+            for s in output_metadata['references']:
+                print s.encode('utf8')
+            del(output_metadata['references'])
+            print "REF OUTPUT END"
+
         # Return
         return output_metadata
