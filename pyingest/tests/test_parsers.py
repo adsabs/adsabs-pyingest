@@ -17,6 +17,7 @@ from pyingest.parsers import aps
 from pyingest.parsers import procsci
 from pyingest.parsers import hstprop
 from pyingest.parsers import joss
+from pyingest.parsers import atel
 from pyingest.parsers.author_names import AuthorNames
 
 from pyingest.serializers import classic
@@ -351,7 +352,7 @@ class TestJOSS(unittest.TestCase):
 
     def setUp(self):
         "Mock joss.JOSSParser.urllib.urlopen"
-        self.patcher = patch('urllib.urlopen')
+        self.patcher = patch('urllib2.urlopen')
         self.urlopen_mock = self.patcher.start()
 
     def test_output(self):
@@ -363,6 +364,39 @@ class TestJOSS(unittest.TestCase):
         test_data = parser.parse(joss_url, since='2019-07-10', page=1)
         test_outfile = "test_joss.tag"
         standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/joss.tag")
+        try:
+            os.remove(test_outfile)
+        except Exception, err:
+            pass
+        for d in test_data:
+            serializer = classic.Tagged()
+            outputfp = open(test_outfile, 'a')
+            serializer.write(d, outputfp)
+            outputfp.close()
+        result = filecmp.cmp(test_outfile, standard_outfile)
+        self.assertEqual(result, True)
+        os.remove(test_outfile)
+
+    def tearDown(self):
+        self.patcher.stop()
+
+class TestATel(unittest.TestCase):
+    import pytest
+
+    def setUp(self):
+        "Mock atel.ATelParser.urllib.urlopen"
+        self.patcher = patch('urllib2.urlopen')
+        self.urlopen_mock = self.patcher.start()
+
+    def test_output(self):
+        parser = atel.ATelParser()
+        mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/ATel_rss.xml")
+        mock_data = open(mock_infile).read()
+        self.urlopen_mock.return_value = MockResponse(mock_data)
+        joss_url = 'http://www.astronomerstelegram.org/?adsbiblio'
+        test_data = parser.parse(joss_url, data_tag='item')
+        test_outfile = "test_atel.tag"
+        standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/atel.tag")
         try:
             os.remove(test_outfile)
         except Exception, err:
