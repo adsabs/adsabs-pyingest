@@ -410,11 +410,22 @@ class JATSParser(BaseBeautifulSoupParser):
                     self._detag(lpage, []))
 
 # References (now using back_meta):
-#       try:
-#           reflist = back_meta.find('ref-list').find_all('ref')
-#       except Exception, err:
-#           print "References:", e
-#       else:
+        if back_meta is not None:
+            try:
+                ref_results = back_meta.find('ref-list').find_all('ref')
+                print "NUMBER OF REFERENCES: %s"%len(ref_results)
+                ref_results = ref_results
+#               print ref_results
+                for r in ref_results:
+                    print "TYPE: %s"%type(r)
+                    print r.contents
+                #   s = unicode(r)
+                #   print s.strip('\n')
+            except Exception, err:
+                print "References:", err
+            else:
+                base_metadata['references'] = 'lol'
+
 #           for ref in reflist:
 #               x = ref.find('ext-link')
 #               if x is not None:
