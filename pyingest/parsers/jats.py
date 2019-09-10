@@ -5,6 +5,7 @@ from bs4 import Comment
 from collections import OrderedDict
 from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
+import namedentities
 import re
 import copy
 
@@ -416,10 +417,12 @@ class JATSParser(BaseBeautifulSoupParser):
             try:
                 ref_results = back_meta.find('ref-list').find_all('ref')
                 for r in ref_results:
-#                   ref_list_text.append(unicode(r.contents[1]).replace('\n',''))
-                    ref_list_text.append(unicode(r.extract()).replace('\n',''))
+                    s = unicode(r.extract()).replace('\n','')
+                    s = namedentities.named_entities(s)
+                    ref_list_text.append(s)
             except Exception, err:
-                print "jats.parse.references error:", err
+                pass
+                # print "jats.parse.references error:", err
             else:
                 base_metadata['references'] = ref_list_text
 

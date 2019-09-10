@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import os
 import json
 import codecs
 import string
@@ -113,7 +114,6 @@ class IOPJATSParser(JATSParser):
                     idfour = idno.rjust(4, '.')
                 idno = idtwo + idfour
             try:
-                # author_init = self.get_author_init(output_metadata['authors'][0])
                 author_init = self.get_author_init(output_metadata['authors'])
             except Exception, err:
                 author_init = '.'
@@ -130,15 +130,22 @@ class IOPJATSParser(JATSParser):
         try:
             output_metadata['references']
         except Exception as e:
-            print "FNORD:",e
+            pass
         else:
-            print "REF OUTPUT START\n",output_metadata['bibcode']
-            i = len(output_metadata['references'])
-            print "There are %s references:"%i
-            for s in output_metadata['references']:
-                print s.encode('utf8')
+            try:
+                topdir = '/Users/mtempleton/references/sources/'
+                outdir = topdir + bibstem.rstrip('.') + '/' + str(volume).replace('.','0')
+                outfile = outdir + '/' + output_metadata['bibcode'] + '.jats.iopft.xml'
+           
+                if not os.path.isdir(outdir):
+                    os.makedirs(outdir)
+                with open(outfile,'w') as fw:
+                    fw.write("<ADSBIBCODE>%s</ADSBIBCODE>\n"%output_metadata['bibcode'])
+                    for s in output_metadata['references']:
+                        fw.write(s.encode('utf8')+'\n')
+            except Exception as e:
+                print "LOL WTF:",e
             del(output_metadata['references'])
-            print "REF OUTPUT END"
 
         # Return
         return output_metadata
