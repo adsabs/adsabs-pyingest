@@ -3,7 +3,7 @@ import sys
 import bs4
 import xmltodict as xmltodict_parser
 import urllib
-import feedparser
+import urllib2
 import bs4
 import lxml
 import warnings
@@ -110,23 +110,23 @@ class BaseRSSFeedParser(object):
     def remove_control_chars(s):
         return control_char_re.sub('', s)
 
-    def get_records(self, rssURL, data_tag='entry', method='bs', **kwargs):
+    def get_records(self, rssURL, data_tag='entry', headers={}, **kwargs):
         qparams = urllib.urlencode(kwargs)
         if qparams:
             url = "%s?%s" % (rssURL, qparams)
         else:
             url = rssURL
-        source = urllib.urlopen(url)
-        if method == 'bs':
-            soup = bs4.BeautifulSoup(source, 'lxml')
-            entries = soup.find_all(data_tag)
-            self.links = soup.find_all('link')
-        elif method == 'fp':
-            feed = feedparser.parse(url)
-            entries = [e for e in feed.entries]
+        if headers:
+            req = urllib2.Request(url, headers=headers)
         else:
-            raise UnknownHarvestMethod
-
+            req = urllib2.Request(url)
+        source = urllib2.urlopen(req)
+        soup = bs4.BeautifulSoup(source, 'lxml')
+        entries = soup.find_all(data_tag)
+        try:
+            self.links = soup.find_all('link')
+        except:
+            self.links = []
         return entries
 
     def parse(self, url, **kwargs):

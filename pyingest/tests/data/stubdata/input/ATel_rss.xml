@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+ xmlns="http://purl.org/rss/1.0/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/" >
+ <channel rdf:about="http://www.astronomerstelegram.org/?adsbiblio" >
+	<title>The Astronomer's Telegram:   </title>
+	<link> http://www.astronomerstelegram.org </link>
+	<description> NASA/ADS Bibliography RSS Feed, from The Astronomer's Telegram </description>
+
+	<dc:language>en-us</dc:language>
+
+<items>
+<rdf:Seq>
+
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13092" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13091" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13090" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13089" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13088" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13087" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13086" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13085" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13084" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13083" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13082" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13081" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13080" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13079" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13078" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13077" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13076" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13075" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13074" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13073" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13072" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13071" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13070" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13069" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13068" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13067" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13066" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13065" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13064" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13063" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13062" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13061" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13060" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13059" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13058" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13057" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13056" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13055" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13054" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13053" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13052" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13051" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13050" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13049" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13048" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13047" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13046" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13045" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13044" />
+<rdf:li rdf:resource="http://www.astronomerstelegram.org/?read=13043" />
+</rdf:Seq></items></channel>
+
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13092">
+	<title>GMRT observations of the recurrent nova V3890 Sagittarii</title>
+	<link>http://www.astronomerstelegram.org/?read=13092</link>
+	<author>Pavana, M.; Roy,  Nirupam; Anupama,  G.  C.; Singh,  K.  P.; Girish, V. </author>
+	<publisher> The Astronomer's Telegram, #13092 </publisher>
+	<identifier>ATel13092</identifier>
+	<description> We report radio observations of the V3890 Sgr obtained using the GMRT at 1.4 GHz and 610 MHz. The radio emission from the source was detected at 1.4 GHz with a strength of 17.0 (4.3) mJy on 2019 September 6.54 UT suggesting the presence of thermal emission.  </description>
+	<subjects> Nova </subjects>
+	<citations>  </citations>
+	<dc:date>2019-09-09T09:57:14-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13091">
+	<title>MASTER: PSN in PGC152821</title>
+	<link>http://www.astronomerstelegram.org/?read=13091</link>
+	<author>Pogrosheva, T.; Lipunov,  V.; Rebolo,  R.; Serra,  M.; Gorbovskoy,  E.; Balakin,  F.; Kornilov,  V.; Tyurina,  N.; Balanutsa,  P.; Kuznetsov,  A.; Vladimirov,  V.; Vlasenko,  D.; Gorbunov,  I.; Zimnukhov,  D.; Senik,  V.; Kuvshinov,  D.; Chasovnikov,  A.; Topolev,  V.; Posdnyakov,  A.; Zhirkov,  K.; Shumkov,  V.; Tlatov,  A.; Dormidontov,  D.; Podesta,  R.; Lopez,  C.; Podesta,  F.; Francile,  C.; Levato,  H.; Buckley,  D.; Gres,  O.  A.; Budnev,  N.  M.; Ershova,  O.; Yurkov, V.; Gabovich,  A.; Sergienko, Yu. </author>
+	<publisher> The Astronomer's Telegram, #13091 </publisher>
+	<identifier>ATel13091</identifier>
+	<description>     MASTER-SAAO auto-detection system ( Lipunov et al., "MASTER Global Robotic Net", Advances in Astronomy, 2010, 30L ) discovered OT source at (RA, Dec) = 08h 33m 07.81s -04d 39m 35.1s on 2019-09-07.14747 UT.  The OT magnitude unfiltered magnitude is 17.6m (mlim=18.6).  </description>
+	<subjects> Request for Observations, Supernovae, Transient, Variables </subjects>
+	<citations>  </citations>
+	<dc:date>2019-09-09T09:29:14-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13090">
+	<title>Detection of A Fast Radio Burst from FRB 121102 with the Haoping 40m Radio Telescope, China </title>
+	<link>http://www.astronomerstelegram.org/?read=13090</link>
+	<author>LUO, Jintao; ZHAO,  Chengshi; GAO,  Yuping; TONG,  Minglei; LI,  Bian; LI,  Yifeng; YANG,  Tinggao; RAO,  Yongnan; LU,  Xiaochun; YANG, Jun</author>
+	<publisher> The Astronomer's Telegram, #13090 </publisher>
+	<identifier>ATel13090</identifier>
+	<description> FRB 121102 is the first known transient source with repeating fast radio bursts (FRBs). Following the recent report of the radio detection of multiple bursts (Li et al. ATel #13064), we monitored the FRB repeater at L band with the new Haoping 40-meter radio telescope, National Time Service Center (NTSC), Chinese Academy of Sciences.  </description>
+	<subjects> Transient </subjects>
+	<citations> 13064 </citations>
+	<dc:date>2019-09-09T09:22:15-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13089">
+	<title>Radio detection of the recurrent nova V3890 Sgr with MeerKAT at 1.28 GHz</title>
+	<link>http://www.astronomerstelegram.org/?read=13089</link>
+	<author>Nyamai, M.  M.; Woudt,  P.  A.; Ribeiro,  V.  A.  R.  M.; Chomiuk, L. </author>
+	<publisher> The Astronomer's Telegram, #13089 </publisher>
+	<identifier>ATel13089</identifier>
+	<description> The recurrent nova V3890 Sgr was discovered in eruption on 2019-08-27.9 UT by A. Pereira. Here, we report observations of the nova obtained with the MeerKAT radio telescope at 1.28 GHz, between 2019-08-29.8 UTC and 2019-09-03.8 UTC (1.9--7.7 days after the optical discovery).  </description>
+	<subjects> Nova </subjects>
+	<citations>  </citations>
+	<dc:date>2019-09-08T21:43:28-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13088">
+	<title>Near-infrared observations of recurrent nova V3890 Sgr</title>
+	<link>http://www.astronomerstelegram.org/?read=13088</link>
+	<author>Evans, A.; Banerjee,  D.  P. K.; Geballe,  T.  R.; Joshi,  V.; Woodward,  C.  E.; Gehrz, R.  D. </author>
+	<publisher> The Astronomer's Telegram, #13088 </publisher>
+	<identifier>ATel13088</identifier>
+	<description> We report near-infrared spectra (0.9 - 2.5 micron) of the ongoing eruption of the recurrent nova V3890 Sgr obtained on mean UT dates 2019 September 1.985 and 2019 September 2.994 respectively with the  Flamingos 2 spectrograph on the 8.1m Gemini South telescope.  </description>
+	<subjects> Nova </subjects>
+	<citations> 13047, 13050, 13059, 13060, 13062, 13069, 13072, 13081 </citations>
+	<dc:date>2019-09-08T21:17:58-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13087">
+	<title>Spectroscopic Classification of AT 2019pmd with Faulkes-N/FLOYDS</title>
+	<link>http://www.astronomerstelegram.org/?read=13087</link>
+	<author>Kilpatrick, C.  D.; Foley, R.  J. </author>
+	<publisher> The Astronomer's Telegram, #13087 </publisher>
+	<identifier>ATel13087</identifier>
+	<description>  We report the following classification of AT 2019pmd from spectroscopic observations with the FLOYDS spectrograph on the Faulkes-North 2-m telescope at Haleakala, Hawaii.  </description>
+	<subjects> Supernovae, Transient </subjects>
+	<citations>  </citations>
+	<dc:date>2019-09-07T23:31:56-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13086">
+	<title>NICER detection of a 83 s periodicity in the super-soft source emission from V3890 Sgr</title>
+	<link>http://www.astronomerstelegram.org/?read=13086</link>
+	<author>Beardmore, A.  P.; Page,  K.  L.; Markwardt,  C.  B.; Gendreau,   K.  C.; Arzoumanian,  Z.; Pope, J.  S. </author>
+	<publisher> The Astronomer's Telegram, #13086 </publisher>
+	<identifier>ATel13086</identifier>
+	<description> Following the detection of super-soft source (SSS) emission from the recurrent nova V3890 Sgr by the Swift-XRT (Page et al., ATel#13084), we initiated a real-time target of opportunity observation of the source with NICER.  </description>
+	<subjects> Nova </subjects>
+	<citations> 770, 2423, 5573, 5626, 6147, 13084 </citations>
+	<dc:date>2019-09-07T01:24:51-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13085">
+	<title>HET Spectroscopic Observation and Modeling of SLSN 2019neq</title>
+	<link>http://www.astronomerstelegram.org/?read=13085</link>
+	<author>Konyves-Toth, R.; Vinko,  J.; Thomas,  B.  P.; Wheeler, J.  C. </author>
+	<publisher> The Astronomer's Telegram, #13085 </publisher>
+	<identifier>ATel13085</identifier>
+	<description> We report an optical spectrum (range 364 - 1000 nm) of SN 2019neq (ZTF19abpbopt, R.A. = 17:54:26.736, Dec. = +47:15:40.56) taken with the 10m Hobby-Eberly Telescope "Low Resolution Spectrograph-2" (LRS2) at McDonald Observatory by Sergey Rostopchin on 2019-09-01.2 UT. This young, nearby (z ~ 0.1) Superluminous Supernova (SLSN) was discovered by the Zwicky Transient Facility (AstroNote-2019-79) and classified as a Type-I SLSN based on the similarity with the spectrum of SN 2005ap.  </description>
+	<subjects> Supernovae </subjects>
+	<citations>  </citations>
+	<dc:date>2019-09-06T18:23:22-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13084">
+	<title>Swift detection of super-soft X-ray emission from V3890 Sgr</title>
+	<link>http://www.astronomerstelegram.org/?read=13084</link>
+	<author>Page, K.  L.; Beardmore,  A.  P.; Osborne,  J.  P.; Orio,  M.; Sokolovsky,  K.  V.; Darnley, M.  J. </author>
+	<publisher> The Astronomer's Telegram, #13084 </publisher>
+	<identifier>ATel13084</identifier>
+	<description>  The 2019 eruption of the recurrent nova V3890 Sgr (discovered by A. Pereira on 2019 Aug 27.87) has been followed by many observers (ATels #13047, #13059, #13060, #13062, #13069, #13081, #13083), and regularly monitored by the Neil Gehrels Swift Observatory (ATels #13072, #13050) between 2019 Aug 28.44 (0.54 days post-discovery) and Sep 5.99 (9.12 days post-discovery).  </description>
+	<subjects> Nova </subjects>
+	<citations> 13047, 13050, 13059, 13060, 13062, 13069, 13072, 13081, 13083 </citations>
+	<dc:date>2019-09-06T16:34:12-00:00</dc:date>
+</item>
+<item rdf:about="http://www.astronomerstelegram.org/?read=13083"> 
+	<title>High resolution X-ray spectroscopy of V3890 Sgr</title> 
+	<link>http://www.astronomerstelegram.org/?read=13083</link> 
+	<author>Orio,  Marina; Drake,  Jeremy; Ness,  Jan-Uwe; Behar,  Ehud; Kuin,  Paul; Luna,  Juan; Page,  Kim L.; Starrfield,  Sumner; Williams,  Bob; Aydi,  E.; Sokolovsky,  Kirill; Darnley,  Matt; Osborne,  J.; Gehrz,  Bob; Woodward, Chick</author> 
+	<publisher> The Astronomer's Telegram, #13083 </publisher> 
+	<identifier>ATel13083</identifier> 
+	<description> V3890 Sgr was observed on 2019-09-03 (day 8 since the onset of the optical outburst; see ATEL #13047, #13050, #13059, #13060, #13062, #13069, #13072, #13081) for 29086 s with the Chandra ACIS-S camera and High Energy Transmission Gratings.  </description> 
+	<subjects> Cataclysmic Variable, Nova, Transient, Variables </subjects> 
+	<citations> 13047, 13050, 13059, 13060, 13062, 13069, 13072, 13081 </citations> 
+	<dc:date>2019-09-06T15:01:29-00:00</dc:date> 
+</item> 
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13082">
+	<title>Swift follow-up observations of the optical transient ASASSN-19vj</title>
+	<link>http://www.astronomerstelegram.org/?read=13082</link>
+	<author>Sandoval, L.  E.  Rivera; amp; Maccarone, T.  J. </author>
+	<publisher> The Astronomer's Telegram, #13082 </publisher>
+	<identifier>ATel13082</identifier>
+	<description> We report on X-ray and UV follow-up observations of ASASSN-19vj (ATEL #13061), which was identified as an optical transient on the rise at 17.5 mag in g by the ASAS-SN on UT 2019-08-29.99.  </description>
+	<subjects> Cataclysmic Variable, Supernovae, Transient, Variables </subjects>
+	<citations> 13061 </citations>
+	<dc:date>2019-09-06T05:59:08-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13081">
+	<title>Rapid line sharpening and ionization increase in V3890 Sgr</title>
+	<link>http://www.astronomerstelegram.org/?read=13081</link>
+	<author>Munari, U.; Walter, F.  M. </author>
+	<publisher> The Astronomer's Telegram, #13081 </publisher>
+	<identifier>ATel13081</identifier>
+	<description> The recurrent nova V3890 Sgr has recently gone into outburst for the third time. Reports about optical spectra have appeared in ATel #13047, #13059, #13060, #13062, #13069, and Swift X-ray and UV data in ATel #13050, #13072.  </description>
+	<subjects> Cataclysmic Variable, Nova </subjects>
+	<citations> 13047, 13050, 13059, 13060, 13062, 13069, 13072 </citations>
+	<dc:date>2019-09-05T20:06:26-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13080">
+	<title>Reappearance of methanol maser flare in G24.33+0.14</title>
+	<link>http://www.astronomerstelegram.org/?read=13080</link>
+	<author>Wolak, P.; Olech,  M.; Szymczak,  M.; Bartkiewicz,  A.; Durjasz,  M.;   </author>
+	<publisher> The Astronomer's Telegram, #13080 </publisher>
+	<identifier>ATel13080</identifier>
+	<description> A second methanol maser burst in G24.33+0.14 is being observed with the Torun 32 m radio telescope at 6.7GHz. The first flare was detected about 8 years ago (Wolak et. al. 2018, feature 1C at Fig. 1.). During the current burst the integrated flux density and flux density of feature at 115 km s-1 increased over 80 days by a factor of 2.5 and 5.5, respectively (Fig.  </description>
+	<subjects> Young Stellar Object </subjects>
+	<citations>  </citations>
+	<dc:date>2019-09-05T10:40:48-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13079">
+	<title>Spectroscopic classification of SN 2019pfb as a young Type Ib supernova</title>
+	<link>http://www.astronomerstelegram.org/?read=13079</link>
+	<author>Terreran, G.; Fong,  W.; Margutti,  R.; Miller,  A.; Alexander,  K.; Blanchard,  P.; Coppejans,  D.; Paterson, K. </author>
+	<publisher> The Astronomer's Telegram, #13079 </publisher>
+	<identifier>ATel13079</identifier>
+	<description>  We report the spectroscopic classification of SN 2019pfb, discovered by the Zwicky Transient Facility (Kulkarni 2018; ATel #11266)    The observation was performed with Low Resolution Imaging Spectrometer (LRIS) mounted on the 10-m Keck I telescope (range 3200-10200 nm; resolution 0.7 nm).     Survey Name  | IAU Name  |  Discovery MJD | Discovery mag |  z  | Type |    Phase    | Notes ZTF19abvdgqo | SN 2019pfb |  58727.32   |  19.06   | 0.03683 |  Ib  | 1 week before max | (1)      (1) The spectrum is consistent with that of a Type Ib SN. We find the best match to be with SN 2004gq one week before maximum light.  </description>
+	<subjects> Supernovae </subjects>
+	<citations> 11266 </citations>
+	<dc:date>2019-09-05T02:07:10-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13078">
+	<title>Spectroscopic Classification of AT 2019pih and M31N 2019-09a as novae in M31</title>
+	<link>http://www.astronomerstelegram.org/?read=13078</link>
+	<author>Williams, S.  C.; Darnley,  M.  J.; Healy,  M.  W.; Murphy-Glaysher,  F.  J.; Ransome, C.  L. </author>
+	<publisher> The Astronomer's Telegram, #13078 </publisher>
+	<identifier>ATel13078</identifier>
+	<description> We obtained a spectrum of the transient AT 2019pih with the SPRAT spectrograph (resolution R ~ 350; Piascik et al. 2014) on the 2-m Liverpool Telescope (LT; Steele et al. 2004) on 2019 Sep 4.08 UT. The spectrum shows narrow Balmer emission lines (H &amp; alpha;, H &amp; beta;, H &amp; gamma;, H &amp; delta;), along with numerous Fe II emission lines, including those of the 37, 38, 42, 48 and 49 multiplets.  </description>
+	<subjects> Nova, Transient </subjects>
+	<citations> 13071 </citations>
+	<dc:date>2019-09-04T20:04:39-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13077">
+	<title>NICER detects a high luminosity reflare from SAX J1808.4-3658</title>
+	<link>http://www.astronomerstelegram.org/?read=13077</link>
+	<author>Bult, P.  M.; Gendreau,  K.  C.; Arzoumanian,  Z.; Strohmayer,  T.  E.; Chakrabarty,  D.; Jaisawal,  G.  K.; Chenevez,  J.; Guver, S.  Guillot  T. </author>
+	<publisher> The Astronomer's Telegram, #13077 </publisher>
+	<identifier>ATel13077</identifier>
+	<description>  The 401 Hz accreting millisecond X-ray pulsar SAX J1808.4-3658 has been in outburst since 2019 August 6 (ATel #12964, ATel #12993, ATel #13000, ATel #13001).  </description>
+	<subjects> Neutron Star, Transient, Pulsar </subjects>
+	<citations> 12964, 12993, 13000, 13001, 13022 </citations>
+	<dc:date>2019-09-04T15:04:25-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13076">
+	<title>MASTER: kilonova of S190101ap or young PSN in PGC059913</title>
+	<link>http://www.astronomerstelegram.org/?read=13076</link>
+	<author>Lipunov, V.; Pogrosheva,  T.; Rebolo,  R.; Serra,  M.; Gorbovskoy,  E.; Balakin,  F.; Kornilov,   V.; Tyurina,  N.; Balanutsa,  P.; Kuznetsov,  A.; Vladimirov,  V.; Vlasenko,  D.; Gorbunov,  I.; Zimnukhov,  D.; Senik,  V.; Kuvshinov,  D.; Chasovnikov,  A.; Topolev,  V.; Posdnyakov,  A.; Zhirkov,  K.; Tlatov,   A.; Dormidontov,  D.; Podesta,  R.; Lopez,  C.; Podesta,  F.; Francile,  C.; Levato,  H.; Buckley,  D.; Gres,  O.  A.; Budnev,  N.  M.; Ershova,  O.; Yurkov, V.; Gabovich,  A.; Sergienko, Yu. </author>
+	<publisher> The Astronomer's Telegram, #13076 </publisher>
+	<identifier>ATel13076</identifier>
+	<description>    MASTER-IAC auto-detection system (Lipunov et al., 2010, Advances in Astronomy, vol. 2010, 30L)  discovered OT source at (RA, Dec) = 17h 14m 34.95s +28d 07m 25.6s on 2019-09-03.97890 UT.   The OT unfiltered magnitude is 18.9m (limit 19.7m).  </description>
+	<subjects> Request for Observations, Gravitational Waves, Supernovae, Transient </subjects>
+	<citations>  </citations>
+	<dc:date>2019-09-04T08:54:29-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13075">
+	<title>UKIRT NIR upper limit on FRB121102</title>
+	<link>http://www.astronomerstelegram.org/?read=13075</link>
+	<author>Xu, Dong; Zhu,  Zi-pei; Wang,  Hui-juan; Ge, Liang</author>
+	<publisher> The Astronomer's Telegram, #13075 </publisher>
+	<identifier>ATel13075</identifier>
+	<description> Motivated by the FAST report of FRB121102 now in an active state producing multiple radio outbursts (ATel #13064), we carried out one hour H-band photometry at the United Kingdom Infra-Red Telescope (UKIRT).  </description>
+	<subjects> Fast Radio Burst </subjects>
+	<citations> 13064 </citations>
+	<dc:date>2019-09-04T03:44:48-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13074">
+	<title>Bright NIR detections of the reddened classical nova Gaia19dum / AT2019owg from Palomar Gattini-IR</title>
+	<link>http://www.astronomerstelegram.org/?read=13074</link>
+	<author>De, K.; Hankins,  M.; Kasliwal,  M.  M.; Sokoloski,  J.; Babul,  A.; Lau,  R.  M.; Sharma,  M.; Soria,  R.; Moore,   A.; Soon,  J.; Ashley,  M.; Travouillon,  T. </author>
+	<publisher> The Astronomer's Telegram, #13074 </publisher>
+	<identifier>ATel13074</identifier>
+	<description> We report bright NIR detections of the classical nova AT 2019owg classified in ATel #13068, #13070 by Palomar Gattini-IR. The data were acquired as a part of regular survey operations of Palomar Gattini-IR, a wide-field infrared survey telescope which scans the entire northern sky down to 16 AB mag in J band every two nights (Moore and Kasliwal 2019).  </description>
+	<subjects> Nova </subjects>
+	<citations> 13068, 13070 </citations>
+	<dc:date>2019-09-04T02:34:00-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13073">
+	<title>INTEGRAL and radio joint programme of FRB121102 during a renewed activity</title>
+	<link>http://www.astronomerstelegram.org/?read=13073</link>
+	<author>Gouiffes, Christian; Spitler,  Laura; Cognard,  Ismael; Maury,  Anaelle; Hessels,   Jason; Seymour,  Andrew; Li,  DI; Laurent,  Philippe; Floc'h,  Emeric Le; O'Connor,  Eoin; Corbel,  StÃ©phane; Cruces,  Mary; Dennefeld,  Michel; GÃ¶tz,  Diego; Qian,  Lei; Savchenko,  Volodymyr; Shearer,  Andy; Rodriguez,   Jerome; Zarka, Philippe </author>
+	<publisher> The Astronomer's Telegram, #13073 </publisher>
+	<identifier>ATel13073</identifier>
+	<description> Here we report on a renewed activity of the repeating fast radio burst FRB121102.  During an on-going programme involving the INTEGRAL satellite in hard X-rays, the Arecibo, Effelsberg, and the Nan &amp; ccedil;ay radio telescopes, several radio bursts were detected in the last days.  </description>
+	<subjects> Transient, Fast Radio Burst </subjects>
+	<citations> 13064 </citations>
+	<dc:date>2019-09-03T19:28:01-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13072">
+	<title>Swift UVOT UV spectrum and photometry of V3890 Sgr</title>
+	<link>http://www.astronomerstelegram.org/?read=13072</link>
+	<author>Kuin, Paul; Darnley,  Matt; Drake,   Jeremy; Orio,  Marina; Osborne,  Julian; Page,  Kim; Williams,  Bob; Woodward,  Chick; Ness,  Jan-Uwe; Shore,  Steve; Walter, Fred </author>
+	<publisher> The Astronomer's Telegram, #13072 </publisher>
+	<identifier>ATel13072</identifier>
+	<description> Swift UVOT took a 418s UV grism spectrum of V3890 Sgr at 2019-09-02.07 about 5.67d after  the estimated eruption time of 2019-08-27.40 (Strader et al, ATEL#13047).  </description>
+	<subjects> Nova </subjects>
+	<citations> 13047, 13069 </citations>
+	<dc:date>2019-09-03T14:15:35-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13071">
+	<title>Independent Discovery of an Apparent Nova in M31</title>
+	<link>http://www.astronomerstelegram.org/?read=13071</link>
+	<author>Kucakova, H.; Hornoch, K. </author>
+	<publisher> The Astronomer's Telegram, #13071 </publisher>
+	<identifier>ATel13071</identifier>
+	<description> We report the independent discovery of an apparent nova in M31 on a co-added 1440-s R-band CCD frame taken on 2019 Sep. 2.924 UT with the 0.65-m telescope at Ondrejov.  </description>
+	<subjects> Nova, Transient </subjects>
+	<citations>  </citations>
+	<dc:date>2019-09-03T13:08:14-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13070">
+	<title>Spectroscopic classification of Gaia19dum as a reddened nova by using LT/SPRAT</title>
+	<link>http://www.astronomerstelegram.org/?read=13070</link>
+	<author>Zielinski, Pawel; Gromadzki,  Mariusz; Ihanec,  Nada; Wyrzykowski,  Lukasz; Kruszynska,  Katarzyna; Rybicki, Krzysztof</author>
+	<publisher> The Astronomer's Telegram, #13070 </publisher>
+	<identifier>ATel13070</identifier>
+	<description>  Gaia19dum (aka Dumbledore; AT 2019owg at IAU's Transient Name Server) was detected photometrically on 2019-08-24T21:21:36 UT by Gaia satellite (http://gsaweb.ast.cam.ac.uk/alerts/alert/Gaia19dum/).  </description>
+	<subjects> Binary, Cataclysmic Variable, Nova, Transient </subjects>
+	<citations> 13068 </citations>
+	<dc:date>2019-09-03T10:46:41-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13069">
+	<title>The reddening and distance to recurrent nova V3890 Sgr from interstellar features</title>
+	<link>http://www.astronomerstelegram.org/?read=13069</link>
+	<author>Munari, U.; Walter, F.  M. </author>
+	<publisher> The Astronomer's Telegram, #13069 </publisher>
+	<identifier>ATel13069</identifier>
+	<description> The symbiotic star and recurrent nova V3890 Sgr, after the previously recorded events of 1962 and 1990, was found by A. Pereira on 2019-08-27.87 UT to be again in outburst (spectroscopic confirmations have been reported in ATel #13047, #13059, #13060, #13062; and detection in X-rays in ATel #13050).  </description>
+	<subjects> Cataclysmic Variable, Nova </subjects>
+	<citations> 13047, 13050, 13059, 13060, 13062 </citations>
+	<dc:date>2019-09-03T07:05:00-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13068">
+	<title>Spectroscopic classification of Gaia19dum as a highly reddened classical nova</title>
+	<link>http://www.astronomerstelegram.org/?read=13068</link>
+	<author>Aydi, E.; Strader,  J.; Chomiuk,  L.; Kawash,  A.; Sokolovsky,  K.  V.; Dimitriadis,  Georgios; Rojas-Bravo,  Cesar; Foley,  Ryan; Stanek,  K.  Z.; Kochanek,  C.  S.; Shappee, B.  J. </author>
+	<publisher> The Astronomer's Telegram, #13068 </publisher>
+	<identifier>ATel13068</identifier>
+	<description>  We report on spectroscopic follow up of the optical transient Gaia19dum, which was was discovered by Gaia on 2019 Aug 24.89, at coordinates of 19:52:08.25 +27:42:20.88.  </description>
+	<subjects> Binary, Cataclysmic Variable, Nova, Star, Transient, Variables </subjects>
+	<citations>  </citations>
+	<dc:date>2019-09-02T19:44:45-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13067">
+	<title>Spectroscopic Classifications of Optical Transients with the Lick Shane telescope</title>
+	<link>http://www.astronomerstelegram.org/?read=13067</link>
+	<author>Dimitriadis, G.; Rojas-Bravo,  C.; Foley, R.  J. </author>
+	<publisher> The Astronomer's Telegram, #13067 </publisher>
+	<identifier>ATel13067</identifier>
+	<description>  We report the following classifications of optical transients from spectroscopic observations with the Kast spectrograph on the Shane telescope. Targets were supplied by ZTF. All observations were made on 2019 Sep 02 UT. Classifications were performed with SNID (Blondin  &amp;  Tonry, 2007, ApJ, 666, 1024).  </description>
+	<subjects> Supernovae </subjects>
+	<citations>  </citations>
+	<dc:date>2019-09-02T18:34:32-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13066">
+	<title>The 1898 and 1934 outbursts of ASASSN-18ey (= MAXI J1820+070)</title>
+	<link>http://www.astronomerstelegram.org/?read=13066</link>
+	<author>Kojiguchi, Naoto; Kato,  Taichi; Isogai,  Keisuke; Nogami, Daisaku</author>
+	<publisher> The Astronomer's Telegram, #13066 </publisher>
+	<identifier>ATel13066</identifier>
+	<description> We report on two past outbursts of the low-mass X-ray binary ASASSN-18ey (= MAXI J1820+070) detected via Digital Access to a Sky Century @ Harvard (DASCH; http://dasch.rc.fas.harvard.edu).  </description>
+	<subjects> Binary, Black Hole, Transient </subjects>
+	<citations> 11399, 11400, 12567, 12573, 12577, 12596, 13014, 13025 </citations>
+	<dc:date>2019-09-02T16:21:15-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13065">
+	<title>AGILE detection of renewed gamma-ray activity from the FSRQ PKS 1830-211</title>
+	<link>http://www.astronomerstelegram.org/?read=13065</link>
+	<author>Lucarelli, F.; Tavani,  M.; Pittori,  C.; Verrecchia,  F.; Bulgarelli,  A.; Parmiggiani,  N.; Fioretti,  V.; Cardillo,  M.; Piano,  G.; Ursi,  A.; Donnarumma,  I.; Vercellone,  S.; Gianotti,  F.; Trifoglio,  M.; Giuliani,  A.; Mereghetti,  S.; Caraveo,  P.; Perotti,  F.; Chen,  A.; Argan,  A.; Costa,  E.; Del Monte,  E.; Evangelista,  Y.; Feroci,  M.; Pacciani,  L.; Soffitta,  P.; Vittorini,  V.; Di Cocco,  G.; Fuschino,  F.; Galli,  M.; Labanti,  C.; Marisaldi,  M.; Pellizzoni,  A.; Pilia,  M.; Trois,  A.; Barbiellini,  G.; Vallazza,  E.; Longo,  F.; Morselli,  A.; Picozza,  P.; Prest,  M.; Lipari,  P.; Zanello,  D.; Cattaneo,  P.  W.; Rappoldi,  A.; Ferrari,  A.; Paoletti,  F.; Antonelli,  L.  A.; Giommi,  P.; Salotti,  L.; Valentini,  G.; D'Amico, F. </author>
+	<publisher> The Astronomer's Telegram, #13065 </publisher>
+	<identifier>ATel13065</identifier>
+	<description> AGILE is detecting renewed gamma-ray activity above 100 MeV from the blazar PKS 1830-211 (also known as 5BZQ J1833-2103). Integrating from 2019-08-31 UT 12:00:00 until 2019-09-02 12:00:00, a preliminary multi-source maximum likelihood analysis yields a detection at the level of about 5.5 sigma and a flux F( &gt; 100 MeV) = (4.9 +/- 1.4) x 10^-6 photons/cm^2/s.  </description>
+	<subjects> AGN, Blazar, Transient </subjects>
+	<citations> 12136, 12252, 12541, 12594, 12601, 12603, 12622, 12685, 12705, 13030 </citations>
+	<dc:date>2019-09-02T14:15:39-00:00</dc:date>
+</item>
+<item rdf:about="http://www.astronomerstelegram.org/?read=13064"> 
+	<title>FAST Detects Multiple Bursts in L-band from FRB 121102 </title> 
+	<link>http://www.astronomerstelegram.org/?read=13064</link> 
+	<author>Di Li; Zhang,  Xinxin; Qian,  Lei; Zhu,  Weiwei; Duan,  Ran; Werthimer,  Dan; Gajjar,  Vishal; Zhu,  Yan; Cobb,  Jeff; Yue,  Youling; Jin,  Chengjin; Zhang,  Bing; Gouiffes,  Christian; Wang,  Shen; Spitler,  Laura; Cruces,  Mary; Hessels,  Jason; Seymour,  Andrew; Korpela,  Eric; Luo,  Jingtao; Gan,  HengQian; Jiang,  Peng; Li,  Hui; Li,  Qi; Liu,  HongFei; Miao,  Chenchen; Niu,  Chenhui; Pan,  GaoFeng; Pan,  Zhichen; Peng,  Bo; Sun,  JingHai; Tang,  Ningyu; Wang,  QiMing; Wang,  Pei; Pei,  Xin; Yan,  Jun; Yao,   Rui; Yu,  DongJun; Yuan,  Mao; Zhang,  Haiyan; Zhang,  Lei; Zhang,  ShuXin;</author> 
+	<publisher> The Astronomer's Telegram, #13064 </publisher> 
+	<identifier>ATel13064</identifier> 
+	<description> Tracking observations of FRB 121102 were carried out with the newly commissioned Five-hundred-meter Aperture Spherical radio Telescope (FAST). We used the FAST L-band Array of 19-beams (FLAN), which has a FWHM of ~2.95' for individual beams and a ~26' footprint.  </description> 
+	<subjects> Fast Radio Burst </subjects> 
+	<citations>  </citations> 
+	<dc:date>2019-09-02T01:32:06-00:00</dc:date> 
+</item> 
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13063">
+	<title>Spectroscopic Classification of AT2019oyz with the Lick Shane telescope</title>
+	<link>http://www.astronomerstelegram.org/?read=13063</link>
+	<author>Dimitriadis, G.; Foley, R.  J. </author>
+	<publisher> The Astronomer's Telegram, #13063 </publisher>
+	<identifier>ATel13063</identifier>
+	<description>  We report the following classification of AT2019oyz from spectroscopic observations with the Kast spectrograph on the Shane telescope. The target was supplied by ATLAS.  </description>
+	<subjects> Supernovae </subjects>
+	<citations>  </citations>
+	<dc:date>2019-09-01T19:48:55-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13062">
+	<title>Optical spectroscopy of V3890 Sagittarii</title>
+	<link>http://www.astronomerstelegram.org/?read=13062</link>
+	<author>Maehara, Hiroyuki; Isogai, Keisuke</author>
+	<publisher> The Astronomer's Telegram, #13062 </publisher>
+	<identifier>ATel13062</identifier>
+	<description>  We report optical spectroscopic observations of the recurrent nova V3890 Sagittarii (ATel #13047, #13050, #13059, #13060). We obtained low-resolution spectra of this object on 2019-08-30.509 and 2019-08-31.469 with the fiber-fed integral field spectrograph (KOOLS-IFU; Matsubayashi et al. 2019) mounted on the 3.8-m Seimei telescope at Okayama Observatory, Kyoto University.  </description>
+	<subjects> Nova </subjects>
+	<citations> 13047, 13050, 13059, 13060 </citations>
+	<dc:date>2019-09-01T19:04:23-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13061">
+	<title>ASASSN-19vj: Discovery of A Possible Hostless Supernova</title>
+	<link>http://www.astronomerstelegram.org/?read=13061</link>
+	<author>Brimacombe, J.; Nicholls,  B.; Vallely,  P.; Stanek,  K.  Z.; Kochanek,  C.  S.; Basinger,  C.  M.; Way,  Z.; Thompson,  T.  A.; Shappee,  B.  J.; Holoien,  T.  W. -S.; Prieto,  J.  L.; Bersier,  D.; Dong,  Subo; Bose,  S.; Chen,  Ping; Stritzinger,  M.; Holmbo, S. </author>
+	<publisher> The Astronomer's Telegram, #13061 </publisher>
+	<identifier>ATel13061</identifier>
+	<description> During the ongoing All Sky Automated Survey for SuperNovae (ASAS-SN, Shappee et al. 2014), using data from the quadruple 14-cm "Cassius" telescope in Cerro Tololo, Chile, we discovered a new transient source on the rise.  </description>
+	<subjects> Supernovae, Transient </subjects>
+	<citations>  </citations>
+	<dc:date>2019-09-01T16:28:28-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13060">
+	<title>Optical spectroscopy of the recurrent nova V3890 Sagittarii </title>
+	<link>http://www.astronomerstelegram.org/?read=13060</link>
+	<author>Pavana, M.; Anupama,  G.  C.; Kumar, S.  Pramod</author>
+	<publisher> The Astronomer's Telegram, #13060 </publisher>
+	<identifier>ATel13060</identifier>
+	<description> We report optical spectroscopic observations of the recurrent nova V3890 Sagittarii (ATels #13047, #13050, #13059) on 2019 Aug 30.71 UT. The spectrum was obtained using the HFOSC instrument mounted on the 2m Himalayan Chandra Telescope (HCT) of the Indian Astronomical Observatory, Hanle, in the 380-900 nm wavelength range.  </description>
+	<subjects> Nova </subjects>
+	<citations> 13047, 13050, 13059 </citations>
+	<dc:date>2019-08-31T06:56:00-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13059">
+	<title>0.38-2.5 micron spectroscopy of the recurrent nova V3890 Sagittarii</title>
+	<link>http://www.astronomerstelegram.org/?read=13059</link>
+	<author>Rudy, Richard; Subasavage,  John; Crawford,  Kirk; Gutierrez,  David; Russell,  Ray; Wiktorowicz, Sloane</author>
+	<publisher> The Astronomer's Telegram, #13059 </publisher>
+	<identifier>ATel13059</identifier>
+	<description> Optical and IR spectra from 0.38-2.5 microns (resolution: 6-30 angstroms) of the recurrent nova V3890 Sagittarii were obtained 2019 August 30.18 (UT) with the Aerospace Corporation's 1.0 m telescope using its Visible and Near-Infrared Imaging Spectrograph (VNIRIS).  </description>
+	<subjects> Nova </subjects>
+	<citations>  </citations>
+	<dc:date>2019-08-31T01:45:35-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13058">
+	<title>Visible and infrared spectroscopy of the nova V2860 Orionis</title>
+	<link>http://www.astronomerstelegram.org/?read=13058</link>
+	<author>Rudy, Richard; Crawford,  Kirk; Gutierrez,  David; Mauerhan,  Jon; Russell,  Ray; Wiktorwicz, Sloane </author>
+	<publisher> The Astronomer's Telegram, #13058 </publisher>
+	<identifier>ATel13058</identifier>
+	<description> Optical and IR spectra from 0.47-2.5 microns (resolution: 6-30 angstroms) of V2860 Orionis (Nova Orionis 2019) were obtained 2019 August 24.50 (UT) with the Aerospace Corporation's 1.0 m telescope using its Visible and Near-Infrared Imaging Spectrograph (VNIRIS).  </description>
+	<subjects> Nova </subjects>
+	<citations>  </citations>
+	<dc:date>2019-08-30T22:34:30-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13057">
+	<title>GRB 190829A: No Neutrino Counterpart detected with ANTARES</title>
+	<link>http://www.astronomerstelegram.org/?read=13057</link>
+	<author>Coleiro, Alexis; Dornic,  Damien</author>
+	<publisher> The Astronomer's Telegram, #13057 </publisher>
+	<identifier>ATel13057</identifier>
+	<description> Alexis Coleiro (APC/Univ de Paris) and Damien Dornic (CPPM/CNRS) on behalf of the ANTARES Collaboration.   Using data from the ANTARES detector, we have performed a follow-up analysis of the recently reported GRB 190829A (Fermi-GBM GCN 25551, Swift GCN 25552) also observed in TeV gamma-rays ( H.E.S.S GCN 25566).  </description>
+	<subjects> Gamma-Ray Burst </subjects>
+	<citations>  </citations>
+	<dc:date>2019-08-30T20:56:28-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13056">
+	<title>On the recent NIR flare ob the blazar CTA102</title>
+	<link>http://www.astronomerstelegram.org/?read=13056</link>
+	<author>Carrasco,  L.; Porras,  A.; Escobedo,  G.; Recillas,  E.; Chavushyan, V. </author>
+	<publisher> The Astronomer's Telegram, #13056 </publisher>
+	<identifier>ATel13056</identifier>
+	<description> We report on an independent observation of the recent NIR Flare of the Blazar CTA102. On August 20th, 2019 (MJD 2458715.9156) We detected the object with the following NIR fluxes; J = 14.573 +/- 0.03, H = 13.590 +/- 0.05.  </description>
+	<subjects> AGN, Blazar, Quasar </subjects>
+	<citations> 11167, 13051 </citations>
+	<dc:date>2019-08-30T18:01:21-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13055">
+	<title>Follow-up observations of optical transients ZTF19abraqpf and ZTF19abqstxq</title>
+	<link>http://www.astronomerstelegram.org/?read=13055</link>
+	<author>Soraisam, Monika; Lee,  Chien-Hsiu; Narayan,  Gautham; Matheson,  Thomas; Saha,  Abhijit; Analysis,  Arizona-NOAO Temporal; team,  response to Events System; Brink,  Thomas G.; Patra,  Kishore C.; Jaeger,  Thomas de; Zheng,  WeiKang; Stahl,  Benjamin E.; Filippenko, Alexei V. </author>
+	<publisher> The Astronomer's Telegram, #13055 </publisher>
+	<identifier>ATel13055</identifier>
+	<description>  We report the spectroscopic observations of two optical transients flagged by a custom filter on the ANTARES alert-broker (https://antares.noao.edu/) from the public alert stream of the ZTF survey.  </description>
+	<subjects> Cataclysmic Variable, Nova, Transient </subjects>
+	<citations>  </citations>
+	<dc:date>2019-08-30T16:28:20-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13054">
+	<title>Enhanced optical activity of the blazar CTA102</title>
+	<link>http://www.astronomerstelegram.org/?read=13054</link>
+	<author>Larionov, V.  M.; Savchenko,  S.  S.; Grishina,  T.  S.; Balonek,  T.  J.; Slater,  J.; Tockstein,  J.  L.; Heatherton,  J.; Ishraque, F.  </author>
+	<publisher> The Astronomer's Telegram, #13054 </publisher>
+	<identifier>ATel13054</identifier>
+	<description> We report the results of optical monitoring of a violent gamma-ray blazar CTA102 that were obtained using the 0.7-m AZT-8 telescope with ST-7XME CCD (Crimean Astrophysical Observatory), 0,4-m LX-200 with FLI ML4710 (St.Petersburg), and 0.4-m Ferson telescope with an FLI PL1001 CCD (Colgate University Foggy Bottom Observatory, Hamilton, NY). Our data show that starting from 2019 August 27 the blazar increased its brightness from R~16.2 to R~15.1 (August 30, 8.3 UT ), with substantial intranight variability.  </description>
+	<subjects> AGN, Blazar, Quasar </subjects>
+	<citations> 10330, 13051 </citations>
+	<dc:date>2019-08-30T13:18:33-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13053">
+	<title>Spectroscopic classification of ZTF19abpmetl as a Type Ia Supernova</title>
+	<link>http://www.astronomerstelegram.org/?read=13053</link>
+	<author>Lee, Chien-Hsiu; Soraisam,  Monika; Narayan,  Gautham; Matheson,  Thomas; Saha,  Abhijit; Analysis,  Arizona-NOAO Temporal; team,  response to Events System; Brink,  Thomas G.; Patra,  Kishore C.; Jaeger,  Thomas de; Zheng,  WeiKang; Stahl,  Benjamin E.; Filippenko, Alexei V. </author>
+	<publisher> The Astronomer's Telegram, #13053 </publisher>
+	<identifier>ATel13053</identifier>
+	<description> We report the following classification of ZTF19abpmetl from spectroscopic observations with the Kast spectrograph on the Shane 3-m telescope at Lick Observatory.  </description>
+	<subjects> Transient </subjects>
+	<citations>  </citations>
+	<dc:date>2019-08-30T12:56:20-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13052">
+	<title>GRB190829A: Detection of VHE gamma-ray emission with H.E.S.S.</title>
+	<link>http://www.astronomerstelegram.org/?read=13052</link>
+	<author>Naurois, M.  de </author>
+	<publisher> The Astronomer's Telegram, #13052 </publisher>
+	<identifier>ATel13052</identifier>
+	<description> The H.E.S.S. array of imaging atmospheric Cherenkov telescopes was used to carry out follow-up observations of the afterglow of GRB 190829A (Dichiara et al., GCN 25552).  </description>
+	<subjects> Gamma-Ray Burst </subjects>
+	<citations>  </citations>
+	<dc:date>2019-08-30T07:12:36-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13051">
+	<title>Detection of a new large NIR flare of the gamma ray blazar CTA 102 with Palomar Gattini-IR</title>
+	<link>http://www.astronomerstelegram.org/?read=13051</link>
+	<author>De, K.; Hankins,  M.; Kasliwal,  M.  M.; Lau,  R.  M.; Sharma,  M.; Soria,  R.; Moore,   A.; Soon,  J.; Ashley,  M.; Travouillon,  T. </author>
+	<publisher> The Astronomer's Telegram, #13051 </publisher>
+	<identifier>ATel13051</identifier>
+	<description> We report the detection of a new large NIR flare of the blazar CTA 102 / PKS 2230+114 conincident with the gamma ray source 2FGLJ2232.4+1143 (ATel #11045) and radio source 4C+11.69.  </description>
+	<subjects> Blazar, Quasar, Transient </subjects>
+	<citations> 11045 </citations>
+	<dc:date>2019-08-30T00:21:40-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13050">
+	<title>Swift X-ray detection during the optical peak of the recurrent nova V3890 Sgr</title>
+	<link>http://www.astronomerstelegram.org/?read=13050</link>
+	<author>Sokolovsky, K.  V.; Orio,  M.; Page,  K.  L.; Beardmore,  A.; Osborne,  J.  P.; Kuin,  P.; Leahy-McGregor,  J.; Aydi,  E.; Chomiuk,  L.; Kawash,  A.; Strader,  J.; Linford,  J.  D.; Rupen, M. </author>
+	<publisher> The Astronomer's Telegram, #13050 </publisher>
+	<identifier>ATel13050</identifier>
+	<description>  The 2019 eruption of the symbiotic recurrent nova V3890 Sgr was  discovered by A. Pereira on 2019-08-27.87 UT and confirmed by many  observers (ATel #13047; previous eruptions: 1962-06-02 and  1990-04-27, Schaefer 2010, ApJS, 187, 275).  </description>
+	<subjects> Nova </subjects>
+	<citations> 13047 </citations>
+	<dc:date>2019-08-29T18:12:53-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13049">
+	<title>Fermi-LAT detection of gamma-ray flaring activity from the peculiar radio source PKS 1413+135</title>
+	<link>http://www.astronomerstelegram.org/?read=13049</link>
+	<author>Angioni, R.; Cheung,  C.  C.; Buson,  S. </author>
+	<publisher> The Astronomer's Telegram, #13049 </publisher>
+	<identifier>ATel13049</identifier>
+	<description>   The Large Area Telescope (LAT), one of the two instruments on the Fermi Gamma-ray Space Telescope, has observed gamma-ray flaring activity from a source positionally consistent with the peculiar radio source PKS 1413+135, also known as 4FGL J1416.1+1320 (The Fermi-LAT collaboration 2019, arXiv:1902.10045), with coordinates R.A. = 213.99507 deg, Decl.  </description>
+	<subjects> Request for Observations, AGN </subjects>
+	<citations>  </citations>
+	<dc:date>2019-08-29T14:23:11-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13048">
+	<title>Spectroscopic observations of AM CVn binary candidates MGAB-248 and MGAB-249</title>
+	<link>http://www.astronomerstelegram.org/?read=13048</link>
+	<author>Ramsay, Gavin; Kennedy,  Mark; Hakala,  Pasi; Jeffery, C.  Simon</author>
+	<publisher> The Astronomer's Telegram, #13048 </publisher>
+	<identifier>ATel13048</identifier>
+	<description> Rivera Sandoval, Maccarone  &amp;  Murawski (ATEL #12847) reported Swift observations of two objects, MGAB-V248 (RA=294.69313 DEC=+58.69828) and MGAB-V249 (RA=322.73629 DEC=+44.34622), which they had previously identified as having 'orbital' periods of 27.9 min and 39.3 min respectively.  </description>
+	<subjects> Binary, Cataclysmic Variable, Star </subjects>
+	<citations> 12847 </citations>
+	<dc:date>2019-08-29T12:57:11-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13047">
+	<title>SOAR spectroscopic confirmation of a new eruption of the recurrent nova V3890 Sgr</title>
+	<link>http://www.astronomerstelegram.org/?read=13047</link>
+	<author>Strader, J.; Chomiuk,  L.; Aydi,  E.; Kawash,  A.; Miller,  J.; Sokolovsky,  K.  V.; Swihart,  S.; Stanek,  K.; Kochanek,  C.; Shappee, B. </author>
+	<publisher> The Astronomer's Telegram, #13047 </publisher>
+	<identifier>ATel13047</identifier>
+	<description> A new eruption of the recurrent nova V3890 Sgr was reported by A. Pereira as of UT 2019-08-27.87. We obtained spectra of V3890 Sgr with the Goodman Spectrograph on the SOAR telescope on UT 2019-08-27.98.  </description>
+	<subjects> Nova, Transient </subjects>
+	<citations>  </citations>
+	<dc:date>2019-08-28T00:47:36-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13046">
+	<title>Discovery of 9 ASAS-SN Supernova Candidates</title>
+	<link>http://www.astronomerstelegram.org/?read=13046</link>
+	<author>Bock, G.; Brimacombe,  J.; Nicholls,  B.; Vallely,  P.; Stanek,  K.  Z.; Kochanek,  C.  S.; Basinger,  C.  M.; Way,  Z.; Thompson,  T.  A.; Shappee,  B.  J.; Holoien,  T.  W. -S.; Prieto,  J.  L.; Bersier,  D.; Dong,  Subo; Bose,  S.; Chen,  Ping; Stritzinger,  M.; Holmbo,  S.; Kiyota,  S.; Pujic,  Z.; Masi, G. </author>
+	<publisher> The Astronomer's Telegram, #13046 </publisher>
+	<identifier>ATel13046</identifier>
+	<description> During the ongoing All Sky Automated Survey for SuperNovae (ASAS-SN, Shappee et al. 2014), using data from the quadruple 14-cm "Brutus" telescope in Haleakala, Hawaii, the quadruple 14-cm "Leavitt" telescope in Fort Davis, Texas, the quadruple 14-cm "Payne-Gaposchkin" telescope in Sutherland, South Africa, and the quadruple 14-cm "Cassius" and "Paczynski" telescopes in Cerro Tololo, Chile, we discovered several new transient sources.  </description>
+	<subjects> Supernovae, Transient </subjects>
+	<citations>  </citations>
+	<dc:date>2019-08-27T12:33:38-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13045">
+	<title>The NIR flare  of the Blazar TXS0025+197</title>
+	<link>http://www.astronomerstelegram.org/?read=13045</link>
+	<author>Carrasco, L.; Porras,  A.; Escobedo,  G.; Recillas,  E.; Chavushyan, V. </author>
+	<publisher> The Astronomer's Telegram, #13045 </publisher>
+	<identifier>ATel13045</identifier>
+	<description> Following the Gamma-ray flare detection by Fermi/LAT (ATel# 13032) and the brightening in visible light (ATel#13038) of the Flat spectrum radio source TXS0025+197.  </description>
+	<subjects> AGN, Blazar, Quasar </subjects>
+	<citations> 13032, 13038 </citations>
+	<dc:date>2019-08-26T22:39:14-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13044">
+	<title>Near-infrared brightening of MAXI J1820+070/ ASASSN18ey detected with Palomar Gattini-IR</title>
+	<link>http://www.astronomerstelegram.org/?read=13044</link>
+	<author>Hankins, Matthew; De,  Kishalay; Kasliwal,  Mansi M.; Lau,  Ryan M.; Soria,  Roberto; Coughlin,  Michael; Burdge,  Kevin; Moore,   Anna; Soon,  Jamie; Ashley,  Michael; Travouillon,  Tony</author>
+	<publisher> The Astronomer's Telegram, #13044 </publisher>
+	<identifier>ATel13044</identifier>
+	<description> We report recent near-infrared brightening of the black hole X-ray binary MAXI J1820+070/ ASASSN18ey. Observations of the current outburst in this source have been reported at optical, X-ray, and radio wavelengths (ATels #13014, #13025, and #13041), and a prior outburst of this source was observed in 2018 (e.g., Tucker+ 2018).  </description>
+	<subjects> Black Hole, Variables </subjects>
+	<citations> 13014, 13025, 13041 </citations>
+	<dc:date>2019-08-26T21:05:22-00:00</dc:date>
+</item>
+
+<item rdf:about="http://www.astronomerstelegram.org/?read=13043">
+	<title>Spectroscopic Classifications of Optical Transients with the Lick Shane telescope</title>
+	<link>http://www.astronomerstelegram.org/?read=13043</link>
+	<author>Dimitriadis, G.; Foley, R.  J. </author>
+	<publisher> The Astronomer's Telegram, #13043 </publisher>
+	<identifier>ATel13043</identifier>
+	<description>  We report the following classifications of optical transients from spectroscopic observations with the Kast spectrograph on the Shane telescope. Targets were supplied by ZTF and ATLAS.  </description>
+	<subjects> Supernovae </subjects>
+	<citations>  </citations>
+	<dc:date>2019-08-26T14:36:14-00:00</dc:date>
+</item>
+
+</rdf:RDF>
