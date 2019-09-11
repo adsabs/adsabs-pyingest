@@ -97,11 +97,10 @@ class IOPJATSParser(JATSParser):
         else:
             year = output_metadata['pubdate'][-4:]
             bibstem = j_bibstem.ljust(5, '.')
-            volume = output_metadata['volume'].rjust(4, '.')
-            if output_metadata['pub-id'] == 'rnaas':
-                issue_letter = string.letters[int(output_metadata['issue'])-1]
-            else:
-                issue_letter = '.'
+            volume = output_metadata['volume'].rjust(4, '.') 
+            # RNAAS used to have a month-letter in column 14, but it was
+            # deprecated September 2019 by CSG
+            issue_letter = '.'
             idno = output_metadata['page']
             if "-" in idno:
                 idno = idno.split("-")[0]
@@ -133,7 +132,7 @@ class IOPJATSParser(JATSParser):
             pass
         else:
             try:
-                topdir = '/Users/mtempleton/references/sources/'
+                topdir = REFERENCE_TOPDIR
                 outdir = topdir + bibstem.rstrip('.') + '/' + str(volume).replace('.','0')
                 outfile = outdir + '/' + output_metadata['bibcode'] + '.jats.iopft.xml'
            

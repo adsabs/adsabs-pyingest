@@ -67,9 +67,13 @@ JATS_TAGSET = {'title': JATS_TAGS_MATH + JATS_TAGS_HTML,
 # Unified Astronomy Thesaurus
 # retrieve current UAT from github
 UAT_URL = 'https://raw.githubusercontent.com/astrothesaurus/UAT/master/UAT.json'
-remote = urllib.urlopen(UAT_URL)
-UAT_json = json.loads(remote.read())
-UAT_ASTRO_KEYWORDS = list(find('name', UAT_json))
+    try:
+        remote = urllib.urlopen(UAT_URL)
+        UAT_json = json.loads(remote.read())
+        UAT_ASTRO_KEYWORDS = list(find('name', UAT_json))
+    except Exception as e:
+        print "Warning: could not load UAT from github!"
+        UAT_ASTRO_KEYWORDS = []
 
 # American Astronomical Society (superseded June 2019 by UAT)
 AAS_ASTRO_KEYWORDS = [
@@ -593,3 +597,7 @@ APS_ASTRO_KEYWORDS = [
             'r process',
             's process'
             ]
+
+
+# REFERENCE SOURCE OUTPUT
+REFERENCE_TOPDIR = '/proj/ads/references/sources/'
