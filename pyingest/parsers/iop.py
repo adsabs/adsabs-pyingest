@@ -143,7 +143,7 @@ class IOPJATSParser(JATSParser):
                     for s in output_metadata['references']:
                         fw.write(s.encode('utf8')+'\n')
             except Exception as e:
-                print "LOL WTF:",e
+                pass
             del(output_metadata['references'])
 
         # Return
