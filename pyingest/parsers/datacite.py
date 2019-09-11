@@ -193,15 +193,15 @@ class DataCiteParser(BaseXmlToDictParser):
         # title
         titles = {}
         for t in self._array(self._dict(r.get('titles')).get('title', [])):
-            l = self._attr(t, 'lang', 'en')
-            titles[l] = self._text(t)
+            title_attr = self._attr(t, 'lang', 'en')
+            titles[title_attr] = self._text(t)
         if not titles:
             raise MissingTitleException("No title found")
         # we use the english title as the main one
         # then add any foreign ones
         title = titles.pop('en')
-        for l in titles:
-            title += ' <TITLE lang="%s">%s</TITLE>' % (l, titles[l])
+        for tkey in titles:
+            title += ' <TITLE lang="%s">%s</TITLE>' % (tkey, titles[tkey])
 
         # publication year and date
         year = self._text(r.get('publicationYear'))

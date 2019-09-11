@@ -125,7 +125,7 @@ class BaseRSSFeedParser(object):
         entries = soup.find_all(data_tag)
         try:
             self.links = soup.find_all('link')
-        except:
+        except Exception, err:
             self.links = []
         return entries
 

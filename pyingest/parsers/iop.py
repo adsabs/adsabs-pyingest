@@ -97,7 +97,7 @@ class IOPJATSParser(JATSParser):
         else:
             year = output_metadata['pubdate'][-4:]
             bibstem = j_bibstem.ljust(5, '.')
-            volume = output_metadata['volume'].rjust(4, '.') 
+            volume = output_metadata['volume'].rjust(4, '.')
             # RNAAS used to have a month-letter in column 14, but it was
             # deprecated September 2019 by CSG
             issue_letter = '.'
@@ -133,13 +133,13 @@ class IOPJATSParser(JATSParser):
         else:
             try:
                 topdir = REFERENCE_TOPDIR
-                outdir = topdir + bibstem.rstrip('.') + '/' + str(volume).replace('.','0')
+                outdir = topdir + bibstem.rstrip('.') + '/' + str(volume).replace('.', '0')
                 outfile = outdir + '/' + output_metadata['bibcode'] + '.jats.iopft.xml'
-           
+
                 if not os.path.isdir(outdir):
                     os.makedirs(outdir)
-                with open(outfile,'w') as fw:
-                    fw.write("<ADSBIBCODE>%s</ADSBIBCODE>\n"%output_metadata['bibcode'])
+                with open(outfile, 'w') as fw:
+                    fw.write("<ADSBIBCODE>%s</ADSBIBCODE>\n" % output_metadata['bibcode'])
                     for s in output_metadata['references']:
                         fw.write(s.encode('utf8')+'\n')
             except Exception as e:

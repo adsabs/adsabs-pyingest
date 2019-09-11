@@ -9,9 +9,8 @@ rss_url = 'http://www.reddit.com/r/python/.rss'
 parser = BaseRSSFeedParser()
 documents = parser.parse(rss_url)
 
-outputfp = open('rss.tag','a')
+outputfp = open('rss.tag', 'a')
 for d in documents:
     serializer = Tagged()
-    serializer.write(d,outputfp)
+    serializer.write(d, outputfp)
 outputfp.close()
-

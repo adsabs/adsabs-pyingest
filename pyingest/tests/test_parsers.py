@@ -208,6 +208,12 @@ class TestArxiv(unittest.TestCase):
                 self.assertEqual(document['bibcode'], b['bibcode'])
 
 
+class TestIOP(unittest.TestCase):
+
+    def test_simple_parsing(self):
+        return
+
+
 class TestAPSJATS(unittest.TestCase):
 
     def test_unicode_initial(self):
@@ -380,6 +386,7 @@ class TestJOSS(unittest.TestCase):
 
     def tearDown(self):
         self.patcher.stop()
+
 
 class TestATel(unittest.TestCase):
     import pytest

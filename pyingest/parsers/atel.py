@@ -9,23 +9,23 @@ class ATelParser(BaseRSSFeedParser):
 
     def extract_data(self, entry):
         rec = {}
-        links={}
+        links = {}
         # Journal string template
         journal = "The Astronomer's Telegram, No. %s"
         # Start gathering the necessary fields
         title = entry.find('title').text
         # Telegram number
         telegram = entry.find('identifier').text
-        telegram_nr = telegram.upper().replace('ATEL','').strip()
+        telegram_nr = telegram.upper().replace('ATEL', '').strip()
         # Author
         author = entry.find('author').text
-        author = re.sub('\ \ +',' ',author).strip()
-        author = re.sub(',$','', author)
+        author = re.sub('\ \ +', ' ', author).strip()
+        author = re.sub(',$', '', author)
         # Abstracts
         try:
             abstract = entry.find('description').text
-            abstract = re.sub('\ \ +',' ',abstract)
-        except:
+            abstract = re.sub('\ \ +', ' ', abstract)
+        except Exception as e:
             abstract = ''
         # Subjects (keywords)
         subjects = entry.find('subjects').text
@@ -38,16 +38,16 @@ class ATelParser(BaseRSSFeedParser):
         links['ELECTR'] = link
         # Construct bibcode
         if int(telegram_nr) < 10000:
-                bibcode = '%sATel.%s....1%s' % (pyear,telegram_nr,author.strip()[0])
+            bibcode = '%sATel.%s....1%s' % (pyear, telegram_nr, author.strip()[0])
         else:
-                bibcode = '%sATel%s....1%s' % (pyear,telegram_nr,author.strip()[0]) 
+            bibcode = '%sATel%s....1%s' % (pyear, telegram_nr, author.strip()[0])
         rec = {
             'bibcode': bibcode,
             'title': title,
             'authors': author,
             'properties': links,
             'keywords': subjects.strip(),
-            'pubdate': "%s/%s"%(date.split('-')[1],date.split('-')[0]),
+            'pubdate': "%s/%s" % (date.split('-')[1], date.split('-')[0]),
             'publication': journal % telegram_nr,
             'abstract': abstract.strip()
         }
@@ -65,8 +65,7 @@ class ATelParser(BaseRSSFeedParser):
             try:
                 atel_recs.append(self.extract_data(d))
             except Exception, err:
-                sys.stderr.write('Failed to process record %s (%s). Skipping...\n'%(d.find('identifier').text, err))
+                sys.stderr.write('Failed to process record %s (%s). Skipping...\n' % (d.find('identifier').text, err))
                 continue
-
 
         return atel_recs

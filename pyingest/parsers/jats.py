@@ -412,12 +412,12 @@ class JATSParser(BaseBeautifulSoupParser):
 
 # References (now using back_meta):
         if back_meta is not None:
-         
+
             ref_list_text = []
             try:
                 ref_results = back_meta.find('ref-list').find_all('ref')
                 for r in ref_results:
-                    s = unicode(r.extract()).replace('\n','')
+                    s = unicode(r.extract()).replace('\n', '')
                     s = namedentities.named_entities(s)
                     ref_list_text.append(s)
             except Exception, err:

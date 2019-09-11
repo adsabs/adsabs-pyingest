@@ -172,7 +172,7 @@ class AuthorNames(object):
                         # Case: First name found
                         # Middle name is found in the first names ADS
                         # list and not in the last names ADS list
-                            if last_name_found:
+                        if last_name_found:
                             # Move all previously detected first names to
                             # last name since we are in a situation where
                             # we detected:
@@ -180,10 +180,10 @@ class AuthorNames(object):
                             # hence we correct it to:
                             # L L L F
                             # where F is first name and L is last name
-                                add_to_first += add_to_last
-                                add_to_last = []
-                                last_name_found = False
-                            add_to_first.append(middle_name)
+                            add_to_first += add_to_last
+                            add_to_last = []
+                            last_name_found = False
+                        add_to_first.append(middle_name)
                     elif last_name_found or middle_name.upper() in self.last_names:
                         # Case: Last name found
                         add_to_last.append(middle_name)
