@@ -10,14 +10,15 @@ import glob
 import json
 from mock import patch, Mock
 
-from pyingest.parsers import datacite
-from pyingest.parsers import zenodo
-from pyingest.parsers import arxiv
 from pyingest.parsers import aps
-from pyingest.parsers import procsci
-from pyingest.parsers import hstprop
-from pyingest.parsers import joss
+from pyingest.parsers import arxiv
 from pyingest.parsers import atel
+from pyingest.parsers import datacite
+from pyingest.parsers import hstprop
+from pyingest.parsers import iop
+from pyingest.parsers import joss
+from pyingest.parsers import procsci
+from pyingest.parsers import zenodo
 from pyingest.parsers.author_names import AuthorNames
 
 from pyingest.serializers import classic
@@ -210,7 +211,18 @@ class TestArxiv(unittest.TestCase):
 
 class TestIOP(unittest.TestCase):
 
-    def test_simple_parsing(self):
+    def setUp(self):
+        stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata/')
+        self.inputdir = os.path.join(stubdata_dir,'input')
+
+    def test_iop_parser(self):
+        test_infile = os.path.join(self.inputdir,'iop_apj.xml')
+        parser = iop.IOPJATSParser()
+        with open(test_infile) as fp:
+            test_data = parser.parse(fp)
+            print("TEST_DATA: %s" % test_data)
+        output_bibcode = '2019ApJ...882...74H'
+        self.assertEqual(test_data['bibcode'],output_bibcode)
         return
 
 

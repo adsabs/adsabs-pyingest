@@ -600,4 +600,4 @@ APS_ASTRO_KEYWORDS = [
 
 
 # REFERENCE SOURCE OUTPUT
-REFERENCE_TOPDIR = '/proj/ads/references/sources/'
+REFERENCE_TOPDIR = '/Users/mtempleton/references/sources/'
