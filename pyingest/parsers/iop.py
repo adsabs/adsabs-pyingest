@@ -126,25 +126,5 @@ class IOPJATSParser(JATSParser):
         except Exception, err:
             pass
 
-        try:
-            output_metadata['references']
-        except Exception as e:
-            pass
-        else:
-            try:
-                topdir = REFERENCE_TOPDIR
-                outdir = topdir + bibstem.rstrip('.') + '/' + str(volume).replace('.', '0')
-                outfile = outdir + '/' + output_metadata['bibcode'] + '.jats.iopft.xml'
-
-                if not os.path.isdir(outdir):
-                    os.makedirs(outdir)
-                with open(outfile, 'w') as fw:
-                    fw.write("<ADSBIBCODE>%s</ADSBIBCODE>\n" % output_metadata['bibcode'])
-                    for s in output_metadata['references']:
-                        fw.write(s.encode('utf8')+'\n')
-            except Exception as e:
-                pass
-            del(output_metadata['references'])
-
         # Return
         return output_metadata

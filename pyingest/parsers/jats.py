@@ -424,7 +424,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 pass
                 # print "jats.parse.references error:", err
             else:
-                base_metadata['references'] = ref_list_text
+                base_metadata['refhandler_list'] = ref_list_text
 
         output_metadata = base_metadata
         return output_metadata
