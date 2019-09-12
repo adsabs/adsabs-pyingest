@@ -42,7 +42,7 @@ class HSTParser():
         if url.find('adsProposalSearch') == -1:
             raise URLError("This parser is only for the HST adsProposalSearch search.")
 #       if not kwargs.has_key('api_key'):
-        if 'api_key' in kwargs:
+        if not 'api_key' in kwargs:
             raise RequestError('No API key provided to query the HST API.')
         token = kwargs['api_key']
         del kwargs['api_key']
