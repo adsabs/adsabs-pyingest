@@ -8,7 +8,7 @@ import sys
 import os
 import glob
 import json
-from mock import patch, Mock
+from mock import patch, Mock, mock_open
 
 from pyingest.parsers import aps
 from pyingest.parsers import arxiv
@@ -19,6 +19,7 @@ from pyingest.parsers import iop
 from pyingest.parsers import joss
 from pyingest.parsers import procsci
 from pyingest.parsers import zenodo
+from pyingest.config import config
 from pyingest.parsers.author_names import AuthorNames
 
 from pyingest.serializers import classic
@@ -216,13 +217,22 @@ class TestIOP(unittest.TestCase):
         self.inputdir = os.path.join(stubdata_dir,'input')
 
     def test_iop_parser(self):
-        test_infile = os.path.join(self.inputdir,'iop_apj.xml')
+        test_infile = os.path.join(self.inputdir, 'iop_apj.xml')
         parser = iop.IOPJATSParser()
-        with open(test_infile) as fp:
-            test_data = parser.parse(fp)
-            print("TEST_DATA: %s" % test_data)
-        output_bibcode = '2019ApJ...882...74H'
-        self.assertEqual(test_data['bibcode'],output_bibcode)
+        REFERENCE_TOPDIR = '/dev/null/'
+#       m = mock_open()
+#       mock_ref_outfile = os.path.join(config.REFERENCE_TOPDIR,"ApJ/882/2019ApJ...882...74H.jats.iopft.xml")
+#       with patch('__builtin__.open', m, create=True):
+        if ('a' == 'a'):
+            with open(test_infile) as fp:
+                test_data = parser.parse(fp)
+                print("TEST_DATA: %s" % test_data)
+                output_bibcode = '2019ApJ...882...74H'
+                output_pub = u'The Astrophysical Journal, Volume 882, Issue 2, id.74'
+                output_aff = [u'<EMAIL>jhare@berkeley.edu</EMAIL>; Department of Physics, The George Washington University, 725 21st St. NW, Washington, DC 20052, USA; The George Washington Astronomy, Physics, and Statistics Institute of Sciences (APSIS), The George Washington University, Washington, DC 20052, USA; Space Sciences Laboratory, 7 Gauss Way, University of California, Berkeley, CA 94720-7450, USA; <ID system="ORCID">0000-0002-8548-482X</ID>', u'Department of Physics, The George Washington University, 725 21st St. NW, Washington, DC 20052, USA; The George Washington Astronomy, Physics, and Statistics Institute of Sciences (APSIS), The George Washington University, Washington, DC 20052, USA; <ID system="ORCID">0000-0002-6447-4251</ID>', u'Department of Astronomy &amp; Astrophysics, Pennsylvania State University, 525 Davey Lab, University Park, PA 16802, USA; <ID system="ORCID">0000-0002-7481-5259</ID>', u'Department of Physics, The George Washington University, 725 21st St. NW, Washington, DC 20052, USA; The George Washington Astronomy, Physics, and Statistics Institute of Sciences (APSIS), The George Washington University, Washington, DC 20052, USA; <ID system="ORCID">0000-0001-7833-1043</ID>']
+                self.assertEqual(test_data['bibcode'], output_bibcode)
+                self.assertEqual(test_data['publication'], output_pub)
+                self.assertEqual(test_data['affiliations'], output_aff)
         return
 
 
