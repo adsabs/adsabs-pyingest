@@ -41,7 +41,8 @@ class HSTParser():
     def get_records(self, url, **kwargs):
         if url.find('adsProposalSearch') == -1:
             raise URLError("This parser is only for the HST adsProposalSearch search.")
-        if not kwargs.has_key('api_key'):
+#       if not kwargs.has_key('api_key'):
+        if not 'api_key' in kwargs:
             raise RequestError('No API key provided to query the HST API.')
         token = kwargs['api_key']
         del kwargs['api_key']
@@ -116,13 +117,13 @@ class HSTParser():
                     affils = d['affiliations']
 
                 hst_props.append({'bibcode': d['bibstem'],
-                                'authors': d['authorNames'],
-                                'affiliations': affils,
-                                'title': d['title'],
-                                'pubdate': d['date'],
-                                'publication': journal,
-                                'abstract': d['abstract'],
-                                'properties': {'data': d['link']}})
+                                  'authors': d['authorNames'],
+                                  'affiliations': affils,
+                                  'title': d['title'],
+                                  'pubdate': d['date'],
+                                  'publication': journal,
+                                  'abstract': d['abstract'],
+                                  'properties': {'data': d['link']}})
             else:
                 recid = d.get('comment') or d.get('bibstem')
                 sys.stderr.write('Found record with missing data: %s\n' % recid)

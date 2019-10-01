@@ -8,16 +8,18 @@ import sys
 import os
 import glob
 import json
-from mock import patch, Mock
+from mock import patch, Mock, mock_open
 
-from pyingest.parsers import datacite
-from pyingest.parsers import zenodo
-from pyingest.parsers import arxiv
 from pyingest.parsers import aps
-from pyingest.parsers import procsci
-from pyingest.parsers import hstprop
-from pyingest.parsers import joss
+from pyingest.parsers import arxiv
 from pyingest.parsers import atel
+from pyingest.parsers import datacite
+from pyingest.parsers import hstprop
+from pyingest.parsers import iop
+from pyingest.parsers import joss
+from pyingest.parsers import procsci
+from pyingest.parsers import zenodo
+from pyingest.config import config
 from pyingest.parsers.author_names import AuthorNames
 
 from pyingest.serializers import classic
@@ -208,6 +210,32 @@ class TestArxiv(unittest.TestCase):
                 self.assertEqual(document['bibcode'], b['bibcode'])
 
 
+class TestIOP(unittest.TestCase):
+
+    def setUp(self):
+        stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata/')
+        self.inputdir = os.path.join(stubdata_dir,'input')
+
+    def test_iop_parser(self):
+        test_infile = os.path.join(self.inputdir, 'iop_apj.xml')
+        parser = iop.IOPJATSParser()
+        REFERENCE_TOPDIR = '/dev/null/'
+#       m = mock_open()
+#       mock_ref_outfile = os.path.join(config.REFERENCE_TOPDIR,"ApJ/882/2019ApJ...882...74H.jats.iopft.xml")
+#       with patch('__builtin__.open', m, create=True):
+        if ('a' == 'a'):
+            with open(test_infile) as fp:
+                test_data = parser.parse(fp)
+                print("TEST_DATA: %s" % test_data)
+                output_bibcode = '2019ApJ...882...74H'
+                output_pub = u'The Astrophysical Journal, Volume 882, Issue 2, id.74'
+                output_aff = [u'<EMAIL>jhare@berkeley.edu</EMAIL>; Department of Physics, The George Washington University, 725 21st St. NW, Washington, DC 20052, USA; The George Washington Astronomy, Physics, and Statistics Institute of Sciences (APSIS), The George Washington University, Washington, DC 20052, USA; Space Sciences Laboratory, 7 Gauss Way, University of California, Berkeley, CA 94720-7450, USA; <ID system="ORCID">0000-0002-8548-482X</ID>', u'Department of Physics, The George Washington University, 725 21st St. NW, Washington, DC 20052, USA; The George Washington Astronomy, Physics, and Statistics Institute of Sciences (APSIS), The George Washington University, Washington, DC 20052, USA; <ID system="ORCID">0000-0002-6447-4251</ID>', u'Department of Astronomy &amp; Astrophysics, Pennsylvania State University, 525 Davey Lab, University Park, PA 16802, USA; <ID system="ORCID">0000-0002-7481-5259</ID>', u'Department of Physics, The George Washington University, 725 21st St. NW, Washington, DC 20052, USA; The George Washington Astronomy, Physics, and Statistics Institute of Sciences (APSIS), The George Washington University, Washington, DC 20052, USA; <ID system="ORCID">0000-0001-7833-1043</ID>']
+                self.assertEqual(test_data['bibcode'], output_bibcode)
+                self.assertEqual(test_data['publication'], output_pub)
+                self.assertEqual(test_data['affiliations'], output_aff)
+        return
+
+
 class TestAPSJATS(unittest.TestCase):
 
     def test_unicode_initial(self):
@@ -228,7 +256,7 @@ class TestAPSJATS(unittest.TestCase):
 
     def test_dehtml2(self):
         testfile = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/apsjats_10.1103.PhysRevA.95.129999.fulltext.xml')
-        shouldbe = {'bibcode': u'2015PhRvA..95l9999T', 'publication': u'Physical Review A, Volume 95, Issue 1, id.129999', 'pubdate': u'07/2015', 'copyright': u'\xa92018 American Physical Society', 'title': u'Fake article title with other kinds of markup inside <a href="http://www.reddit.com/r/aww">it</a> including paragraph tags that really have no place in a title.', 'abstract': u'<a href="http://naughtywebsite.gov">Fake URLs</a> are an increasing problem when trying to write fake abstracts. It\'s unlikely that a .gov domain would host a bad website, but then again what times are we living in now? Also, <inline-formula><mml:math><mml:mi>\u03b4</mml:mi></mml:math></inline-formula>. Also also, <inline-formula><mml:math>this is some math</mml:math></inline-formula>.', 'database': ['PHY'], 'page': u'129999', 'volume': u'95', 'affiliations': [u'NASA-ADS, Harvard-Smithsonian Center for Astrophysics, 60 Garden St., Cambridge, MA 02138, United States', u'Monty Python lol.'], 'authors': u'Templeton, Matthew; Organs, Harry Snapper', 'keywords': u'Fundamental concepts', 'issue': u'1', 'properties': {'DOI': u'10.1103/PhysRevA.95.129999'}}
+        shouldbe = {'bibcode': u'2015PhRvA..95l9999T', 'publication': u'Physical Review A, Volume 95, Issue 1, id.129999', 'pubdate': u'07/2015', 'copyright': u'\xa92018 American Physical Society', 'title': u'Fake article title with other kinds of markup inside <a href="http://www.reddit.com/r/aww">it</a> including paragraph tags that really have no place in a title.', 'abstract': u'<a href="http://naughtywebsite.gov">Fake URLs</a> are an increasing problem when trying to write fake abstracts. It\'s unlikely that a .gov domain would host a bad website, but then again what times are we living in now? Also, <inline-formula><mml:math><mml:mi>\u03b4</mml:mi></mml:math></inline-formula>. Also also, <inline-formula><mml:math>this is some math</mml:math></inline-formula>.', 'database': ['PHY'], 'page': u'129999', 'volume': u'95', 'affiliations': [u'NASA-ADS, Harvard-Smithsonian Center for Astrophysics, 60 Garden St., Cambridge, MA 02138, United States', u'Monty Python lol.'], 'authors': u'Templeton, Matthew; Organs, Harry Snapper', 'keywords': u'Fundamental concepts', 'issue': u'1', 'properties': {'DOI': u'10.1103/PhysRevA.95.129999'}, 'refhandler_list': ['<ref id="c1"><label>[1]</label><mixed-citation publication-type="journal"><object-id>1</object-id><person-group person-group-type="author"><string-name>A. S. Holevo</string-name></person-group>, <source>J. Multivariate Anal.</source> <volume>3</volume>, <page-range>337</page-range> (<year>1973</year>).<pub-id pub-id-type="coden">JMVAAI</pub-id><issn>0047-259X</issn><pub-id assigning-authority="crossref" pub-id-type="doi" specific-use="suppress-display">10.1016/0047-259X(73)90028-6</pub-id></mixed-citation></ref>']}
         with open(testfile, 'rU') as fp:
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
@@ -379,6 +407,7 @@ class TestJOSS(unittest.TestCase):
 
     def tearDown(self):
         self.patcher.stop()
+
 
 class TestATel(unittest.TestCase):
     import pytest

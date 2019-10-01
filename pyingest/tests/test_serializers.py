@@ -8,7 +8,9 @@ import os
 import glob
 import json
 import cStringIO
-import pyingest.serializers.classic
+from pyingest.parsers.iop import IOPJATSParser
+from pyingest.serializers.classic import Tagged
+from pyingest.serializers.refwriter import *
 
 
 class TestClassic(unittest.TestCase):
@@ -20,7 +22,7 @@ class TestClassic(unittest.TestCase):
 #        sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
 
     def test_classic_tagged(self):
-        serializer = pyingest.serializers.classic.Tagged()
+        serializer = Tagged()
         for file in self.inputdocs:
             # this will raise exceptions if something is wrong
             document = ''
@@ -52,3 +54,35 @@ class TestClassic(unittest.TestCase):
                 os.remove(target_saved)
             else:
                 sys.stderr.write("parsed output saved to %s\n" % target_saved)
+
+
+class TestReferenceWriter(unittest.TestCase):
+
+    def setup(self):
+        pass
+
+    def test_write_refhandler_data(self):
+        paperdata = IOPJATSParser()
+        inputdoc = 'pyingest/tests/data/stubdata/input/iop_apj.xml'
+        with open(inputdoc,'r') as fm:
+            pdat = paperdata.parse(fm)
+        if 'refhandler_list' in pdat:
+            refwriter = ReferenceWriter()
+            refwriter.topdir = 'pyingest/tests/data/output/'
+            refwriter.refsource = '.jats.iopft.xml'
+            refwriter.writeref(pdat)
+            self.assertEqual("1","1")
+        else:
+            self.assertEqual('a','b')
+
+    def test_no_refdata(self):
+        refwriter = ReferenceWriter()
+        with self.assertRaises(NoReferencesException):
+            refwriter.writeref({})
+
+    def test_no_metadata(self):
+        refwriter = ReferenceWriter()
+        bogus_data = {'refhandler_list': ['fnord']}
+        with self.assertRaises(WriteErrorException):
+            refwriter.writeref(bogus_data)
+        

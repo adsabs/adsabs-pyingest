@@ -30,7 +30,7 @@ class JOSSParser(BaseRSSFeedParser):
         except Exception, err:
             spage = str(int(doi.split('.')[-1]))
         if len(spage) <= 4:
-            pg = spage.rjust(4,'.')
+            pg = spage.rjust(4, '.')
         try:
             volume = entry.find('volume').text
         except Exception, err:
@@ -71,7 +71,7 @@ class JOSSParser(BaseRSSFeedParser):
             # GEN
             try:
                 database.remove('GEN')
-            except:
+            except Exception, err:
                 pass
             database.append('PHY')
 
@@ -96,9 +96,9 @@ class JOSSParser(BaseRSSFeedParser):
 
         try:
             initial = authors[0][0]
-        except:
+        except Exception, err:
             initial = '.'
-        bibcode = "%sJOSS.%s.%s%s" % (pubdate[:4],volume.rjust(4,'.'),pg,initial) 
+        bibcode = "%sJOSS.%s.%s%s" % (pubdate[:4], volume.rjust(4, '.'), pg, initial)
         rec = {
             'bibcode': bibcode,
             'title': title,
@@ -123,7 +123,7 @@ class JOSSParser(BaseRSSFeedParser):
             try:
                 joss_recs.append(self.extract_data(d))
             except Exception, err:
-                sys.stderr.write('Failed to process record %s (%s). Skipping...\n'%(d.find('id').text, err))
+                sys.stderr.write('Failed to process record %s (%s). Skipping...\n' % (d.find('id').text, err))
                 continue
 
         parsed_path = urlparse.urlparse(joss_links['last'])
@@ -140,7 +140,7 @@ class JOSSParser(BaseRSSFeedParser):
                 try:
                     joss_recs.append(self.extract_data(d))
                 except Exception, err:
-                    sys.stderr.write('Failed to process record %s (%s). Skipping...\n'%(d.find('id').text, err))
+                    sys.stderr.write('Failed to process record %s (%s). Skipping...\n' % (d.find('id').text, err))
                     continue
 
         return joss_recs

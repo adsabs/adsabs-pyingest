@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import os
 import json
 import codecs
 import string
@@ -97,10 +98,9 @@ class IOPJATSParser(JATSParser):
             year = output_metadata['pubdate'][-4:]
             bibstem = j_bibstem.ljust(5, '.')
             volume = output_metadata['volume'].rjust(4, '.')
-            if output_metadata['pub-id'] == 'rnaas':
-                issue_letter = string.letters[int(output_metadata['issue'])-1]
-            else:
-                issue_letter = '.'
+            # RNAAS used to have a month-letter in column 14, but it was
+            # deprecated September 2019 by CSG
+            issue_letter = '.'
             idno = output_metadata['page']
             if "-" in idno:
                 idno = idno.split("-")[0]
@@ -113,7 +113,6 @@ class IOPJATSParser(JATSParser):
                     idfour = idno.rjust(4, '.')
                 idno = idtwo + idfour
             try:
-                # author_init = self.get_author_init(output_metadata['authors'][0])
                 author_init = self.get_author_init(output_metadata['authors'])
             except Exception, err:
                 author_init = '.'

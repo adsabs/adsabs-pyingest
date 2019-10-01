@@ -12,9 +12,10 @@ except KeyError:
 api_url = 'https://proper.stsci.edu/proper/adsProposalSearch/query'
 
 parser = HSTParser()
-documents = parser.parse(api_url, api_key=token, fromDate = '2019-01-01', maxRecords = 50, test = True)
-outputfp = open('hstprop.tag','a')
+documents = parser.parse(api_url, api_key=token, fromDate='2019-01-01',
+                         maxRecords=50, test=True)
+outputfp = open('hstprop.tag', 'a')
 for d in documents:
     serializer = Tagged()
-    serializer.write(d,outputfp)
+    serializer.write(d, outputfp)
 outputfp.close()
