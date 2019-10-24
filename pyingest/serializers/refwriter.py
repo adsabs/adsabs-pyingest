@@ -11,7 +11,7 @@ class ReferenceWriter(object):
 
     def __init__(self):
         self.topdir = REFERENCE_TOPDIR
-        self.refsource = ''
+        self.refsource = '.iopft.xml'
 
 
     def writeref(self, output_metadata):
@@ -32,7 +32,7 @@ class ReferenceWriter(object):
                     reflist = output_metadata['refhandler_list']
 
                     outdir = self.topdir + bibstem + '/' + volume
-                    outfile = outdir + '/' + bibcode + file_ext
+                    outfile = outdir + '/' + bibcode + "." +file_ext
 
                     if not os.path.isdir(outdir):
                         os.makedirs(outdir)
