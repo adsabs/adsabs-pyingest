@@ -28,10 +28,40 @@ APS_PUBLISHER_IDS = {'PRL': 'PhRvL', 'PRX': 'PhRvX', 'RMP': 'RvMP',
                      'PRPER': 'PRPER', 'PRSTPER': 'PRSTP', 'PR': 'PhRv',
                      'PRI': 'PhRvI', 'PHYSICS': 'PhyOJ'}
 
+IOP_PUBLISHER_IDS = {
+                    'apj': u'ApJ', 'jcap': u'JCAP', 'ejp': u'EJPh',
+                    'raa': u'RAA', 'pmea': u'PhyM', 'd': u'JPhD',
+                    'aj': u'AJ', 'apex': u'APExp', 'apjl': u'ApJL',
+                    'apjs': u'ApJS', 'bb': u'BiBi', 'bf': u'BioFa',
+                    'bmm': u'BioMa', 'cqg': u'CQGra', 'cpc': u'ChPhC',
+                    'ctp': u'CoTPh', 'epl': u'EL', 'erc': u'ERCom',
+                    'erx': u'ERExp', 'erl': u'ERL', 'est': u'EleSt',
+                    'fcs': u'FCS', 'fdr': u'FlDyR', 'izv': u'IzMat',
+                    'jbr': u'JBR', 'jopt': u'JOpt', 'cm': u'JPCM',
+                    'jpenergy': u'JPEn', 'a': u'JPhA', 'b': u'JPhB',
+                    'jpco': u'JPhCo', 'g': u'JPhG', 'jpmater': u'JPhM',
+                    'jpphoton': u'JPhP', 'lpl': u'LaPhL', 'mrx': u'MRE',
+                    'mst': u'MeScT', 'mfm': u'MuMat',
+                    'njp': u'NJPh', 'nanof': u'NanoF', 'nano': u'Nanot',
+                    'non': u'Nonli', 'pasp': u'PASP','met': u'Metro',
+                    'pmb': u'PMB', 'ppcf': u'PPCF', 'prex': u'PRCom',
+                    'ps': u'PhyS', 'ped': u'PhyEd',
+                    'phu': u'PhyU', 'pst': u'PlST', 'prge': u'PrEne',
+                    'rnaas': u'RNAAS', 'rop': u'RPPh', 'rms': u'RuMaS',
+                    'sst': u'SeScT', 'sust': u'SuScT', 'tdm': u'TDM',
+                    'rcr': u'RuCRv', 'nf': u'NucFu', 'jmm': u'JMiMi',
+                    'cpl': u'ChPhL', 'ip': u'InvPr', 'jrp': u'JRP',
+                    'psst': u'PSST', 'sms': u'SMaS', 'msms': u'MSMSE',
+                    'qel': u'QuEle', 'msb': u'SbMat', 'jjap': u'JaJAP',
+                    'ansn': u'ANSNN', 'maf': u'MApFl','stmp': u'SuTMP',
+                    'qst': u'QS&T', 'ees': u'E&ES', 'mse': u'MS&E',
+                    'pb': u'PhBio', 'lp': u'LaPhy', 'cpb': u'ChPhB',
+                    'jos': u'JSemi', 'jne': u'JNEng', 'jge': u'JGE',
+                    'jstat': u'JSMTE', 'jpcs': u'JPhCS', 'pw': u'PhyW',
+                    'prv': u'PPS', 'c': 'JPhC', 'jphf': 'JPhF',
+                    'jinst': u'JInst'
+                    }
 
-IOP_PUBLISHER_IDS = {'rnaas': u'RNAAS', 'apj': u'ApJ', 'apjs': u'ApJS',
-                     'apjl': u'ApJL', 'aj': 'AJ', 'jcap': u'JCAP',
-                     'pasp': u'PASP'}
 IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical Society'}
 
 OUP_PUBLISHER_IDS = {'mnras': u'MNRAS', 'mnrasl': u'MNRAS',

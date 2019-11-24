@@ -26,7 +26,8 @@ journal_ISSN = {
                 '0004-637X': 'ApJ',
                 '2041-8205': 'ApJL',
                 '2515-5172': 'RNAAS',
-                '1538-3873': 'PASP'
+                '1538-3873': 'PASP',
+                '0143-0807': 'EJPh'
                 }
 
 parser = IOPJATSParser()
@@ -35,6 +36,7 @@ parser = IOPJATSParser()
 basedir = '/proj/ads/articles/sources/STACKS/'
 
 for issn in journal_ISSN.keys():
+    print "LOL WUT:",issn,journal_ISSN[issn]
     b2 = basedir+issn
     vols = glob(b2+'/*')
     v = vols[-1]
@@ -57,17 +59,21 @@ for issn in journal_ISSN.keys():
     ref_handler = ReferenceWriter()
 
 #   documents = documents[0:1]
+    print "I GOT %s DOCUMENTS FOR %s"%(len(documents),issn)
     for d in documents:
-        del(d['affiliations'])
-        try:
-            del(d['refhandler_list'])
-        except:
-            pass
+#       del(d['affiliations'])
+#       try:
+#           del(d['refhandler_list'])
+#       except:
+#           pass
 #       print(d)
 #       print("\n")
-        print("KEYS:",d.keys())
+#       print("KEYS:",d.keys())
         print(json.dumps(d, indent=4, sort_keys=True))
         print("\n\n\n\n\n")
         serializer.write(d, fo)
-#       ref_handler.writeref(d)
+        try:
+            ref_handler.writeref(d)
+        except Exception, err:
+            print "Error with writeref:",err
     fo.close()

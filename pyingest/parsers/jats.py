@@ -147,10 +147,14 @@ class JATSParser(BaseBeautifulSoupParser):
             pass
         else:
             for n in notes:
-                n.label.decompose()
-                key = n['id']
-                note_text = self._detag(n, JATS_TAGSET['affiliations'])
-                affils[key] = note_text.strip()
+                try:
+                    n.label.decompose()
+                except Exception, err:
+                    pass
+                else:
+                    key = n['id']
+                    note_text = self._detag(n, JATS_TAGSET['affiliations'])
+                    affils[key] = note_text.strip()
 
         # Affils/affil ids
         try:
@@ -421,8 +425,8 @@ class JATSParser(BaseBeautifulSoupParser):
                     s = namedentities.named_entities(s)
                     ref_list_text.append(s)
             except Exception, err:
-                pass
-                # print "jats.parse.references error:", err
+                # pass
+                print "jats.parse.references error:", err
             else:
                 base_metadata['refhandler_list'] = ref_list_text
 
