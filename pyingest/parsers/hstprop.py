@@ -42,7 +42,7 @@ class HSTParser():
         if url.find('adsProposalSearch') == -1:
             raise URLError("This parser is only for the HST adsProposalSearch search.")
 #       if not kwargs.has_key('api_key'):
-        if not 'api_key' in kwargs:
+        if 'api_key' not in kwargs:
             raise RequestError('No API key provided to query the HST API.')
         token = kwargs['api_key']
         del kwargs['api_key']
@@ -62,7 +62,7 @@ class HSTParser():
         # Store the first batch of records
         records = batch['programs']
         # How often do we need to paginate to get them all?
-        num_paginates = int(math.ceil((totrecs) / (1.0*maxrecs)))
+        num_paginates = int(math.ceil((totrecs) / (1.0 * maxrecs)))
         # If we run in test mode, do not paginate
         if kwargs.get('test'):
             num_paginates = 0

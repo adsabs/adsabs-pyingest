@@ -33,26 +33,26 @@ def format_pubdate(date):
         except Exception, err:
             pass
         else:
-            return date+"/00"
+            return date + "/00"
     parsed = dateparser(date)
     return parsed.strftime("%Y/%m")
 
 
 class Tagged(object):
-    fieldDict = OrderedDict([('bibcode',      {'tag': 'R'}),
-                             ('title',        {'tag': 'T'}),
-                             ('authors',      {'tag': 'A', 'join': '; '}),
+    fieldDict = OrderedDict([('bibcode', {'tag': 'R'}),
+                             ('title', {'tag': 'T'}),
+                             ('authors', {'tag': 'A', 'join': '; '}),
                              ('affiliations', {'tag': 'F', 'join': ', ', 'fmt': format_affids}),
-                             ('pubdate',      {'tag': 'D', 'fmt': format_pubdate}),
-                             ('publication',  {'tag': 'J'}),
-                             ('comments',     {'tag': 'X', 'join': '; '}),
-                             ('source',       {'tag': 'G'}),
-                             ('keywords',     {'tag': 'K', 'join': ', '}),
-                             ('database',     {'tag': 'W', 'join': '; '}),
-                             ('page',         {'tag': 'P'}),
-                             ('abstract',     {'tag': 'B'}),
-                             ('properties',   {'tag': 'I', 'join': '; '}),
-                             ('references',   {'tag': 'Z', 'join': "\n   "}),
+                             ('pubdate', {'tag': 'D', 'fmt': format_pubdate}),
+                             ('publication', {'tag': 'J'}),
+                             ('comments', {'tag': 'X', 'join': '; '}),
+                             ('source', {'tag': 'G'}),
+                             ('keywords', {'tag': 'K', 'join': ', '}),
+                             ('database', {'tag': 'W', 'join': '; '}),
+                             ('page', {'tag': 'P'}),
+                             ('abstract', {'tag': 'B'}),
+                             ('properties', {'tag': 'I', 'join': '; '}),
+                             ('references', {'tag': 'Z', 'join': "\n   "}),
                              ])
 
     @classmethod

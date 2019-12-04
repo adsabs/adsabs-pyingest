@@ -220,18 +220,18 @@ class JATSParser(BaseBeautifulSoupParser):
                 else:
                     surname = 'Anonymous'
                 if a.find('prefix') is not None:
-                    prefix = self._detag(a.prefix, [])+' '
+                    prefix = self._detag(a.prefix, []) + ' '
                 else:
                     prefix = ''
                 if a.find('suffix') is not None:
-                    suffix = ' '+self._detag(a.suffix, [])
+                    suffix = ' ' + self._detag(a.suffix, [])
                 else:
                     suffix = ''
                 if a.find('given-names') is not None:
                     given = self._detag(a.find('given-names'), [])
                 else:
                     given = ''
-                forename = prefix+given+suffix
+                forename = prefix + given + suffix
                 if forename == '':
                     base_metadata['authors'].append(surname)
                 else:
@@ -369,7 +369,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     else:
                         month = self._detag(d.month, [])
                     if month < 10:
-                        month = "0"+str(month)
+                        month = "0" + str(month)
                     else:
                         month = str(month)
                     pubdate = month + pubdate
@@ -426,7 +426,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     ref_list_text.append(s)
             except Exception, err:
                 # pass
-                print "jats.parse.references error:", err
+                print("jats.parse.references error:", err)
             else:
                 base_metadata['refhandler_list'] = ref_list_text
 

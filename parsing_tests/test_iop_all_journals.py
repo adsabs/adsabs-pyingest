@@ -110,7 +110,7 @@ basedir = '/proj/ads/articles/sources/STACKS/'
 issn_list = journal_ISSN.keys()
 issn_list.sort()
 for issn in issn_list:
-    print "LOL WUT:",issn,journal_ISSN[issn]
+    print("LOL WUT:", issn, journal_ISSN[issn])
     b2 = basedir+issn
     vols = glob(b2+'/*')
     v = vols[-1]
@@ -118,16 +118,15 @@ for issn in issn_list:
     papers2 = []
     for p in papers:
         if ('refs.xml' not in p and 'meta.xml' not in p):
-           papers2.append(p)
+            papers2.append(p)
 
-    print len(papers)
-    print len(papers2)
+    print(len(papers))
+    print(len(papers2))
 
     papers = papers2
 
     # Try the parser
     documents = []
-#   papers = papers[0:1]
     for p in papers:
         try:
             with open(p, 'rU') as fp:
@@ -143,29 +142,19 @@ for issn in issn_list:
     serializer = Tagged()
     ref_handler = ReferenceWriter()
 
-#   documents = documents[0:1]
-    print "I GOT %s DOCUMENTS FOR %s"%(len(documents),issn)
+    print("I GOT %s DOCUMENTS FOR %s" % (len(documents), issn))
     for d in documents:
         if 'bibcode' in d:
-            print "bibcode:",d['bibcode']
+            print("bibcode:", d['bibcode'])
             if 'XSTEM' in d['bibcode']:
-                print "Bad bibcode!"
+                print("Bad bibcode!")
         else:
-            print "no bibcode..."
-#       del(d['affiliations'])
-#       try:
-#           del(d['refhandler_list'])
-#       except:
-#           pass
-#       print(d)
-#       print("\n")
-#       print(json.dumps(d, indent=4, sort_keys=True))
-#       print("\n\n\n\n\n")
+            print("no bibcode...")
         serializer.write(d, fo)
         try:
             ref_handler.writeref(d)
         except Exception, err:
-            print "Error with writeref:",err
+            print("Error with writeref:", err)
         else:
-            print "Writeref ok."
+            print("Writeref ok.")
     fo.close()

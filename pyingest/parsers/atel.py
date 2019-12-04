@@ -19,12 +19,12 @@ class ATelParser(BaseRSSFeedParser):
         telegram_nr = telegram.upper().replace('ATEL', '').strip()
         # Author
         author = entry.find('author').text
-        author = re.sub('\ \ +', ' ', author).strip()
+        author = re.sub(r'\ \ +', ' ', author).strip()
         author = re.sub(',$', '', author)
         # Abstracts
         try:
             abstract = entry.find('description').text
-            abstract = re.sub('\ \ +', ' ', abstract)
+            abstract = re.sub(r'\ \ +', ' ', abstract)
         except Exception as e:
             abstract = ''
         # Subjects (keywords)
@@ -56,10 +56,9 @@ class ATelParser(BaseRSSFeedParser):
     def parse(self, url, **kwargs):
         atel_recs = [{}]
         headers = {
-                'Content-type': 'text/xml',
-                'Accept': 'text/html,application/xhtml+xml,application/xml',
-                'User-agent': 'Mozilla/5.0'
-            }
+            'Content-type': 'text/xml',
+            'Accept': 'text/html,application/xhtml+xml,application/xml',
+            'User-agent': 'Mozilla/5.0'}
         data = self.get_records(url, headers=headers, **kwargs)
         for d in data:
             try:

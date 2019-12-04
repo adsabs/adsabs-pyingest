@@ -106,7 +106,7 @@ class IOPJATSParser(JATSParser):
                 idno = idno.split("-")[0]
             else:
                 if len(idno) == 6:
-                    idtwo = string.letters[int(idno[0:2])-1]
+                    idtwo = string.letters[int(idno[0:2]) - 1]
                     idfour = idno[2:]
                 else:
                     idtwo = ''
@@ -116,11 +116,11 @@ class IOPJATSParser(JATSParser):
                 author_init = self.get_author_init(output_metadata['authors'])
             except Exception, err:
                 author_init = '.'
-            
+
             if bibstem == u'ApJL.':
                 bibstem = u'ApJ..'
                 issue_letter = u'L'
-                idno = idno.replace('L','.')
+                idno = idno.replace('L', '.')
 
             if not (bibstem == u'PASP.'):
                 output_metadata['bibcode'] = year + bibstem + volume + issue_letter + idno + author_init
@@ -129,8 +129,6 @@ class IOPJATSParser(JATSParser):
 
             del output_metadata['pub-id']
             del output_metadata['page']
-
-            
 
         # Database (from APS keywords)
         try:

@@ -133,7 +133,7 @@ class JOSSParser(BaseRSSFeedParser):
         if last_page == 1:
             return joss_recs
 
-        for i in range(2, last_page+1):
+        for i in range(2, last_page + 1):
             kwargs['page'] = i
             data += self.get_records(url, **kwargs)
             for d in data:
