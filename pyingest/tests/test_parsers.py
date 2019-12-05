@@ -214,7 +214,7 @@ class TestIOP(unittest.TestCase):
 
     def setUp(self):
         stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata/')
-        self.inputdir = os.path.join(stubdata_dir,'input')
+        self.inputdir = os.path.join(stubdata_dir, 'input')
 
     def test_iop_parser(self):
         test_infile = os.path.join(self.inputdir, 'iop_apj.xml')

@@ -2,6 +2,7 @@
 
 from pyingest.parsers.iop import IOPJATSParser
 from pyingest.serializers.classic import Tagged
+from pyingest.serializers.refwriter import ReferenceWriter
 from glob import glob
 import json
 
@@ -9,14 +10,20 @@ import json
 outfile = 'iop_test.tag'
 
 journal_ISSN = {
-                '1538-4357': 'ApJL',
-               }
+                '0004-637X': 'ApJ',
+                '2041-8205': 'ApJL',
+                '2515-5172': 'RNAAS',
+                '1538-3873': 'PASP',
+                '0143-0807': 'EJPh'
+                }
 
 parser = IOPJATSParser()
+
 
 basedir = '/proj/ads/articles/sources/STACKS/'
 
 for issn in journal_ISSN.keys():
+    print("LOL WUT:", issn, journal_ISSN[issn])
     b2 = basedir+issn
     vols = glob(b2+'/*')
     v = vols[-1]
@@ -36,10 +43,15 @@ for issn in journal_ISSN.keys():
     fo = open(outfile, 'a')
 
     serializer = Tagged()
+    ref_handler = ReferenceWriter()
 
+    print("I GOT %s DOCUMENTS FOR %s" % (len(documents), issn))
     for d in documents:
-        print("KEYS:", d.keys())
         print(json.dumps(d, indent=4, sort_keys=True))
-        # print("Hi, here's a document structure:\n%s\n\n\n"%d)
-        # serializer.write(d, fo)
+        print("\n\n\n\n\n")
+        serializer.write(d, fo)
+        try:
+            ref_handler.writeref(d)
+        except Exception, err:
+            print("Error with writeref:", err)
     fo.close()

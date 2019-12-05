@@ -313,8 +313,7 @@ class DataCiteParser(BaseXmlToDictParser):
             'forks': self.get_forks(r),
             'described_by': self.get_described_by(r),
             'description_of': self.get_description_of(r),
-            'source': pub
-            }
+            'source': pub}
 
 #
 #

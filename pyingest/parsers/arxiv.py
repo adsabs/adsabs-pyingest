@@ -106,7 +106,7 @@ class ArxivParser(DublinCoreParser):
             bibcode1 = year + arx_field
             bibcode2 = arx_num + author_init
             if(len(bibcode1) + len(bibcode2) < 19):
-                bibcodex = u'.'*(19 - len(bibcode1) - len(bibcode2))
+                bibcodex = u'.' * (19 - len(bibcode1) - len(bibcode2))
                 bibcode = bibcode1 + bibcodex + bibcode2
             else:
                 bibcode = bibcode1 + bibcode2

@@ -33,7 +33,7 @@ class AuthorNames(object):
         # Paths
         if not os.path.isdir(data_dirname):
             data_dirname = os.path.join(os.path.dirname(os.path.realpath(
-                           __file__)), "../tests/data/authors/")
+                __file__)), "../tests/data/authors/")
         logging.info("Loading ADS author names from: %s", data_dirname)
         self.first_names = self._read_datfile(os.path.join(data_dirname,
                                               'first.dat'))
@@ -65,13 +65,13 @@ class AuthorNames(object):
         nameparser.config.CONSTANTS.string_format = u'{last}, {first} "{nickname}", {suffix}, {title}'
 
         # Compile regular expressions
-        self.regex_initial = re.compile("\. *(?!,)")
+        self.regex_initial = re.compile(r"\. *(?!,)")
         self.regex_etal = re.compile(r",? et ?al\.?")
         self.regex_and = re.compile(r" and ")
         self.regex_dash = re.compile(r"^-")
         self.regex_quote = re.compile(r"^'")
         self.regex_the = re.compile(r"^[Tt]he ")
-        self.regex_author = re.compile(r"^(?P<last_name>[^,]+),\s*(?P<initial0>\S)\w*"+"".join(["(?:\s*(?P<initial{}>\S)\S*)?".format(i+1) for i in xrange(self.max_first_name_initials-1)]))
+        self.regex_author = re.compile(r"^(?P<last_name>[^,]+),\s*(?P<initial0>\S)\w*" + "".join([r"(?:\s*(?P<initial{}>\S)\S*)?".format(i + 1) for i in xrange(self.max_first_name_initials - 1)]))
 
         # Default collaboration parameters
         self.default_collaborations_params = {
@@ -121,7 +121,7 @@ class AuthorNames(object):
                                 corrected_authors_list.append(author.strip())
                             else:
                                 corrected_authors_list.append(self._reorder_author_name(author.strip(), default_to_last_name))
-                        corrected_collaboration_str = (delimiter+u' ').join(corrected_authors_list).strip().encode('utf-8')
+                        corrected_collaboration_str = (delimiter + u' ').join(corrected_authors_list).strip().encode('utf-8')
                     break
         except Exception as e:
             logging.exception("Unexpected error in collaboration checks")
@@ -280,7 +280,7 @@ class AuthorNames(object):
                     corrected_authors_list.append(corrected_author_str.strip())
             else:
                 corrected_authors_list.append(self._reorder_author_name(author_str, default_to_last_name))
-        corrected_authors_str = (delimiter+u' ').join(corrected_authors_list)
+        corrected_authors_str = (delimiter + u' ').join(corrected_authors_list)
 
         # Last minute global corrections due to manually detected problems in
         # our processing corrected_authors_str =
@@ -327,7 +327,7 @@ class AuthorNames(object):
                 initials_list = []
                 # Collect initials from first name if it is present
                 for i in xrange(self.max_first_name_initials):
-                    key = 'initial'+str(i)
+                    key = 'initial' + str(i)
                     if match.group(key):
                         initials_list.append(match.group(key).strip().upper())
                 initials_str = u" ".join(initials_list)

@@ -64,25 +64,26 @@ class TestReferenceWriter(unittest.TestCase):
     def test_write_refhandler_data(self):
         paperdata = IOPJATSParser()
         inputdoc = 'pyingest/tests/data/stubdata/input/iop_apj.xml'
-        with open(inputdoc,'r') as fm:
+        with open(inputdoc, 'r') as fm:
             pdat = paperdata.parse(fm)
         if 'refhandler_list' in pdat:
             refwriter = ReferenceWriter()
             refwriter.topdir = 'pyingest/tests/data/output/'
             refwriter.refsource = '.jats.iopft.xml'
             refwriter.writeref(pdat)
-            self.assertEqual("1","1")
+            self.assertEqual('1', '1')
         else:
-            self.assertEqual('a','b')
+            self.assertEqual('a', 'b')
 
-    def test_no_refdata(self):
-        refwriter = ReferenceWriter()
-        with self.assertRaises(NoReferencesException):
-            refwriter.writeref({})
+    # I changed these to let go with a pass instead of raising an exception
+    #
+    # def test_no_refdata(self):
+    #     refwriter = ReferenceWriter()
+    #     with self.assertRaises(NoReferencesException):
+    #         refwriter.writeref({})
 
-    def test_no_metadata(self):
-        refwriter = ReferenceWriter()
-        bogus_data = {'refhandler_list': ['fnord']}
-        with self.assertRaises(WriteErrorException):
-            refwriter.writeref(bogus_data)
-        
+    # def test_no_metadata(self):
+    #     refwriter = ReferenceWriter()
+    #     bogus_data = {'refhandler_list': ['fnord']}
+    #     with self.assertRaises(WriteErrorException):
+    #         refwriter.writeref(bogus_data)
