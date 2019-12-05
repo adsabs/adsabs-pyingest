@@ -75,13 +75,15 @@ class TestReferenceWriter(unittest.TestCase):
         else:
             self.assertEqual('a', 'b')
 
-    def test_no_refdata(self):
-        refwriter = ReferenceWriter()
-        with self.assertRaises(NoReferencesException):
-            refwriter.writeref({})
+    # I changed these to let go with a pass instead of raising an exception
+    #
+    # def test_no_refdata(self):
+    #     refwriter = ReferenceWriter()
+    #     with self.assertRaises(NoReferencesException):
+    #         refwriter.writeref({})
 
-    def test_no_metadata(self):
-        refwriter = ReferenceWriter()
-        bogus_data = {'refhandler_list': ['fnord']}
-        with self.assertRaises(WriteErrorException):
-            refwriter.writeref(bogus_data)
+    # def test_no_metadata(self):
+    #     refwriter = ReferenceWriter()
+    #     bogus_data = {'refhandler_list': ['fnord']}
+    #     with self.assertRaises(WriteErrorException):
+    #         refwriter.writeref(bogus_data)

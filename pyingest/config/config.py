@@ -18,8 +18,8 @@ def find(key, dictionary):
 MONTH_TO_NUMBER = {'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
                    'jul': 7, 'aug': 8, 'sep': 9, 'oct': 10, 'nov': 11,
                    'dec': 12}
-# APS Journal dictionary: used by parsers/aps.py to get the bibstem
 
+# APS Journal dictionary: used by parsers/aps.py to get the bibstem
 APS_PUBLISHER_IDS = {'PRL': 'PhRvL', 'PRX': 'PhRvX', 'RMP': 'RvMP',
                      'PRA': 'PhRvA', 'PRB': 'PhRvB', 'PRC': 'PhRvC',
                      'PRD': 'PhRvD', 'PRE': 'PhRvE', 'PRAB': 'PhRvS',
@@ -630,5 +630,4 @@ APS_ASTRO_KEYWORDS = [
 
 
 # REFERENCE SOURCE OUTPUT
-# REFERENCE_TOPDIR = '/proj/ads/references/sources/'
-REFERENCE_TOPDIR = '/Users/mtempleton/lol/'
+REFERENCE_TOPDIR = '/proj/ads/references/sources/'

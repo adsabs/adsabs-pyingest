@@ -189,6 +189,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 affils[key] = aff_text.strip()
                 # if ekey is not '':
                 #     affils[ekey] = address_new
+                
 
         # Author name and affil/note lists:
         try:
