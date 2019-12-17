@@ -64,6 +64,10 @@ IOP_PUBLISHER_IDS = {
 
 IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical Society'}
 
+# IOP_SPECIAL_ID_HANDLING = ['PASP.','QuEle','JGE..','PhyU.','IzMat','SbMat',
+#                            'RuMaS','RuCRv','EL...','Nonli','JRP..']
+IOP_SPECIAL_ID_HANDLING = ['PASP.']
+
 OUP_PUBLISHER_IDS = {'mnras': u'MNRAS', 'mnrasl': u'MNRAS',
                      'pasj': u'PASJ', 'ptep': u'PTEP', 'gji': u'GeoJI'}
 OUP_PDFDIR = 'https://academic.oup.com'
@@ -630,4 +634,5 @@ APS_ASTRO_KEYWORDS = [
 
 
 # REFERENCE SOURCE OUTPUT
-REFERENCE_TOPDIR = '/proj/ads/references/sources/'
+# REFERENCE_TOPDIR = '/proj/ads/references/sources/'
+REFERENCE_TOPDIR = '/Users/mtempleton/lol/'

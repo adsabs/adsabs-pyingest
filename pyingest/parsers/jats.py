@@ -239,12 +239,16 @@ class JATSParser(BaseBeautifulSoupParser):
                     base_metadata['authors'].append(surname + ', ' + forename)
 
                 # Author affil/note ids
-                aid = a.find_all('xref')
-                if len(aid) > 0:
-                    aid_str = ' '.join([x['rid'] for x in aid])
-                    aid_arr = aid_str.split()
+                try:
+                    aid = a.find_all('xref')
+                except:
+                    pass
                 else:
-                    aid_arr = []
+                    if len(aid) > 0:
+                        aid_str = ' '.join([x['rid'] for x in aid])
+                        aid_arr = aid_str.split()
+                    else:
+                        aid_arr = []
 
                 try:
                     new_aid_arr = []
@@ -426,8 +430,8 @@ class JATSParser(BaseBeautifulSoupParser):
                     s = namedentities.named_entities(s)
                     ref_list_text.append(s)
             except Exception, err:
-                # pass
-                print("jats.parse.references error:", err)
+                pass
+                # print("jats.parse.references error:", err)
             else:
                 base_metadata['refhandler_list'] = ref_list_text
 

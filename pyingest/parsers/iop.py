@@ -106,8 +106,12 @@ class IOPJATSParser(JATSParser):
                 idno = idno.split("-")[0]
             else:
                 if len(idno) == 6:
-                    idtwo = string.letters[int(idno[0:2]) - 1]
+                    try:
+                        idtwo = string.letters[int(idno[0:2]) - 1]
+                    except:
+                        idtwo = idno[0:2]
                     idfour = idno[2:]
+                    issue_letter = ''
                 else:
                     idtwo = ''
                     idfour = idno.rjust(4, '.')
@@ -122,10 +126,22 @@ class IOPJATSParser(JATSParser):
                 issue_letter = u'L'
                 idno = idno.replace('L', '.')
 
-            if not (bibstem == u'PASP.'):
-                output_metadata['bibcode'] = year + bibstem + volume + issue_letter + idno + author_init
+            if (bibstem in IOP_SPECIAL_ID_HANDLING):
+                bib_tail = idno + author_init
+                # output_metadata['bibcode'] = year + bibstem + volume + idno + author_init
             else:
-                output_metadata['bibcode'] = year + bibstem + volume + idno + author_init
+                bib_tail = issue_letter + idno + author_init
+                # output_metadata['bibcode'] = year + bibstem + volume + issue_letter + idno + author_init
+            while len(bib_tail) > 6:
+                if bib_tail[0] == '.':
+                    bib_tail = bib_tail[1:]
+                else:
+                    print "error: malformed bibcode!"
+                    print "poopy: %s" % bib_tail
+                    print year+bibstem+volume+bib_tail
+                    bib_tail = bib_tail[-6:]
+            bib_tail = bib_tail.rjust(6, '.') 
+            output_metadata['bibcode'] = year + bibstem + volume + bib_tail
 
             del output_metadata['pub-id']
             del output_metadata['page']
