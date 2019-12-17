@@ -26,7 +26,8 @@ APS_PUBLISHER_IDS = {'PRL': 'PhRvL', 'PRX': 'PhRvX', 'RMP': 'RvMP',
                      'PRSTAB': 'PhRvS', 'PRAPPLIED': 'PhRvP',
                      'PRFLUIDS': 'PhRvF', 'PRMATERIALS': 'PhRvM',
                      'PRPER': 'PRPER', 'PRSTPER': 'PRSTP', 'PR': 'PhRv',
-                     'PRI': 'PhRvI', 'PHYSICS': 'PhyOJ'}
+                     'PRI': 'PhRvI', 'PHYSICS': 'PhyOJ',
+                     'PRResearch': 'PhRvR'}
 
 IOP_PUBLISHER_IDS = {
                     'apj': u'ApJ', 'jcap': u'JCAP', 'ejp': u'EJPh',
@@ -634,5 +635,4 @@ APS_ASTRO_KEYWORDS = [
 
 
 # REFERENCE SOURCE OUTPUT
-# REFERENCE_TOPDIR = '/proj/ads/references/sources/'
-REFERENCE_TOPDIR = '/Users/mtempleton/lol/'
+REFERENCE_TOPDIR = '/proj/ads/references/sources/'

@@ -110,7 +110,7 @@ basedir = '/proj/ads/articles/sources/STACKS/'
 issn_list = journal_ISSN.keys()
 issn_list.sort()
 for issn in issn_list:
-    print("LOL WUT:", issn, journal_ISSN[issn])
+    # print("LOL WUT:", issn, journal_ISSN[issn])
     b2 = basedir+issn
     vols = glob(b2+'/*')
     v = vols[-1]
@@ -120,14 +120,15 @@ for issn in issn_list:
         if ('refs.xml' not in p and 'meta.xml' not in p):
             papers2.append(p)
 
-    print(len(papers))
-    print(len(papers2))
+    # print(len(papers))
+    # print(len(papers2))
 
     papers = papers2
 
     # Try the parser
     documents = []
     for p in papers:
+        print "FILE: %s" % p
         try:
             with open(p, 'rU') as fp:
                 doc = parser.parse(fp)
@@ -142,7 +143,7 @@ for issn in issn_list:
     serializer = Tagged()
     ref_handler = ReferenceWriter()
 
-    print("I GOT %s DOCUMENTS FOR %s" % (len(documents), issn))
+    # print("I GOT %s DOCUMENTS FOR %s" % (len(documents), issn))
     for d in documents:
         if 'bibcode' in d:
             print("bibcode:", d['bibcode'])
@@ -155,6 +156,6 @@ for issn in issn_list:
             ref_handler.writeref(d)
         except Exception, err:
             print("Error with writeref:", err)
-        else:
-            print("Writeref ok.")
+        # else:
+            # print("Writeref ok.")
     fo.close()
