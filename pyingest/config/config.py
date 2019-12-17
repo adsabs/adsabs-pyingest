@@ -26,7 +26,8 @@ APS_PUBLISHER_IDS = {'PRL': 'PhRvL', 'PRX': 'PhRvX', 'RMP': 'RvMP',
                      'PRSTAB': 'PhRvS', 'PRAPPLIED': 'PhRvP',
                      'PRFLUIDS': 'PhRvF', 'PRMATERIALS': 'PhRvM',
                      'PRPER': 'PRPER', 'PRSTPER': 'PRSTP', 'PR': 'PhRv',
-                     'PRI': 'PhRvI', 'PHYSICS': 'PhyOJ'}
+                     'PRI': 'PhRvI', 'PHYSICS': 'PhyOJ',
+                     'PRResearch': 'PhRvR'}
 
 IOP_PUBLISHER_IDS = {
                     'apj': u'ApJ', 'jcap': u'JCAP', 'ejp': u'EJPh',
@@ -63,6 +64,10 @@ IOP_PUBLISHER_IDS = {
                     }
 
 IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical Society'}
+
+# IOP_SPECIAL_ID_HANDLING = ['PASP.','QuEle','JGE..','PhyU.','IzMat','SbMat',
+#                            'RuMaS','RuCRv','EL...','Nonli','JRP..']
+IOP_SPECIAL_ID_HANDLING = ['PASP.']
 
 OUP_PUBLISHER_IDS = {'mnras': u'MNRAS', 'mnrasl': u'MNRAS',
                      'pasj': u'PASJ', 'ptep': u'PTEP', 'gji': u'GeoJI'}
