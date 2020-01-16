@@ -219,7 +219,9 @@ class JATSParser(BaseBeautifulSoupParser):
                 if a.find('surname') is not None:
                     surname = self._detag(a.surname, [])
                 else:
-                    surname = 'Anonymous'
+#                   surname = 'Anonymous'
+                    print "UH OH, weird author:",a
+                    surname = ''
                 if a.find('prefix') is not None:
                     prefix = self._detag(a.prefix, []) + ' '
                 else:
@@ -234,7 +236,8 @@ class JATSParser(BaseBeautifulSoupParser):
                     given = ''
                 forename = prefix + given + suffix
                 if forename == '':
-                    base_metadata['authors'].append(surname)
+                    if forename != '':
+                        base_metadata['authors'].append(surname)
                 else:
                     base_metadata['authors'].append(surname + ', ' + forename)
 

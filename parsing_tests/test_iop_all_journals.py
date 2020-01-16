@@ -2,7 +2,7 @@
 
 from pyingest.parsers.iop import IOPJATSParser
 from pyingest.serializers.classic import Tagged
-from pyingest.serializers.refwriter import ReferenceWriter
+# from pyingest.serializers.refwriter import ReferenceWriter
 from glob import glob
 import json
 
@@ -141,7 +141,7 @@ for issn in issn_list:
     fo = open(outfile, 'a')
 
     serializer = Tagged()
-    ref_handler = ReferenceWriter()
+#   ref_handler = ReferenceWriter()
 
     # print("I GOT %s DOCUMENTS FOR %s" % (len(documents), issn))
     for d in documents:
@@ -152,10 +152,10 @@ for issn in issn_list:
         else:
             print("no bibcode...")
         serializer.write(d, fo)
-        try:
-            ref_handler.writeref(d)
-        except Exception, err:
-            print("Error with writeref:", err)
+#       try:
+#           ref_handler.writeref(d)
+#       except Exception, err:
+#           print("Error with writeref:", err)
         # else:
             # print("Writeref ok.")
     fo.close()
