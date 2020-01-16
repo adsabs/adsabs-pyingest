@@ -3,7 +3,7 @@ from pyingest.serializers.classic import Tagged
 
 def main():
 
-    flist = ['23456.gcn3','23457.gcn3','23458.gcn3','25321.gcn3','9999.gcn3']
+    flist = ['23456.gcn3','23457.gcn3','23458.gcn3','25321.gcn3','9999.gcn3','98765.gcn3']
     basedir = '/Users/mtempleton/Projects/GCN_Parser/gcn3/'
 
     with open('output.tag','w') as fo:

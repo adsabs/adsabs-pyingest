@@ -137,7 +137,6 @@ class IOPJATSParser(JATSParser):
                     bib_tail = bib_tail[1:]
                 else:
                     print "error: malformed bibcode!"
-                    print "poopy: %s" % bib_tail
                     print year+bibstem+volume+bib_tail
                     bib_tail = bib_tail[-6:]
             bib_tail = bib_tail.rjust(6, '.') 
