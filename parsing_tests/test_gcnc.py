@@ -9,14 +9,18 @@ def main():
     with open('output.tag','w') as fo:
         for f in flist:
             f2 = basedir + f
-            with open(f2,'rU') as fg:
-                d = fg.read()
-            x = GCNCParser(d)
-            y = x.parse()
-            # print "\n\n"
-            # print 'lol y:',y
-            serializer = Tagged()
-            serializer.write(y,fo)
+            try:
+                with open(f2,'rU') as fg:
+                    d = fg.read()
+                x = GCNCParser(d)
+                y = x.parse()
+                # print "\n\n"
+                # print 'lol y:',y
+                serializer = Tagged()
+                serializer.write(y,fo)
+            except Exception, err:
+                print "Problem parsing %s" % f
+                print "Error: %s" % err
 
 
 if __name__ == '__main__':

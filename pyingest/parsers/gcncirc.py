@@ -3,7 +3,7 @@ import json
 import re
 import logging
 from default import DefaultParser
-# from author_names import AuthorNames
+from author_names import AuthorNames
 
 head_dict = {'TITLE:': 'journal', 'NUMBER:': 'page', 'SUBJECT:': 'title',
              'DATE:': 'pubdate', 'FROM:': 'email'
@@ -60,8 +60,6 @@ class GCNCParser(DefaultParser):
         # print auth_parens,auth_loc
         # auth_array = [m.strip() for m in auth_array]
 
-        # print '\n\n'
-        # print auth_string
 
         auth_string = re.sub(r'\s+\((.*?)\)\s+', ',', auth_string)
         auth_string = re.sub(r'and', '', auth_string)
@@ -71,12 +69,11 @@ class GCNCParser(DefaultParser):
         auth_string = re.sub(r',\s+,',',', auth_string)
 
         auth_array = [s.strip() for s in auth_string.split(',')]
-        # print auth_array
         auth_array = list(filter(lambda a: len(a) > 3, auth_array))
-        self.data_dict['authors'] = auth_array
-        # auth_string = '; '.join(auth_array)
-        # auth_parsed = AuthorNames(auth_string)
-        # print "lol:",auth_parsed.parse()
+        # self.data_dict['authors'] = auth_array
+        auth_string = '; '.join(auth_array)
+        auth_mod = AuthorNames()
+        self.data_dict['authors'] = auth_mod.parse(auth_string)
         
         # for a in auth_array:
             # if len(a) <= 3:
@@ -98,9 +95,10 @@ class GCNCParser(DefaultParser):
                 self.data_dict[head_dict[lparts[0]]] = lparts[1].strip()
             self.data_dict['abstract'] = gdata[5:]
             self.split_authors_abstract()
-            self.data_dict['abstract'] = '\n'.join(self.data_dict['abstract'])
-#           body = [x for x in gdata[5:] if x != '']
-#           self.data_dict['abstract'] = '<pre>' + '\n'.join(body) + '<\\pre>'
+            abstract_new= ' '.join(self.data_dict['abstract'])
+            self.data_dict['abstract'] = abstract_new.strip()
+            # body = [x for x in gdata[5:] if x != '']
+            # self.data_dict['abstract'] = '<pre>' + '\n'.join(body) + '<\\pre>'
         except Exception, err:
             self.data_dict['raw'] = self.raw
             self.data_dict['error'] = err
@@ -108,19 +106,17 @@ class GCNCParser(DefaultParser):
         self.make_bibcode()
         return self.data_dict
 
-def main():
-
-    flist = ['23456.gcn3','23457.gcn3','23458.gcn3','25321.gcn3','9999.gcn3']
-    basedir = '/Users/mtempleton/Projects/GCN_Parser/gcn3/'
-    for f in flist:
-        f2 = basedir + f
-        with open(f2,'rU') as fg:
-            d = fg.read()
-        x = GCNCParser(d)
-        y = x.parse()
-        print "\n\n"
-        print 'lol y:',y
-
-
-if __name__ == '__main__':
-    main()
+# def main():
+#
+#     flist = ['23456.gcn3','23457.gcn3','23458.gcn3','25321.gcn3','9999.gcn3']
+#     basedir = '/Users/mtempleton/Projects/GCN_Parser/gcn3/'
+#     for f in flist:
+#         f2 = basedir + f
+#         with open(f2,'rU') as fg:
+#             d = fg.read()
+#         x = GCNCParser(d)
+#         y = x.parse()
+#
+#
+# if __name__ == '__main__':
+#    main()
