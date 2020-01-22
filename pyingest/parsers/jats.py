@@ -216,30 +216,38 @@ class JATSParser(BaseBeautifulSoupParser):
                     pass
 
                 # Author names
-                if a.find('surname') is not None:
-                    surname = self._detag(a.surname, [])
+                if a.find('collab') is not None:
+                   base_metadata['authors'].append(self._detag(a.collab, []))
                 else:
+                    if a.find('surname') is not None:
+                        surname = self._detag(a.surname, [])
+                    else:
 #                   surname = 'Anonymous'
-                    print "UH OH, weird author:",a
-                    surname = ''
-                if a.find('prefix') is not None:
-                    prefix = self._detag(a.prefix, []) + ' '
-                else:
-                    prefix = ''
-                if a.find('suffix') is not None:
-                    suffix = ' ' + self._detag(a.suffix, [])
-                else:
-                    suffix = ''
-                if a.find('given-names') is not None:
-                    given = self._detag(a.find('given-names'), [])
-                else:
-                    given = ''
-                forename = prefix + given + suffix
-                if forename == '':
-                    if forename != '':
-                        base_metadata['authors'].append(surname)
-                else:
-                    base_metadata['authors'].append(surname + ', ' + forename)
+                        # print "Warning: Undefined surname: ",a
+                        surname = ''
+                    if a.find('prefix') is not None:
+                        prefix = self._detag(a.prefix, []) + ' '
+                    else:
+                        prefix = ''
+                    if a.find('suffix') is not None:
+                        suffix = ' ' + self._detag(a.suffix, [])
+                    else:
+                        suffix = ''
+                    if a.find('given-names') is not None:
+                        given = self._detag(a.find('given-names'), [])
+                    else:
+                        given = ''
+                    forename = prefix + given + suffix
+                    if forename == '':
+                        if surname != '':
+                            base_metadata['authors'].append(surname)
+                        else:
+                            base_metadata['authors'].append('ANONYMOUS')
+                    else:
+                        if surname != '':
+                            base_metadata['authors'].append(surname + ', ' + forename)
+                        else:
+                            base_metadata['authors'].append(forename)
 
                 # Author affil/note ids
                 try:

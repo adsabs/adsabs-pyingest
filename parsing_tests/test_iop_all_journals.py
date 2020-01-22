@@ -128,7 +128,7 @@ for issn in issn_list:
     # Try the parser
     documents = []
     for p in papers:
-        print "FILE: %s" % p
+        # print "FILE: %s" % p
         try:
             with open(p, 'rU') as fp:
                 doc = parser.parse(fp)
@@ -146,9 +146,9 @@ for issn in issn_list:
     # print("I GOT %s DOCUMENTS FOR %s" % (len(documents), issn))
     for d in documents:
         if 'bibcode' in d:
-            print("bibcode:", d['bibcode'])
+            # print("bibcode:", d['bibcode'])
             if 'XSTEM' in d['bibcode']:
-                print("Bad bibcode!")
+                print("Bad bibcode:", d['bibcode'])
         else:
             print("no bibcode...")
         serializer.write(d, fo)

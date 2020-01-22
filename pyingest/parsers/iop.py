@@ -8,6 +8,7 @@ import string
 from adsputils import u2asc
 from jats import JATSParser
 from pyingest.config.config import *
+from pyingest.parsers.entity_convert import EntityConverter
 
 
 class NoSchemaException(Exception):
@@ -136,9 +137,11 @@ class IOPJATSParser(JATSParser):
                 if bib_tail[0] == '.':
                     bib_tail = bib_tail[1:]
                 else:
-                    print "error: malformed bibcode!"
-                    print year+bibstem+volume+bib_tail
-                    bib_tail = bib_tail[-6:]
+                    # print "error: malformed bibcode!"
+                    # print "y: %s\tb: %s\tv: %s\tt: %s" % (year,bibstem,volume,bib_tail)
+                    # bib_tail = bib_tail[-6:]
+                    bib_tail = bib_tail[1:]
+
             bib_tail = bib_tail.rjust(6, '.') 
             output_metadata['bibcode'] = year + bibstem + volume + bib_tail
 
@@ -150,6 +153,25 @@ class IOPJATSParser(JATSParser):
             output_metadata['database'] = self.dbfromkw(output_metadata['keywords'])
         except Exception, err:
             pass
+
+        # pass through relevant fields through EntityConverter
+        # to remove bad entities
+        if 'abstract' in output_metadata.keys():
+            try:
+                conv = EntityConverter()
+                conv.input_text = output_metadata['abstract']
+                conv.convert()
+                output_metadata['abstract'] = conv.output_text
+            except Exception, err:
+                print "problem converting abstract for %s: %s" % (output_metadata['bibcode'],err)
+            else:
+                with open('beewpt','a') as fw:
+                    fw.write(("\n\n\nIT MADE IT THROUGH.  DID IT CHANGE?\n\n").encode('utf-8'))
+                    fw.write((output_metadata['bibcode']+"\n").encode('utf-8'))
+                    fw.write((conv.input_text+"\n\n").encode('utf-8'))
+                    fw.write((conv.output_text+"\n\n").encode('utf-8'))
+                    fw.write((output_metadata['abstract']+"\n\n\n\n").encode('utf-8'))
+            
 
         # Return
         return output_metadata

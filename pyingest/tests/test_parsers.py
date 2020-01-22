@@ -221,9 +221,9 @@ class TestIOP(unittest.TestCase):
         test_infile = os.path.join(self.inputdir, 'iop_apj.xml')
         parser = iop.IOPJATSParser()
         REFERENCE_TOPDIR = '/dev/null/'
-#       m = mock_open()
-#       mock_ref_outfile = os.path.join(config.REFERENCE_TOPDIR,"ApJ/882/2019ApJ...882...74H.jats.iopft.xml")
-#       with patch('__builtin__.open', m, create=True):
+        m = mock_open()
+        mock_ref_outfile = os.path.join(config.REFERENCE_TOPDIR,"ApJ/882/2019ApJ...882...74H.jats.iopft.xml")
+        with patch('__builtin__.open', m, create=True):
         if ('a' == 'a'):
             with open(test_infile) as fp:
                 test_data = parser.parse(fp)
