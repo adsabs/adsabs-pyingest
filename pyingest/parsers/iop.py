@@ -9,6 +9,7 @@ from adsputils import u2asc
 from jats import JATSParser
 from pyingest.config.config import *
 from pyingest.parsers.entity_convert import EntityConverter
+from author_names import AuthorNames
 
 
 class NoSchemaException(Exception):
@@ -165,12 +166,13 @@ class IOPJATSParser(JATSParser):
             except Exception, err:
                 print "problem converting abstract for %s: %s" % (output_metadata['bibcode'],err)
             else:
-                with open('beewpt','a') as fw:
-                    fw.write(("\n\n\nIT MADE IT THROUGH.  DID IT CHANGE?\n\n").encode('utf-8'))
-                    fw.write((output_metadata['bibcode']+"\n").encode('utf-8'))
-                    fw.write((conv.input_text+"\n\n").encode('utf-8'))
-                    fw.write((conv.output_text+"\n\n").encode('utf-8'))
-                    fw.write((output_metadata['abstract']+"\n\n\n\n").encode('utf-8'))
+                pass
+                # with open('beewpt','a') as fw:
+                    # fw.write(("\n\n\nIT MADE IT THROUGH.  DID IT CHANGE?\n\n").encode('utf-8'))
+                    # fw.write((output_metadata['bibcode']+"\n").encode('utf-8'))
+                    # fw.write((conv.input_text+"\n\n").encode('utf-8'))
+                    # fw.write((conv.output_text+"\n\n").encode('utf-8'))
+                    # fw.write((output_metadata['abstract']+"\n\n\n\n").encode('utf-8'))
             
 
         # Return
