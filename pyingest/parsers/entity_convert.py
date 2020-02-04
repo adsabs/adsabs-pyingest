@@ -1,6 +1,7 @@
 import re
 import copy
 import json
+import namedentities
 
 infile = 'pyingest/config/html5.txt'
 ent_dict = dict()
@@ -8,27 +9,46 @@ with open(infile,'rU') as fent:
     for l in fent.readlines():
         carr = l.rstrip().split('\t')
         
-        uni_entity = carr[0]
-        name_entity = carr[1]
-        hex_entity = carr[2]
-        dec_entity = carr[3]
+        uni_entity = None
+        name_entity = None
+        hex_entity = None
+        dec_entity = None
+        if len(carr) >= 4:
+            uni_entity = carr[0]
+            name_entity = carr[1]
+            hex_entity = carr[2]
+            dec_entity = carr[3]
+        else:
+            print "broken HTML entity:",l.rstrip()
+            name_entity = "xxxxx"
+            uni_entity = "xxxxx"
+            dec_entity = "xxxxx"
 
         for c in name_entity.split():
-            ent_dict[c] = dec_entity
+            try:
+                ent_dict[c] = dec_entity
+            except:
+                print "lol name_entity: '%s'" % name_entity
         # for c in uni_entity.split():
-            # ent_dict[c] = dec_entity
-        # redefine some ADS-specific translations
+        #     ent_dict[c] = dec_entity
 
-    ent_dict["&rsquo;"] = '\''
-    ent_dict["&lsquo;"] = '\''
-    ent_dict["&nbsp;"] = ' '
-    ent_dict["&mdash;"] = '-'
-    ent_dict["&ndash;"] = '-'
-    ent_dict["&rdquo;"] = '\"'
-    ent_dict["&ldquo;"] = '\"'
-    ent_dict["&minus;"] = '-'
-    ent_dict["&plus;"] = '+'
-    ent_dict["&thinsp;"] = ' '
+    # ADS-specific translations
+    # have been added to html5.txt
+    ent_dict['&rsquo;'] = '\''
+    ent_dict['&lsquo;'] = '\''
+    ent_dict['&nbsp;'] = ' '
+    ent_dict['&mdash;'] = '-'
+    ent_dict['&ndash;'] = '-'
+    ent_dict['&rdquo;'] = '\"'
+    ent_dict['&ldquo;'] = '\"'
+    ent_dict['&minus;'] = '-'
+    ent_dict['&plus;'] = '+'
+    ent_dict['&thinsp;'] = ' '
+    ent_dict['&hairsp;'] = ' '
+    ent_dict['&ensp;'] = ' '
+    ent_dict['&emsp;'] = ' '
+    # for k,v in ent_dict.items():
+    #     print "LOLENTITY: %s\t%s" % (k,v)
         
 
 
@@ -41,9 +61,9 @@ class EntityConverter():
 
     def convert(self):
         o = self.input_text
+        ox = copy.deepcopy(namedentities.named_entities(o))
         for k, v in self.ent_dict.items():
-            ox = copy.deepcopy(o)
-            o = re.sub(k, v, ox)
-        self.output_text = o
+            ox = re.sub(k, v, ox)
+        self.output_text = ox
 
 

@@ -399,6 +399,13 @@ class JATSParser(BaseBeautifulSoupParser):
                         base_metadata['pubdate']
                     except Exception, err:
                         base_metadata['pubdate'] = pubdate
+            if (b == 'open-access'):
+                try:
+                    base_metadata['properties']
+                except:
+                    base_metadata['properties'] = {'OPEN': ''}
+                else:
+                    base_metadata['properties']['OPEN'] = ''
 
 # Pages:
 

@@ -4,6 +4,7 @@ from pyingest.parsers.iop import IOPJATSParser
 from pyingest.serializers.classic import Tagged
 # from pyingest.serializers.refwriter import ReferenceWriter
 from glob import glob
+import os
 import json
 
 
@@ -113,6 +114,7 @@ for issn in issn_list:
     # print("LOL WUT:", issn, journal_ISSN[issn])
     b2 = basedir+issn
     vols = glob(b2+'/*')
+    vols.sort(key=os.path.getmtime)
     v = vols[-1]
     papers = glob(v+'/*/*/*.xml')
     papers2 = []

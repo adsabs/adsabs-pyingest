@@ -130,17 +130,12 @@ class IOPJATSParser(JATSParser):
 
             if (bibstem in IOP_SPECIAL_ID_HANDLING):
                 bib_tail = idno + author_init
-                # output_metadata['bibcode'] = year + bibstem + volume + idno + author_init
             else:
                 bib_tail = issue_letter + idno + author_init
-                # output_metadata['bibcode'] = year + bibstem + volume + issue_letter + idno + author_init
             while len(bib_tail) > 6:
                 if bib_tail[0] == '.':
                     bib_tail = bib_tail[1:]
                 else:
-                    # print "error: malformed bibcode!"
-                    # print "y: %s\tb: %s\tv: %s\tt: %s" % (year,bibstem,volume,bib_tail)
-                    # bib_tail = bib_tail[-6:]
                     bib_tail = bib_tail[1:]
 
             bib_tail = bib_tail.rjust(6, '.') 
@@ -157,23 +152,17 @@ class IOPJATSParser(JATSParser):
 
         # pass through relevant fields through EntityConverter
         # to remove bad entities
-        if 'abstract' in output_metadata.keys():
-            try:
-                conv = EntityConverter()
-                conv.input_text = output_metadata['abstract']
-                conv.convert()
-                output_metadata['abstract'] = conv.output_text
-            except Exception, err:
-                print "problem converting abstract for %s: %s" % (output_metadata['bibcode'],err)
-            else:
-                pass
-                # with open('beewpt','a') as fw:
-                    # fw.write(("\n\n\nIT MADE IT THROUGH.  DID IT CHANGE?\n\n").encode('utf-8'))
-                    # fw.write((output_metadata['bibcode']+"\n").encode('utf-8'))
-                    # fw.write((conv.input_text+"\n\n").encode('utf-8'))
-                    # fw.write((conv.output_text+"\n\n").encode('utf-8'))
-                    # fw.write((output_metadata['abstract']+"\n\n\n\n").encode('utf-8'))
-            
+        # entity_fields = ['abstract', 'title', 'authors', 'affiliations']
+        entity_fields = ['abstract', 'title']
+        for ecf in entity_fields:
+            if ecf in output_metadata.keys():
+                try:
+                    conv = EntityConverter()
+                    conv.input_text = output_metadata[ecf]
+                    conv.convert()
+                    output_metadata[ecf] = conv.output_text
+                except Exception, err:
+                    print "problem converting %s for %s: %s" % (ecf,output_metadata['bibcode'],err)
 
         # Return
         return output_metadata
