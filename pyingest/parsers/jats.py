@@ -89,10 +89,11 @@ class JATSParser(BaseBeautifulSoupParser):
 
     def parse(self, fp, **kwargs):
 
-        output_metadata = dict()
+        output_metadata = {}
 
         document = self.resource_dict(fp, **kwargs)
         r = document.front
+
 
         try:
             article_meta = r.find('article-meta')
@@ -404,13 +405,16 @@ class JATSParser(BaseBeautifulSoupParser):
                         base_metadata['pubdate']
                     except Exception, err:
                         base_metadata['pubdate'] = pubdate
-            if (b == 'open-access'):
-                try:
-                    base_metadata['properties']
-                except:
-                    base_metadata['properties'] = {'OPEN': ''}
-                else:
-                    base_metadata['properties']['OPEN'] = ''
+            try:
+                if (b == 'open-access'):
+                    try:
+                        base_metadata['properties']
+                    except:
+                        base_metadata['properties'] = {'OPEN': ''}
+                    else:
+                        base_metadata['properties']['OPEN'] = ''
+            except Exception, err:
+                pass
 
 # Pages:
 

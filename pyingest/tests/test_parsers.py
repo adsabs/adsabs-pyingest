@@ -220,20 +220,21 @@ class TestIOP(unittest.TestCase):
     def test_iop_parser(self):
         test_infile = os.path.join(self.inputdir, 'iop_apj.xml')
         parser = iop.IOPJATSParser()
-        REFERENCE_TOPDIR = '/dev/null/'
-        m = mock_open()
-        mock_ref_outfile = os.path.join(config.REFERENCE_TOPDIR,"ApJ/882/2019ApJ...882...74H.jats.iopft.xml")
-        with patch('__builtin__.open', m, create=True):
-        if ('a' == 'a'):
-            with open(test_infile) as fp:
-                test_data = parser.parse(fp)
-                print("TEST_DATA: %s" % test_data)
-                output_bibcode = '2019ApJ...882...74H'
-                output_pub = u'The Astrophysical Journal, Volume 882, Issue 2, id.74'
-                output_aff = [u'<EMAIL>jhare@berkeley.edu</EMAIL>; Department of Physics, The George Washington University, 725 21st St. NW, Washington, DC 20052, USA; The George Washington Astronomy, Physics, and Statistics Institute of Sciences (APSIS), The George Washington University, Washington, DC 20052, USA; Space Sciences Laboratory, 7 Gauss Way, University of California, Berkeley, CA 94720-7450, USA; <ID system="ORCID">0000-0002-8548-482X</ID>', u'Department of Physics, The George Washington University, 725 21st St. NW, Washington, DC 20052, USA; The George Washington Astronomy, Physics, and Statistics Institute of Sciences (APSIS), The George Washington University, Washington, DC 20052, USA; <ID system="ORCID">0000-0002-6447-4251</ID>', u'Department of Astronomy &amp; Astrophysics, Pennsylvania State University, 525 Davey Lab, University Park, PA 16802, USA; <ID system="ORCID">0000-0002-7481-5259</ID>', u'Department of Physics, The George Washington University, 725 21st St. NW, Washington, DC 20052, USA; The George Washington Astronomy, Physics, and Statistics Institute of Sciences (APSIS), The George Washington University, Washington, DC 20052, USA; <ID system="ORCID">0000-0001-7833-1043</ID>']
-                self.assertEqual(test_data['bibcode'], output_bibcode)
-                self.assertEqual(test_data['publication'], output_pub)
-                self.assertEqual(test_data['affiliations'], output_aff)
+        config.REFERENCE_TOPDIR = '/dev/null/'
+        # m = mock_open()
+        # mock_ref_outfile = os.path.join(config.REFERENCE_TOPDIR,"ApJ/882/2019ApJ...882...74H.jats.iopft.xml")
+        # print "TEST_INFILE:",test_infile
+        # with patch('__builtin__.open', m, create=False):
+        with open(test_infile) as fp:
+            # print "FILE POINTER:",fp
+            test_data = parser.parse(fp)
+            # print("TEST_DATA: %s" % test_data)
+            output_bibcode = '2019ApJ...882...74H'
+            output_pub = u'The Astrophysical Journal, Volume 882, Issue 2, id.74'
+            output_aff = [u'Department of Physics, The George Washington University, 725 21st St. NW, Washington, DC 20052, USA; The George Washington Astronomy, Physics, and Statistics Institute of Sciences (APSIS), The George Washington University, Washington, DC 20052, USA; Space Sciences Laboratory, 7 Gauss Way, University of California, Berkeley, CA 94720-7450, USA; <id system="ORCID">0000-0002-8548-482X</id>; <email>jhare@berkeley.edu</email>', u'Department of Physics, The George Washington University, 725 21st St. NW, Washington, DC 20052, USA; The George Washington Astronomy, Physics, and Statistics Institute of Sciences (APSIS), The George Washington University, Washington, DC 20052, USA; <id system="ORCID">0000-0002-6447-4251</id>', u'Department of Astronomy & Astrophysics, Pennsylvania State University, 525 Davey Lab, University Park, PA 16802, USA; <id system="ORCID">0000-0002-7481-5259</id>', u'Department of Physics, The George Washington University, 725 21st St. NW, Washington, DC 20052, USA; The George Washington Astronomy, Physics, and Statistics Institute of Sciences (APSIS), The George Washington University, Washington, DC 20052, USA; <id system="ORCID">0000-0001-7833-1043</id>']
+            self.assertEqual(test_data['bibcode'], output_bibcode)
+            self.assertEqual(test_data['publication'], output_pub)
+            self.assertEqual(test_data['affiliations'], output_aff)
         return
 
 
@@ -452,16 +453,14 @@ class TestGCNC(unittest.TestCase):
 
     def test_gcn_parser(self):
         test_infile = os.path.join(self.inputdir, '25321.gcn3')
-        if ('a' == 'a'):
-            with open(test_infile) as fp:
-                data = fp.read()
-                parser = gcncirc.GCNCParser(data)
-                test_data = parser.parse()
-                # print("TEST_DATA: %s" % test_data)
-                output_bibcode = '2019GCN.25321....1I'
-                output_authors = 'IceCube Collaboration'
-                output_pub = u'GRB Coordinates Network, Circular Service, No. 25321'
-                self.assertEqual(test_data['bibcode'], output_bibcode)
-                self.assertEqual(test_data['authors'], output_authors)
-                self.assertEqual(test_data['publication'], output_pub)
-        return
+        with open(test_infile) as fp:
+            data = fp.read()
+            parser = gcncirc.GCNCParser(data)
+            test_data = parser.parse()
+            # print("TEST_DATA: %s" % test_data)
+            output_bibcode = '2019GCN.25321....1I'
+            output_authors = 'IceCube Collaboration'
+            output_pub = u'GRB Coordinates Network, Circular Service, No. 25321'
+            self.assertEqual(test_data['bibcode'], output_bibcode)
+            self.assertEqual(test_data['authors'], output_authors)
+            self.assertEqual(test_data['publication'], output_pub)
