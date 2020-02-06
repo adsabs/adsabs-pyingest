@@ -1,12 +1,12 @@
 from pyingest.parsers.gcncirc import GCNCParser
 from pyingest.serializers.classic import Tagged
-import namedentities
+from namedentities import *
 
 def main():
 
     # flist = ['25548.gcn3','23456.gcn3','23457.gcn3','23458.gcn3','25321.gcn3','9999.gcn3','98765.gcn3']
     flist = []
-    with open('25k+','rU') as fi:
+    with open('26_5','rU') as fi:
         for l in fi.readlines():
             fname = l.strip() + '.gcn3'
             flist.append(fname)
@@ -18,16 +18,38 @@ def main():
             f2 = basedir + f
             try:
                 with open(f2,'rU') as fg:
-                    d = fg.read()
-                x = GCNCParser(d)
-                y = x.parse()
-                y['abstract'] = namedentities.hex_entities(y['abstract'])
+                    try:
+                        d = fg.read()
+                    except Exception, err:
+                        d = ''
+                        print f2
+                        print "couldnt read it:",err
+                try:
+                    # d = namedentities.hex_entities(d)
+                    d = repr(hex_entities(d))
+                except Exception, err:
+                    d = ''
+                    print f2
+                    print "Couldnt convert to hex:",err
+                try:
+                    x = GCNCParser(d)
+                except Exception, err:
+                    print "failed at GCNCParser(d) step:",err
+                try:
+                    y = x.parse()
+                except Exception, err:
+                    print "failed at x.parse step:",err
+#               y['abstract'] = namedentities.hex_entities(y['abstract'])
                 # print "\n\n"
                 # print 'lol y:',y
-                serializer = Tagged()
-                serializer.write(y,fo)
+                try:
+                    serializer = Tagged()
+                    serializer.write(y,fo)
+                except Exception, err:
+                    print f2
+                    print "Couldnt serialize it:",err
             except Exception, err:
-                print "Problem parsing %s" % f
+                print "Problem parsing %s" % f2
                 print "Error: %s" % err
 
 

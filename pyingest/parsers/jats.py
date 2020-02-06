@@ -5,6 +5,7 @@ from bs4 import Comment
 from collections import OrderedDict
 from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
+from affils import AffiliationParser
 import namedentities
 import re
 import copy
@@ -281,6 +282,10 @@ class JATSParser(BaseBeautifulSoupParser):
                         base_metadata['affiliations'].append(orcid_out)
                     else:
                         base_metadata['affiliations'].append('')
+                affnew = []
+                for affx in base_metadata['affiliations']:
+                    affnew.append(AffiliationParser(affx).parse())
+                base_metadata['affiliations'] = affnew
 
             if len(base_metadata['authors']) > 0:
                 base_metadata['authors'] = "; ".join(base_metadata['authors'])

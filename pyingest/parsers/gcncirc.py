@@ -4,6 +4,7 @@ import re
 import logging
 from default import DefaultParser
 from author_names import AuthorNames
+from entity_convert import EntityConverter
 
 head_dict = {'TITLE:': 'journal', 'NUMBER:': 'page', 'SUBJECT:': 'title',
              'DATE:': 'pubdate', 'FROM:': 'email'
@@ -14,7 +15,10 @@ head_dict = {'TITLE:': 'journal', 'NUMBER:': 'page', 'SUBJECT:': 'title',
 class GCNCParser(DefaultParser):
 
     def __init__(self, data):
-        self.raw = data
+        econv = EntityConverter()
+        econv.input_text = data
+        econv.convert()
+        self.raw = econv.output_text
         self.data_dict = dict()
 
     def make_pubdate(self):
