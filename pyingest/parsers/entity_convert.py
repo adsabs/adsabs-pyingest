@@ -27,10 +27,8 @@ with open(infile,'rU') as fent:
         for c in name_entity.split():
             try:
                 ent_dict[c] = dec_entity
-            except:
-                print "lol name_entity: '%s'" % name_entity
-        # for c in uni_entity.split():
-        #     ent_dict[c] = dec_entity
+            except Exception, err:
+                print "Error splitting name_entity: '%s'" % name_entity
 
     # ADS-specific translations
     # have been added to html5.txt
@@ -47,11 +45,7 @@ with open(infile,'rU') as fent:
     ent_dict['&hairsp;'] = ' '
     ent_dict['&ensp;'] = ' '
     ent_dict['&emsp;'] = ' '
-    # for k,v in ent_dict.items():
-    #     print "LOLENTITY: %s\t%s" % (k,v)
         
-
-
 class EntityConverter():
 
     def __init__(self):

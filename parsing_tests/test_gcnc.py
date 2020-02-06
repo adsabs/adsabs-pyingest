@@ -39,9 +39,6 @@ def main():
                     y = x.parse()
                 except Exception, err:
                     print "failed at x.parse step:",err
-#               y['abstract'] = namedentities.hex_entities(y['abstract'])
-                # print "\n\n"
-                # print 'lol y:',y
                 try:
                     serializer = Tagged()
                     serializer.write(y,fo)

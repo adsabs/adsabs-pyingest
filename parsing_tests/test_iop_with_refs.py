@@ -23,7 +23,6 @@ parser = IOPJATSParser()
 basedir = '/proj/ads/articles/sources/STACKS/'
 
 for issn in journal_ISSN.keys():
-    print("LOL WUT:", issn, journal_ISSN[issn])
     b2 = basedir+issn
     vols = glob(b2+'/*')
     v = vols[-1]
@@ -45,7 +44,6 @@ for issn in journal_ISSN.keys():
     serializer = Tagged()
     ref_handler = ReferenceWriter()
 
-    print("I GOT %s DOCUMENTS FOR %s" % (len(documents), issn))
     for d in documents:
         print(json.dumps(d, indent=4, sort_keys=True))
         print("\n\n\n\n\n")

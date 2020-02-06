@@ -65,19 +65,6 @@ class GCNCParser(DefaultParser):
 
         auth_string = ' '.join(auths)
 
-        # auth_parens_loc = [(m.start(),m.end()) for m in re.finditer(r'\((.*?)\)',auth_string)]
-        # auth_parens.reverse()
-        # auth_array = auth_string.split(',')
-        # auth_author_loc = [auth_string.find(s) for s in auth_array]
-        # print auth_author_loc
-        # print auth_parens_loc
-        # auth_loc = [(m.start(),m.end()) for m in [a for a in auth_array]]
-        # print auth_parens,auth_loc
-        # auth_array = [m.strip() for m in auth_array]
-
-
-        # print('\n\n\n\n')
-        # print(auth_string)
         auth_string = re.sub(r'\s+\((.*?)\)\s+', ',', auth_string)
         auth_string = re.sub(r'[ ,]and\s', ',', auth_string)
         auth_string = re.sub(r'on behalf of',',',auth_string)
@@ -85,21 +72,12 @@ class GCNCParser(DefaultParser):
         auth_string = re.sub(r'\s?:','', auth_string)
         auth_string = re.sub(r',\s+,',',', auth_string)
         
-        # print('\n')
-        # print(auth_string)
-
         auth_array = [s.strip() for s in auth_string.split(',')]
         auth_array = list(filter(lambda a: len(a) > 3, auth_array))
-        # self.data_dict['authors'] = auth_array
         auth_string = '; '.join(auth_array)
         auth_mod = AuthorNames()
         self.data_dict['authors'] = auth_mod.parse(auth_string)
         
-        # for a in auth_array:
-            # if len(a) <= 3:
-                # auth_array.remove(a)
-        # print auth_array
-        # print '\n\n'
         
 
     def parse(self):
@@ -140,20 +118,4 @@ class GCNCParser(DefaultParser):
             self.data_dict['raw'] = self.raw
             self.data_dict['error'] = err
 
-
         return self.data_dict
-
-# def main():
-#
-#     flist = ['23456.gcn3','23457.gcn3','23458.gcn3','25321.gcn3','9999.gcn3','98765.gcn3']
-#     basedir = '/Users/mtempleton/Projects/GCN_Parser/gcn3/'
-#     for f in flist:
-#         f2 = basedir + f
-#         with open(f2,'rU') as fg:
-#             d = fg.read()
-#         x = GCNCParser(d)
-#         y = x.parse()
-#
-#
-# if __name__ == '__main__':
-#    main()
