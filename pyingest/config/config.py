@@ -1,3 +1,4 @@
+import os
 import json
 import urllib
 
@@ -636,3 +637,53 @@ APS_ASTRO_KEYWORDS = [
 
 # REFERENCE SOURCE OUTPUT
 REFERENCE_TOPDIR = '/proj/ads/references/sources/'
+
+# HTML_ENTITY_TABLE
+HTML_ENTITY_TABLE = os.path.dirname(os.path.abspath( __file__ )) + '/html5.txt'
+# HTML_ENTITY_TABLE = os.path.abspath( __file__ )+'/html5.txt'
+
+
+ENTITY_DICTIONARY = dict()
+try:
+    INFILE = os.path.dirname(os.path.abspath(__file__)) + '/html5.txt'
+    with open(INFILE,'rU') as fent:
+        for l in fent.readlines():
+            carr = l.rstrip().split('\t')
+
+            uni_entity = None
+            name_entity = None
+            hex_entity = None
+            dec_entity = None
+            if len(carr) >= 4:
+                uni_entity = carr[0]
+                name_entity = carr[1]
+                hex_entity = carr[2]
+                dec_entity = carr[3]
+            else:
+                print "broken HTML entity:",l.rstrip()
+                name_entity = "xxxxx"
+
+            for c in name_entity.split():
+                try:
+                    ENTITY_DICTIONARY[c] = dec_entity
+                except Exception, err:
+                    print "Error splitting name_entity: '%s'" % name_entity
+except Exception, err:
+    print "Problem in config:",err
+
+    # ADS-specific translations
+    # have been added to html5.txt
+    ENTITY_DICTIONARY['&rsquo;'] = '\''
+    ENTITY_DICTIONARY['&lsquo;'] = '\''
+    ENTITY_DICTIONARY['&nbsp;'] = ' '
+    ENTITY_DICTIONARY['&mdash;'] = '-'
+    ENTITY_DICTIONARY['&ndash;'] = '-'
+    ENTITY_DICTIONARY['&rdquo;'] = '\"'
+    ENTITY_DICTIONARY['&ldquo;'] = '\"'
+    ENTITY_DICTIONARY['&minus;'] = '-'
+    ENTITY_DICTIONARY['&plus;'] = '+'
+    ENTITY_DICTIONARY['&thinsp;'] = ' '
+    ENTITY_DICTIONARY['&hairsp;'] = ' '
+    ENTITY_DICTIONARY['&ensp;'] = ' '
+    ENTITY_DICTIONARY['&emsp;'] = ' '
+
