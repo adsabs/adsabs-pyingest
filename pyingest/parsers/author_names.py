@@ -77,7 +77,7 @@ class AuthorNames(object):
         self.default_collaborations_params = {
             'keywords': ['group', 'team', 'collaboration'],
             'first_author_delimiter': ':',
-            'remove_the': False,
+            'remove_the': True,
             'fix_arXiv_mixed_collaboration_string': False,
         }
 
@@ -95,6 +95,7 @@ class AuthorNames(object):
         try:
             for keyword in collaborations_params['keywords']:
                 if keyword in collaboration_str.lower():
+                    collaboration_str = re.sub(keyword,keyword.capitalize(),collaboration_str)
                     if collaborations_params['remove_the']:
                         corrected_collaboration_str = self.regex_the.sub(u'', collaboration_str)
                     else:
