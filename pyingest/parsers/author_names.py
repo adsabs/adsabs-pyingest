@@ -2,6 +2,7 @@ import os
 import sys
 import re
 import logging
+from pyingest.config import config
 from namedentities import named_entities, unicode_entities
 import nameparser
 from adsputils import u2asc
@@ -25,7 +26,7 @@ class AuthorNames(object):
                         output_list.append(l.strip())
         return output_list
 
-    def __init__(self, data_dirname='/proj/ads/abstracts/config/Authors',
+    def __init__(self, data_dirname=config.AUTHOR_ALIAS_DIR,
                  unknown_author_str=u"Unknown, Unknown",
                  max_first_name_initials=6):
         self.max_first_name_initials = max(1, max_first_name_initials)

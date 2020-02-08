@@ -638,15 +638,14 @@ APS_ASTRO_KEYWORDS = [
 # REFERENCE SOURCE OUTPUT
 REFERENCE_TOPDIR = '/proj/ads/references/sources/'
 
+# AUTHOR ALIASES
+AUTHOR_ALIAS_DIR = '/proj/ads/abstracts/config/Authors'
+
 # HTML_ENTITY_TABLE
 HTML_ENTITY_TABLE = os.path.dirname(os.path.abspath( __file__ )) + '/html5.txt'
-# HTML_ENTITY_TABLE = os.path.abspath( __file__ )+'/html5.txt'
-
-
 ENTITY_DICTIONARY = dict()
 try:
-    INFILE = os.path.dirname(os.path.abspath(__file__)) + '/html5.txt'
-    with open(INFILE,'rU') as fent:
+    with open(HTML_ENTITY_TABLE,'rU') as fent:
         for l in fent.readlines():
             carr = l.rstrip().split('\t')
 
