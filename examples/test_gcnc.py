@@ -1,17 +1,13 @@
+from glob import glob
 from pyingest.parsers.gcncirc import GCNCParser
 from pyingest.serializers.classic import Tagged
 from namedentities import *
 
 def main():
 
+    basedir = 'pyingest/tests/data/stubdata/input/'
+    flist = glob(basedir+'*.gcn3')
     # flist = ['25548.gcn3','23456.gcn3','23457.gcn3','23458.gcn3','25321.gcn3','9999.gcn3','98765.gcn3']
-    flist = []
-    with open('26_5','rU') as fi:
-        for l in fi.readlines():
-            fname = l.strip() + '.gcn3'
-            flist.append(fname)
-
-    basedir = '/Users/mtempleton/Projects/GCN_Parser/gcn3/'
 
     with open('output.tag','w') as fo:
         for f in flist:

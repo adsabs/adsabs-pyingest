@@ -107,22 +107,23 @@ class TestAuthorNames(unittest.TestCase):
         self.authors_str = u"robert white smith; m. power; maria antonia de la paz; bla., bli.; the collaboration: john stuart; collaboration, Gaia; John; github_handle;;.."
 
     def test_default_author_names(self):
-        expected_authors_str = u"white smith, robert; power, m.; de la paz, maria antonia; bla., bli.; Collaboration; stuart, john; Collaboration, Gaia; John; github_handle; Unknown, Unknown; .."
+        # expected_authors_str = u"white smith, robert; power, m.; de la paz, maria antonia; bla., bli.; Collaboration; stuart, john; Collaboration, Gaia; John; github_handle; Unknown, Unknown; .."
+        expected_authors_str = u"white smith, robert; power, m.; de la paz, maria antonia; bla., bli.; Collaboration; stuart, john; Collaboration, Gaia; John; github_handle; ; .."
         # Default
         corrected_authors_str = self.author_names.parse(self.authors_str)
         self.assertEqual(corrected_authors_str, expected_authors_str)
 
     def test_normalize_author_names(self):
-        corrected_authors_str = u"white smith, robert; power, m; de la paz, maria antonia; bla, bli; Collaboration; stuart, john; Collaboration, Gaia; John; github_handle; Unknown, Unknown; Unknown, Unknown"
-        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; Collaboration; Stuart, J; Collaboration Gaia; John; github_handle; Unknown, U; Unknown, U"
+        corrected_authors_str = u"white smith, robert; power, m; de la paz, maria antonia; bla, bli; Collaboration; stuart, john; Collaboration, Gaia; John; github_handle; ; "
+        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; Collaboration; Stuart, J; Collaboration Gaia; John; github_handle; ; "
         # Normalize
-        normalized_authors_str = self.author_names.normalize(corrected_authors_str)
+        normalized_authors_str = self.author_names._normalize(corrected_authors_str)
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
         normalized_authors_str = self.author_names.parse(self.authors_str, normalize=True)
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
 
     def test_ignore_collaborations_in_author_names(self):
-        expected_normalized_authors_str = "White Smith, R; Power, M; De La Paz, M A; Bla, B; Stuart, T C J; Collaboration, G; John; github_handle; Unknown, U; Unknown, U"
+        expected_normalized_authors_str = "White Smith, R; Power, M; De La Paz, M A; Bla, B; Stuart, T C J; Collaboration, G; John; github_handle; ; "
         collaborations_params = {
             'keywords': [],
             'first_author_delimiter': None,
@@ -133,7 +134,7 @@ class TestAuthorNames(unittest.TestCase):
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
 
     def test_remove_the_from_collaborations_in_author_names(self):
-        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; Collaboration; Stuart, J; Collaboration Gaia; John; github_handle; Unknown, U; Unknown, U"
+        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; Collaboration; Stuart, J; Collaboration Gaia; John; github_handle; ; "
         collaborations_params = {
             'keywords': ['group', 'team', 'collaboration'],
             'first_author_delimiter': ':',
@@ -144,7 +145,7 @@ class TestAuthorNames(unittest.TestCase):
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
 
     def test_ignore_names_in_collaborations_in_author_names(self):
-        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; the Collaboration: john stuart; Collaboration Gaia; John; github_handle; Unknown, U; Unknown, U"
+        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; the Collaboration: john stuart; Collaboration Gaia; John; github_handle; ; "
         collaborations_params = {
             'keywords': ['group', 'team', 'collaboration'],
             'first_author_delimiter': None,
@@ -155,7 +156,7 @@ class TestAuthorNames(unittest.TestCase):
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
 
     def test_fix_arXiv_mixed_collaboration_string(self):
-        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; the Collaboration: john stuart; Gaia Collaboration; John; github_handle; Unknown, U; Unknown, U"
+        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; the Collaboration: john stuart; Gaia Collaboration; John; github_handle; ; "
         collaborations_params = {
             'keywords': ['group', 'team', 'collaboration'],
             'first_author_delimiter': None,
@@ -437,8 +438,8 @@ class TestATel(unittest.TestCase):
 class TestGCNC(unittest.TestCase):
 
     def setUp(self):
-        stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata/')
-        self.inputdir = os.path.join(stubdata_dir, 'input')
+        stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata')
+        self.inputdir = os.path.join(stubdata_dir, 'input/gcncirc')
 
     def test_gcn_parser(self):
         test_infile = os.path.join(self.inputdir, '25321.gcn3')

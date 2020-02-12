@@ -12,12 +12,12 @@
 ¬	&not;	&#x000AC;	&#172;	NOT SIGN
 ­	&shy;	&#x000AD;	&#173;	SOFT HYPHEN
 ®	&reg; &circledR; &REG;	&#x000AE;	&#174;	REGISTERED SIGN
-¯	ā &OverBar; &strns;	&#x000AF;	&#175;	MACRON
+¯	&OverBar; &strns;	&#x000AF;	&#175;	MACRON
 °	&deg;	&#x000B0;	&#176;	DEGREE SIGN
 ±	&plusmn; &pm; &PlusMinus;	&#x000B1;	&#177;	PLUS-MINUS SIGN
 ²	&sup2;	&#x000B2;	&#178;	SUPERSCRIPT TWO
 ³	&sup3;	&#x000B3;	&#179;	SUPERSCRIPT THREE
-´	á &DiacriticalAcute;	&#x000B4;	&#180;	ACUTE ACCENT
+´	&DiacriticalAcute;	&#x000B4;	&#180;	ACUTE ACCENT
 µ	&micro;	&#x000B5;	&#181;	MICRO SIGN
 ¶	&para;	&#x000B6;	&#182;	PILCROW SIGN
 ·	&middot; &centerdot; &CenterDot;	&#x000B7;	&#183;	MIDDLE DOT

@@ -658,15 +658,16 @@ try:
                 name_entity = carr[1]
                 hex_entity = carr[2]
                 dec_entity = carr[3]
+                for c in name_entity.split():
+                    try:
+                        ENTITY_DICTIONARY[c] = dec_entity
+                    except Exception, err:
+                        print "Error splitting name_entity: '%s'" % name_entity
+                ENTITY_DICTIONARY[uni_entity] = dec_entity
             else:
                 print "broken HTML entity:",l.rstrip()
                 name_entity = "xxxxx"
 
-            for c in name_entity.split():
-                try:
-                    ENTITY_DICTIONARY[c] = dec_entity
-                except Exception, err:
-                    print "Error splitting name_entity: '%s'" % name_entity
 except Exception, err:
     print "Problem in config:",err
 

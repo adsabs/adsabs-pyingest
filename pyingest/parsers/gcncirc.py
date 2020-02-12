@@ -2,6 +2,7 @@ import sys
 import json
 import re
 import logging
+from adsputils import u2asc
 from default import DefaultParser
 from author_names import AuthorNames
 from entity_convert import EntityConverter
@@ -34,13 +35,12 @@ class GCNCParser(DefaultParser):
     def make_bibcode(self):
         year = self.data_dict['pubdate'][0:4]
         bibcode = 'GCN.'
-        if int(self.data_dict['page']) < 10000:
-            self.data_dict['page'] = '.' + self.data_dict['page']
+        self.data_dict['page'] = self.data_dict['page'].ljust(5,'.')
         page = self.data_dict['page'].ljust(9,'.') + '1'
         try:
-            init = self.data_dict['authors'][0][0]
+            init = u2asc(self.data_dict['authors'][0][0])
         except Exception, err:
-            print ("No author initial")
+            print ("Problem generating author initial")
             init = '.'
         self.data_dict['bibcode'] = year + bibcode + page + init
 

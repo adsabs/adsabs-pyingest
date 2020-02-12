@@ -176,7 +176,7 @@ class DataCiteParser(BaseXmlToDictParser):
             if type(creator_name) is OrderedDict:
                 creator_name = creator_name.get("#text")
             creator_name = self.author_names.parse(creator_name, collaborations_params=self.author_collaborations_params)
-            normalized_creator_name = self.author_names.normalize(creator_name, collaborations_params=self.author_collaborations_params)
+            normalized_creator_name = self.author_names._normalize(creator_name, collaborations_params=self.author_collaborations_params)
             authors.append(creator_name)
             normalized_authors.append(normalized_creator_name)
             aff = a.get('affiliation', '')

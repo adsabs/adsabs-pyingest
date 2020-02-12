@@ -243,8 +243,10 @@ class JATSParser(BaseBeautifulSoupParser):
                     if forename == '':
                         if surname != '':
                             base_metadata['authors'].append(surname)
-                        else:
-                            base_metadata['authors'].append('ANONYMOUS')
+                        # else:
+                            # base_metadata['authors'].append('ANONYMOUS')
+                        # check instead whether author array is empty, and
+                        # pass an empty array to serializer
                     else:
                         if surname != '':
                             base_metadata['authors'].append(surname + ', ' + forename)
@@ -410,7 +412,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     try:
                         base_metadata['properties']
                     except:
-                        base_metadata['properties'] = {'OPEN': ''}
+                        pass
                     else:
                         base_metadata['properties']['OPEN'] = ''
             except Exception, err:

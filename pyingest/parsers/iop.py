@@ -153,7 +153,8 @@ class IOPJATSParser(JATSParser):
         # pass through relevant fields through EntityConverter
         # to remove bad entities
         # entity_fields = ['abstract', 'title', 'authors', 'affiliations']
-        entity_fields = ['abstract', 'title']
+        entity_fields = ['abstract', 'title', 'authors']
+        # entity_fields = ['abstract', 'title']
         for ecf in entity_fields:
             if ecf in output_metadata.keys():
                 try:
