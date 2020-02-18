@@ -41,13 +41,6 @@ class AffiliationParser(BaseBeautifulSoupParser):
         except Exception, err:
             print "problem finding orcid tag:",err
             orcid = u''
-#       try:
-#           o = unicode(orcid)
-#       except:
-#           print "I'm not unicode"
-#           pass
-#       else:
-#           orcid = o
         self.original_string = re.sub(orcid, '', self.original_string)
         return orcid
 
@@ -76,10 +69,9 @@ class AffiliationParser(BaseBeautifulSoupParser):
         return email
 
     def parse(self):
-#       try:
+        try:
             orcid = self.find_orcid_tag()
             email = self.find_email_tag()
-            # new_string = self.input_tagged.p.extract().text
             new_string = self.input_tagged.extract().text
             new_string = re.sub(' ;', '', new_string)
             if orcid != u'':
@@ -95,19 +87,19 @@ class AffiliationParser(BaseBeautifulSoupParser):
             new_string = new_string.strip(';')
             new_string = new_string.strip()
             return new_string
-#       except Exception, err:
-#           print("problem...",err)
-#           return self.original_string
+        except Exception, err:
+            print("problem...",err)
+            return self.original_string
 
-
+'''
 def __main__():
 
-#   aff1 = "brandewijn@gmail.com; ABC Inc."
-#   aff2 = "ABC Inc. (brandewijn@gmail.com)"
-#   aff3 = "ABC Inc.: brandewijn@gmail.com; DEF Inc.: foo@bar.baz"
-#   aff4 = "ABC Inc. <email>brandewijn@gmail.com</email>; DEF Inc. <email>foo@bar.baz</email>"
-#   aff5 = "brandewijn@gmail.com"
-#   affs = [aff1, aff2, aff3, aff4, aff5]
+    # aff1 = "brandewijn@gmail.com; ABC Inc."
+    # aff2 = "ABC Inc. (brandewijn@gmail.com)"
+    # aff3 = "ABC Inc.: brandewijn@gmail.com; DEF Inc.: foo@bar.baz"
+    # aff4 = "ABC Inc. <email>brandewijn@gmail.com</email>; DEF Inc. <email>foo@bar.baz</email>"
+    # aff5 = "brandewijn@gmail.com"
+    # affs = [aff1, aff2, aff3, aff4, aff5]
 
     print "\nONE:\n\n"
     aff = "Harvard-Smithsonian Center for Astrophysics; <EMail>matthew.templeton@cfa.harvard.edu</EMail>; <ID system='ORCiD'>0000-0000-1234-5678</ID>; State Key Laboratory for Stamp Collecting, Ministry of Silly Walks, University of Basketweaving"
@@ -211,19 +203,20 @@ def __main__():
     print "outpt string:", new_string
     print "----------------------\n"
 
-#   for a in affs:
+  for a in affs:
 
-#       parser = AffiliationParser(a)
-#       new_string = parser.parse()
-#       if a == new_string:
-#           print "Boooo."
+      parser = AffiliationParser(a)
+      new_string = parser.parse()
+      if a == new_string:
+          print "Boooo."
 
-#       print "----------------------\n"
-#       print "input string:", a
-#       print "\n"
-#       print "outpt string:", new_string
-#       print "----------------------\n"
+      print "----------------------\n"
+      print "input string:", a
+      print "\n"
+      print "outpt string:", new_string
+      print "----------------------\n"
 
 
 if __name__ == '__main__':
     __main__()
+'''
