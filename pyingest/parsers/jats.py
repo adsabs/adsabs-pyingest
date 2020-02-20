@@ -355,13 +355,14 @@ class JATSParser(BaseBeautifulSoupParser):
                 base_metadata['pub-id'] = self._detag(j, [])
 
 # DOI:
+        base_metadata['properties'] = {}
         try:
             ids = article_meta.find_all('article-id')
         except Exception, err:
             ids = []
         for d in ids:
             if d['pub-id-type'] == 'doi':
-                base_metadata['properties'] = {'DOI': self._detag(d, [])}
+                base_metadata['properties']['DOI'] = self._detag(d, [])
 
 # Pubdate:
 
@@ -407,7 +408,6 @@ class JATSParser(BaseBeautifulSoupParser):
                         base_metadata['pubdate']
                     except Exception, err:
                         base_metadata['pubdate'] = pubdate
-            base_metadata['properties'] = {}
             try:
                 if (b == 'open-access'):
                     base_metadata['properties']['OPEN'] = 1
