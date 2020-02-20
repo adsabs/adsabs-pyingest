@@ -7,7 +7,7 @@ from default import DefaultParser
 from author_names import AuthorNames
 from entity_convert import EntityConverter
 
-head_dict = {'TITLE:': 'journal', 'NUMBER:': 'page', 'SUBJECT:': 'title',
+head_dict = {'TITLE:': 'journal', 'NUMBER:': 'volume', 'SUBJECT:': 'title',
              'DATE:': 'pubdate', 'FROM:': 'email'
             }
 
@@ -35,18 +35,18 @@ class GCNCParser(DefaultParser):
     def make_bibcode(self):
         year = self.data_dict['pubdate'][0:4]
         bibcode = 'GCN.'
-        self.data_dict['page'] = self.data_dict['page'].ljust(5,'.')
-        page = self.data_dict['page'].ljust(9,'.') + '1'
+        self.data_dict['volume'] = self.data_dict['volume'].ljust(5,'.')
+        volume = self.data_dict['volume'].ljust(9,'.') + '1'
         try:
             init = u2asc(self.data_dict['authors'][0][0])
         except Exception, err:
             print ("Problem generating author initial")
             init = '.'
-        self.data_dict['bibcode'] = year + bibcode + page + init
+        self.data_dict['bibcode'] = year + bibcode + volume + init
 
     def make_publication(self):
         base_string = 'GRB Coordinates Network, Circular Service, No. '
-        self.data_dict['publication'] = base_string + self.data_dict['page']
+        self.data_dict['publication'] = base_string + self.data_dict['volume']
         self.data_dict['page'] = '1'
 
 

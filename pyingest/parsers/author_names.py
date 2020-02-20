@@ -146,7 +146,7 @@ class AuthorNames(object):
 
         # Default collaboration parameters
         self.default_collaborations_params = {
-            'keywords': ['group', 'team', 'collaboration'],
+            'keywords': ['group', 'team', 'collaboration', 'consortium'],
             'first_author_delimiter': ':',
             'remove_the': True,
             'fix_arXiv_mixed_collaboration_string': False,
