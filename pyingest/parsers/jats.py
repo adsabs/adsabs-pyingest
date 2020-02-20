@@ -94,7 +94,6 @@ class JATSParser(BaseBeautifulSoupParser):
         document = self.resource_dict(fp, **kwargs)
         r = document.front
 
-
         try:
             article_meta = r.find('article-meta')
             journal_meta = r.find('journal-meta')
@@ -191,7 +190,6 @@ class JATSParser(BaseBeautifulSoupParser):
                 affils[key] = aff_text.strip()
                 # if ekey is not '':
                 #     affils[ekey] = address_new
-                
 
         # Author name and affil/note lists:
         try:
@@ -219,12 +217,12 @@ class JATSParser(BaseBeautifulSoupParser):
 
                 # Author names
                 if a.find('collab') is not None:
-                   base_metadata['authors'].append(self._detag(a.collab, []))
+                    base_metadata['authors'].append(self._detag(a.collab, []))
                 else:
                     if a.find('surname') is not None:
                         surname = self._detag(a.surname, [])
                     else:
-#                   surname = 'Anonymous'
+                        # surname = 'Anonymous'
                         # print "Warning: Undefined surname: ",a
                         surname = ''
                     if a.find('prefix') is not None:
@@ -256,7 +254,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 # Author affil/note ids
                 try:
                     aid = a.find_all('xref')
-                except:
+                except Exception, err:
                     pass
                 else:
                     if len(aid) > 0:

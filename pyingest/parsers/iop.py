@@ -110,7 +110,7 @@ class IOPJATSParser(JATSParser):
                 if len(idno) == 6:
                     try:
                         idtwo = string.letters[int(idno[0:2]) - 1]
-                    except:
+                    except Exception, err:
                         idtwo = idno[0:2]
                     idfour = idno[2:]
                     issue_letter = ''
@@ -138,7 +138,7 @@ class IOPJATSParser(JATSParser):
                 else:
                     bib_tail = bib_tail[1:]
 
-            bib_tail = bib_tail.rjust(6, '.') 
+            bib_tail = bib_tail.rjust(6, '.')
             output_metadata['bibcode'] = year + bibstem + volume + bib_tail
 
             del output_metadata['pub-id']
@@ -163,7 +163,7 @@ class IOPJATSParser(JATSParser):
                     conv.convert()
                     output_metadata[ecf] = conv.output_text
                 except Exception, err:
-                    print "problem converting %s for %s: %s" % (ecf,output_metadata['bibcode'],err)
+                    print "problem converting %s for %s: %s" % (ecf, output_metadata['bibcode'], err)
 
         # Return
         return output_metadata

@@ -9,8 +9,7 @@ from entity_convert import EntityConverter
 
 head_dict = {'TITLE:': 'journal', 'NUMBER:': 'volume', 'SUBJECT:': 'title',
              'DATE:': 'pubdate', 'FROM:': 'email'
-            }
-
+             }
 
 
 class GCNCParser(DefaultParser):
@@ -35,8 +34,8 @@ class GCNCParser(DefaultParser):
     def make_bibcode(self):
         year = self.data_dict['pubdate'][0:4]
         bibcode = 'GCN.'
-        self.data_dict['volume'] = self.data_dict['volume'].ljust(5,'.')
-        volume = self.data_dict['volume'].ljust(9,'.') + '1'
+        self.data_dict['volume'] = self.data_dict['volume'].ljust(5, '.')
+        volume = self.data_dict['volume'].ljust(9, '.') + '1'
         try:
             init = u2asc(self.data_dict['authors'][0][0])
         except Exception, err:
@@ -48,7 +47,6 @@ class GCNCParser(DefaultParser):
         base_string = 'GRB Coordinates Network, Circular Service, No. '
         self.data_dict['publication'] = base_string + self.data_dict['volume']
         self.data_dict['page'] = '1'
-
 
     def split_authors_abstract(self):
         # This could be used to extract affils and apply them to authors,
@@ -67,18 +65,16 @@ class GCNCParser(DefaultParser):
 
         auth_string = re.sub(r'\s+\((.*?)\)\s+', ',', auth_string)
         auth_string = re.sub(r'[ ,]and\s', ',', auth_string)
-        auth_string = re.sub(r'on behalf of',',',auth_string)
+        auth_string = re.sub(r'on behalf of', ',', auth_string)
         auth_string = re.sub(r'reports?', ',', auth_string)
-        auth_string = re.sub(r'\s?:','', auth_string)
-        auth_string = re.sub(r',\s+,',',', auth_string)
-        
+        auth_string = re.sub(r'\s?:', '', auth_string)
+        auth_string = re.sub(r',\s+,', ',', auth_string)
+
         auth_array = [s.strip() for s in auth_string.split(',')]
         auth_array = list(filter(lambda a: len(a) > 3, auth_array))
         auth_string = '; '.join(auth_array)
         auth_mod = AuthorNames()
         self.data_dict['authors'] = auth_mod.parse(auth_string)
-        
-        
 
     def parse(self):
 
@@ -90,7 +86,7 @@ class GCNCParser(DefaultParser):
         # Header is fixed format and five lines long...
             head = gdata[0:5]
             for l in head:
-                lfix = l.replace(' ','\t',1)
+                lfix = l.replace(' ', '\t', 1)
                 lparts = lfix.split('\t')
                 self.data_dict[head_dict[lparts[0]]] = lparts[1].strip()
             # Now you need to split the authors from the abstract.
@@ -99,10 +95,10 @@ class GCNCParser(DefaultParser):
             self.data_dict['abstract'] = gdata[5:]
             self.split_authors_abstract()
             # Authors and abstract content should now be defined
-            
+
             # If you want to try and keep fixed formatting
             # (e.g. for tables), use '\n' for the join character
-            abstract_new= ' '.join(self.data_dict['abstract'])
+            abstract_new = ' '.join(self.data_dict['abstract'])
             self.data_dict['abstract'] = abstract_new.strip()
 
             # Extract pubdate from the header date

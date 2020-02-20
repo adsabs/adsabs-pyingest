@@ -1,6 +1,7 @@
 import re
 from pyingest.config import config
 
+
 class EntityConverter():
 
     def __init__(self):
@@ -14,5 +15,3 @@ class EntityConverter():
         for k, v in self.ent_dict.items():
             ox = re.sub(k, v, ox)
         self.output_text = ox
-
-
