@@ -671,16 +671,16 @@ except Exception, err:
 
 # ADS-specific translations
 # have been added to html5.txt
-ENTITY_DICTIONARY['&rsquo;'] = '\''
-ENTITY_DICTIONARY['&lsquo;'] = '\''
-ENTITY_DICTIONARY['&nbsp;'] = ' '
-ENTITY_DICTIONARY['&mdash;'] = '-'
-ENTITY_DICTIONARY['&ndash;'] = '-'
-ENTITY_DICTIONARY['&rdquo;'] = '\"'
-ENTITY_DICTIONARY['&ldquo;'] = '\"'
-ENTITY_DICTIONARY['&minus;'] = '-'
-ENTITY_DICTIONARY['&plus;'] = '+'
-ENTITY_DICTIONARY['&thinsp;'] = ' '
-ENTITY_DICTIONARY['&hairsp;'] = ' '
-ENTITY_DICTIONARY['&ensp;'] = ' '
-ENTITY_DICTIONARY['&emsp;'] = ' '
+ENTITY_DICTIONARY['&rsquo;'] = "'"
+ENTITY_DICTIONARY['&lsquo;'] = "'"
+ENTITY_DICTIONARY['&nbsp;'] = " "
+ENTITY_DICTIONARY['&mdash;'] = "-"
+ENTITY_DICTIONARY['&ndash;'] = "-"
+ENTITY_DICTIONARY['&rdquo;'] = '"'
+ENTITY_DICTIONARY['&ldquo;'] = '"'
+ENTITY_DICTIONARY['&minus;'] = "-"
+ENTITY_DICTIONARY['&plus;'] = "+"
+ENTITY_DICTIONARY['&thinsp;'] = " "
+ENTITY_DICTIONARY['&hairsp;'] = " "
+ENTITY_DICTIONARY['&ensp;'] = " "
+ENTITY_DICTIONARY['&emsp;'] = " "

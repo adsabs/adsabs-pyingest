@@ -61,7 +61,7 @@ class GCNCParser(DefaultParser):
             auths.append(body.pop(0).strip())
         auths.append(body.pop(0).strip())
 
-        auth_string = ' '.join(auths)
+        auth_string = ' '.join(auths) + ' '
 
         auth_string = re.sub(r'\s+\((.*?)\)\s+', ',', auth_string)
         auth_string = re.sub(r'[ ,]and\s', ',', auth_string)
