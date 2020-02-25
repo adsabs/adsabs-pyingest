@@ -61,14 +61,14 @@ class GCNCParser(DefaultParser):
             auths.append(body.pop(0).strip())
         auths.append(body.pop(0).strip())
 
-        auth_string = ' '.join(auths) + ' '
+        auth_string = ' '.join(auths)
 
-        auth_string = re.sub(r'\s+\((.*?)\)\s+', ',', auth_string)
+        auth_string = re.sub(r'\s+\((.*?)\)', ',', auth_string)
         auth_string = re.sub(r'[ ,]and\s', ',', auth_string)
         auth_string = re.sub(r'on behalf of', ',', auth_string)
         auth_string = re.sub(r'reports?', ',', auth_string)
         auth_string = re.sub(r'\s?:', '', auth_string)
-        auth_string = re.sub(r',\s+,', ',', auth_string)
+        auth_string = re.sub(r',?\s+,', ',', auth_string)
 
         auth_array = [s.strip() for s in auth_string.split(',')]
         auth_array = list(filter(lambda a: len(a) > 3, auth_array))
