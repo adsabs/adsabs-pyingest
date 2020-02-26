@@ -15,10 +15,11 @@ head_dict = {'TITLE:': 'journal', 'NUMBER:': 'volume', 'SUBJECT:': 'title',
 class GCNCParser(DefaultParser):
 
     def __init__(self, data):
-        econv = EntityConverter()
-        econv.input_text = data
-        econv.convert()
-        self.raw = econv.output_text
+        # econv = EntityConverter()
+        # econv.input_text = data
+        # econv.convert()
+        # self.raw = econv.output_text
+        self.raw = data
         self.data_dict = dict()
 
     def make_pubdate(self):
@@ -109,6 +110,15 @@ class GCNCParser(DefaultParser):
 
             # Make the publication string
             self.make_publication()
+
+            # Pass the necessary fields through EntityConverter
+            ec_fields = ['authors','abstract','title']
+            econv = EntityConverter()
+            for ecf in ec_fields:
+                econv.input_text = self.data_dict[ecf]
+                econv.convert()
+                self.data_dict[ecf] = econv.output_text
+         
 
         except Exception, err:
             self.data_dict['raw'] = self.raw
