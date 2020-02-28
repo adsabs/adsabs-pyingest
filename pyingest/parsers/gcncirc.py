@@ -61,6 +61,7 @@ class GCNCParser(DefaultParser):
         while body[0] != '' and ':' not in body[0]:
             auths.append(body.pop(0).strip())
         auths.append(body.pop(0).strip())
+        auth_delimiter = u'| '
 
         auth_string = ' '.join(auths)
 
@@ -73,9 +74,10 @@ class GCNCParser(DefaultParser):
 
         auth_array = [s.strip() for s in auth_string.split(',')]
         auth_array = list(filter(lambda a: len(a) > 3, auth_array))
-        auth_string = '; '.join(auth_array)
+        auth_string = auth_delimiter.join(auth_array)
         auth_mod = AuthorNames()
-        self.data_dict['authors'] = auth_mod.parse(auth_string)
+        self.data_dict['authors'] = auth_mod.parse(auth_string, delimiter=auth_delimiter)
+        self.data_dict['authors'] = re.sub(u'|', u';', self.data_dict['authors'])
 
     def parse(self):
 

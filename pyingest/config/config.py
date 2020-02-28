@@ -634,10 +634,11 @@ APS_ASTRO_KEYWORDS = [
 
 
 # REFERENCE SOURCE OUTPUT
-REFERENCE_TOPDIR = '/proj/ads/references/sources/'
+# REFERENCE_TOPDIR = '/proj/ads/references/sources/'
+REFERENCE_TOPDIR = '/Users/mtempleton/reftest/'
 
 # AUTHOR ALIASES
-AUTHOR_ALIAS_DIR = '/proj/ads/abstracts/config/Authors'
+AUTHOR_ALIAS_DIR = '/proj/ads/abstracts/config/Authors/'
 
 # HTML_ENTITY_TABLE
 HTML_ENTITY_TABLE = os.path.dirname(os.path.abspath(__file__)) + '/html5.txt'

@@ -14,7 +14,7 @@ class ReferenceWriter(object):
 
     def __init__(self):
         self.topdir = REFERENCE_TOPDIR
-        self.refsource = '.iopft.xml'
+        self.refsource = 'iopft.xml'
 
     def writeref(self, output_metadata):
         if isinstance(output_metadata, dict):
