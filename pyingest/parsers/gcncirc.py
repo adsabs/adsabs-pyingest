@@ -77,7 +77,7 @@ class GCNCParser(DefaultParser):
         auth_string = auth_delimiter.join(auth_array)
         auth_mod = AuthorNames()
         self.data_dict['authors'] = auth_mod.parse(auth_string, delimiter=auth_delimiter)
-        self.data_dict['authors'] = re.sub(u'|', u';', self.data_dict['authors'])
+        self.data_dict['authors'] = re.sub(r'| ', u'LOL', self.data_dict['authors'])
 
     def parse(self):
 
