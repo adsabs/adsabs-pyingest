@@ -110,7 +110,7 @@ class IOPJATSParser(JATSParser):
                 if len(idno) == 6:
                     try:
                         idtwo = string.letters[int(idno[0:2]) - 1]
-                    except:
+                    except Exception, err:
                         idtwo = idno[0:2]
                     idfour = idno[2:]
                     issue_letter = ''
@@ -138,7 +138,7 @@ class IOPJATSParser(JATSParser):
                 else:
                     bib_tail = bib_tail[1:]
 
-            bib_tail = bib_tail.rjust(6, '.') 
+            bib_tail = bib_tail.rjust(6, '.')
             output_metadata['bibcode'] = year + bibstem + volume + bib_tail
 
             del output_metadata['pub-id']
@@ -150,7 +150,7 @@ class IOPJATSParser(JATSParser):
         except Exception, err:
             pass
 
-        # pass through relevant fields through EntityConverter
+        # pass relevant fields through EntityConverter
         # to remove bad entities
         # entity_fields = ['abstract', 'title', 'authors', 'affiliations']
         entity_fields = ['abstract', 'title', 'authors']
@@ -158,12 +158,15 @@ class IOPJATSParser(JATSParser):
         for ecf in entity_fields:
             if ecf in output_metadata.keys():
                 try:
+                    print "lol input field", ecf
+                    print "lol input_text", output_metadata[ecf]
                     conv = EntityConverter()
                     conv.input_text = output_metadata[ecf]
                     conv.convert()
                     output_metadata[ecf] = conv.output_text
+                    print "lol output_text", output_metadata[ecf]
                 except Exception, err:
-                    print "problem converting %s for %s: %s" % (ecf,output_metadata['bibcode'],err)
+                    print "problem converting %s for %s: %s" % (ecf, output_metadata['bibcode'], err)
 
         # Return
         return output_metadata

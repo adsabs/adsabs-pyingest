@@ -26,7 +26,6 @@ class AuthorNames(object):
                         output_list.append(l.strip())
         return output_list
 
-
     def _normalize(self, authors_str, delimiter=u';', collaborations_params={}):
         """
         Normalizes a string of author name separated by some delimiter
@@ -39,7 +38,6 @@ class AuthorNames(object):
             normalized_authors_list.append(self._normalize_author(author_str,
                                            collaborations_params))
         return (delimiter + u' ').join(normalized_authors_list)
-
 
     def _normalize_author(self, author_str, collaborations_params):
         """
@@ -97,7 +95,7 @@ class AuthorNames(object):
 
     def __init__(self, data_dirname=config.AUTHOR_ALIAS_DIR,
                  unknown_author_str=u'',
-                  max_first_name_initials=6):
+                 max_first_name_initials=6):
         self.max_first_name_initials = max(1, max_first_name_initials)
         self.normalized_unknown_author_str = u''
 
@@ -166,7 +164,7 @@ class AuthorNames(object):
         try:
             for keyword in collaborations_params['keywords']:
                 if keyword in collaboration_str.lower():
-                    collaboration_str = re.sub(keyword,keyword.capitalize(),collaboration_str)
+                    collaboration_str = re.sub(keyword, keyword.capitalize(), collaboration_str)
                     if collaborations_params['remove_the']:
                         corrected_collaboration_str = self.regex_the.sub(u'', collaboration_str)
                     else:
@@ -364,4 +362,3 @@ class AuthorNames(object):
             return self._normalize(corrected_authors_str, delimiter=delimiter, collaborations_params=collaborations_params)
         else:
             return corrected_authors_str
-

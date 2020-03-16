@@ -9,18 +9,18 @@ import json
 outfile = 'iop_test.tag'
 
 journal_ISSN = {
-                '1538-4357': 'ApJL',
-               }
+    '1538-4357': 'ApJL',
+}
 
 parser = IOPJATSParser()
 
 basedir = '/proj/ads/articles/sources/STACKS/'
 
 for issn in journal_ISSN.keys():
-    b2 = basedir+issn
-    vols = glob(b2+'/*')
+    b2 = basedir + issn
+    vols = glob(b2 + '/*')
     v = vols[-1]
-    papers = glob(v+'/*/*/*.xml')
+    papers = glob(v + '/*/*/*.xml')
 
     # Try the parser
     documents = []

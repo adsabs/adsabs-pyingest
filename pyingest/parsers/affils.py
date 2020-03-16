@@ -39,7 +39,7 @@ class AffiliationParser(BaseBeautifulSoupParser):
                 orcid = self.input_tagged.orcid.extract()
             orcid = unicode(orcid)
         except Exception, err:
-            print "problem finding orcid tag:",err
+            print("AffiliationParser: problem finding orcid tag:", err)
             orcid = u''
         self.original_string = re.sub(orcid, '', self.original_string)
         return orcid
@@ -52,7 +52,7 @@ class AffiliationParser(BaseBeautifulSoupParser):
             else:
                 email = self.input_tagged.email.extract()
         except Exception, err:
-            print "problem finding email tag:",err
+            print("AffiliationParser: problem finding email tag:", err)
             email = u''
         return email
 
@@ -88,10 +88,11 @@ class AffiliationParser(BaseBeautifulSoupParser):
             new_string = new_string.strip()
             return new_string
         except Exception, err:
-            print("problem...",err)
+            print("AffiliationParser: PARSING FAILED:", err)
             return self.original_string
 
-'''
+
+"""
 def __main__():
 
     # aff1 = "brandewijn@gmail.com; ABC Inc."
@@ -219,4 +220,4 @@ def __main__():
 
 if __name__ == '__main__':
     __main__()
-'''
+"""
