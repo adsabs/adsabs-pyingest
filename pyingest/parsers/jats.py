@@ -160,6 +160,11 @@ class JATSParser(BaseBeautifulSoupParser):
         # Affils/affil ids
         try:
             affil = article_meta.find('contrib-group').find_all('aff')
+            if len(affil) == 0:
+                try:
+                    affil = article_meta.find_all('aff')
+                except Exception, err:
+                    pass
         except Exception, err:
             pass
         else:

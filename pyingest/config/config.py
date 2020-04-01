@@ -672,6 +672,7 @@ except Exception, err:
 
 # ADS-specific translations
 # have been added to html5.txt
+ENTITY_DICTIONARY['&tilde;'] = "~"
 ENTITY_DICTIONARY['&rsquo;'] = "'"
 ENTITY_DICTIONARY['&lsquo;'] = "'"
 ENTITY_DICTIONARY['&nbsp;'] = " "
