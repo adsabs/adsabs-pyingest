@@ -219,6 +219,17 @@ class JATSParser(BaseBeautifulSoupParser):
                         pass
                 except Exception, err:
                     pass
+                if orcid_out is None:
+                    try:
+                        if a.find('contrib-id') is not None:
+                            auth_id = a.find('contrib-id')
+                            if auth_id['contrib-id-type'] == 'orcid':
+                                o = self._detag(auth_id, [])
+                                o = o.split('/')[-1]
+                                orcid_out = "<ID system=\"ORCID\">" + o + "</ID>"
+                    except Exception, err:
+                        pass
+
 
                 # Author names
                 if a.find('collab') is not None:
@@ -256,6 +267,14 @@ class JATSParser(BaseBeautifulSoupParser):
                         else:
                             base_metadata['authors'].append(forename)
 
+                    # EMAIL in contrib-group (e.g. OUP)
+                    email = None
+                    if a.find('email') is not None:
+                        email = self._detag(a.email, [])
+                        email = '<EMAIL>' + email + '</EMAIL>'
+                
+                
+
                 # Author affil/note ids
                 try:
                     aid = a.find_all('xref')
@@ -282,6 +301,8 @@ class JATSParser(BaseBeautifulSoupParser):
                     # Got ORCID?
                     if orcid_out is not None:
                         aff_text = aff_text + '; ' + orcid_out
+                    if email is not None:
+                        aff_text = aff_text + ' ' + email
                     base_metadata['affiliations'].append(aff_text)
                 except Exception, errrror:
                     if orcid_out is not None:
