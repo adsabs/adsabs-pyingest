@@ -634,8 +634,7 @@ APS_ASTRO_KEYWORDS = [
 
 
 # REFERENCE SOURCE OUTPUT
-# REFERENCE_TOPDIR = '/proj/ads/references/sources/'
-REFERENCE_TOPDIR = '/Users/mtempleton/reftest/'
+REFERENCE_TOPDIR = '/proj/ads/references/sources/'
 
 # AUTHOR ALIASES
 AUTHOR_ALIAS_DIR = '/proj/ads/abstracts/config/Authors/'
