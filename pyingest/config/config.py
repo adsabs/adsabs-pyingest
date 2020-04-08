@@ -1,4 +1,5 @@
 import os
+import re
 import json
 import urllib
 
@@ -75,6 +76,7 @@ OUP_PDFDIR = 'https://academic.oup.com'
 JATS_TAGS_DANGER = ['php', 'script', 'css']
 
 JATS_TAGS_MATH = ['inline-formula',
+                  'tex-math',
                   'mml:math',
                   'mml:semantics',
                   'mml:mrow',
@@ -685,3 +687,15 @@ ENTITY_DICTIONARY['&thinsp;'] = " "
 ENTITY_DICTIONARY['&hairsp;'] = " "
 ENTITY_DICTIONARY['&ensp;'] = " "
 ENTITY_DICTIONARY['&emsp;'] = " "
+
+# CData handler
+# deal with CDATA first:
+def cdata_handler(r):
+    # cdata_pat = r'(\<\?CDATA)(.*?)(\?\>)' # worked with iop
+    cdata_pat = r'(\<.*?CDATA\[*)(.*?)(\]*>)' #csg 2020apr06
+    cdata = re.findall(cdata_pat, unicode(r))
+    for s in cdata:
+        s_old = ''.join(s) 
+        s_new = s[1]
+        r = r.replace(s_old, s_new)
+

@@ -117,8 +117,8 @@ class OUPJATSParser(JATSParser):
 
         output_metadata = super(self.__class__, self).parse(fp, **kwargs)
 
-        fp.seek(0)
-        document = self.resource_dict(fp, **kwargs)
+        # fp.seek(0)
+        # document = self.resource_dict(fp, **kwargs)
 
 
 # Publication +

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import bs4
-from bs4 import Comment
+from bs4 import Comment, CData
 from collections import OrderedDict
 from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
@@ -29,6 +29,7 @@ class JATSParser(BaseBeautifulSoupParser):
         pass
 
     def _detag(self, r, tags_keep, **kwargs):
+
         newr = bs4.BeautifulSoup(unicode(r), 'lxml')
         try:
             tag_list = list(set([x.name for x in newr.find_all()]))
@@ -60,14 +61,6 @@ class JATSParser(BaseBeautifulSoupParser):
                     except Exception, err:
                         pass
         newr = unicode(newr)
-
-        # deal with CDATA:
-        cdata_pat = r'(\<\?CDATA)(.*?)(\?\>)'
-        cdata = re.findall(cdata_pat, newr)
-        for s in cdata:
-            s_old = ''.join(s)
-            s_new = s[1]
-            newr = newr.replace(s_old, s_new)
 
         # amp_pat = r'(?<=&amp\;)(.*?)(?=\;)'
         amp_pat = r'(&amp;)(.*?)(;)'
@@ -128,6 +121,8 @@ class JATSParser(BaseBeautifulSoupParser):
         else:
             try:
                 for element in abstract(text=lambda text: isinstance(text, Comment)):
+                    element.extract()
+                for element in abstract(text=lambda text: isinstance(text, CData)):
                     element.extract()
             except Exception, err:
                 pass
