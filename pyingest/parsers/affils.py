@@ -2,7 +2,6 @@ import os
 import sys
 import re
 import logging
-import bs4
 from default import BaseBeautifulSoupParser
 from namedentities import named_entities, unicode_entities
 import nameparser
@@ -90,7 +89,6 @@ class AffiliationParser(BaseBeautifulSoupParser):
         except Exception, err:
             print("AffiliationParser: PARSING FAILED:", err)
             return self.original_string
-
 
 """
 def __main__():
@@ -204,12 +202,12 @@ def __main__():
     print "outpt string:", new_string
     print "----------------------\n"
 
-  for a in affs:
+    for a in affs:
 
-      parser = AffiliationParser(a)
-      new_string = parser.parse()
-      if a == new_string:
-          print "Boooo."
+        parser = AffiliationParser(a)
+        new_string = parser.parse()
+        if a == new_string:
+            print "Boooo."
 
       print "----------------------\n"
       print "input string:", a

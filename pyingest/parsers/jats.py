@@ -29,12 +29,14 @@ class JATSParser(BaseBeautifulSoupParser):
         pass
 
     def _detag(self, r, tags_keep, **kwargs):
-        newr = bs4.BeautifulSoup(unicode(r), 'lxml')
+
+        newr = bs4.BeautifulSoup(unicode(r), 'html.parser')
         try:
             tag_list = list(set([x.name for x in newr.find_all()]))
         except Exception, err:
             tag_list = []
         for t in tag_list:
+            
             if t in JATS_TAGS_DANGER:
                 oldr = None
                 while oldr != newr:
@@ -60,14 +62,6 @@ class JATSParser(BaseBeautifulSoupParser):
                     except Exception, err:
                         pass
         newr = unicode(newr)
-
-        # deal with CDATA:
-        cdata_pat = r'(\<\?CDATA)(.*?)(\?\>)'
-        cdata = re.findall(cdata_pat, newr)
-        for s in cdata:
-            s_old = ''.join(s)
-            s_new = s[1]
-            newr = newr.replace(s_old, s_new)
 
         # amp_pat = r'(?<=&amp\;)(.*?)(?=\;)'
         amp_pat = r'(&amp;)(.*?)(;)'
@@ -160,6 +154,11 @@ class JATSParser(BaseBeautifulSoupParser):
         # Affils/affil ids
         try:
             affil = article_meta.find('contrib-group').find_all('aff')
+            if len(affil) == 0:
+                try:
+                    affil = article_meta.find_all('aff')
+                except Exception, err:
+                    pass
         except Exception, err:
             pass
         else:
@@ -214,6 +213,17 @@ class JATSParser(BaseBeautifulSoupParser):
                         pass
                 except Exception, err:
                     pass
+                if orcid_out is None:
+                    try:
+                        if a.find('contrib-id') is not None:
+                            auth_id = a.find('contrib-id')
+                            if auth_id['contrib-id-type'] == 'orcid':
+                                o = self._detag(auth_id, [])
+                                o = o.split('/')[-1]
+                                orcid_out = "<ID system=\"ORCID\">" + o + "</ID>"
+                    except Exception, err:
+                        pass
+
 
                 # Author names
                 if a.find('collab') is not None:
@@ -222,8 +232,6 @@ class JATSParser(BaseBeautifulSoupParser):
                     if a.find('surname') is not None:
                         surname = self._detag(a.surname, [])
                     else:
-                        # surname = 'Anonymous'
-                        # print "Warning: Undefined surname: ",a
                         surname = ''
                     if a.find('prefix') is not None:
                         prefix = self._detag(a.prefix, []) + ' '
@@ -251,6 +259,14 @@ class JATSParser(BaseBeautifulSoupParser):
                         else:
                             base_metadata['authors'].append(forename)
 
+                    # EMAIL in contrib-group (e.g. OUP)
+                    email = None
+                    if a.find('email') is not None:
+                        email = self._detag(a.email, [])
+                        email = '<EMAIL>' + email + '</EMAIL>'
+                
+                
+
                 # Author affil/note ids
                 try:
                     aid = a.find_all('xref')
@@ -277,6 +293,8 @@ class JATSParser(BaseBeautifulSoupParser):
                     # Got ORCID?
                     if orcid_out is not None:
                         aff_text = aff_text + '; ' + orcid_out
+                    if email is not None:
+                        aff_text = aff_text + ' ' + email
                     base_metadata['affiliations'].append(aff_text)
                 except Exception, errrror:
                     if orcid_out is not None:
@@ -363,7 +381,6 @@ class JATSParser(BaseBeautifulSoupParser):
                 base_metadata['properties']['DOI'] = self._detag(d, [])
 
 # Pubdate:
-
         try:
             pub_dates = article_meta.find_all('pub-date')
         except Exception, err:
@@ -454,7 +471,6 @@ class JATSParser(BaseBeautifulSoupParser):
                     ref_list_text.append(s)
             except Exception, err:
                 pass
-                # print("jats.parse.references error:", err)
             else:
                 base_metadata['refhandler_list'] = ref_list_text
 
