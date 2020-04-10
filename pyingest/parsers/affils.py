@@ -90,7 +90,7 @@ class AffiliationParser(BaseBeautifulSoupParser):
             print("AffiliationParser: PARSING FAILED:", err)
             return self.original_string
 
-
+"""
 def __main__():
 
     # aff1 = "brandewijn@gmail.com; ABC Inc."
@@ -202,7 +202,6 @@ def __main__():
     print "outpt string:", new_string
     print "----------------------\n"
 
-'''
     for a in affs:
 
       parser = AffiliationParser(a)
@@ -215,7 +214,8 @@ def __main__():
       print "\n"
       print "outpt string:", new_string
       print "----------------------\n"
-'''
+
 
 if __name__ == '__main__':
     __main__()
+"""

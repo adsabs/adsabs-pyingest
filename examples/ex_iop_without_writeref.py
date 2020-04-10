@@ -9,7 +9,6 @@ import json
 
 outfile = 'iop_test.tag'
 
-'''
 journal_ISSN = {
     '1538-3881': 'AJ',
     '2043-6262': 'ANSNN',
@@ -101,10 +100,6 @@ journal_ISSN = {
     '0953-2048': 'SuScT',
     '2051-672X': 'SuTMP',
     '2053-1583': 'TDM'
-}
-'''
-journal_ISSN = {
-    '1538-3881': 'AJ'
 }
 
 parser = IOPJATSParser()

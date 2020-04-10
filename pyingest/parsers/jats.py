@@ -104,8 +104,6 @@ class JATSParser(BaseBeautifulSoupParser):
         except Exception, err:
             pass
         try:
-            # 2020Apr09 debugging
-            # title.xref.extract() #ORIGINAL
             title.xref.extract()
         except Exception, err:
             pass
@@ -124,8 +122,7 @@ class JATSParser(BaseBeautifulSoupParser):
         else:
             try:
                 for element in abstract(text=lambda text: isinstance(text, Comment)):
-                    # element.extract()
-                    element.contents
+                    element.extract()
             except Exception, err:
                 pass
             else:
