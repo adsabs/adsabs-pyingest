@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC " -//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "JATS-journalpublishing1.dtd">
+
+<article xmlns:ali="http://www.niso.org/schemas/ali/1.0/"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">mnrasl</journal-id>
+      <journal-title-group>
+        <journal-title>Monthly Notices of the Royal Astronomical Society: Letters</journal-title>
+        <abbrev-journal-title abbrev-type="pubmed">Mon. Not. R. Astron. Soc: Lett.</abbrev-journal-title>
+        <abbrev-journal-title abbrev-type="publisher">MNRASL</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1745-3925</issn>
+      <issn pub-type="epub">1745-3933</issn>
+      <publisher>
+        <publisher-name>Oxford University Press</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="doi">10.1093/mnrasl/slaa054</article-id>
+      <article-id pub-id-type="publisher-id">slaa054</article-id>
+      <article-categories>
+        <subj-group subj-group-type="category-toc-heading">
+          <subject>Letter</subject>
+        </subj-group>
+        <subj-group subj-group-type="category-taxonomy-collection">
+          <subject>AcademicSubjects/SCI00020</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>On the angular momentum history of galactic disks</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author" corresp="yes">
+          <contrib-id contrib-id-type="orcid">http://orcid.org/0000-0002-7093-7355</contrib-id>
+          <name>
+            <surname>Renzini</surname>
+            <given-names>Alvio</given-names>
+          </name>
+          <email xlink:type="simple">alvio.renzini@oapd.inaf.it</email>
+          <xref ref-type="aff" rid="aff1" />
+          <xref ref-type="corresp" rid="cor1" />
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">
+        <institution>INAF - Osservatorio Astronomico di Padova</institution>, Vicolo dell’Osservatorio 5, I-35122 Padova, <country country="IT">Italy</country></aff>
+      <author-notes>
+        <corresp id="cor1">E-mail: <email xlink:type="simple">alvio.renzini@oapd.inaf.it</email></corresp>
+      </author-notes>
+      <pub-date pub-type="epub" iso-8601-date="2020-04-01">
+        <day>01</day>
+        <month>04</month>
+        <year>2020</year>
+      </pub-date>
+      <elocation-id>slaa054</elocation-id>
+      <permissions>
+        <copyright-statement>© 2020 The Author(s) Published by Oxford University Press on behalf of the Royal Astronomical Society</copyright-statement>
+        <copyright-year>2020</copyright-year>
+        <license license-type="publisher-standard" xlink:href="https://academic.oup.com/journals/pages/open_access/funder_policies/chorus/standard_publication_model">
+          <license-p>This article is published and distributed under the terms of the Oxford University Press, Standard Journals Publication Model (<ext-link ext-link-type="uri" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://academic.oup.com/journals/pages/open_access/funder_policies/chorus/standard_publication_model">https://academic.oup.com/journals/pages/open_access/funder_policies/chorus/standard_publication_model</ext-link>)</license-p>
+        </license>
+      </permissions>
+      <self-uri xlink:href="slaa054.pdf" />
+      <abstract abstract-type="abstract">
+        <title>Abstract</title>
+        <p>The stellar mass, size and rotational velocity of galactic disks all grow from redshift ∼2 to the present by amounts that are estimated from observationally derived scaling relations. The product of these three quantities, the angular momentum of stellar disks, is then estimated to grow by a remarkably large factor, between ∼20 and ∼50, whereas other evidences suggest a more moderate increase. This requires that the specific angular momentum of the accreted gas should systematically increase with time while remaining co-rotational with the disk over most of the last ∼10 Gyr. Thus, the baryonic gas vorticity of the circumgalactic medium appears to emerge as a major driver in galaxy evolution, and this paper is meant to attract attention on the sheer size of the angular momentum increase and on the need to explore to which extent this can be observed in nature and/or in simulations.</p>
+      </abstract>
+      <kwd-group kwd-group-type="keywords">
+        <kwd>galaxies: evolutionn</kwd>
+        <kwd>galaxies: formation</kwd>
+        <kwd>galaxies: high redshift</kwd>
+      </kwd-group>
+      <custom-meta-group>
+        <custom-meta>
+          <meta-name>edited-state</meta-name>
+          <meta-value>accepted-manuscript</meta-value>
+        </custom-meta>
+        <custom-meta>
+          <meta-name>article-lifecycle</meta-name>
+          <meta-value>PAP</meta-value>
+        </custom-meta>
+      </custom-meta-group>
+    </article-meta>
+  </front>
+</article>
