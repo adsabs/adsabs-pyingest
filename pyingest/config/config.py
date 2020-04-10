@@ -76,7 +76,6 @@ OUP_PDFDIR = 'https://academic.oup.com'
 JATS_TAGS_DANGER = ['php', 'script', 'css']
 
 JATS_TAGS_MATH = ['inline-formula',
-                  'tex-math',
                   'mml:math',
                   'mml:semantics',
                   'mml:mrow',

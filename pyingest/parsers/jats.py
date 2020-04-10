@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import bs4
-from bs4 import Comment, CData
+from bs4 import Comment
 from collections import OrderedDict
 from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
@@ -30,12 +30,13 @@ class JATSParser(BaseBeautifulSoupParser):
 
     def _detag(self, r, tags_keep, **kwargs):
 
-        newr = bs4.BeautifulSoup(unicode(r), 'lxml')
+        newr = bs4.BeautifulSoup(unicode(r), 'html.parser')
         try:
             tag_list = list(set([x.name for x in newr.find_all()]))
         except Exception, err:
             tag_list = []
         for t in tag_list:
+            
             if t in JATS_TAGS_DANGER:
                 oldr = None
                 while oldr != newr:
@@ -103,6 +104,8 @@ class JATSParser(BaseBeautifulSoupParser):
         except Exception, err:
             pass
         try:
+            # 2020Apr09 debugging
+            # title.xref.extract() #ORIGINAL
             title.xref.extract()
         except Exception, err:
             pass
@@ -121,9 +124,8 @@ class JATSParser(BaseBeautifulSoupParser):
         else:
             try:
                 for element in abstract(text=lambda text: isinstance(text, Comment)):
-                    element.extract()
-                for element in abstract(text=lambda text: isinstance(text, CData)):
-                    element.extract()
+                    # element.extract()
+                    element.contents
             except Exception, err:
                 pass
             else:
@@ -233,8 +235,6 @@ class JATSParser(BaseBeautifulSoupParser):
                     if a.find('surname') is not None:
                         surname = self._detag(a.surname, [])
                     else:
-                        # surname = 'Anonymous'
-                        # print "Warning: Undefined surname: ",a
                         surname = ''
                     if a.find('prefix') is not None:
                         prefix = self._detag(a.prefix, []) + ' '
@@ -384,7 +384,6 @@ class JATSParser(BaseBeautifulSoupParser):
                 base_metadata['properties']['DOI'] = self._detag(d, [])
 
 # Pubdate:
-
         try:
             pub_dates = article_meta.find_all('pub-date')
         except Exception, err:
@@ -475,7 +474,6 @@ class JATSParser(BaseBeautifulSoupParser):
                     ref_list_text.append(s)
             except Exception, err:
                 pass
-                # print("jats.parse.references error:", err)
             else:
                 base_metadata['refhandler_list'] = ref_list_text
 

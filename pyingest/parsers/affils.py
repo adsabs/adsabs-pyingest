@@ -2,7 +2,6 @@ import os
 import sys
 import re
 import logging
-import bs4
 from default import BaseBeautifulSoupParser
 from namedentities import named_entities, unicode_entities
 import nameparser
@@ -92,7 +91,6 @@ class AffiliationParser(BaseBeautifulSoupParser):
             return self.original_string
 
 
-"""
 def __main__():
 
     # aff1 = "brandewijn@gmail.com; ABC Inc."
@@ -204,7 +202,8 @@ def __main__():
     print "outpt string:", new_string
     print "----------------------\n"
 
-  for a in affs:
+'''
+    for a in affs:
 
       parser = AffiliationParser(a)
       new_string = parser.parse()
@@ -216,8 +215,7 @@ def __main__():
       print "\n"
       print "outpt string:", new_string
       print "----------------------\n"
-
+'''
 
 if __name__ == '__main__':
     __main__()
-"""
