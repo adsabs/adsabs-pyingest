@@ -204,10 +204,10 @@ def __main__():
 
     for a in affs:
 
-      parser = AffiliationParser(a)
-      new_string = parser.parse()
-      if a == new_string:
-          print "Boooo."
+        parser = AffiliationParser(a)
+        new_string = parser.parse()
+        if a == new_string:
+            print "Boooo."
 
       print "----------------------\n"
       print "input string:", a
