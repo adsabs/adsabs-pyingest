@@ -30,7 +30,7 @@ class JATSParser(BaseBeautifulSoupParser):
 
     def _detag(self, r, tags_keep, **kwargs):
 
-        newr = bs4.BeautifulSoup(unicode(r), 'html.parser')
+        newr = bs4.BeautifulSoup(unicode(r), 'html5lib')
         try:
             tag_list = list(set([x.name for x in newr.find_all()]))
         except Exception, err:

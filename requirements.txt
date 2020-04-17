@@ -1,6 +1,7 @@
 adsputils==1.0.12
 bs4==0.0.1
 lxml==4.2.1
+html5lib==1.0.1
 functools32==3.2.3.post2
 jsonschema==2.6.0
 namedentities==1.9.4
