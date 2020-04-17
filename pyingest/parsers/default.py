@@ -87,11 +87,11 @@ class BaseBeautifulSoupParser(object):
 
     def bsfiletodict(self, fp, **kwargs):
         """returns a BeautifulSoup tree"""
-        return bs4.BeautifulSoup(fp.read(), 'html.parser', **kwargs)
+        return bs4.BeautifulSoup(fp.read(), 'html5lib', **kwargs)
 
     def bsstrtodict(self, r, **kwargs):
         """returns a BeautifulSoup tree"""
-        return bs4.BeautifulSoup(r, 'html.parser', **kwargs)
+        return bs4.BeautifulSoup(r, 'html5lib', **kwargs)
 
 
 class BaseRSSFeedParser(object):

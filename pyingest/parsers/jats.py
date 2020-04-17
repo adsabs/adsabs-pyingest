@@ -30,7 +30,7 @@ class JATSParser(BaseBeautifulSoupParser):
 
     def _detag(self, r, tags_keep, **kwargs):
 
-        newr = bs4.BeautifulSoup(unicode(r), 'html.parser')
+        newr = bs4.BeautifulSoup(unicode(r), 'html5lib')
         try:
             tag_list = list(set([x.name for x in newr.find_all()]))
         except Exception, err:
@@ -63,7 +63,7 @@ class JATSParser(BaseBeautifulSoupParser):
                         pass
         newr = unicode(newr)
 
-        # amp_pat = r'(?<=&amp\;)(.*?)(?=\;)'
+        ## amp_pat = r'(?<=&amp\;)(.*?)(?=\;)'
         amp_pat = r'(&amp;)(.*?)(;)'
         amp_fix = re.findall(amp_pat, newr)
         for s in amp_fix:
@@ -103,6 +103,7 @@ class JATSParser(BaseBeautifulSoupParser):
             title = article_meta.find('title-group').find('article-title')
         except Exception, err:
             pass
+        print "TITLE: %s" % title
         try:
             title.xref.extract()
         except Exception, err:
@@ -287,7 +288,8 @@ class JATSParser(BaseBeautifulSoupParser):
                     aid_arr = new_aid_arr
 
                     aff_text = '; '.join(affils[x] for x in aid_arr)
-                    aff_text = aff_text.replace(';;', ';').rstrip(';')
+                    # aff_text = aff_text.replace(';;', ';').rstrip(';')
+                    aff_text = aff_text.replace(';;', ';').rstrip()
                     aff_text = aff_text.replace('; ,', '').rstrip()
 
                     # Got ORCID?
