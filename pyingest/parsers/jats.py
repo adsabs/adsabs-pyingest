@@ -63,7 +63,7 @@ class JATSParser(BaseBeautifulSoupParser):
                         pass
         newr = unicode(newr)
 
-        ## amp_pat = r'(?<=&amp\;)(.*?)(?=\;)'
+        # amp_pat = r'(?<=&amp\;)(.*?)(?=\;)'
         amp_pat = r'(&amp;)(.*?)(;)'
         amp_fix = re.findall(amp_pat, newr)
         for s in amp_fix:
@@ -103,7 +103,6 @@ class JATSParser(BaseBeautifulSoupParser):
             title = article_meta.find('title-group').find('article-title')
         except Exception, err:
             pass
-        print "TITLE: %s" % title
         try:
             title.xref.extract()
         except Exception, err:
@@ -288,8 +287,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     aid_arr = new_aid_arr
 
                     aff_text = '; '.join(affils[x] for x in aid_arr)
-                    # aff_text = aff_text.replace(';;', ';').rstrip(';')
-                    aff_text = aff_text.replace(';;', ';').rstrip()
+                    aff_text = aff_text.replace(';;', ';').rstrip(';')
                     aff_text = aff_text.replace('; ,', '').rstrip()
 
                     # Got ORCID?
