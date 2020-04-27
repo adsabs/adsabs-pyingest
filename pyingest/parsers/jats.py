@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import bs4
-from bs4 import Comment
+from bs4 import Comment, CData
 from collections import OrderedDict
 from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
@@ -121,13 +121,14 @@ class JATSParser(BaseBeautifulSoupParser):
             pass
         else:
             try:
-                for element in abstract(text=lambda text: isinstance(text, Comment)):
+                for element in abstract(text=lambda text: isinstance(text, CData)):
                     element.extract()
             except Exception, err:
                 pass
             else:
                 abstract = (
                     self._detag(abstract, JATS_TAGSET['abstract']))
+                abstract = cdata_handler(abstract)
             base_metadata['abstract'] = abstract
 
 
