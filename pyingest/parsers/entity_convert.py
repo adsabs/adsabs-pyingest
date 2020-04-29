@@ -13,6 +13,5 @@ class EntityConverter():
         o = self.input_text
         ox = o
         for k, v in self.ent_dict.items():
-            # print "imma convertin' ", k
             ox = re.sub(k, v, ox)
         self.output_text = ox
