@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 
 import bs4
-from bs4 import Comment
+from bs4 import Comment, CData
 from collections import OrderedDict
 from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
 from affils import AffiliationParser
+from entity_convert import EntityConverter
 import namedentities
 import re
 import copy
@@ -36,7 +37,7 @@ class JATSParser(BaseBeautifulSoupParser):
         except Exception, err:
             tag_list = []
         for t in tag_list:
-            
+
             if t in JATS_TAGS_DANGER:
                 oldr = None
                 while oldr != newr:
@@ -61,6 +62,10 @@ class JATSParser(BaseBeautifulSoupParser):
                         newr.find(t).unwrap()
                     except Exception, err:
                         pass
+
+        # Note: newr is converted from a bs4 object to unicode here.
+        # Everything after this point is string manipulation.
+
         newr = unicode(newr)
 
         # amp_pat = r'(?<=&amp\;)(.*?)(?=\;)'
@@ -73,6 +78,14 @@ class JATSParser(BaseBeautifulSoupParser):
 
         newr = newr.replace(u'\n', u' ').replace(u'  ', u' ')
         newr = newr.replace('&nbsp;', ' ')
+
+        # CDATA removal
+        cdata_pat = r'(\<.*?CDATA\[*)(.*?)(\]*>)' # csg 2020apr06
+        cdata = re.findall(cdata_pat, newr)
+        for s in cdata:
+            s_old = ''.join(s)
+            s_new = s[1]
+            newr = newr.replace(s_old, s_new)
 
         return newr
 
@@ -121,7 +134,7 @@ class JATSParser(BaseBeautifulSoupParser):
             pass
         else:
             try:
-                for element in abstract(text=lambda text: isinstance(text, Comment)):
+                for element in abstract(text=lambda text: isinstance(text, CData)):
                     element.extract()
             except Exception, err:
                 pass
@@ -224,7 +237,6 @@ class JATSParser(BaseBeautifulSoupParser):
                     except Exception, err:
                         pass
 
-
                 # Author names
                 if a.find('collab') is not None:
                     base_metadata['authors'].append(self._detag(a.collab, []))
@@ -264,8 +276,6 @@ class JATSParser(BaseBeautifulSoupParser):
                     if a.find('email') is not None:
                         email = self._detag(a.email, [])
                         email = '<EMAIL>' + email + '</EMAIL>'
-                
-                
 
                 # Author affil/note ids
                 try:
@@ -425,7 +435,7 @@ class JATSParser(BaseBeautifulSoupParser):
                         base_metadata['pubdate'] = pubdate
             try:
                 if (b == 'open-access'):
-                    base_metadata.setdefault('properties',{}).setdefault('OPEN',1)
+                    base_metadata.setdefault('properties', {}).setdefault('OPEN', 1)
             except Exception, err:
                 pass
 
@@ -475,4 +485,13 @@ class JATSParser(BaseBeautifulSoupParser):
                 base_metadata['refhandler_list'] = ref_list_text
 
         output_metadata = base_metadata
+
+# Last step: entity conversion
+        ec_fields = ['authors', 'abstract', 'title']
+        econv = EntityConverter()
+        for ecf in ec_fields:
+            econv.input_text = output_metadata[ecf]
+            econv.convert()
+            output_metadata[ecf] = econv.output_text
+
         return output_metadata
