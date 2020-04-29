@@ -37,7 +37,7 @@ class JATSParser(BaseBeautifulSoupParser):
         except Exception, err:
             tag_list = []
         for t in tag_list:
-            
+
             if t in JATS_TAGS_DANGER:
                 oldr = None
                 while oldr != newr:
@@ -80,7 +80,7 @@ class JATSParser(BaseBeautifulSoupParser):
         newr = newr.replace('&nbsp;', ' ')
 
         # CDATA removal
-        cdata_pat = r'(\<.*?CDATA\[*)(.*?)(\]*>)' #csg 2020apr06
+        cdata_pat = r'(\<.*?CDATA\[*)(.*?)(\]*>)' # csg 2020apr06
         cdata = re.findall(cdata_pat, newr)
         for s in cdata:
             s_old = ''.join(s)
@@ -237,7 +237,6 @@ class JATSParser(BaseBeautifulSoupParser):
                     except Exception, err:
                         pass
 
-
                 # Author names
                 if a.find('collab') is not None:
                     base_metadata['authors'].append(self._detag(a.collab, []))
@@ -277,8 +276,6 @@ class JATSParser(BaseBeautifulSoupParser):
                     if a.find('email') is not None:
                         email = self._detag(a.email, [])
                         email = '<EMAIL>' + email + '</EMAIL>'
-                
-                
 
                 # Author affil/note ids
                 try:
@@ -438,7 +435,7 @@ class JATSParser(BaseBeautifulSoupParser):
                         base_metadata['pubdate'] = pubdate
             try:
                 if (b == 'open-access'):
-                    base_metadata.setdefault('properties',{}).setdefault('OPEN',1)
+                    base_metadata.setdefault('properties', {}).setdefault('OPEN', 1)
             except Exception, err:
                 pass
 
@@ -490,13 +487,11 @@ class JATSParser(BaseBeautifulSoupParser):
         output_metadata = base_metadata
 
 # Last step: entity conversion
-        ec_fields = ['authors','abstract','title']
+        ec_fields = ['authors', 'abstract', 'title']
         econv = EntityConverter()
         for ecf in ec_fields:
-            # print "lol in:",output_metadata[ecf]
             econv.input_text = output_metadata[ecf]
             econv.convert()
             output_metadata[ecf] = econv.output_text
-            # print "lol out:",output_metadata[ecf]
 
         return output_metadata
