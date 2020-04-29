@@ -1,2 +1,2 @@
 include pyingest/tests/data/authors/*.dat
-include pyingest/config/html5.txt
+include pyingest/config/*.dat
