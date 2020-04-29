@@ -6,6 +6,7 @@ from collections import OrderedDict
 from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
 from affils import AffiliationParser
+from entity_convert import EntityConverter
 import namedentities
 import re
 import copy
@@ -61,6 +62,10 @@ class JATSParser(BaseBeautifulSoupParser):
                         newr.find(t).unwrap()
                     except Exception, err:
                         pass
+
+        # Note: newr is converted from a bs4 object to unicode here.
+        # Everything after this point is string manipulation.
+
         newr = unicode(newr)
 
         # amp_pat = r'(?<=&amp\;)(.*?)(?=\;)'
@@ -73,6 +78,14 @@ class JATSParser(BaseBeautifulSoupParser):
 
         newr = newr.replace(u'\n', u' ').replace(u'  ', u' ')
         newr = newr.replace('&nbsp;', ' ')
+
+        # CDATA removal
+        cdata_pat = r'(\<.*?CDATA\[*)(.*?)(\]*>)' #csg 2020apr06
+        cdata = re.findall(cdata_pat, newr)
+        for s in cdata:
+            s_old = ''.join(s)
+            s_new = s[1]
+            newr = newr.replace(s_old, s_new)
 
         return newr
 
@@ -128,7 +141,6 @@ class JATSParser(BaseBeautifulSoupParser):
             else:
                 abstract = (
                     self._detag(abstract, JATS_TAGSET['abstract']))
-                abstract = cdata_handler(abstract)
             base_metadata['abstract'] = abstract
 
 
@@ -476,4 +488,15 @@ class JATSParser(BaseBeautifulSoupParser):
                 base_metadata['refhandler_list'] = ref_list_text
 
         output_metadata = base_metadata
+
+# Last step: entity conversion
+        ec_fields = ['authors','abstract','title']
+        econv = EntityConverter()
+        for ecf in ec_fields:
+            # print "lol in:",output_metadata[ecf]
+            econv.input_text = output_metadata[ecf]
+            econv.convert()
+            output_metadata[ecf] = econv.output_text
+            # print "lol out:",output_metadata[ecf]
+
         return output_metadata

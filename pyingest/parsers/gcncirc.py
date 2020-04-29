@@ -116,13 +116,12 @@ class GCNCParser(DefaultParser):
             self.make_publication()
 
             # Pass the necessary fields through EntityConverter
-            ec_fields = ['authors','abstract','title']
+            ec_fields = ['authors', 'abstract', 'title']
             econv = EntityConverter()
             for ecf in ec_fields:
                 econv.input_text = self.data_dict[ecf]
                 econv.convert()
                 self.data_dict[ecf] = econv.output_text
-         
 
         except Exception, err:
             self.data_dict['raw'] = self.raw
