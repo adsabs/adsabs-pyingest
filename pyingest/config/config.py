@@ -116,7 +116,7 @@ except Exception as e:
 AAS_ASTRO_KEYWORDS_FILE = os.path.dirname(os.path.abspath(__file__)) + '/kw_aas_astro.dat'
 AAS_ASTRO_KEYWORDS = []
 try:
-    with open (AAS_ASTRO_KEYWORDS_FILE, 'rU') as fk:
+    with open(AAS_ASTRO_KEYWORDS_FILE, 'rU') as fk:
         for l in fk.readlines():
             AAS_ASTRO_KEYWORDS.append(l.strip())
 except Exception as e:
@@ -127,7 +127,7 @@ except Exception as e:
 APS_ASTRO_KEYWORDS_FILE = os.path.dirname(os.path.abspath(__file__)) + '/kw_aps_astro.dat'
 APS_ASTRO_KEYWORDS = []
 try:
-    with open (APS_ASTRO_KEYWORDS_FILE, 'rU') as fk:
+    with open(APS_ASTRO_KEYWORDS_FILE, 'rU') as fk:
         for l in fk.readlines():
             APS_ASTRO_KEYWORDS.append(l.strip())
 except Exception as e:
