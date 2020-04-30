@@ -80,11 +80,12 @@ class JATSParser(BaseBeautifulSoupParser):
         newr = newr.replace('&nbsp;', ' ')
 
         # CDATA removal
-        cdata_pat = r'(\<.*?CDATA\[*)(.*?)(\]*>)' # csg 2020apr06
+        # cdata_pat = r'(\<.*?CDATA\[*)(.*?)(\]*>)' # csg 2020apr06
+        cdata_pat = r'(<inline-formula>.*?CDATA\[*)(.*?)(\]*<\/inline-formula>)' # csg 2020apr30
         cdata = re.findall(cdata_pat, newr)
         for s in cdata:
             s_old = ''.join(s)
-            s_new = s[1]
+            s_new = ' <inline-formula>' + s[1] + '</inline-formula> '
             newr = newr.replace(s_old, s_new)
 
         return newr
