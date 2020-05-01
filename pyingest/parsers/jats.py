@@ -491,8 +491,11 @@ class JATSParser(BaseBeautifulSoupParser):
         ec_fields = ['authors', 'abstract', 'title']
         econv = EntityConverter()
         for ecf in ec_fields:
-            econv.input_text = output_metadata[ecf]
-            econv.convert()
-            output_metadata[ecf] = econv.output_text
+            try:
+                econv.input_text = output_metadata[ecf]
+                econv.convert()
+                output_metadata[ecf] = econv.output_text
+            except Exception, err:
+                pass
 
         return output_metadata
