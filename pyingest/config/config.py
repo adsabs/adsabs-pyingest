@@ -1,6 +1,6 @@
 import os
 import json
-import urllib
+import requests
 
 
 def find(key, dictionary):
@@ -104,23 +104,12 @@ JATS_TAGSET = {'title': JATS_TAGS_MATH + JATS_TAGS_HTML,
 # retrieve current UAT from github
 UAT_URL = 'https://raw.githubusercontent.com/astrothesaurus/UAT/master/UAT.json'
 try:
-    remote = urllib.request.urlopen(UAT_URL)
-    UAT_json = json.loads(remote.read())
-    UAT_ASTRO_KEYWORDS = list(find('name', UAT_json))
+    uat_request = requests.get(UAT_URL)
+    UAT_ASTRO_KEYWORDS = list(find('name', uat_request.json()))
+    print("Info: loaded %s UAT keywords from github." % len(UAT_ASTRO_KEYWORDS))
 except Exception as e:
     print("Warning: could not load UAT from github!")
     UAT_ASTRO_KEYWORDS = []
-
-# American Astronomical Society keywords (superseded June 2019 by UAT)
-AAS_ASTRO_KEYWORDS_FILE = os.path.dirname(os.path.abspath(__file__)) + '/kw_aas_astro.dat'
-AAS_ASTRO_KEYWORDS = []
-try:
-    with open(AAS_ASTRO_KEYWORDS_FILE, 'rU') as fk:
-        for l in fk.readlines():
-            AAS_ASTRO_KEYWORDS.append(l.strip())
-except Exception as e:
-    print("Error loading AAS Astro keywords: %s" % e)
-
 
 # American Physical Society keywords
 APS_ASTRO_KEYWORDS_FILE = os.path.dirname(os.path.abspath(__file__)) + '/kw_aps_astro.dat'
@@ -132,6 +121,20 @@ try:
 except Exception as e:
     print("Error loading APS Astro keywords: %s" % e)
 
+# # American Astronomical Society keywords (superseded June 2019 by UAT)
+# AAS_ASTRO_KEYWORDS_FILE = os.path.dirname(os.path.abspath(__file__)) + '/kw_aas_astro.dat'
+# AAS_ASTRO_KEYWORDS = []
+# try:
+#     with open(AAS_ASTRO_KEYWORDS_FILE, 'rU') as fk:
+#         for l in fk.readlines():
+#             AAS_ASTRO_KEYWORDS.append(l.strip())
+# except Exception as e:
+#     print("Error loading AAS Astro keywords: %s" % e)
+
+
+
+# COMBINE ALL ASTRO KEYWORDS INTO AST_WORDS -- used by dbfromkw
+AST_WORDS = UAT_ASTRO_KEYWORDS + APS_ASTRO_KEYWORDS 
 
 # REFERENCE SOURCE OUTPUT
 REFERENCE_TOPDIR = '/proj/ads/references/sources/'

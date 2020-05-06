@@ -7,4 +7,5 @@ lxml==4.2.1
 namedentities==1.9.4
 nameparser==1.0.6
 python-dateutil==2.8.1
+requests==2.20.0
 xmltodict==0.12.0
