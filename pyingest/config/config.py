@@ -1,5 +1,4 @@
 import os
-import re
 import json
 import urllib
 
@@ -105,7 +104,7 @@ JATS_TAGSET = {'title': JATS_TAGS_MATH + JATS_TAGS_HTML,
 # retrieve current UAT from github
 UAT_URL = 'https://raw.githubusercontent.com/astrothesaurus/UAT/master/UAT.json'
 try:
-    remote = urllib.urlopen(UAT_URL)
+    remote = urllib.request.urlopen(UAT_URL)
     UAT_json = json.loads(remote.read())
     UAT_ASTRO_KEYWORDS = list(find('name', UAT_json))
 except Exception as e:
@@ -120,7 +119,7 @@ try:
         for l in fk.readlines():
             AAS_ASTRO_KEYWORDS.append(l.strip())
 except Exception as e:
-    print("Error loading AAS Astro keywords: %s" % err)
+    print("Error loading AAS Astro keywords: %s" % e)
 
 
 # American Physical Society keywords
@@ -131,7 +130,7 @@ try:
         for l in fk.readlines():
             APS_ASTRO_KEYWORDS.append(l.strip())
 except Exception as e:
-    print("Error loading APS Astro keywords: %s" % err)
+    print("Error loading APS Astro keywords: %s" % e)
 
 
 # REFERENCE SOURCE OUTPUT
@@ -148,27 +147,27 @@ try:
         for l in fent.readlines():
             carr = l.rstrip().split('\t')
 
-            uni_entity = None
-            name_entity = None
-            hex_entity = None
-            dec_entity = None
+            UNI_ENTITY = None
+            NAME_ENTITY = None
+            HEX_ENTITY = None
+            DEC_ENTITY = None
             if len(carr) >= 4:
-                uni_entity = carr[0]
-                name_entity = carr[1]
-                hex_entity = carr[2]
-                dec_entity = carr[3]
-                for c in name_entity.split():
+                UNI_ENTITY = carr[0]
+                NAME_ENTITY = carr[1]
+                HEX_ENTITY = carr[2]
+                DEC_ENTITY = carr[3]
+                for c in NAME_ENTITY.split():
                     try:
-                        ENTITY_DICTIONARY[c] = dec_entity
-                    except Exception, err:
-                        print("Error splitting name_entity: '%s'" % name_entity)
-                ENTITY_DICTIONARY[uni_entity] = dec_entity
+                        ENTITY_DICTIONARY[c] = DEC_ENTITY
+                    except Exception as e:
+                        print("Error splitting NAME_ENTITY: '%s'" % NAME_ENTITY)
+                ENTITY_DICTIONARY[UNI_ENTITY] = DEC_ENTITY
             else:
                 print("broken HTML entity:", l.rstrip())
-                name_entity = "xxxxx"
+                NAME_ENTITY = "xxxxx"
 
-except Exception, err:
-    print("Problem in config:", err)
+except Exception as e:
+    print("Problem in config:", e)
 
 # ADS-specific translations
 # have been added to html5.txt

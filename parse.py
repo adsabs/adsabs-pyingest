@@ -1,3 +1,4 @@
+""" Example parser """
 import sys
 import os.path
 
@@ -17,21 +18,21 @@ if __name__ == "__main__":
     sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
     sys.stderr = codecs.getwriter('utf-8')(sys.stderr)
 
-    args = parse_arguments()
-    if args.debug:
+    ARGS = parse_arguments()
+    if ARGS.debug:
         loggingDict['loggers']['']['level'] = 'DEBUG'
     logging.config.dictConfig(loggingDict)
 
     # it is probably more user-friendly do do this kind
     # of configuration via a config file (see ConfigParser)
-    logging.debug("parser set to {}".format(args.parser))
-    parser = import_class(args.parser)
-    logging.debug("validator set to {}".format(args.validator))
-    validator = import_class(args.validator)
-    logging.debug("serializer set to {}".format(args.serializer))
-    serializer = import_class(args.serializer)
+    logging.debug("parser set to %s" % ARGS.parser)
+    PARSER = import_class(ARGS.parser)
+    logging.debug("validator set to %s" % ARGS.validator)
+    VALIDATOR = import_class(ARGS.validator)
+    logging.debug("serializer set to %s" % ARGS.serializer)
+    SERIALIZER = import_class(ARGS.serializer)
 
-    for file in args.files:
+    for file in ARGS.files:
         d = None
         with open(file) as fp:
             logging.debug("parsing file %s" % file)
@@ -39,15 +40,15 @@ if __name__ == "__main__":
                 # If a Zenodo records happens to be missing a DOI,
                 # we don't want an Exception to have the process crap out
                 # In that case skip the file and write a message to stderr
-                d = parser.parse(fp)
-            except Exception, err:
+                d = PARSER.parse(fp)
+            except Exception as err:
                 sys.stderr.write("unable to parse file: %s (%s)\n"
                                  % (file, err))
                 logging.debug("unable to parse file: %s (%s)" % (file, err))
                 continue
-            if args.debug:
+            if ARGS.debug:
                 sys.stderr.write("document: %s" % json.dumps(d))
             logging.debug("validating file %s" % file)
-            validator.validate(d)
+            VALIDATOR.validate(d)
             logging.debug("serializing file %s" % file)
-            serializer.write(d)
+            SERIALIZER.write(d)

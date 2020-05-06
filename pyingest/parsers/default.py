@@ -4,8 +4,6 @@ import bs4
 import xmltodict as xmltodict_parser
 import urllib
 import urllib2
-import bs4
-import lxml
 import warnings
 import ssl
 
@@ -125,7 +123,7 @@ class BaseRSSFeedParser(object):
         entries = soup.find_all(data_tag)
         try:
             self.links = soup.find_all('link')
-        except Exception, err:
+        except Exception as err:
             self.links = []
         return entries
 
@@ -136,7 +134,7 @@ class BaseRSSFeedParser(object):
         for d in data:
             try:
                 title = data.find('title').text
-            except Exception, err:
+            except Exception as err:
                 title = ''
             rss_recs.append({
                 'title': title,
