@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 
 from argparse import ArgumentParser
-import urllib
-import urllib2
 import json
 import sys
 import math
+import requests
 
 
 class URLError(Exception):
@@ -29,13 +28,9 @@ class HSTParser():
         pass
 
     def get_batch(self, api_token, api_url, **kwargs):
-        qparams = urllib.urlencode(kwargs)
-        req = urllib2.Request("%s?%s" % (api_url, qparams))
-        req.add_header('Content-type', 'application/json')
-        req.add_header('Accept', 'text/plain')
-        req.add_header('apiKey', api_token)
-        resp = urllib2.urlopen(req)
-        buff = json.load(resp)
+        get_header = {'apiKey': api_token, 'Accept': 'text/plain',
+                      'Content-type': 'application/json'}
+        buff = requests.get(api_url, headers=get_header, params=kwargs).json()
         return buff
 
     def get_records(self, url, **kwargs):

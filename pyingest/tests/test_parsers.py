@@ -306,15 +306,16 @@ class TestHSTProp(unittest.TestCase):
     import pytest
 
     def setUp(self):
-        "Mock hstprop.HSTParser.urllib.urlopen"
-        self.patcher = patch('urllib2.urlopen')
-        self.urlopen_mock = self.patcher.start()
+        "Mock hstprop.HSTParser.get_batch"
+        self.patcher = patch('pyingest.parsers.hstprop.HSTParser.get_batch')
+        self.get_batch_mock = self.patcher.start()
 
     def test_output(self):
         parser = hstprop.HSTParser()
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/hstprop.json")
-        mock_data = open(mock_infile).read()
-        self.urlopen_mock.return_value = MockResponse(mock_data)
+        mock_data = json.loads(open(mock_infile).read())
+        # self.get_batch_mock.return_value = MockResponse(mock_data)
+        self.get_batch_mock.return_value = mock_data
         api_url = 'https://proper.stsci.edu/proper/adsProposalSearch/query'
         token = 'foo'
         test_data = parser.parse(api_url, api_key=token, fromDate='2019-01-01', maxRecords=1, test=True)
@@ -336,31 +337,33 @@ class TestHSTProp(unittest.TestCase):
     def test_missing_token(self):
         parser = hstprop.HSTParser()
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/hstprop.json")
-        mock_data = open(mock_infile).read()
-        self.urlopen_mock.return_value = MockResponse(mock_data)
+        mock_data = json.loads(open(mock_infile).read())
+        # self.get_batch_mock.return_value = MockResponse(mock_data)
+        self.get_batch_mock.return_value = mock_data
         api_url = 'https://proper.stsci.edu/proper/adsProposalSearch/query'
         with self.assertRaises(hstprop.RequestError):
-            test_data = parser.parse(api_url, fromDate='2019-01-01', maxRecords=1)
+            test_data = parser.parse(api_url, fromDate='2019-01-01', maxRecords=1, test=True)
 
     def test_missing_field(self):
         parser = hstprop.HSTParser()
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/hstprop_missing_field.json")
-        mock_data = open(mock_infile).read()
-        self.urlopen_mock.return_value = MockResponse(mock_data)
+        mock_data = json.loads(open(mock_infile).read())
+        # self.get_batch_mock.return_value = MockResponse(mock_data)
+        self.get_batch_mock.return_value = mock_data
         api_url = 'https://proper.stsci.edu/proper/adsProposalSearch/query'
         token = 'foo'
-        test_data = parser.parse(api_url, api_key=token, fromDate='2019-01-01', maxRecords=1)
+        test_data = parser.parse(api_url, api_key=token, fromDate='2019-01-01', maxRecords=1, test=True)
         # A missing data error should be reported
         self.assertEqual(parser.errors[0], 'Found record with missing data: HST Proposal#15677')
 
     def test_misaligned_arrays(self):
         parser = hstprop.HSTParser()
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/hstprop_misaligned_arrays.json")
-        mock_data = open(mock_infile).read()
-        self.urlopen_mock.return_value = MockResponse(mock_data)
+        mock_data = json.loads(open(mock_infile).read())
+        self.get_batch_mock.return_value = mock_data
         api_url = 'https://proper.stsci.edu/proper/adsProposalSearch/query'
         token = 'foo'
-        test_data = parser.parse(api_url, api_key=token, fromDate='2019-01-01', maxRecords=1)
+        test_data = parser.parse(api_url, api_key=token, fromDate='2019-01-01', maxRecords=1, test=True)
         # Misaligned arrays should be reported
         self.assertEqual(parser.errors[0], 'Found misaligned affiliation/ORCID arrays: 2019hst..prop15677M')
 
