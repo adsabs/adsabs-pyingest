@@ -1,5 +1,4 @@
-import os
-import glob
+"""setup file for pip packaging and deployment"""
 from subprocess import Popen, PIPE
 
 try:
@@ -9,23 +8,24 @@ except ImportError:
 
 try:
     import pypandoc
-    long_description = pypandoc.convert('README.md', 'rst')
+    LONG_DESCRIPTION = pypandoc.convert('README.md', 'rst')
 except (IOError, ImportError):
-    long_description = ""
+    LONG_DESCRIPTION = ""
 
 
 with open('requirements.txt') as f:
-    required = f.read().splitlines()
+    REQUIRED = f.read().splitlines()
 
 
 def get_git_version(default="v0.0.1"):
+    """runs the command to get the local version of git"""
     try:
-        p = Popen(['git', 'describe', '--tags'], stdout=PIPE, stderr=PIPE)
-        p.stderr.close()
-        line = p.stdout.readlines()[0]
+        _p = Popen(['git', 'describe', '--tags'], stdout=PIPE, stderr=PIPE)
+        _p.stderr.close()
+        line = _p.stdout.readlines()[0]
         line = line.strip()
         return line
-    except Exception as e:
+    except Exception:
         return default
 
 
@@ -38,10 +38,10 @@ setup(
     author_email="ads@cfa.harvard.edu",
     description='ADS collection or python parsers, validators, and \
                  serializers for adsabs ingest pipeline',
-    long_description=long_description,
+    long_description=LONG_DESCRIPTION,
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
     platforms='any',
-    install_requires=required
+    install_requires=REQUIRED
 )

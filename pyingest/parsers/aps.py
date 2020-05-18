@@ -23,6 +23,7 @@ class UnparseableException(Exception):
 class APSJATSParser(JATSParser):
 
     AST_WORDS = [x.lower() for x in APS_ASTRO_KEYWORDS]
+    
 
     def get_author_init(self, namestring):
         output = u2asc(namestring)

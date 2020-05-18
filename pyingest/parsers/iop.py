@@ -26,10 +26,6 @@ class UnparseableException(Exception):
 
 class IOPJATSParser(JATSParser):
 
-    AST_WORDS = [x.lower() for x in UAT_ASTRO_KEYWORDS]
-    AST_WORDS = AST_WORDS + [x.lower() for x in AAS_ASTRO_KEYWORDS]
-    AST_WORDS = AST_WORDS + [x.lower() for x in APS_ASTRO_KEYWORDS]
-
     def get_author_init(self, namestring):
         output = u2asc(namestring)
         for c in output:
@@ -53,7 +49,7 @@ class IOPJATSParser(JATSParser):
         if isinstance(d, basestring):
             keywords = d.split(',')
             for k in keywords:
-                if k.lower() in self.AST_WORDS:
+                if k.lower() in AST_WORDS:
                     db.append('AST')
                     return db
         return db

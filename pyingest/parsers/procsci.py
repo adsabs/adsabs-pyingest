@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
+import requests
 from argparse import ArgumentParser
-import urllib
 from default import BaseBeautifulSoupParser
 
 
@@ -33,20 +33,20 @@ class PoSParser(BaseBeautifulSoupParser):
         if hostname != 'pos.sissa.it':
             raise URLError("This parser is only for pos.sissa.it.")
         try:
-            buff = urllib.urlopen(url)
+            pos_buffer = requests.get(url)
         except IOError:
             raise URLError("Could not open from %s" % url)
-        return buff
+        return pos_buffer
 
     def resource_dict(self, fp, **kwargs):
-        d = self.bsfiletodict(fp, **kwargs)
+        d = self.bsstrtodict(fp, **kwargs)
         return d
 
     def parse(self, url, **kwargs):
 
         pos_toc = [{}]
 
-        data = self.resource_dict(self.get_buffer(url))
+        data = self.resource_dict(self.get_buffer(url).text)
 
         # Title:
         title = data.head.title.get_text()
