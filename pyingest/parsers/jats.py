@@ -332,31 +332,46 @@ class JATSParser(BaseBeautifulSoupParser):
 
 # Keywords:
         try:
-            keywords = article_meta.find('article-categories').find_all('subj-group')
+            keys_uat = []
+            keys_aas = []
+            keyword_groups = article_meta.find_all('kwd-group')
+            for kg in keyword_groups:
+                # Check for UAT first:
+                if kg['kwd-group-type'] == 'author':
+                    keys_uat_test = kg.find_all('compound-kwd-part')
+                    for kk in keys_uat_test:
+                        if kk['content-type'] == 'term':
+                            keys_uat.append(self._detag(kk, 
+                                JATS_TAGSET['keywords']))
+                # Then check for AAS:
+                if kg['kwd-group-type'] == 'AAS':
+                    keys_aas_test = kg.find_all('kwd')
+                    for kk in keys_aas_test:
+                        keys_aas.append(self._detag(kk, 
+                                JATS_TAGSET['keywords']))
+            if keys_uat:
+                keywords = keys_uat
+            elif keys_aas:
+                keywords = keys_aas
+            if keywords:
+                base_metadata['keywords'] = ', '.join(keywords)
         except Exception, err:
-            keywords = []
-        for c in keywords:
-            try:
-                if c['subj-group-type'] == 'toc-minor' or c['subj-group-type'] == 'section':
-                    klist = []
-                    for k in c.find_all('subject'):
-                        kk = k['content-type']
-                        if kk == 'heading':
-                            klist.append(self._detag(k, (
-                                JATS_TAGSET['keywords'])))
-                    base_metadata['keywords'] = ';'.join(klist)
-            except Exception, err:
-                pass
+            pass
         if 'keywords' not in base_metadata:
             try:
-                keywords = article_meta.find('kwd-group').find_all('kwd')
-                kwd_arr = []
-                for c in keywords:
-                    kwd_arr.append(self._detag(c, JATS_TAGSET['keywords']))
-                if len(kwd_arr) > 0:
-                    base_metadata['keywords'] = ', '.join(kwd_arr)
+                keywords = article_meta.find('article-categories').find_all('subj-group')
             except Exception, err:
-                pass
+                keywords = []
+            for c in keywords:
+                try:
+                    if c['subj-group-type'] == 'toc-minor':
+                        klist = []
+                        for k in c.find_all('subject'):
+                            klist.append(self._detag(k, (
+                                JATS_TAGSET['keywords'])))
+                        base_metadata['keywords'] = ', '.join(klist)
+                except Exception, err:
+                    pass
 
 # Volume:
         volume = article_meta.volume
