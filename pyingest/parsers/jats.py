@@ -337,9 +337,14 @@ class JATSParser(BaseBeautifulSoupParser):
             keywords = []
         for c in keywords:
             try:
-                if c['subj-group-type'] == 'toc-minor':
-                    base_metadata['keywords'] = self._detag(c.subject, (
-                        JATS_TAGSET['keywords']))
+                if c['subj-group-type'] == 'toc-minor' or c['subj-group-type'] == 'section':
+                    klist = []
+                    for k in c.find_all('subject'):
+                        kk = k['content-type']
+                        if kk == 'heading':
+                            klist.append(self._detag(k, (
+                                JATS_TAGSET['keywords'])))
+                    base_metadata['keywords'] = ';'.join(klist)
             except Exception, err:
                 pass
         if 'keywords' not in base_metadata:

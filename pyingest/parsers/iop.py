@@ -142,6 +142,8 @@ class IOPJATSParser(JATSParser):
 
         # Database (from APS keywords)
         try:
+            print "HI. I WANT AN KEYWORDS."
+            print "KAY? :",output_metadata['keywords']
             output_metadata['database'] = self.dbfromkw(output_metadata['keywords'])
         except Exception, err:
             pass

@@ -9,6 +9,7 @@ import json
 
 outfile = 'iop_test.tag'
 
+'''
 journal_ISSN = {
     '1538-3881': 'AJ',
     '2043-6262': 'ANSNN',
@@ -101,15 +102,21 @@ journal_ISSN = {
     '2051-672X': 'SuTMP',
     '2053-1583': 'TDM'
 }
+'''
+journal_ISSN = {
+    '0004-637X': 'ApJ'}
 
 parser = IOPJATSParser()
 
 
 basedir = '/proj/ads/articles/sources/STACKS/'
 
+foo = basedir + '0004-637X/892/2/148/apj_892_2_148.xml'
+
 issn_list = journal_ISSN.keys()
 issn_list.sort()
 for issn in issn_list:
+    '''
     b2 = basedir + issn
     vols = glob(b2 + '/*')
     vols.sort(key=os.path.getmtime)
@@ -121,6 +128,8 @@ for issn in issn_list:
             papers2.append(p)
 
     papers = papers2
+    '''
+    papers = [foo]
 
     # Try the parser
     documents = []

@@ -121,20 +121,20 @@ try:
 except Exception as e:
     print("Error loading APS Astro keywords: %s" % e)
 
-# # American Astronomical Society keywords (superseded June 2019 by UAT)
-# AAS_ASTRO_KEYWORDS_FILE = os.path.dirname(os.path.abspath(__file__)) + '/kw_aas_astro.dat'
-# AAS_ASTRO_KEYWORDS = []
-# try:
-#     with open(AAS_ASTRO_KEYWORDS_FILE, 'rU') as fk:
-#         for l in fk.readlines():
-#             AAS_ASTRO_KEYWORDS.append(l.strip())
-# except Exception as e:
-#     print("Error loading AAS Astro keywords: %s" % e)
+# American Astronomical Society keywords (superseded June 2019 by UAT)
+AAS_ASTRO_KEYWORDS_FILE = os.path.dirname(os.path.abspath(__file__)) + '/kw_aas_astro.dat'
+AAS_ASTRO_KEYWORDS = []
+try:
+    with open(AAS_ASTRO_KEYWORDS_FILE, 'rU') as fk:
+        for l in fk.readlines():
+            AAS_ASTRO_KEYWORDS.append(l.strip())
+except Exception as e:
+    print("Error loading AAS Astro keywords: %s" % e)
 
 
 
 # COMBINE ALL ASTRO KEYWORDS INTO AST_WORDS -- used by dbfromkw
-AST_WORDS = UAT_ASTRO_KEYWORDS + APS_ASTRO_KEYWORDS 
+AST_WORDS = UAT_ASTRO_KEYWORDS + APS_ASTRO_KEYWORDS + AAS_ASTRO_KEYWORDS
 
 # REFERENCE SOURCE OUTPUT
 REFERENCE_TOPDIR = '/proj/ads/references/sources/'
