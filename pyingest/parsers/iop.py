@@ -49,7 +49,8 @@ class IOPJATSParser(JATSParser):
         if isinstance(d, basestring):
             keywords = d.split(',')
             for k in keywords:
-                if k.lower() in AST_WORDS:
+                # if k.lower() in AST_WORDS:
+                if k in AST_WORDS:
                     db.append('AST')
                     return db
         return db

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import bs4
-from bs4 import Comment, CData
+# from bs4 import Comment, CData
+from bs4 import CData
 from collections import OrderedDict
 from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
@@ -113,20 +114,33 @@ class JATSParser(BaseBeautifulSoupParser):
         base_metadata = {}
 
 # Title:
+        title_xref_list = []
+        title_fn_list = []
         try:
             title = article_meta.find('title-group').find('article-title')
         except Exception, err:
             pass
-        try:
-            title.xref.extract()
-        except Exception, err:
-            pass
-        try:
-            title.fn.extract()
-        except Exception, err:
-            pass
-        base_metadata['title'] = (
-            self._detag(title, JATS_TAGSET['title']).strip())
+        else:
+            try:
+                for dx in title.find_all('xref'):
+                    title_xref_list.append(self._detag(dx,
+                        JATS_TAGSET['abstract']).strip())
+                    dx.decompose()
+                # title.xref.decompose()
+                # title.xref.extract()
+            except Exception, err:
+                pass
+            try:
+                for df in title.find_all('fn'):
+                    title_fn_list.append(self._detag(df,
+                        JATS_TAGSET['abstract']).strip())
+                    df.decompose()
+                # title.fn.decompose()
+                # title.fn.extract()
+            except Exception, err:
+                pass
+            base_metadata['title'] = (
+                self._detag(title, JATS_TAGSET['title']).strip())
 
 # Abstract:
         try:
@@ -143,6 +157,8 @@ class JATSParser(BaseBeautifulSoupParser):
                 abstract = (
                     self._detag(abstract, JATS_TAGSET['abstract']))
             base_metadata['abstract'] = abstract
+            if title_fn_list:
+                base_metadata['abstract'] += '  ' + ' '.join(title_fn_list)
 
 
 # Authors and Affiliations:
@@ -332,26 +348,60 @@ class JATSParser(BaseBeautifulSoupParser):
 
 # Keywords:
         try:
-            keywords = article_meta.find('article-categories').find_all('subj-group')
+            keys_uat = []
+            keys_misc = []
+            keys_aas = []
+            keyword_groups = article_meta.find_all('kwd-group')
+            for kg in keyword_groups:
+                # Check for UAT first:
+                if kg['kwd-group-type'] == 'author':
+                    keys_uat_test = kg.find_all('compound-kwd-part')
+                    for kk in keys_uat_test:
+                        if kk['content-type'] == 'term':
+                            keys_uat.append(self._detag(kk, 
+                                JATS_TAGSET['keywords']))
+                    if not keys_uat:
+                        keys_misc_test = kg.find_all('kwd')
+                        for kk in keys_misc_test:
+                            keys_misc.append(self._detag(kk, 
+                                JATS_TAGSET['keywords']))
+                # Then check for AAS:
+                elif kg['kwd-group-type'] == 'AAS':
+                    keys_aas_test = kg.find_all('kwd')
+                    for kk in keys_aas_test:
+                        keys_aas.append(self._detag(kk, 
+                            JATS_TAGSET['keywords']))
+                # If all else fails, just search for 'kwd'
+                else:
+                    keys_misc_test = kg.find_all('kwd')
+                    for kk in keys_misc_test:
+                        keys_misc.append(self._detag(kk, 
+                            JATS_TAGSET['keywords']))
+            if keys_uat:
+                keywords = keys_uat
+            elif keys_aas:
+                keywords = keys_aas
+            elif keys_misc:
+                keywords = keys_misc
+            if keywords:
+                base_metadata['keywords'] = ', '.join(keywords)
         except Exception, err:
-            keywords = []
-        for c in keywords:
-            try:
-                if c['subj-group-type'] == 'toc-minor':
-                    base_metadata['keywords'] = self._detag(c.subject, (
-                        JATS_TAGSET['keywords']))
-            except Exception, err:
-                pass
+            pass
         if 'keywords' not in base_metadata:
             try:
-                keywords = article_meta.find('kwd-group').find_all('kwd')
-                kwd_arr = []
-                for c in keywords:
-                    kwd_arr.append(self._detag(c, JATS_TAGSET['keywords']))
-                if len(kwd_arr) > 0:
-                    base_metadata['keywords'] = ', '.join(kwd_arr)
+                keywords = article_meta.find('article-categories').find_all('subj-group')
             except Exception, err:
-                pass
+                keywords = []
+            for c in keywords:
+                try:
+                    if c['subj-group-type'] == 'toc-minor':
+                        klist = []
+                        for k in c.find_all('subject'):
+                            klist.append(self._detag(k, (
+                                JATS_TAGSET['keywords'])))
+                        base_metadata['keywords'] = ', '.join(klist)
+                except Exception, err:
+                    pass
 
 # Volume:
         volume = article_meta.volume
@@ -381,7 +431,8 @@ class JATSParser(BaseBeautifulSoupParser):
             if j['journal-id-type'] == 'publisher-id':
                 base_metadata['pub-id'] = self._detag(j, [])
 
-# DOI:
+# links: DOI and arxiv preprints
+        # DOI
         base_metadata['properties'] = {}
         try:
             ids = article_meta.find_all('article-id')
@@ -390,6 +441,21 @@ class JATSParser(BaseBeautifulSoupParser):
         for d in ids:
             if d['pub-id-type'] == 'doi':
                 base_metadata['properties']['DOI'] = self._detag(d, [])
+        # Arxiv Preprint
+        try:
+            arxiv = article_meta.find_all('custom-meta')
+        except Exception, err:
+            pass
+        else:
+            ax_pref = 'https://arxiv.org/abs/'
+            for ax in arxiv:
+                try:
+                    x_name = self._detag(ax.find('meta-name'),[])
+                    x_value = self._detag(ax.find('meta-value'),[])
+                    if x_name == 'arxivppt':
+                        base_metadata['properties']['HTML'] = ax_pref + x_value
+                except Exception, err:
+                    pass
 
 # Pubdate:
         try:

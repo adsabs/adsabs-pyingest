@@ -111,7 +111,7 @@ class ArxivParser(DublinCoreParser):
             prop = {}
             pubnote_prop = []
             for _x in result['properties']:
-                if 'http://arxiv.org' in _x:
+                if 'http://arxiv.org' in _x or 'https://arxiv.org' in _x:
                     prop['HTML'] = _x
                 else:
                     if 'doi:' in _x:
