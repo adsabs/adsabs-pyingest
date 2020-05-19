@@ -431,7 +431,8 @@ class JATSParser(BaseBeautifulSoupParser):
             if j['journal-id-type'] == 'publisher-id':
                 base_metadata['pub-id'] = self._detag(j, [])
 
-# DOI:
+# links: DOI and arxiv preprints
+        # DOI
         base_metadata['properties'] = {}
         try:
             ids = article_meta.find_all('article-id')
@@ -440,6 +441,21 @@ class JATSParser(BaseBeautifulSoupParser):
         for d in ids:
             if d['pub-id-type'] == 'doi':
                 base_metadata['properties']['DOI'] = self._detag(d, [])
+        # Arxiv Preprint
+        try:
+            arxiv = article_meta.find_all('custom-meta')
+        except Exception, err:
+            pass
+        else:
+            ax_pref = 'https://arxiv.org/abs/'
+            for ax in arxiv:
+                try:
+                    x_name = self._detag(ax.find('meta-name'),[])
+                    x_value = self._detag(ax.find('meta-value'),[])
+                    if x_name == 'arxivppt':
+                        base_metadata['properties']['HTML'] = ax_pref + x_value
+                except Exception, err:
+                    pass
 
 # Pubdate:
         try:
