@@ -1,4 +1,4 @@
-git+https://github.com/adsabs/ADSPipelineUtils.git@v1.2.3
+adsputils==v1.2.7
 bs4==0.0.1
 future==0.18.2
 html5lib==1.0.1
