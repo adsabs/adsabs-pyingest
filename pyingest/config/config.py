@@ -106,7 +106,7 @@ UAT_URL = 'https://raw.githubusercontent.com/astrothesaurus/UAT/master/UAT.json'
 try:
     uat_request = requests.get(UAT_URL)
     UAT_ASTRO_KEYWORDS = list(find('name', uat_request.json()))
-    print("Info: loaded %s UAT keywords from github." % len(UAT_ASTRO_KEYWORDS))
+    # print("Info: loaded %s UAT keywords from github." % len(UAT_ASTRO_KEYWORDS))
 except Exception as e:
     print("Warning: could not load UAT from github!")
     UAT_ASTRO_KEYWORDS = []
