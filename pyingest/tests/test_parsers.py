@@ -18,6 +18,7 @@ from pyingest.parsers import gcncirc
 from pyingest.parsers import hstprop
 from pyingest.parsers import iop
 from pyingest.parsers import joss
+from pyingest.parsers import oup
 from pyingest.parsers import procsci
 from pyingest.parsers import zenodo
 from pyingest.config import config
@@ -225,6 +226,46 @@ class TestIOP(unittest.TestCase):
             self.assertEqual(test_data['bibcode'], output_bibcode)
             self.assertEqual(test_data['publication'], output_pub)
             self.assertEqual(test_data['affiliations'], output_aff)
+        return
+
+
+class TestOUP(unittest.TestCase):
+
+    def setUp(self):
+        stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata/')
+        self.inputdocs = glob.glob(os.path.join(stubdata_dir, 'input/oup*'))
+        self.outputdir = os.path.join(stubdata_dir, 'parsed')
+        sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
+
+    def test_oup_parser(self):
+        parser = oup.OUPJATSParser()
+        config.REFERENCE_TOPDIR = '/dev/null/'
+        for file in self.inputdocs:
+            # this will raise exceptions if something is wrong
+            with open(file, 'r') as fp:
+                test_data = parser.parse(fp)
+                self.assertIsNotNone(test_data, "%s: error reading doc" % file)
+            basefile = os.path.basename(file)
+            target = os.path.join(self.outputdir, basefile + '.json')
+            # save temporary copy of data structure
+            target_saved = target + '.json'
+            with open(target_saved, 'w') as fp:
+                json.dump(test_data, fp, sort_keys=True, indent=4)
+
+            ok = False
+            if os.path.exists(target):
+                with open(target, 'r') as fp:
+                    shouldbe = json.load(fp)
+                    self.assertDictEqual(shouldbe, test_data, "results differ from %s" % target)
+                    ok = True
+            else:
+                sys.stderr.write("could not find shouldbe file %s\n" % target)
+
+            if ok:
+                os.remove(target_saved)
+            else:
+                sys.stderr.write("parsed output dumped in %s\n" % target_saved)
+
         return
 
 
