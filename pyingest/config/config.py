@@ -72,6 +72,14 @@ OUP_PUBLISHER_IDS = {'mnras': u'MNRAS', 'mnrasl': u'MNRAS',
                      'pasj': u'PASJ', 'ptep': u'PTEP', 'gji': u'GeoJI'}
 OUP_PDFDIR = 'https://academic.oup.com'
 
+OUP_TMP_DIRS = {
+    'mnrasl': '/proj/ads/abstracts/config/links//DOI/MNRASL',
+    'mnras':  '/proj/ads/abstracts/config/links//DOI/MNRAS',
+    'pasj.':  '/proj/ads/abstracts/config/links//DOI/PASJ',
+    'gji':    '/proj/ads/abstracts/config/links//DOI/GeoJI'
+}
+    
+
 JATS_TAGS_DANGER = ['php', 'script', 'css']
 
 JATS_TAGS_MATH = ['inline-formula',
@@ -106,7 +114,7 @@ UAT_URL = 'https://raw.githubusercontent.com/astrothesaurus/UAT/master/UAT.json'
 try:
     uat_request = requests.get(UAT_URL)
     UAT_ASTRO_KEYWORDS = list(find('name', uat_request.json()))
-    print("Info: loaded %s UAT keywords from github." % len(UAT_ASTRO_KEYWORDS))
+    # print("Info: loaded %s UAT keywords from github." % len(UAT_ASTRO_KEYWORDS))
 except Exception as e:
     print("Warning: could not load UAT from github!")
     UAT_ASTRO_KEYWORDS = []
@@ -138,6 +146,13 @@ AST_WORDS = UAT_ASTRO_KEYWORDS + APS_ASTRO_KEYWORDS + AAS_ASTRO_KEYWORDS
 
 # REFERENCE SOURCE OUTPUT
 REFERENCE_TOPDIR = '/proj/ads/references/sources/'
+
+# REFSOURCE DICTIONARY
+REFSOURCE_DICT = {
+    'iop': 'iopft.xml',
+    'oup': 'oupft.xml',
+    'pnas': 'pnas.xml'
+}
 
 # AUTHOR ALIASES
 AUTHOR_ALIAS_DIR = '/proj/ads/abstracts/config/Authors/'

@@ -11,9 +11,9 @@ outfile = 'iop_test.tag'
 
 journal_ISSN = {
     '0004-637X': 'ApJ',
-    '2041-8205': 'ApJL',
-    '2515-5172': 'RNAAS',
-    '1538-3873': 'PASP',
+#   '2041-8205': 'ApJL',
+#   '2515-5172': 'RNAAS',
+#   '1538-3873': 'PASP',
     '0143-0807': 'EJPh'
 }
 
@@ -49,7 +49,7 @@ for issn in journal_ISSN.keys():
         print("\n\n\n\n\n")
         serializer.write(d, fo)
         try:
-            ref_handler.writeref(d)
+            ref_handler.writeref(d,'oup')
         except Exception, err:
             print("Error with writeref:", err)
     fo.close()

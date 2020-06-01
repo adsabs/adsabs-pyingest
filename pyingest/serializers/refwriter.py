@@ -14,9 +14,9 @@ class ReferenceWriter(object):
 
     def __init__(self):
         self.topdir = REFERENCE_TOPDIR
-        self.refsource = 'iopft.xml'
+        self.refsource = REFSOURCE_DICT
 
-    def writeref(self, output_metadata):
+    def writeref(self, output_metadata, source='iop'):
         if isinstance(output_metadata, dict):
             try:
                 output_metadata['refhandler_list']
@@ -30,7 +30,7 @@ class ReferenceWriter(object):
                     bibcode = output_metadata['bibcode']
                     bibstem = bibcode[4:9].rstrip('.')
                     volume = str(output_metadata['volume']).rjust(4, '0')
-                    file_ext = self.refsource
+                    file_ext = self.refsource[source]
                     reflist = output_metadata['refhandler_list']
 
                     outdir = self.topdir + bibstem + '/' + volume
