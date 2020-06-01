@@ -139,6 +139,13 @@ AST_WORDS = UAT_ASTRO_KEYWORDS + APS_ASTRO_KEYWORDS + AAS_ASTRO_KEYWORDS
 # REFERENCE SOURCE OUTPUT
 REFERENCE_TOPDIR = '/proj/ads/references/sources/'
 
+# REFSOURCE DICTIONARY
+REFSOURCE_DICT = {
+    'iop': 'iopft.xml',
+    'oup': 'oupft.xml',
+    'pnas': 'pnas.xml'
+}
+
 # AUTHOR ALIASES
 AUTHOR_ALIAS_DIR = '/proj/ads/abstracts/config/Authors/'
 
