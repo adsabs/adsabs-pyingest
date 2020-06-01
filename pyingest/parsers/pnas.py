@@ -1,4 +1,5 @@
 import requests
+from adsputils import u2asc
 from pyingest.config import config
 from pyingest.parsers.default import BaseBeautifulSoupParser
 from pyingest.parsers.author_names import AuthorNames
@@ -21,6 +22,13 @@ class PNASParser(BaseBeautifulSoupParser):
 
     def __init__(self):
         pass
+
+    def get_author_init(self, namestring):
+        output = u2asc(namestring)
+        for c in output:
+            if c.isalpha():
+                return c.upper()
+        return u'.'
 
     def get_buffer(self, url, **kwargs):
         hostname = url.split('/')[2]
@@ -130,6 +138,14 @@ class PNASParser(BaseBeautifulSoupParser):
             print "LOL ERR:",err
             pass
 
+        # Pubdate
+        try:
+            pubdate = data.findAll('meta', {'name':'citation_publication_date'})[0]['content']
+            ymd = pubdate.split('/')
+            output_metadata['pubdate'] = ymd[1].rjust(2,'0')+ '/' + ymd[0]
+        except Exception, err:
+            print "Lol date:",err
+
         # Affiliations/ORCID/email addresses:
         n_authors = len(auth_list)
         affil_list = []
@@ -171,5 +187,32 @@ class PNASParser(BaseBeautifulSoupParser):
             output_metadata['affiliations'] = affil_new
         except Exception, err:
             output_metadata['affiliations'] = affil_list
+
+        # Now you can make the bibcode...
+        year = str(int(vol) + 1903)
+        bibstem = 'PNAS.'
+        vol_bib = vol.rjust(4,'.')
+        fpg_bib = fpg.rjust(5,'.')
+        auth_init = self.get_author_init(output_metadata['authors'][0])
+        output_metadata['bibcode'] = year + bibstem + vol_bib + fpg_bib + auth_init
+
+        # References
+        try:
+            reflist = data.findAll('meta', {'name':'citation_reference'})
+            output_metadata['refhandler_list'] = []
+            for r in reflist:
+                output_metadata['refhandler_list'].append(r['content'])
+                # ref_dat = r['content'].split(';')
+                # print "refrefref!"
+                # for d in ref_dat:
+                    # try:
+                        # (k,v) = d.split('=')
+                    # except:
+                        # pass
+                    # else:
+                        # print k,v
+        except Exception, err:
+            pass
+        
 
         return output_metadata
