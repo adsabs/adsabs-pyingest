@@ -72,6 +72,14 @@ OUP_PUBLISHER_IDS = {'mnras': u'MNRAS', 'mnrasl': u'MNRAS',
                      'pasj': u'PASJ', 'ptep': u'PTEP', 'gji': u'GeoJI'}
 OUP_PDFDIR = 'https://academic.oup.com'
 
+OUP_TMP_DIRS = {
+    'mnrasl': '/proj/ads/abstracts/config/links//DOI/MNRASL',
+    'mnras':  '/proj/ads/abstracts/config/links//DOI/MNRAS',
+    'pasj.':  '/proj/ads/abstracts/config/links//DOI/PASJ',
+    'gji':    '/proj/ads/abstracts/config/links//DOI/GeoJI'
+}
+    
+
 JATS_TAGS_DANGER = ['php', 'script', 'css']
 
 JATS_TAGS_MATH = ['inline-formula',
