@@ -42,7 +42,7 @@ class OUPJATSParser(JATSParser):
         try:
             f = OUP_TMP_DIRS[bs.lower()]
         except:
-            raise WrongSchemaException('bibstem not found')
+            pass
         else:
             f = f + "early.dat.nocheck"
             with open(f,'rU') as fp:
@@ -53,7 +53,7 @@ class OUPJATSParser(JATSParser):
         try:
             f = OUP_TMP_DIRS[bs.lower()]
         except:
-            raise WrongSchemaException('bibstem not found')
+            pass
         else:
             f = f + "early.dat.nocheck"
             l = bib + "\t" + doi + "\n"
