@@ -45,9 +45,12 @@ class OUPJATSParser(JATSParser):
             pass
         else:
             f = f + "early.dat.nocheck"
-            with open(f,'rU') as fp:
-                p = fp.readline()
-            return p.split()[0]
+            try:
+                with open(f,'rU') as fp:
+                    p = fp.readline()
+                return p.split()[0]
+            except Exception, err:
+                pass
 
     def update_tmp_file(self, bs, bib, doi):
         try:
@@ -57,17 +60,20 @@ class OUPJATSParser(JATSParser):
         else:
             f = f + "early.dat.nocheck"
             l = bib + "\t" + doi + "\n"
-            with open(f,'a') as fp:
-                fp.write(l)
-            # now replace first line
-            c = bib[14:18]
-            c = c.replace('.','')
-            c = c + "\n"
-            with open(f,'r') as fp:
-                lines = fp.readlines()
-                lines[0] = c
-            with open(f,'w') as fp:
-                lines = fp.writelines(lines)
+            try:
+                with open(f,'a') as fp:
+                    fp.write(l)
+                # now replace first line
+                c = bib[14:18]
+                c = c.replace('.','')
+                c = c + "\n"
+                with open(f,'r') as fp:
+                    lines = fp.readlines()
+                    lines[0] = c
+                with open(f,'w') as fp:
+                    lines = fp.writelines(lines)
+            except Exception, err:
+                pass
 
     def dbfrombs(self, bs):
         db = []
