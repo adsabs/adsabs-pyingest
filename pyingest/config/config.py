@@ -37,13 +37,13 @@ IOP_PUBLISHER_IDS = {'apj': u'ApJ', 'jcap': u'JCAP', 'ejp': u'EJPh',
                      'bmm': u'BioMa', 'cqg': u'CQGra', 'cpc': u'ChPhC',
                      'ctp': u'CoTPh', 'epl': u'EL', 'erc': u'ERCom',
                      'erx': u'ERExp', 'erl': u'ERL', 'est': u'EleSt',
-                     'fcs': u'FCS', 'fdr': u'FlDyR', 'izv': u'IzMat',
+                     'FCS': u'FCS', 'fdr': u'FlDyR', 'izv': u'IzMat',
                      'jbr': u'JBR', 'jopt': u'JOpt', 'cm': u'JPCM',
                      'jpenergy': u'JPEn', 'a': u'JPhA', 'b': u'JPhB',
                      'jpco': u'JPhCo', 'g': u'JPhG', 'jpmater': u'JPhM',
                      'jpphoton': u'JPhP', 'lpl': u'LaPhL', 'mrx': u'MRE',
-                     'mst': u'MeScT', 'mfm': u'MuMat',
-                     'njp': u'NJPh', 'nanof': u'NanoF', 'nano': u'Nanot',
+                     'mst': u'MeScT', 'mfm': u'MuMat', 'njp': u'NJPh',
+                     'nanoe': u'NanoE', 'nanof': u'NanoF', 'nano': u'Nanot',
                      'non': u'Nonli', 'pasp': u'PASP', 'met': u'Metro',
                      'pmb': u'PMB', 'ppcf': u'PPCF', 'prex': u'PRCom',
                      'ps': u'PhyS', 'ped': u'PhyEd',
@@ -51,7 +51,7 @@ IOP_PUBLISHER_IDS = {'apj': u'ApJ', 'jcap': u'JCAP', 'ejp': u'EJPh',
                      'rnaas': u'RNAAS', 'rop': u'RPPh', 'rms': u'RuMaS',
                      'sst': u'SeScT', 'sust': u'SuScT', 'tdm': u'TDM',
                      'rcr': u'RuCRv', 'nf': u'NucFu', 'jmm': u'JMiMi',
-                     'cpl': u'ChPhL', 'ip': u'InvPr', 'jrp': u'JRP',
+                     'cpl': u'ChPhL', 'ip': u'InvPr', 'jrp': u'JRP', 'psj': u'PSJ',
                      'psst': u'PSST', 'sms': u'SMaS', 'msms': u'MSMSE',
                      'qel': u'QuEle', 'msb': u'SbMat', 'jjap': u'JaJAP',
                      'ansn': u'ANSNN', 'maf': u'MApFl', 'stmp': u'SuTMP',
@@ -60,7 +60,7 @@ IOP_PUBLISHER_IDS = {'apj': u'ApJ', 'jcap': u'JCAP', 'ejp': u'EJPh',
                      'jos': u'JSemi', 'jne': u'JNEng', 'jge': u'JGE',
                      'jstat': u'JSMTE', 'jpcs': u'JPhCS', 'pw': u'PhyW',
                      'prv': u'PPS', 'c': 'JPhC', 'jphf': 'JPhF',
-                     'jinst': u'JInst'}
+                     'jinst': u'JInst', 'ecst': u'ECSTr'}
 
 IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical Society'}
 
@@ -78,7 +78,13 @@ OUP_TMP_DIRS = {
     'pasj.':  '/proj/ads/abstracts/config/links//DOI/PASJ',
     'gji':    '/proj/ads/abstracts/config/links//DOI/GeoJI'
 }
-    
+ 
+AIP_PUBLISHER_IDS = {'AAIDBI': u'AIPA', 'APCPCS': u'AIPC', 'APPLAB': u'ApPhL',
+                     'AMPADS': u'APLM', 'APPHD2': u'APLP', 'AQSVAT': u'AVSQS',
+                     'APRPG5': u'ApPRv', 'CHAOEH': u'Chaos',
+                     'JAPIAU': u'JAP', 'JCPSA6': u'JChPh', 'JMAPAQ': u'JMP',
+                     'JPCRBU': u'JPCRD', 'LTPHEG': u'LTP', 'PHFLE6': u'PhFl',
+                     'PHPAEN': u'PhPl', 'PHTEAH': u'PhTea', 'RSINAK': u'RScI'}
 
 JATS_TAGS_DANGER = ['php', 'script', 'css']
 
@@ -113,10 +119,8 @@ JATS_TAGSET = {'title': JATS_TAGS_MATH + JATS_TAGS_HTML,
 UAT_URL = 'https://raw.githubusercontent.com/astrothesaurus/UAT/master/UAT.json'
 try:
     uat_request = requests.get(UAT_URL)
-    uat_data = uat_request.json()
-    UAT_ASTRO_KEYWORDS = list(find('name', uat_data))
+    UAT_ASTRO_KEYWORDS = list(find('name', uat_request.json()))
     # print("Info: loaded %s UAT keywords from github." % len(UAT_ASTRO_KEYWORDS))
-    # print list(find('uri', uat_data))
 except Exception as e:
     print("Warning: could not load UAT from github!")
     UAT_ASTRO_KEYWORDS = []
@@ -153,6 +157,7 @@ REFERENCE_TOPDIR = '/proj/ads/references/sources/'
 REFSOURCE_DICT = {
     'iop': 'iopft.xml',
     'oup': 'oupft.xml',
+    'aip': 'aipft.xml',
     'pnas': 'pnas.xml'
 }
 
