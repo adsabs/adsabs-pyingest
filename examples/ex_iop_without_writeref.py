@@ -126,7 +126,7 @@ basedir = '/proj/ads/articles/sources/STACKS/'
 
 issn_list = journal_ISSN.keys()
 issn_list.sort()
-'''
+
 for issn in issn_list:
     b2 = basedir + issn
     vols = glob(b2 + '/*')
@@ -139,9 +139,9 @@ for issn in issn_list:
             papers2.append(p)
 
     papers = papers2
-'''
-try:
-    papers = ['/proj/ads/articles/sources/STACKS/1538-3881/159/5/186/aj_159_5_186.xml']
+
+#try:
+#    papers = ['/proj/ads/articles/sources/STACKS/1538-3881/159/5/186/aj_159_5_186.xml']
 
     print "HI IM PAPERS:",papers
     # Try the parser
@@ -168,5 +168,5 @@ try:
             print("no bibcode...")
         serializer.write(d, fo)
     fo.close()
-except Exception, err:
-    pass
+#except Exception, err:
+#    pass
