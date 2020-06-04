@@ -37,6 +37,7 @@ class APSJATSParser(JATSParser):
         try:
             bibstem = APS_PUBLISHER_IDS[pid]
         except KeyError, err:
+            print "Warning, APS bibstem not found!"
             return 'XSTEM'
         else:
             return bibstem

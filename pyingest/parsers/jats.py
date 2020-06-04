@@ -422,14 +422,35 @@ class JATSParser(BaseBeautifulSoupParser):
             except Exception, err:
                 pass
 
-# Journal ID:
         try:
-            jid = journal_meta.find_all('journal-id')
+            jid = journal_meta.find('journal-id', {'journal-id-type':'publisher-id'})
+            if jid:
+                base_metadata['pub-id'] = self._detag(jid, [])
+            else:
+                try:
+                    jid = journal_meta.find('journal-id', {'journal-id-type':'coden'})
+                    if jid:
+                        base_metadata['coden'] = self._detag(jid, [])
+                except Exception, err:
+                    pass
         except Exception, err:
-            jid = []
-        for j in jid:
-            if j['journal-id-type'] == 'publisher-id':
-                base_metadata['pub-id'] = self._detag(j, [])
+            pass 
+               
+# Journal ID:
+#        try:
+#            jid = journal_meta.find_all('journal-id')
+#        except Exception, err:
+#            jid = []
+#        # use the publisher ID first, otherwise use coden
+#        for j in jid:
+#            if j['journal-id-type'] == 'publisher-id':
+#                base_metadata['pub-id'] = self._detag(j, [])
+#        try:
+#            base_metadata['pub-id']
+#        except Exception, err:
+#            for j in jid:
+#                if j['journal-id-type'] == 'coden':
+#                    base_metadata['pub-id'] = self._detag(j, [])
 
 # links: DOI and arxiv preprints
         # DOI
@@ -544,6 +565,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 ref_results = back_meta.find('ref-list').find_all('ref')
                 for r in ref_results:
                     s = unicode(r.extract()).replace('\n', '')
+                    s = re.sub(r'\s+',r' ',s)
                     s = namedentities.named_entities(s)
                     ref_list_text.append(s)
             except Exception, err:

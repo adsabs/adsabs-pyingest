@@ -294,6 +294,8 @@ class TestAPSJATS(unittest.TestCase):
         with open(testfile, 'rU') as fp:
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
+            print "LOL DOCUMENT:",document
+            print "LOL SHOULDBE:",shouldbe
         self.assertDictEqual(document, shouldbe)
 
 
