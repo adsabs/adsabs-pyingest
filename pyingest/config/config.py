@@ -59,8 +59,9 @@ IOP_PUBLISHER_IDS = {'apj': u'ApJ', 'jcap': u'JCAP', 'ejp': u'EJPh',
                      'pb': u'PhBio', 'lp': u'LaPhy', 'cpb': u'ChPhB',
                      'jos': u'JSemi', 'jne': u'JNEng', 'jge': u'JGE',
                      'jstat': u'JSMTE', 'jpcs': u'JPhCS', 'pw': u'PhyW',
-                     'prv': u'PPS', 'c': 'JPhC', 'jphf': 'JPhF',
-                     'jinst': u'JInst', 'ecst': u'ECSTr'}
+                     'prv': u'PPS', 'jcv': u'JPhC', 'jphf': u'JPhF',
+                     'jinst': u'JInst', 'ecst': u'ECSTr', 'jes': u'JElS',
+                     'jss': u'JSSST'}
 
 IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical Society'}
 
@@ -78,7 +79,7 @@ OUP_TMP_DIRS = {
     'pasj.':  '/proj/ads/abstracts/config/links//DOI/PASJ',
     'gji':    '/proj/ads/abstracts/config/links//DOI/GeoJI'
 }
- 
+    
 AIP_PUBLISHER_IDS = {'AAIDBI': u'AIPA', 'APCPCS': u'AIPC', 'APPLAB': u'ApPhL',
                      'AMPADS': u'APLM', 'APPHD2': u'APLP', 'AQSVAT': u'AVSQS',
                      'APRPG5': u'ApPRv', 'CHAOEH': u'Chaos',
@@ -157,7 +158,6 @@ REFERENCE_TOPDIR = '/proj/ads/references/sources/'
 REFSOURCE_DICT = {
     'iop': 'iopft.xml',
     'oup': 'oupft.xml',
-    'aip': 'aipft.xml',
     'pnas': 'pnas.xml'
 }
 
