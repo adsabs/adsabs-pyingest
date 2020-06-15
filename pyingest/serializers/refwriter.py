@@ -21,7 +21,6 @@ class ReferenceWriter(object):
             try:
                 output_metadata['refhandler_list']
             except Exception, err:
-                print "Hey, I found no refhandler_list item!"
                 pass
                 # raise NoReferencesException(err)
             else:
@@ -44,7 +43,7 @@ class ReferenceWriter(object):
                         for s in reflist:
                             fw.write(s.encode('utf8') + '\n')
                 except Exception, err:
-                    print "exception in writeref:",err
+                    # print "exception in writeref:",err
                     pass
                     # raise WriteErrorException(err)
         return
