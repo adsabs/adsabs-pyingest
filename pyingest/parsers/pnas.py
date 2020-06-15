@@ -62,7 +62,8 @@ class PNASParser(BaseBeautifulSoupParser):
                 if t['content']:
                     output_metadata['title'] = t['content']
         except Exception, err:
-            print "title not found:",err
+            # print "title not found:",err
+            pass
 
 
         # Abstract
@@ -74,7 +75,7 @@ class PNASParser(BaseBeautifulSoupParser):
                 except Exception, err:
                     output_metadata['abstract'] = a['content'].lstrip('<p>').rstrip('</p>')
         except Exception, err:
-            print "abstract not found:",err
+            # print "abstract not found:",err
             pass
 
 
@@ -84,7 +85,7 @@ class PNASParser(BaseBeautifulSoupParser):
             for a in author_meta:
                 auth_list.append(a['content'])
         except Exception, err:
-            print "problem with authors",err
+            # print "problem with authors",err
 
         # Volume, issue, first/last page for 'publication'
         try:
@@ -96,6 +97,7 @@ class PNASParser(BaseBeautifulSoupParser):
             page = fpg + '-' + lpg
             journal_string = "Proceedings of the National Academy of Sciences, vol. %s, pp. %s"
             output_metadata['publication'] = journal_string % (volume,page)
+            output_metadata['volume'] = vol
         except Exception, err:
             pass
 
@@ -135,7 +137,6 @@ class PNASParser(BaseBeautifulSoupParser):
             keys = data.findAll('li', {'class':'kwd'})
             output_metadata['keywords'] = ', '.join(k.text for k in keys)
         except Exception, err:
-            print "LOL ERR:",err
             pass
 
         # Pubdate
@@ -144,7 +145,7 @@ class PNASParser(BaseBeautifulSoupParser):
             ymd = pubdate.split('/')
             output_metadata['pubdate'] = ymd[1].rjust(2,'0')+ '/' + ymd[0]
         except Exception, err:
-            print "Lol date:",err
+            pass
 
         # Affiliations/ORCID/email addresses:
         n_authors = len(auth_list)
@@ -201,17 +202,9 @@ class PNASParser(BaseBeautifulSoupParser):
             reflist = data.findAll('meta', {'name':'citation_reference'})
             output_metadata['refhandler_list'] = []
             for r in reflist:
-                output_metadata['refhandler_list'].append(r['content'])
-                # ref_dat = r['content'].split(';')
-                # print "refrefref!"
-                # for d in ref_dat:
-                    # try:
-                        # (k,v) = d.split('=')
-                    # except:
-                        # pass
-                    # else:
-                        # print k,v
+                output_metadata['refhandler_list'].append(r)
         except Exception, err:
+            # print "in pnas references:",err
             pass
         
 
