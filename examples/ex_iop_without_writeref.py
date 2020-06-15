@@ -104,20 +104,21 @@ journal_ISSN = {
 }
 '''
 journal_ISSN = {
-    '1538-3881': 'AJ',
+#   '1538-3881': 'AJ',
     '0004-637X': 'ApJ',
-    '1402-4896': 'PhST',
+#   '1402-4896': 'PhST',
     '0031-9120': 'PhyEd',
-    '0967-3334': 'PhyM',
+#   '0967-3334': 'PhyM',
     '1402-4896': 'PhyS',
-    '1063-7869': 'PhyU',
+#   '1063-7869': 'PhyU',
     '1009-0630': 'PlST',
-    '2516-1083': 'PrEne',
+#   '2516-1083': 'PrEne',
     '2058-9565': 'QS&T',
-    '1063-7818': 'QuEle',
+#   '1063-7818': 'QuEle',
     '1674-4527': 'RAA',
     '2515-5172': 'RNAAS',
-    '0034-4885': 'RPPh'}
+    '0034-4885': 'RPPh'
+}
 
 parser = IOPJATSParser()
 
@@ -140,10 +141,6 @@ for issn in issn_list:
 
     papers = papers2
 
-#try:
-#    papers = ['/proj/ads/articles/sources/STACKS/1538-3881/159/5/186/aj_159_5_186.xml']
-
-    print "HI IM PAPERS:",papers
     # Try the parser
     documents = []
     for p in papers:
@@ -168,5 +165,3 @@ for issn in issn_list:
             print("no bibcode...")
         serializer.write(d, fo)
     fo.close()
-#except Exception, err:
-#    pass
