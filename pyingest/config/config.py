@@ -6,9 +6,13 @@ import requests
 def get_uat(data,data_dict):
     if isinstance(data,dict):
         try:
+            data_dict[data['name'].strip()] = data['uri'].strip().split('/')[-1]
+        except:
+            pass
+        try:
             data['children']
         except:
-            data_dict[data['name']] = data['uri'].split('/')[-1]
+            pass
         else:
             get_uat(data['children'],data_dict)
     elif isinstance(data,list):
@@ -117,6 +121,7 @@ try:
     uat_data = uat_request.json()
     get_uat(uat_request.json(), UAT_ASTRO_URI_DICT)
     UAT_ASTRO_KEYWORDS = UAT_ASTRO_URI_DICT.keys()
+    UAT_ASTRO_URI_DICT = dict((k.lower(),v) for k,v in UAT_ASTRO_URI_DICT.items())
 except Exception as e:
     print("Warning: could not load UAT from github!")
     UAT_ASTRO_KEYWORDS = list()

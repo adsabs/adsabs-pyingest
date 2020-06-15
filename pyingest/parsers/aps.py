@@ -50,6 +50,9 @@ class APSJATSParser(JATSParser):
                 if k.lower() in self.AST_WORDS:
                     db.append('AST')
                     return db
+                elif 'UAT:' in k.lower():
+                    db.append('AST')
+                    return db
         return db
 
     def parse(self, fp, **kwargs):
