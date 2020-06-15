@@ -45,9 +45,9 @@ for k, v in PNAS_RSS_URLS.items():
                 serializer.write(output,fo)
             except Exception, err:
                 print("Error in serializer:",err)
-            try:
-                ref_handler = ReferenceWriter()
-                ref_handler.writeref(output,'pnas')
-            except Exception, err:
-                print("Error in writeref:", err)
+#           try:
+#               ref_handler = ReferenceWriter()
+#               ref_handler.writeref(output,'pnas')
+#           except Exception, err:
+#               print("Error in writeref:", err)
 fo.close()
