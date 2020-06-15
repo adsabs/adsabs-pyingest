@@ -6,6 +6,7 @@ import feedparser
 import requests
 from pyingest.parsers.pnas import PNASParser
 from pyingest.serializers.classic import Tagged
+from pyingest.serializers.refwriter import ReferenceWriter
 
 PNAS_RSS_URLS = {
     'astronomy':'http://www.pnas.org/rss/Astronomy.xml',
@@ -25,7 +26,7 @@ fo = open(outfile,'a')
 
 for k, v in PNAS_RSS_URLS.items():
     feed = feedparser.parse(v)
-    print "feed:",k
+    # print "feed:",k
     for _item in feed['entries']:
         try:
             record = {}
@@ -33,7 +34,7 @@ for k, v in PNAS_RSS_URLS.items():
             volno  = _item['prism_volume'].zfill(4)
             ident  = _item['dc_identifier']
             ident = ident.replace('hwp:master-id:pnas;','')
-            print absURL,volno,ident
+            # print absURL,volno,ident
             pnas = PNASParser()
             output = pnas.parse(absURL)
         except Exception, err:
@@ -43,4 +44,10 @@ for k, v in PNAS_RSS_URLS.items():
                 serializer = Tagged()
                 serializer.write(output,fo)
             except Exception, err:
-                print "Error in serializer:",err
+                print("Error in serializer:",err)
+            try:
+                ref_handler = ReferenceWriter()
+                ref_handler.writeref(output,'pnas')
+            except Exception, err:
+                print("Error in writeref:", err)
+fo.close()
