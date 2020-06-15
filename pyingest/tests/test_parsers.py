@@ -58,10 +58,11 @@ class TestDatacite(unittest.TestCase):
             else:
                 sys.stderr.write("could not find shouldbe file %s\n" % target)
 
-            if ok:
-                os.remove(target_saved)
-            else:
-                sys.stderr.write("parsed output dumped in %s\n" % target_saved)
+            # if ok:
+            #     os.remove(target_saved)
+            # else:
+            #     sys.stderr.write("parsed output dumped in %s\n" % target_saved)
+            os.remove(target_saved)
 
 
 class TestZenodo(unittest.TestCase):
@@ -95,10 +96,11 @@ class TestZenodo(unittest.TestCase):
             else:
                 sys.stderr.write("could not find shouldbe file %s\n" % target)
 
-            if ok:
-                os.remove(target_saved)
-            else:
-                sys.stderr.write("parsed output dumped in %s\n" % target_saved)
+            # if ok:
+            #     os.remove(target_saved)
+            # else:
+            #     sys.stderr.write("parsed output dumped in %s\n" % target_saved)
+            os.remove(target_saved)
 
 
 class TestAuthorNames(unittest.TestCase):
@@ -261,10 +263,11 @@ class TestOUP(unittest.TestCase):
             else:
                 sys.stderr.write("could not find shouldbe file %s\n" % target)
 
-            if ok:
-                os.remove(target_saved)
-            else:
-                sys.stderr.write("parsed output dumped in %s\n" % target_saved)
+            # if ok:
+            #     os.remove(target_saved)
+            # else:
+            #     sys.stderr.write("parsed output dumped in %s\n" % target_saved)
+            os.remove(target_saved)
 
         return
 
