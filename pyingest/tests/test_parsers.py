@@ -271,6 +271,18 @@ class TestOUP(unittest.TestCase):
 
         return
 
+    def test_tex_abstract(self):
+        parser = oup.OUPJATSParser()
+        config.REFERENCE_TOPDIR = '/dev/null'
+        input_data_file = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/mnras_cdata_example_staa093.xml')
+        print ("OMFG:",input_data_file)
+        with open(input_data_file,'r') as fp:
+            test_data = parser.parse(fp)
+            self.assertIsNotNone(test_data)
+        print ("LOL",test_data['abstract'])
+        self.assertEqual(1,2)
+        return
+
 
 class TestAPSJATS(unittest.TestCase):
 

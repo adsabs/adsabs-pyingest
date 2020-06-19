@@ -179,14 +179,15 @@ try:
             if len(carr) >= 4:
                 UNI_ENTITY = carr[0]
                 NAME_ENTITY = carr[1]
-                HEX_ENTITY = carr[2]
-                DEC_ENTITY = carr[3]
-                for c in NAME_ENTITY.split():
+                HEX_ENTITY = carr[2].lower()
+                DEC_ENTITY = carr[3].lower()
+                for c in NAME_ENTITY.strip().split():
                     try:
-                        ENTITY_DICTIONARY[c] = DEC_ENTITY
+                        ENTITY_DICTIONARY[c.strip()] = DEC_ENTITY.strip()
                     except Exception as e:
                         print("Error splitting NAME_ENTITY: '%s'" % NAME_ENTITY)
-                ENTITY_DICTIONARY[UNI_ENTITY] = DEC_ENTITY
+                ENTITY_DICTIONARY[UNI_ENTITY.strip()] = DEC_ENTITY.strip()
+                ENTITY_DICTIONARY[HEX_ENTITY.strip()] = DEC_ENTITY.strip()
             else:
                 print("broken HTML entity:", l.rstrip())
                 NAME_ENTITY = "xxxxx"
@@ -196,6 +197,7 @@ except Exception as e:
 
 # ADS-specific translations
 # have been added to html5.txt
+ENTITY_DICTIONARY['&sim;'] = "~"
 ENTITY_DICTIONARY['&Tilde;'] = "~"
 ENTITY_DICTIONARY['&rsquo;'] = "'"
 ENTITY_DICTIONARY['&lsquo;'] = "'"
