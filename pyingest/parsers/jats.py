@@ -178,11 +178,18 @@ class JATSParser(BaseBeautifulSoupParser):
                 except Exception, err:
                     pass
                 else:
-                    key = n['id']
-                    note_text = self._detag(n, JATS_TAGSET['affiliations'])
-                    affils[key] = note_text.strip()
+                    try:
+                        n['id']
+                    except Exception, err:
+                        pass
+                        # print "I'm failing on author notes!",err
+                    else:
+                        key = n['id']
+                        note_text = self._detag(n, JATS_TAGSET['affiliations'])
+                        affils[key] = note_text.strip()
 
         # Affils/affil ids
+        l_need_affils = False
         try:
             affil = article_meta.find('contrib-group').find_all('aff')
             if len(affil) == 0:
@@ -198,28 +205,34 @@ class JATSParser(BaseBeautifulSoupParser):
                     a.label.decompose()
                 except Exception, err:
                     pass
-                key = a['id']
-                ekey = ''
                 try:
-                    email_array = []
-                    email_a = a.find_all('ext-link')
-                    for em in email_a:
-                        if em['ext-link-type'] == 'email':
-                            address = self._detag(em, (
-                                JATS_TAGSET['affiliations']))
-                            address_new = "<EMAIL>" + address + "</EMAIL>"
-                            ekey = em['id']
-                            if ekey is not '':
-                                affils[ekey] = address_new
-                    while a.find('ext-link') is not None:
-                        a.find('ext-link').extract()
+                    a['id']
                 except Exception, err:
-                    pass
+                    # print "I'm failing in the affils loop!",err
+                    l_need_affils = True
+                else:
+                    key = a['id']
+                    ekey = ''
+                    try:
+                        email_array = []
+                        email_a = a.find_all('ext-link')
+                        for em in email_a:
+                            if em['ext-link-type'] == 'email':
+                                address = self._detag(em, (
+                                    JATS_TAGSET['affiliations']))
+                                address_new = "<EMAIL>" + address + "</EMAIL>"
+                                ekey = em['id']
+                                if ekey is not '':
+                                    affils[ekey] = address_new
+                        while a.find('ext-link') is not None:
+                            a.find('ext-link').extract()
+                    except Exception, err:
+                        pass
 
-                aff_text = self._detag(a, JATS_TAGSET['affiliations'])
-                affils[key] = aff_text.strip()
-                # if ekey is not '':
-                #     affils[ekey] = address_new
+                    aff_text = self._detag(a, JATS_TAGSET['affiliations'])
+                    affils[key] = aff_text.strip()
+                    # if ekey is not '':
+                    #     affils[ekey] = address_new
 
         # Author name and affil/note lists:
         try:
@@ -254,6 +267,16 @@ class JATSParser(BaseBeautifulSoupParser):
                                 orcid_out = "<ID system=\"ORCID\">" + o + "</ID>"
                     except Exception, err:
                         pass
+
+                # If you didn't get affiliations above, l_need_affils == True, so do this...
+                if l_need_affils:
+                    try:
+                        if a.find('aff') is not None:
+                            aff_id = a.find('aff')
+                            aff_text = self._detag(aff_id, JATS_TAGSET['affiliations'])
+                    except Exception, err:
+                        pass
+                
 
                 # Author names
                 if a.find('collab') is not None:
@@ -314,7 +337,9 @@ class JATSParser(BaseBeautifulSoupParser):
                             new_aid_arr.append(a)
                     aid_arr = new_aid_arr
 
-                    aff_text = '; '.join(affils[x] for x in aid_arr)
+                    # check whether or not you got affil data in one way or the other...
+                    if not l_need_affils:
+                        aff_text = '; '.join(affils[x] for x in aid_arr)
                     aff_text = aff_text.replace(';;', ';').rstrip(';')
                     aff_text = aff_text.replace('; ,', '').rstrip()
 
@@ -403,14 +428,14 @@ class JATSParser(BaseBeautifulSoupParser):
                         base_metadata['keywords'] = ', '.join(klist)
                 except Exception, err:
                     pass
-            
+
         # Now convert any UAT keywords to their URI:
         try:
             uat_cnv = UATURIConverter()
             base_metadata['keywords'] = uat_cnv.convert_to_uri(base_metadata['keywords'])
         except Exception, err:
             pass
-            
+
 
 # Volume:
         volume = article_meta.volume
@@ -444,7 +469,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     pass
         except Exception, err:
             pass 
-               
+
 # Journal ID:
 #        try:
 #            jid = journal_meta.find_all('journal-id')

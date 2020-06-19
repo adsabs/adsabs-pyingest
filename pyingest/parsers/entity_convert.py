@@ -11,7 +11,8 @@ class EntityConverter():
 
     def convert(self):
         o = self.input_text
-        ox = o
+        # ox = o
         for k, v in self.ent_dict.items():
-            ox = re.sub(k, v, ox)
-        self.output_text = ox
+            # ox = re.sub(k, v, ox)
+            o = re.sub(k, v, o)
+        self.output_text = o
