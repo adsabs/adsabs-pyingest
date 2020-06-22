@@ -49,7 +49,7 @@ for issn in journal_ISSN.keys():
         print("\n\n\n\n\n")
         serializer.write(d, fo)
         try:
-            ref_handler.writeref(d,'oup')
+            ref_handler.writeref(d,'iop')
         except Exception, err:
             print("Error with writeref:", err)
     fo.close()
