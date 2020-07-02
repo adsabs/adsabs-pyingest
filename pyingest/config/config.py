@@ -215,13 +215,15 @@ ENTITY_DICTIONARY['&emsp;'] = " "
 
 
 # ProQuest harvester
-PROQUEST_BASE_PATH = "/proj/ads/abstracts/sources/ProQuest/fromProQuest/"
 PROQUEST_OA_BASE = "http://pqdtopen.proquest.com/pubnum/%s.html"
 PROQUEST_URL_BASE = "http://gateway.proquest.com/openurl?url_ver=Z39.88-2004&res_dat=xri:pqdiss&rft_val_fmt=info:ofi/fmt:kev:mtx:dissertation&rft_dat=xri:pqdiss:%s"
 PROQUEST_DATASOURCE = "UMI"
-PROQUEST_BIB_TO_PUBNUM_FILE = PROQUEST_BASE_PATH + 'bibcode2pubno.dat'
+PROQUEST_BIB_TO_PUBNUM_FILE = os.path.dirname(os.path.abspath(__file__)) + 'bibcode2pubno.dat'
 PROQUEST_BIB_TO_PUBNUM = dict()
-result = map(lambda b: PROQUEST_BIB_TO_PUBNUM.update({b[0]:b[1]}),
-         map(lambda a: a.split(),
-         open(PROQUEST_BIB_TO_PUBNUM_FILE).read().strip().split('\n')))
+try:
+    result = map(lambda b: PROQUEST_BIB_TO_PUBNUM.update({b[0]:b[1]}),
+             map(lambda a: a.split(),
+             open(PROQUEST_BIB_TO_PUBNUM_FILE).read().strip().split('\n')))
+except Exception, err:
+    pass
 
