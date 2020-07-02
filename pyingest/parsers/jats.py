@@ -470,22 +470,6 @@ class JATSParser(BaseBeautifulSoupParser):
         except Exception, err:
             pass 
 
-# Journal ID:
-#        try:
-#            jid = journal_meta.find_all('journal-id')
-#        except Exception, err:
-#            jid = []
-#        # use the publisher ID first, otherwise use coden
-#        for j in jid:
-#            if j['journal-id-type'] == 'publisher-id':
-#                base_metadata['pub-id'] = self._detag(j, [])
-#        try:
-#            base_metadata['pub-id']
-#        except Exception, err:
-#            for j in jid:
-#                if j['journal-id-type'] == 'coden':
-#                    base_metadata['pub-id'] = self._detag(j, [])
-
 # links: DOI and arxiv preprints
         # DOI
         base_metadata['properties'] = {}
