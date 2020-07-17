@@ -4,6 +4,8 @@ import pymarc
 from pyingest.config import config
 from pyingest.parsers.author_names import AuthorNames
 from default import DefaultParser
+from ads.ArtDefs import proq2db
+
 
 # For the MARC2.1 standard guide, see:
 # https://www.loc.gov/marc/bibliographic/
@@ -24,6 +26,30 @@ class ProQuestParser(DefaultParser):
         #    self.oa_pubnum.append(str(int(entries[0])))
         self.results = list()
 
+    def get_db(self, rec):
+        subjcats = []
+        try:
+            for chunk in rec.get_fields('650'):
+                if chunk['a'] not in subjcats:
+                    cat = re.sub('\.$','',chunk['a'])
+                    try:
+                        db = proq2db.get(cat, 'PHY')
+                        if 'physics' in cat.lower():
+                            db = 'PHY'
+                        if 'astronomy' in cat.lower() or 'astroph' in cat.lower():
+                            db = 'AST'
+                        if db not in databases:
+                            databases.append(db)
+                    except:
+                        if cat not in missingCats:
+                            missingCats.append(cat)
+                        sys.stderr.write("Could not find DB for category: %s\n"%cat)
+                        pass
+                    subjcats.append(cat)
+        except Exception, err:
+            pass
+        return subjcats
+
     def parse(self):
 
         b2p = config.PROQUEST_BIB_TO_PUBNUM
@@ -38,7 +64,8 @@ class ProQuestParser(DefaultParser):
             try:
                 # This is parsing ProQuest / UMI data -- add to origin
                 datasource = 'UMI'
-                output_metadata['origin'] = datasource
+
+                jfield = ['ProQuest Dissertations And Thesis']
 
                 # read each record into a pymarc object
                 reader = pymarc.MARCReader(r, to_unicode=True)
@@ -84,6 +111,28 @@ class ProQuestParser(DefaultParser):
                     npage = ''
 
                 # Source and Advisor
+                try:
+                    school = record['502']['a']
+                except Exception, err:
+                    print "lol",err
+                else:
+                    jfield.append(school)
+                jfield.append('Publication Number: %s'%re.sub('AAI','AAT ',proqid))
+                if isbn:
+                    jfield.append('ISBN: %s'%isbn)
+               
+                try:
+                    publsh = record['500']['a']
+                except Exception, err:
+                    print "lol",err
+                else:
+                    jfield.append(publsh)
+
+                if npage:
+                    jfield.append(npage)
+                # Journal string
+          
+
 
                 # Abstract (multiline field: 520)
                 abstract = ''
@@ -109,11 +158,21 @@ class ProQuestParser(DefaultParser):
                     else:
                         affil = a2 + ', ' + affil
 
+                # Pubdate
+                try:
+                    pubdate = record['792']['a']
+                except Exception, err:
+                    pubdate = ''
 
+
+                output_metadata['source'] = datasource
                 output_metadata['authors'] = author
                 output_metadata['affiliations'] = [affil]
                 output_metadata['title'] = title
                 output_metadata['abstract'] = abstract
+                output_metadata['publication'] = '; '.join(jfield)
+                if pubdate:
+                    output_metadata['pubdate'] = "%s" % pubdate
 
 
             except Exception, err:
