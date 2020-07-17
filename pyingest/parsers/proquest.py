@@ -4,7 +4,6 @@ import pymarc
 from pyingest.config import config
 from pyingest.parsers.author_names import AuthorNames
 from default import DefaultParser
-from ads.ArtDefs import proq2db
 
 
 # For the MARC2.1 standard guide, see:
@@ -21,19 +20,23 @@ class ProQuestParser(DefaultParser):
         self.records = open(marc_input_file).read().strip().split('\n')
         oa_input_data = open(oa_input_file).read().strip().split('\n')
         self.oa_pubnum = list()
-        #for line in oa_input_data:
-        #    entries = line.split(',')
-        #    self.oa_pubnum.append(str(int(entries[0])))
+        for line in oa_input_data:
+            entries = line.split(',')
+            try:
+                self.oa_pubnum.append(str(int(entries[0])))
+            except Exception, err:
+                pass
         self.results = list()
 
     def get_db(self, rec):
-        subjcats = []
+        subjects = []
+        databases = []
         try:
             for chunk in rec.get_fields('650'):
-                if chunk['a'] not in subjcats:
+                if chunk['a'] not in subjects:
                     cat = re.sub('\.$','',chunk['a'])
                     try:
-                        db = proq2db.get(cat, 'PHY')
+                        db = config.PROQUEST_TO_DB.get(cat, 'PHY')
                         if 'physics' in cat.lower():
                             db = 'PHY'
                         if 'astronomy' in cat.lower() or 'astroph' in cat.lower():
@@ -41,14 +44,15 @@ class ProQuestParser(DefaultParser):
                         if db not in databases:
                             databases.append(db)
                     except:
-                        if cat not in missingCats:
-                            missingCats.append(cat)
-                        sys.stderr.write("Could not find DB for category: %s\n"%cat)
+                        # if cat not in missingCats:
+                            # missingCats.append(cat)
+                        # sys.stderr.write("Could not find DB for category: %s\n"%cat)
                         pass
-                    subjcats.append(cat)
+                    subjects.append(cat)
         except Exception, err:
+            print "get_db error....:",err
             pass
-        return subjcats
+        return databases,subjects
 
     def parse(self):
 
@@ -73,7 +77,7 @@ class ProQuestParser(DefaultParser):
 
                 # ProQuest ID (001)
                 proqid = record['001'].value()
-                proqid_number = proqid[3:]
+                pubnr = proqid.replace('AAI','')
 
                 # MARC 2.1 fixed length data elements (005)
                 flde = record['005'].value()
@@ -130,7 +134,6 @@ class ProQuestParser(DefaultParser):
 
                 if npage:
                     jfield.append(npage)
-                # Journal string
           
 
 
@@ -142,6 +145,10 @@ class ProQuestParser(DefaultParser):
                     except:
                         pass
                 abstract = abstract.strip()
+
+
+                # ADS Collection/Database
+                (databases, subjects) = self.get_db(record)
              
 
                 # Affil
@@ -164,6 +171,28 @@ class ProQuestParser(DefaultParser):
                 except Exception, err:
                     pubdate = ''
 
+                # Language
+                lang = []
+                try:
+                    for l in record.get_fields('793'):
+                        ln = l.value().strip() 
+                        if ln != 'English':
+                            lang.append(ln)
+                except Exception, err:
+                    print "lord god king bufu:",err
+
+                # properties
+                properties = dict()
+                if pubnr in self.oa_pubnum:
+                    properties['OPEN'] = 1
+                    # new_proqid = proqid.replace('AAI','AAT ')
+                    url = oa_base % pubnr
+                else:
+                    url = url_base % pubnr
+                properties['ELECTR'] = url
+             
+                    
+
 
                 output_metadata['source'] = datasource
                 output_metadata['authors'] = author
@@ -173,6 +202,16 @@ class ProQuestParser(DefaultParser):
                 output_metadata['publication'] = '; '.join(jfield)
                 if pubdate:
                     output_metadata['pubdate'] = "%s" % pubdate
+                if databases:
+                    output_metadata['database'] = databases
+                # if keywords:
+                    # output_metadata['keywords'] = keywords
+                if lang:
+                    output_metadata['language'] = lang
+                if subjects:
+                    output_metadata['subjectcategory'] = subjects
+                if properties:
+                    output_metadata['properties'] = properties
 
 
             except Exception, err:
