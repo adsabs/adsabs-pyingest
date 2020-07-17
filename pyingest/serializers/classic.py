@@ -45,6 +45,8 @@ class Tagged(object):
                              ('affiliations', {'tag': 'F', 'join': ', ', 'fmt': format_affids}),
                              ('pubdate', {'tag': 'D', 'fmt': format_pubdate}),
                              ('publication', {'tag': 'J'}),
+                             ('language', {'tag': 'M'}),
+                             ('uatkeys', {'tag': 'U', 'join': ', '}),
                              ('comments', {'tag': 'X', 'join': '; '}),
                              ('source', {'tag': 'G'}),
                              ('keywords', {'tag': 'K', 'join': ', '}),
