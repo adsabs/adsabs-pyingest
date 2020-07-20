@@ -44,7 +44,8 @@ IOP_PUBLISHER_IDS = {'apj': u'ApJ', 'jcap': u'JCAP', 'ejp': u'EJPh',
                      'fcs': u'FCS', 'fdr': u'FlDyR', 'izv': u'IzMat',
                      'jbr': u'JBR', 'jopt': u'JOpt', 'cm': u'JPCM',
                      'jpenergy': u'JPEn', 'a': u'JPhA', 'b': u'JPhB',
-                     'jpco': u'JPhCo', 'g': u'JPhG', 'jpmater': u'JPhM',
+                     'jpco': u'JPhCo', 'jpcomplex': u'JPCom', 
+                     'iopsn': u'IOPSN', 'g': u'JPhG', 'jpmater': u'JPhM',
                      'jpphoton': u'JPhP', 'lpl': u'LaPhL', 'mrx': u'MRE',
                      'mst': u'MeScT', 'mfm': u'MuMat',
                      'njp': u'NJPh', 'nanof': u'NanoF', 'nano': u'Nanot',
@@ -82,7 +83,14 @@ OUP_TMP_DIRS = {
     'pasj.':  '/proj/ads/abstracts/config/links//DOI/PASJ',
     'gji':    '/proj/ads/abstracts/config/links//DOI/GeoJI'
 }
-    
+
+AIP_PUBLISHER_IDS = {'AAIDBI': u'AIPA', 'APCPCS': u'AIPC', 'APPLAB': u'ApPhL',
+                     'AMPADS': u'APLM', 'APPHD2': u'APLP', 'AQSVAT': u'AVSQS',
+                     'APRPG5': u'ApPRv', 'CHAOEH': u'Chaos',
+                     'JAPIAU': u'JAP', 'JCPSA6': u'JChPh', 'JMAPAQ': u'JMP',
+                     'JPCRBU': u'JPCRD', 'LTPHEG': u'LTP', 'PHFLE6': u'PhFl',
+                     'PHPAEN': u'PhPl', 'PHTEAH': u'PhTea', 'RSINAK': u'RScI'}
+
 
 JATS_TAGS_DANGER = ['php', 'script', 'css']
 
