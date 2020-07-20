@@ -8,7 +8,7 @@ from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
 from affils import AffiliationParser
 from entity_convert import EntityConverter
-from uat_key2uri import UATURIConverter
+# from uat_key2uri import UATURIConverter
 import namedentities
 import re
 import copy
@@ -386,6 +386,7 @@ class JATSParser(BaseBeautifulSoupParser):
                         if kk['content-type'] == 'uat-code':
                             keys_uat.append(self._detag(kk, 
                                 JATS_TAGSET['keywords']))
+                            print "lol UAT:",kk
                     if not keys_uat:
                         keys_misc_test = kg.find_all('kwd')
                         for kk in keys_misc_test:
