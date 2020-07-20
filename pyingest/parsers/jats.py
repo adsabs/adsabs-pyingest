@@ -8,7 +8,7 @@ from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
 from affils import AffiliationParser
 from entity_convert import EntityConverter
-from uat_key2uri import UATURIConverter
+# from uat_key2uri import UATURIConverter
 import namedentities
 import re
 import copy
@@ -383,9 +383,10 @@ class JATSParser(BaseBeautifulSoupParser):
                 if kg['kwd-group-type'] == 'author':
                     keys_uat_test = kg.find_all('compound-kwd-part')
                     for kk in keys_uat_test:
-                        if kk['content-type'] == 'term':
+                        if kk['content-type'] == 'uat-code':
                             keys_uat.append(self._detag(kk, 
                                 JATS_TAGSET['keywords']))
+                            print "lol UAT:",kk
                     if not keys_uat:
                         keys_misc_test = kg.find_all('kwd')
                         for kk in keys_misc_test:
@@ -403,9 +404,13 @@ class JATSParser(BaseBeautifulSoupParser):
                     for kk in keys_misc_test:
                         keys_misc.append(self._detag(kk, 
                             JATS_TAGSET['keywords']))
+
             if keys_uat:
-                keywords = keys_uat
-            elif keys_aas:
+                uatkeys = keys_uat
+            if uatkeys:
+                base_metadata['uatkeys'] = ', '.join(uatkeys)
+
+            if keys_aas:
                 keywords = keys_aas
             elif keys_misc:
                 keywords = keys_misc
@@ -429,12 +434,13 @@ class JATSParser(BaseBeautifulSoupParser):
                 except Exception, err:
                     pass
 
-        # Now convert any UAT keywords to their URI:
-        try:
-            uat_cnv = UATURIConverter()
-            base_metadata['keywords'] = uat_cnv.convert_to_uri(base_metadata['keywords'])
-        except Exception, err:
-            pass
+        # No longer required:
+        ## Now convert any UAT keywords to their URI:
+        # try:
+            # uat_cnv = UATURIConverter()
+            # base_metadata['uatkeys'] = uat_cnv.convert_to_uri(base_metadata['uatkeys'])
+        # except Exception, err:
+            # pass
 
 
 # Volume:
