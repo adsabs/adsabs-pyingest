@@ -120,6 +120,9 @@ class BaseRSSFeedParser(object):
             req = urllib2.Request(url)
         source = urllib2.urlopen(req)
         soup = bs4.BeautifulSoup(source, 'lxml')
+        # soup = bs4.BeautifulSoup(source, 'html5lib')
+        # NOTE: html5lib can't deal with bad encodings like lxml,
+        #       and that's why the test fails.
         entries = soup.find_all(data_tag)
         try:
             self.links = soup.find_all('link')
