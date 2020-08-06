@@ -50,7 +50,6 @@ class ProQuestParser(DefaultParser):
                         pass
                     subjects.append(cat)
         except Exception, err:
-            print "get_db error....:",err
             pass
         return databases,subjects
 
@@ -97,14 +96,13 @@ class ProQuestParser(DefaultParser):
                 # Author (100)
                 try:
                     author = re.sub('\.$','',record['100']['a'].strip())
-                    author = auth_parse.parse(author)
+                    # author = auth_parse.parse(author)
                 except Exception, err:
-                    print "doh:",err
                     author = ''
             
                 # Title
                 try:
-                    title = record['245']['a']
+                    title = re.sub('\.$','',record['245']['a'].strip())
                 except:
                     title = ''
 
@@ -114,11 +112,11 @@ class ProQuestParser(DefaultParser):
                 except:
                     npage = ''
 
-                # Source and Advisor
+                # Source
                 try:
                     school = record['502']['a']
                 except Exception, err:
-                    print "lol",err
+                    pass
                 else:
                     jfield.append(school)
                 jfield.append('Publication Number: %s'%re.sub('AAI','AAT ',proqid))
@@ -128,7 +126,7 @@ class ProQuestParser(DefaultParser):
                 try:
                     publsh = record['500']['a']
                 except Exception, err:
-                    print "lol",err
+                    pass
                 else:
                     jfield.append(publsh)
 
@@ -165,6 +163,18 @@ class ProQuestParser(DefaultParser):
                     else:
                         affil = a2 + ', ' + affil
 
+                # Advisor
+                advisor = []
+                comments = []
+                try:
+                    for e in record.get_fields('790'):
+                        if e['e']:
+                            advisor.append(e['a'])
+                    if advisor:
+                        comments.append('Advisor: %s' % advisor[0])
+                except Exception, err:
+                    pass
+
                 # Pubdate
                 try:
                     pubdate = record['792']['a']
@@ -176,10 +186,9 @@ class ProQuestParser(DefaultParser):
                 try:
                     for l in record.get_fields('793'):
                         ln = l.value().strip() 
-                        if ln != 'English':
-                            lang.append(ln)
+                        lang.append(ln)
                 except Exception, err:
-                    print "lord god king bufu:",err
+                    pass
 
                 # properties
                 properties = dict()
@@ -204,6 +213,8 @@ class ProQuestParser(DefaultParser):
                     output_metadata['pubdate'] = "%s" % pubdate
                 if databases:
                     output_metadata['database'] = databases
+                if comments:
+                    output_metadata['comments'] = comments
                 # if keywords:
                     # output_metadata['keywords'] = keywords
                 if lang:
