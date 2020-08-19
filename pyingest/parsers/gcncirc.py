@@ -2,7 +2,7 @@ import sys
 import json
 import re
 import logging
-from adsputils import u2asc
+from pyingest.config.utils import u2asc
 from default import DefaultParser
 from author_names import AuthorNames
 from entity_convert import EntityConverter

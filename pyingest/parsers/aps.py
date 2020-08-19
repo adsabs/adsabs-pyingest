@@ -3,7 +3,7 @@
 import sys
 import json
 import codecs
-from adsputils import u2asc
+from pyingest.config.utils import u2asc
 from jats import JATSParser
 from pyingest.config.config import *
 

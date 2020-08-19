@@ -1,4 +1,3 @@
-adsputils==v1.2.7
 bs4==0.0.1
 feedparser==5.2.1
 future==0.18.2
@@ -11,4 +10,5 @@ nameparser==1.0.6
 pymarc<=2.9.1
 python-dateutil==2.8.1
 requests==2.20.0
+unidecode
 xmltodict==0.12.0
