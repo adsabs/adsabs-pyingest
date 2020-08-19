@@ -1,4 +1,4 @@
-adsputils==v1.2.7
+adsputils==v1.2.8
 bs4==0.0.1
 feedparser==5.2.1
 future==0.18.2
