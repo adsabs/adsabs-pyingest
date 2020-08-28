@@ -83,6 +83,9 @@ class APSJATSParser(JATSParser):
                 pass
             else:
                 pubstring = pubstring + ', id.' + output_metadata['page']
+                if 'numpages' in output_metadata:
+                    pubstring = pubstring + ', ' + output_metadata['numpages'] + ' pp.'
+                    del(output_metadata['numpages'])
 
             output_metadata['publication'] = pubstring
 

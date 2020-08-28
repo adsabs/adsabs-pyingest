@@ -585,6 +585,15 @@ class JATSParser(BaseBeautifulSoupParser):
                 base_metadata['page'] = self._detag(fpage, []) + "-" + (
                     self._detag(lpage, []))
 
+# Number of Pages:
+        try:
+            counts = article_meta.counts
+            pagecount = counts.find('page-count')
+            base_metadata['numpages'] = pagecount['count']
+        except Exception, err:
+            pass
+            
+
 # References (now using back_meta):
         if back_meta is not None:
 
