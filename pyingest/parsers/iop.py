@@ -88,7 +88,10 @@ class IOPJATSParser(JATSParser):
                     pubstring = pubstring + ', pp.' + page_id
                 else:
                     pubstring = pubstring + ', id.' + page_id
-
+                    if 'numpages' in output_metadata:
+                        pubstring = pubstring + ', ' + output_metadata['numpages'] + ' pp.'
+                        del(output_metadata['numpages'])
+     
             output_metadata['publication'] = pubstring
 
         # Bibcode
