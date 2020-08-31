@@ -589,7 +589,7 @@ class JATSParser(BaseBeautifulSoupParser):
         try:
             counts = article_meta.counts
             pagecount = counts.find('page-count')
-            base_metadata['numpages'] = pagecount['count']
+            base_metadata['numpages'] = '<NUMPAGES>' + pagecount['count'] + '</NUMPAGES>'
         except Exception, err:
             pass
             

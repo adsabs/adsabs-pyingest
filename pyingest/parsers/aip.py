@@ -40,6 +40,8 @@ class AIPJATSParser(JATSParser):
             bibstem = AIP_PUBLISHER_IDS[pid]
         except KeyError, err:
             return 'XSTEM'
+        except Exception, err:
+            return 'XSTEM'
         else:
             return bibstem
 

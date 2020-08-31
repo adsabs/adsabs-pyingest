@@ -83,6 +83,15 @@ OUP_TMP_DIRS = {
     'gji':    '/proj/ads/abstracts/config/links//DOI/GeoJI'
 }
     
+AIP_PUBLISHER_IDS = {'AAIDBI': u'AIPA', 'APCPCS': u'AIPC', 'APPLAB': u'ApPhL',
+                     'aipa': u'AIPA', 'apc': u'AIPC', 'apl': u'APL',
+                     'AMPADS': u'APLM', 'APPHD2': u'APLP', 'AQSVAT': u'AVSQS',
+                     'APRPG5': u'ApPRv', 'CHAOEH': u'Chaos',
+                     'JAPIAU': u'JAP', 'JCPSA6': u'JChPh', 'JMAPAQ': u'JMP',
+                     'JPCRBU': u'JPCRD', 'LTPHEG': u'LTP', 'PHFLE6': u'PhFl',
+                     'PHPAEN': u'PhPl', 'PHTEAH': u'PhTea', 'RSINAK': u'RScI',
+                     'php': u'PhPl', 'pte': u'PhTea', 'rsi': u'RScI'}
+
 
 JATS_TAGS_DANGER = ['php', 'script', 'css']
 
