@@ -8,6 +8,7 @@ from default import BaseBeautifulSoupParser
 from pyingest.config.config import *
 from affils import AffiliationParser
 from entity_convert import EntityConverter
+from uat_key2uri import UATURIConverter
 import namedentities
 import re
 import copy
@@ -402,6 +403,14 @@ class JATSParser(BaseBeautifulSoupParser):
                         base_metadata['keywords'] = ', '.join(klist)
                 except Exception, err:
                     pass
+            
+        # Now convert any UAT keywords to their URI:
+        try:
+            uat_cnv = UATURIConverter()
+            base_metadata['keywords'] = uat_cnv.convert_to_uri(base_metadata['keywords'])
+        except Exception, err:
+            pass
+            
 
 # Volume:
         volume = article_meta.volume

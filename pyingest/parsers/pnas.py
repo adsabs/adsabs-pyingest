@@ -4,6 +4,7 @@ from pyingest.config import config
 from pyingest.parsers.default import BaseBeautifulSoupParser
 from pyingest.parsers.author_names import AuthorNames
 from pyingest.parsers.affils import AffiliationParser
+from pyingest.parsers.uat_key2uri import UATURIConverter
 
 
 class URLError(Exception):
@@ -86,6 +87,7 @@ class PNASParser(BaseBeautifulSoupParser):
                 auth_list.append(a['content'])
         except Exception, err:
             # print "problem with authors",err
+            pass
 
         # Volume, issue, first/last page for 'publication'
         try:
@@ -135,9 +137,12 @@ class PNASParser(BaseBeautifulSoupParser):
         # Keywords
         try:
             keys = data.findAll('li', {'class':'kwd'})
-            output_metadata['keywords'] = ', '.join(k.text for k in keys)
+            keystrings = ', '.join(k.text for k in keys)
+            uat_cnv = UATURIConverter()
+            output_metadata['keywords'] = uat_cnv.convert_to_uri(keystrings)
         except Exception, err:
             pass
+        
 
         # Pubdate
         try:
