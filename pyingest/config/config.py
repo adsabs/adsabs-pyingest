@@ -3,17 +3,21 @@ import json
 import requests
 
 
-def find(key, dictionary):
-    for k, v in dictionary.iteritems():
-        if k == key:
-            yield v
-        elif isinstance(v, dict):
-            for result in find(key, v):
-                yield result
-        elif isinstance(v, list):
-            for d in v:
-                for result in find(key, d):
-                    yield result
+def get_uat(data,data_dict):
+    if isinstance(data,dict):
+        try:
+            data_dict[data['name'].strip()] = data['uri'].strip().split('/')[-1]
+        except:
+            pass
+        try:
+            data['children']
+        except:
+            pass
+        else:
+            get_uat(data['children'],data_dict)
+    elif isinstance(data,list):
+        for n in data:
+            get_uat(n,data_dict)
 
 
 MONTH_TO_NUMBER = {'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
@@ -118,13 +122,16 @@ JATS_TAGSET = {'title': JATS_TAGS_MATH + JATS_TAGS_HTML,
 # Unified Astronomy Thesaurus
 # retrieve current UAT from github
 UAT_URL = 'https://raw.githubusercontent.com/astrothesaurus/UAT/master/UAT.json'
+UAT_ASTRO_URI_DICT = dict()
 try:
     uat_request = requests.get(UAT_URL)
-    UAT_ASTRO_KEYWORDS = list(find('name', uat_request.json()))
-    # print("Info: loaded %s UAT keywords from github." % len(UAT_ASTRO_KEYWORDS))
+    uat_data = uat_request.json()
+    get_uat(uat_request.json(), UAT_ASTRO_URI_DICT)
+    UAT_ASTRO_KEYWORDS = UAT_ASTRO_URI_DICT.keys()
+    UAT_ASTRO_URI_DICT = dict((k.lower(),v) for k,v in UAT_ASTRO_URI_DICT.items())
 except Exception as e:
     print("Warning: could not load UAT from github!")
-    UAT_ASTRO_KEYWORDS = []
+    UAT_ASTRO_KEYWORDS = list()
 
 # American Physical Society keywords
 APS_ASTRO_KEYWORDS_FILE = os.path.dirname(os.path.abspath(__file__)) + '/kw_aps_astro.dat'
