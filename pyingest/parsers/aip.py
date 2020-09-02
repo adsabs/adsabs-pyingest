@@ -80,12 +80,14 @@ class AIPJATSParser(JATSParser):
                     else:
                         pubstring = pubstring + ', id.' + output_metadata['page']
             output_metadata['publication'] = pubstring
-#           print (output_metadata['pub-id'])
         # Bibcode
         try:
-            j_bibstem = self.aip_journals(output_metadata['pub-id'])
-#           print (j_bibstem)
-        except KeyError:
+            if 'pub-id' in output_metadata.keys():
+                bibstem_id = output_metadata['pub-id']
+            elif 'coden' in output_metadata.keys():
+                bibstem_id = output_metadata['coden']
+            j_bibstem = self.aip_journals(bibstem_id)
+        except KeyError, err:
             pass
         else:
             year = output_metadata['pubdate'][-4:]
