@@ -214,7 +214,7 @@ class OUPJATSParser(JATSParser):
                 isearly = 0
 
         if 'DOI' in output_metadata['properties']:
-            plink = "/".join(["https:/","academic.oup.com",output_metadata['pub-id'],"pdf_lookup","doi",output_metadata['properties']['DOI']])
+            plink = "/".join(["https:/","academic.oup.com",output_metadata['pub-id'],"pdf-lookup","doi",output_metadata['properties']['DOI']])
             output_metadata['properties'].update({'PDF': plink})
 
         # pass relevant fields through EntityConverter

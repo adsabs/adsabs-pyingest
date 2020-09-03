@@ -44,13 +44,14 @@ IOP_PUBLISHER_IDS = {'apj': u'ApJ', 'jcap': u'JCAP', 'ejp': u'EJPh',
                      'fcs': u'FCS', 'fdr': u'FlDyR', 'izv': u'IzMat',
                      'jbr': u'JBR', 'jopt': u'JOpt', 'cm': u'JPCM',
                      'jpenergy': u'JPEn', 'a': u'JPhA', 'b': u'JPhB',
-                     'jpco': u'JPhCo', 'g': u'JPhG', 'jpmater': u'JPhM',
+                     'jpco': u'JPhCo', 'jpcomplex': u'JPCom', 
+                     'iopsn': u'IOPSN', 'g': u'JPhG', 'jpmater': u'JPhM',
                      'jpphoton': u'JPhP', 'lpl': u'LaPhL', 'mrx': u'MRE',
-                     'mst': u'MeScT', 'mfm': u'MuMat',
+                     'mst': u'MeScT', 'mfm': u'MuMat', 'nanoe': u'NanoE',
                      'njp': u'NJPh', 'nanof': u'NanoF', 'nano': u'Nanot',
                      'non': u'Nonli', 'pasp': u'PASP', 'met': u'Metro',
                      'pmb': u'PMB', 'ppcf': u'PPCF', 'prex': u'PRCom',
-                     'ps': u'PhyS', 'ped': u'PhyEd',
+                     'ps': u'PhyS', 'ped': u'PhyEd', 'psj': u'PSJ',
                      'phu': u'PhyU', 'pst': u'PlST', 'prge': u'PrEne',
                      'rnaas': u'RNAAS', 'rop': u'RPPh', 'rms': u'RuMaS',
                      'sst': u'SeScT', 'sust': u'SuScT', 'tdm': u'TDM',
@@ -64,7 +65,7 @@ IOP_PUBLISHER_IDS = {'apj': u'ApJ', 'jcap': u'JCAP', 'ejp': u'EJPh',
                      'jos': u'JSemi', 'jne': u'JNEng', 'jge': u'JGE',
                      'jstat': u'JSMTE', 'jpcs': u'JPhCS', 'pw': u'PhyW',
                      'prv': u'PPS', 'c': 'JPhC', 'jphf': 'JPhF',
-                     'jinst': u'JInst'}
+                     'ecst': u'ECSTR', 'jinst': u'JInst', 'nanox': u'NanoE'}
 
 IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical Society'}
 
@@ -80,15 +81,19 @@ OUP_TMP_DIRS = {
     'mnrasl': '/proj/ads/abstracts/config/links//DOI/MNRASL',
     'mnras':  '/proj/ads/abstracts/config/links//DOI/MNRAS',
     'pasj.':  '/proj/ads/abstracts/config/links//DOI/PASJ',
-    'gji':    '/proj/ads/abstracts/config/links//DOI/GeoJI'
+    'geoji':    '/proj/ads/abstracts/config/links//DOI/GeoJI'
 }
-    
+
 AIP_PUBLISHER_IDS = {'AAIDBI': u'AIPA', 'APCPCS': u'AIPC', 'APPLAB': u'ApPhL',
                      'aipa': u'AIPA', 'apc': u'AIPC', 'apl': u'APL',
                      'AMPADS': u'APLM', 'APPHD2': u'APLP', 'AQSVAT': u'AVSQS',
-                     'APRPG5': u'ApPRv', 'CHAOEH': u'Chaos',
+                     'apm': u'APLM', 'app': u'APLP', 'aqs': u'AVSQS',
+                     'AJPIAS': u'AmJPh', 'APRPG5': u'ApPRv', 'CHAOEH': u'Chaos',
+                     'ajp': u'AmJPh', 'are': u'ApPRv', 'cha': u'Chaos',
                      'JAPIAU': u'JAP', 'JCPSA6': u'JChPh', 'JMAPAQ': u'JMP',
+                     'jap': u'JAP', 'jcp': u'JChPh', 'jmp': u'JMP',
                      'JPCRBU': u'JPCRD', 'LTPHEG': u'LTP', 'PHFLE6': u'PhFl',
+                     'jpr': u'JPCRD', 'ltp': u'LTP', 'phl': u'PhFl',
                      'PHPAEN': u'PhPl', 'PHTEAH': u'PhTea', 'RSINAK': u'RScI',
                      'php': u'PhPl', 'pte': u'PhTea', 'rsi': u'RScI'}
 

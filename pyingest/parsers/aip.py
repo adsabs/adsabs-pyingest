@@ -40,8 +40,6 @@ class AIPJATSParser(JATSParser):
             bibstem = AIP_PUBLISHER_IDS[pid]
         except KeyError, err:
             return 'XSTEM'
-        except Exception, err:
-            return 'XSTEM'
         else:
             return bibstem
 
@@ -85,7 +83,19 @@ class AIPJATSParser(JATSParser):
                             pubstring = pubstring + ', ' + output_metadata['numpages'] + ' pp.'
                             del(output_metadata['numpages'])
             output_metadata['publication'] = pubstring
-        # Bibcode
+#           print (output_metadata['pub-id'])
+#       # Bibcode
+#       try:
+#           if self.aip_journals(output_metadata['pub-id']):
+#               j_bibstem = self.aip_journals(output_metadata['pub-id'])
+#           else:
+#               j_bibstem = self.aip_journals(output_metadata['coden'])
+#               print (j_bibstem)
+#       except KeyError:
+#           pass
+#       else:
+#           print (j_bibstem)
+
         try:
             if 'pub-id' in output_metadata.keys():
                 bibstem_id = output_metadata['pub-id']
