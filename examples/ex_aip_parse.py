@@ -38,8 +38,7 @@ ref_handler = ReferenceWriter()
 for d in documents:
 #   print(d)
     serializer.write(d,fo)
-    ref_handler.writeref(d)
-#   ref_handler.writeref(d,'aip')
+    ref_handler.writeref(d,'aip')
 fo.close()
 
 
