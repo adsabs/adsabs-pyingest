@@ -2,10 +2,10 @@ import os
 import sys
 import re
 import logging
+from pyingest.config.utils import u2asc
 from pyingest.config import config
 from namedentities import named_entities, unicode_entities
 import nameparser
-from adsputils import u2asc
 
 
 class AuthorNames(object):
@@ -47,7 +47,7 @@ class AuthorNames(object):
         try:
             # Transliterates unicode characters to ASCII
             author_str = u2asc(author_str.strip())
-        except UnicodeHandlerError:
+        except Exception, err:
             logging.exception("Unexpected error transliterating author name\
                                unicode string to ASCII")
             # TODO: Implement better error control

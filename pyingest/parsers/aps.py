@@ -3,7 +3,7 @@
 import sys
 import json
 import codecs
-from adsputils import u2asc
+from pyingest.config.utils import u2asc
 from jats import JATSParser
 from pyingest.config.config import *
 
@@ -83,6 +83,9 @@ class APSJATSParser(JATSParser):
                 pass
             else:
                 pubstring = pubstring + ', id.' + output_metadata['page']
+                if 'numpages' in output_metadata:
+                    pubstring = pubstring + ', ' + output_metadata['numpages'] + ' pp.'
+                    del(output_metadata['numpages'])
 
             output_metadata['publication'] = pubstring
 

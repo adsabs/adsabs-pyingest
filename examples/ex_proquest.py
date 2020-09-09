@@ -6,7 +6,7 @@ from namedentities import *
 
 def main():
 
-    input_file = 'SAO_NASA_Jan_2018.UNX'
+    input_file = 'SAO_NASA_Jul_2020.UNX'
     parser = ProQuestParser(input_file)
     lol = parser.parse()
     print "%s records processed" % len(parser.results)

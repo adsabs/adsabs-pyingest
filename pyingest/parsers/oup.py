@@ -5,7 +5,7 @@ import os
 import json
 import codecs
 import string
-from adsputils import u2asc
+from pyingest.config.utils import u2asc
 from jats import JATSParser
 from pyingest.config.config import *
 from pyingest.parsers.entity_convert import EntityConverter
@@ -23,14 +23,6 @@ class UnparseableException(Exception):
 
 class OUPJATSParser(JATSParser):
 
-<<<<<<< HEAD
-=======
-    AST_WORDS = [x.lower() for x in UAT_ASTRO_KEYWORDS]
-    AST_WORDS = AST_WORDS + [x.lower() for x in AAS_ASTRO_KEYWORDS]
-    AST_WORDS = AST_WORDS + [x.lower() for x in APS_ASTRO_KEYWORDS]
-
-
->>>>>>> config.py and oup.py changes
     def get_author_init(self,namestring):
         output = u2asc(namestring)
         for c in output:
@@ -47,7 +39,6 @@ class OUPJATSParser(JATSParser):
             return bibstem
 
     def get_tmp_page(self, bs):
-<<<<<<< HEAD
         try:
             f = OUP_TMP_DIRS[bs.lower()]
         except:
@@ -83,40 +74,6 @@ class OUPJATSParser(JATSParser):
                     lines = fp.writelines(lines)
             except Exception, err:
                 pass
-=======
-        if(bs.lower() == 'mnrasl'):
-            f = "/proj/ads/abstracts/config/links//DOI/MNRASL"
-        elif(bs.lower() == 'mnras'):
-            f = "/proj/ads/abstracts/config/links//DOI/MNRAS"
-        elif(bs.lower() == 'gji'):
-            f = "/proj/ads/abstracts/config/links//DOI/GeoJI"
-        f = f + "early.dat.nocheck"
-        with open(f,'rU') as fp:
-            p = fp.readline()
-        return p.split()[0]
-
-
-    def update_tmp_file(self, bs, bib, doi):
-        if(bs.lower() == 'mnrasl'):
-            f = "/proj/ads/abstracts/config/links//DOI/MNRASL"
-        elif(bs.lower() == 'mnras'):
-            f = "/proj/ads/abstracts/config/links//DOI/MNRAS"
-        elif(bs.lower() == 'gji'):
-            f = "/proj/ads/abstracts/config/links//DOI/GeoJI"
-        f = f + "early.dat.nocheck"
-        l = bib + "\t" + doi + "\n"
-        with open(f,'a') as fp:
-            fp.write(l)
-        # now replace first line
-        c = bib[14:18]
-        c = c.replace('.','')
-        c = c + "\n"
-        with open(f,'r') as fp:
-            lines = fp.readlines()
-            lines[0] = c
-        with open(f,'w') as fp:
-            lines = fp.writelines(lines)
->>>>>>> config.py and oup.py changes
 
     def dbfrombs(self, bs):
         db = []
@@ -145,31 +102,11 @@ class OUPJATSParser(JATSParser):
         return tmpid
 
 
-<<<<<<< HEAD
-=======
-    def getrefs(self, refs):
-        refs = dict()
-#       try:
-#           refs = document.back
-#       except:
-#           pass
-        return refs
-
-
->>>>>>> config.py and oup.py changes
     def parse(self, fp, **kwargs):
 
         output_metadata = super(self.__class__, self).parse(fp, **kwargs)
 
-<<<<<<< HEAD
         # Publication +
-=======
-        fp.seek(0)
-        document = self.resource_dict(fp, **kwargs)
-
-
-# Publication +
->>>>>>> config.py and oup.py changes
 	isearly = 0
 	try:
             pubstring = output_metadata['publication']
@@ -203,14 +140,13 @@ class OUPJATSParser(JATSParser):
                             pubstring = pubstring + ', pp.' + output_metadata['page']
                         else:
                             pubstring = pubstring + ', id.' + output_metadata['page']
+                            if 'numpages' in output_metadata:
+                                pubstring = pubstring + ', ' + output_metadata['numpages'] + ' pp.'
+                                del(output_metadata['numpages'])
 
             output_metadata['publication'] = pubstring
             
-<<<<<<< HEAD
         # Bibcode
-=======
-# Bibcode
->>>>>>> config.py and oup.py changes
         try:
             j_bibstem = self.oup_journals(output_metadata['pub-id'])
         except KeyError:
@@ -263,10 +199,6 @@ class OUPJATSParser(JATSParser):
                         idno = output_metadata['page']
                     idno = idno.rjust(4,'.')
             try:
-<<<<<<< HEAD
-=======
-            #   author_init = self.get_author_init(output_metadata['authors'][0])
->>>>>>> config.py and oup.py changes
                 author_init = self.get_author_init(output_metadata['authors'])
             except Exception, err:
                 author_init = '.'
@@ -276,32 +208,18 @@ class OUPJATSParser(JATSParser):
             output_metadata['bibcode'] = year + bibstem + volume + issue_letter + idno + author_init
             if issue_letter == 'L':
                 bibstem = "MNRASL"
-<<<<<<< HEAD
             if isearly:
-=======
-            if( isearly ):
->>>>>>> config.py and oup.py changes
                 v = self.update_tmp_file(bibstem,output_metadata['bibcode'],output_metadata['properties']['DOI'])
                 del output_metadata['page']
                 isearly = 0
 
         if 'DOI' in output_metadata['properties']:
-<<<<<<< HEAD
             plink = "/".join(["https:/","academic.oup.com",output_metadata['pub-id'],"pdf_lookup","doi",output_metadata['properties']['DOI']])
-=======
-            plink = "/".join(["https:/","academic.oup.com",output_metadata['pub-id'],"pdf_lookup",output_metadata['properties']['DOI']])
->>>>>>> config.py and oup.py changes
             output_metadata['properties'].update({'PDF': plink})
 
         # pass relevant fields through EntityConverter
         # to remove bad entities
-<<<<<<< HEAD
         entity_fields = ['abstract', 'title', 'authors']
-=======
-        # entity_fields = ['abstract', 'title', 'authors', 'affiliations']
-        entity_fields = ['abstract', 'title', 'authors']
-        # entity_fields = ['abstract', 'title']
->>>>>>> config.py and oup.py changes
         for ecf in entity_fields:
             if ecf in output_metadata.keys():
                 try:

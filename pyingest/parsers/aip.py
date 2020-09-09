@@ -5,7 +5,7 @@ import os
 import json
 import codecs
 import string
-from adsputils import u2asc
+from pyingest.config.utils import u2asc
 from jats import JATSParser
 from pyingest.config.config import *
 from pyingest.parsers.entity_convert import EntityConverter
@@ -39,6 +39,8 @@ class AIPJATSParser(JATSParser):
         try:
             bibstem = AIP_PUBLISHER_IDS[pid]
         except KeyError, err:
+            return 'XSTEM'
+        except Exception, err:
             return 'XSTEM'
         else:
             return bibstem
@@ -79,6 +81,9 @@ class AIPJATSParser(JATSParser):
                         pubstring = pubstring + ', pp.' + output_metadata['page']
                     else:
                         pubstring = pubstring + ', id.' + output_metadata['page']
+                        if 'numpages' in output_metadata:
+                            pubstring = pubstring + ', ' + output_metadata['numpages'] + ' pp.'
+                            del(output_metadata['numpages'])
             output_metadata['publication'] = pubstring
         # Bibcode
         try:

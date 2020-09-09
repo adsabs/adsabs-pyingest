@@ -377,6 +377,8 @@ class JATSParser(BaseBeautifulSoupParser):
             keys_uat = []
             keys_misc = []
             keys_aas = []
+            uatkeys = []
+            keywords = []
             keyword_groups = article_meta.find_all('kwd-group')
             for kg in keyword_groups:
                 # Check for UAT first:
@@ -386,7 +388,6 @@ class JATSParser(BaseBeautifulSoupParser):
                         if kk['content-type'] == 'uat-code':
                             keys_uat.append(self._detag(kk, 
                                 JATS_TAGSET['keywords']))
-                            print "lol UAT:",kk
                     if not keys_uat:
                         keys_misc_test = kg.find_all('kwd')
                         for kk in keys_misc_test:
@@ -412,8 +413,11 @@ class JATSParser(BaseBeautifulSoupParser):
 
             if keys_aas:
                 keywords = keys_aas
-            elif keys_misc:
-                keywords = keys_misc
+            if keys_misc:
+                if keywords:
+                    keywords.extend(keys_misc)
+                else:
+                    keywords = keys_misc
             if keywords:
                 base_metadata['keywords'] = ', '.join(keywords)
         except Exception, err:
@@ -580,6 +584,15 @@ class JATSParser(BaseBeautifulSoupParser):
             else:
                 base_metadata['page'] = self._detag(fpage, []) + "-" + (
                     self._detag(lpage, []))
+
+# Number of Pages:
+        try:
+            counts = article_meta.counts
+            pagecount = counts.find('page-count')
+            base_metadata['numpages'] = '<NUMPAGES>' + pagecount['count'] + '</NUMPAGES>'
+        except Exception, err:
+            pass
+            
 
 # References (now using back_meta):
         if back_meta is not None:
