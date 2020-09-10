@@ -94,4 +94,3 @@ def u2asc(input):
         output = output.encode('utf-8')
 
     return output
-
