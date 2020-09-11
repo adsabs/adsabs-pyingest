@@ -2,12 +2,14 @@
 Test serializer
 """
 
+from future import standard_library
+standard_library.install_aliases()
 import unittest
 import sys
 import os
 import glob
 import json
-import cStringIO
+import io
 from pyingest.parsers.iop import IOPJATSParser
 from pyingest.serializers.classic import Tagged
 from pyingest.serializers.refwriter import *
@@ -19,6 +21,7 @@ class TestClassic(unittest.TestCase):
         stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata')
         self.inputdocs = glob.glob(os.path.join(stubdata_dir, 'parsed/*.json'))
         self.outputdir = os.path.join(stubdata_dir, 'serialized')
+        self.maxDiff = None
 #        sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
 
     def test_classic_tagged(self):
@@ -29,7 +32,7 @@ class TestClassic(unittest.TestCase):
             with open(file, 'r') as fp:
                 document = json.load(fp)
                 self.assertIsNotNone(document, "%s: error reading doc" % file)
-            outputfp = cStringIO.StringIO()
+            outputfp = io.StringIO()
             serializer.write(document, outputfp)
             output = outputfp.getvalue()
             outputfp.close()
@@ -59,6 +62,7 @@ class TestClassic(unittest.TestCase):
 class TestReferenceWriter(unittest.TestCase):
 
     def setup(self):
+        self.maxDiff = None
         pass
 
     def test_write_refhandler_data(self):

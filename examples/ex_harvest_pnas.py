@@ -2,6 +2,7 @@
 This example will harvest everything currently available via the PNAS RSS
 feeds and put it into a single output file called pnas.tag
 '''
+from __future__ import print_function
 import feedparser
 import requests
 from pyingest.parsers.pnas import PNASParser
@@ -24,7 +25,7 @@ basedir = '/proj/ads/abstracts/sources/PNAS'
 outfile = 'pnas.tag'
 fo = open(outfile,'a')
 
-for k, v in PNAS_RSS_URLS.items():
+for k, v in list(PNAS_RSS_URLS.items()):
     feed = feedparser.parse(v)
     # print "feed:",k
     for _item in feed['entries']:
@@ -37,17 +38,17 @@ for k, v in PNAS_RSS_URLS.items():
             # print absURL,volno,ident
             pnas = PNASParser()
             output = pnas.parse(absURL)
-        except Exception, err:
-            print "Error in parser:",err
+        except Exception as err:
+            print("Error in parser:",err)
         else:
             try:
                 serializer = Tagged()
                 serializer.write(output,fo)
-            except Exception, err:
-                print("Error in serializer:",err)
+            except Exception as err:
+                print(("Error in serializer:",err))
             try:
                 ref_handler = ReferenceWriter()
                 ref_handler.writeref(output,'pnas')
-            except Exception, err:
-                print("Error in writeref:", err)
+            except Exception as err:
+                print(("Error in writeref:", err))
 fo.close()

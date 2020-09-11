@@ -1,8 +1,9 @@
+from builtins import object
 import re
 from pyingest.config import config
 
 
-class UATURIConverter():
+class UATURIConverter(object):
     '''
     Takes a string containing a comma-separated list of string as input,
     and converts any that match UAT entities to their UAT:URI_# instead 
@@ -17,11 +18,11 @@ class UATURIConverter():
             uat_conv = UATURIConverter()
             kwl = list()
             for kw in kw_list_new:
-                if kw.lower() in config.UAT_ASTRO_URI_DICT.keys():
+                if kw.lower() in list(config.UAT_ASTRO_URI_DICT.keys()):
                     kout = 'UAT:' + config.UAT_ASTRO_URI_DICT[kw.lower()]
                 else:
                     kout = kw
                 kwl.append(kout)
             return ', '.join(kwl)
-        except Exception, err:
+        except Exception as err:
             return kw_list

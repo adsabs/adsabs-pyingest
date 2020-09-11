@@ -1,0 +1,2195 @@
+(adsabs-pyingest) adsmt:adsabs-pyingest mtempleton$ python -m pytest
+[1m============================= test session starts ==============================[0m
+platform darwin -- Python 3.7.3, pytest-4.6.9, py-1.9.0, pluggy-0.13.1
+rootdir: /Users/mtempleton/Projects/Github_repos/adsabs-pyingest, inifile: pytest.ini, testpaths: pyingest/tests/
+plugins: cov-2.8.1
+[1mcollecting ... [0m[1mcollecting 1 item                                                              [0m[1mcollected 30 items                                                             [0m
+
+pyingest/tests/test_integration.py [31mF[0m[36m                                     [  3%][0m
+pyingest/tests/test_parsers.py [31mF[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[36m                [ 90%][0m
+pyingest/tests/test_serializers.py [31mF[0m[31mF[0m[36m                                    [ 96%][0m
+pyingest/tests/test_validators.py [32m.[0m[36m                                      [100%][0mCoverage.py warning: Couldn't parse Python file '/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/parsers/aip.py' (couldnt-parse)
+
+
+=================================== FAILURES ===================================
+[31m[1m_________________ TestParseAndSerialize.test_arxiv_to_classic __________________[0m
+
+self = <pyingest.tests.test_integration.TestParseAndSerialize testMethod=test_arxiv_to_classic>
+
+[1m    def test_arxiv_to_classic(self):[0m
+[1m        testfiles = glob.glob(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai*'))[0m
+[1m        shouldbe = [f.replace('/oai', '/tagged/oai') + '.tagged' for f in testfiles][0m
+[1m        for f, b in zip(testfiles, shouldbe):[0m
+[1m            with open(f, 'rU') as fp:[0m
+[1m                serializer = classic.Tagged()[0m
+[1m                outputfp = io.StringIO()[0m
+[1m                parser = arxiv.ArxivParser()[0m
+[1m>               document = parser.parse(fp)[0m
+
+[1m[31mpyingest/tests/test_integration.py[0m:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mpyingest/parsers/arxiv.py[0m:56: in parse
+[1m    result = super(self.__class__, self).parse(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/dubcore.py[0m:63: in parse
+[1m    idtag, r = self.resource_dict(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/dubcore.py[0m:48: in resource_dict
+[1m    d = self.xmltodict(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/default.py[0m:45: in xmltodict
+[1m    return xmltodict_parser.parse(fp, **kwargs)[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+xml_input = <_io.TextIOWrapper name='/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/arxiv.test/oai_ArXiv.org_hep-th_0408048' mode='rU' encoding='UTF-8'>
+encoding = None
+expat = <module 'xml.parsers.expat' from '/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/xml/parsers/expat.py'>
+process_namespaces = False, namespace_separator = None, disable_entities = True
+kwargs = {}, handler = <xmltodict._DictSAXHandler object at 0x10f1a9b38>
+parser = <pyexpat.xmlparser object at 0x10f19dca8>
+feature = 'http://apache.org/xml/features/disallow-doctype-decl'
+
+[1m    def parse(xml_input, encoding=None, expat=expat, process_namespaces=False,[0m
+[1m              namespace_separator=':', disable_entities=True, **kwargs):[0m
+[1m        """Parse the given XML input and convert it into a dictionary.[0m
+[1m    [0m
+[1m        `xml_input` can either be a `string` or a file-like object.[0m
+[1m    [0m
+[1m        If `xml_attribs` is `True`, element attributes are put in the dictionary[0m
+[1m        among regular child elements, using `@` as a prefix to avoid collisions. If[0m
+[1m        set to `False`, they are just ignored.[0m
+[1m    [0m
+[1m        Simple example::[0m
+[1m    [0m
+[1m            >>> import xmltodict[0m
+[1m            >>> doc = xmltodict.parse(\"\"\"[0m
+[1m            ... <a prop="x">[0m
+[1m            ...   <b>1</b>[0m
+[1m            ...   <b>2</b>[0m
+[1m            ... </a>[0m
+[1m            ... \"\"\")[0m
+[1m            >>> doc['a']['@prop'][0m
+[1m            u'x'[0m
+[1m            >>> doc['a']['b'][0m
+[1m            [u'1', u'2'][0m
+[1m    [0m
+[1m        If `item_depth` is `0`, the function returns a dictionary for the root[0m
+[1m        element (default behavior). Otherwise, it calls `item_callback` every time[0m
+[1m        an item at the specified depth is found and returns `None` in the end[0m
+[1m        (streaming mode).[0m
+[1m    [0m
+[1m        The callback function receives two parameters: the `path` from the document[0m
+[1m        root to the item (name-attribs pairs), and the `item` (dict). If the[0m
+[1m        callback's return value is false-ish, parsing will be stopped with the[0m
+[1m        :class:`ParsingInterrupted` exception.[0m
+[1m    [0m
+[1m        Streaming example::[0m
+[1m    [0m
+[1m            >>> def handle(path, item):[0m
+[1m            ...     print('path:%s item:%s' % (path, item))[0m
+[1m            ...     return True[0m
+[1m            ...[0m
+[1m            >>> xmltodict.parse(\"\"\"[0m
+[1m            ... <a prop="x">[0m
+[1m            ...   <b>1</b>[0m
+[1m            ...   <b>2</b>[0m
+[1m            ... </a>\"\"\", item_depth=2, item_callback=handle)[0m
+[1m            path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:1[0m
+[1m            path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:2[0m
+[1m    [0m
+[1m        The optional argument `postprocessor` is a function that takes `path`,[0m
+[1m        `key` and `value` as positional arguments and returns a new `(key, value)`[0m
+[1m        pair where both `key` and `value` may have changed. Usage example::[0m
+[1m    [0m
+[1m            >>> def postprocessor(path, key, value):[0m
+[1m            ...     try:[0m
+[1m            ...         return key + ':int', int(value)[0m
+[1m            ...     except (ValueError, TypeError):[0m
+[1m            ...         return key, value[0m
+[1m            >>> xmltodict.parse('<a><b>1</b><b>2</b><b>x</b></a>',[0m
+[1m            ...                 postprocessor=postprocessor)[0m
+[1m            OrderedDict([(u'a', OrderedDict([(u'b:int', [1, 2]), (u'b', u'x')]))])[0m
+[1m    [0m
+[1m        You can pass an alternate version of `expat` (such as `defusedexpat`) by[0m
+[1m        using the `expat` parameter. E.g:[0m
+[1m    [0m
+[1m            >>> import defusedexpat[0m
+[1m            >>> xmltodict.parse('<a>hello</a>', expat=defusedexpat.pyexpat)[0m
+[1m            OrderedDict([(u'a', u'hello')])[0m
+[1m    [0m
+[1m        You can use the force_list argument to force lists to be created even[0m
+[1m        when there is only a single child of a given level of hierarchy. The[0m
+[1m        force_list argument is a tuple of keys. If the key for a given level[0m
+[1m        of hierarchy is in the force_list argument, that level of hierarchy[0m
+[1m        will have a list as a child (even if there is only one sub-element).[0m
+[1m        The index_keys operation takes precendence over this. This is applied[0m
+[1m        after any user-supplied postprocessor has already run.[0m
+[1m    [0m
+[1m            For example, given this input:[0m
+[1m            <servers>[0m
+[1m              <server>[0m
+[1m                <name>host1</name>[0m
+[1m                <os>Linux</os>[0m
+[1m                <interfaces>[0m
+[1m                  <interface>[0m
+[1m                    <name>em0</name>[0m
+[1m                    <ip_address>10.0.0.1</ip_address>[0m
+[1m                  </interface>[0m
+[1m                </interfaces>[0m
+[1m              </server>[0m
+[1m            </servers>[0m
+[1m    [0m
+[1m            If called with force_list=('interface',), it will produce[0m
+[1m            this dictionary:[0m
+[1m            {'servers':[0m
+[1m              {'server':[0m
+[1m                {'name': 'host1',[0m
+[1m                 'os': 'Linux'},[0m
+[1m                 'interfaces':[0m
+[1m                  {'interface':[0m
+[1m                    [ {'name': 'em0', 'ip_address': '10.0.0.1' } ] } } }[0m
+[1m    [0m
+[1m            `force_list` can also be a callable that receives `path`, `key` and[0m
+[1m            `value`. This is helpful in cases where the logic that decides whether[0m
+[1m            a list should be forced is more complex.[0m
+[1m        """[0m
+[1m        handler = _DictSAXHandler(namespace_separator=namespace_separator,[0m
+[1m                                  **kwargs)[0m
+[1m        if isinstance(xml_input, _unicode):[0m
+[1m            if not encoding:[0m
+[1m                encoding = 'utf-8'[0m
+[1m            xml_input = xml_input.encode(encoding)[0m
+[1m        if not process_namespaces:[0m
+[1m            namespace_separator = None[0m
+[1m        parser = expat.ParserCreate([0m
+[1m            encoding,[0m
+[1m            namespace_separator[0m
+[1m        )[0m
+[1m        try:[0m
+[1m            parser.ordered_attributes = True[0m
+[1m        except AttributeError:[0m
+[1m            # Jython's expat does not support ordered_attributes[0m
+[1m            pass[0m
+[1m        parser.StartNamespaceDeclHandler = handler.startNamespaceDecl[0m
+[1m        parser.StartElementHandler = handler.startElement[0m
+[1m        parser.EndElementHandler = handler.endElement[0m
+[1m        parser.CharacterDataHandler = handler.characters[0m
+[1m        parser.buffer_text = True[0m
+[1m        if disable_entities:[0m
+[1m            try:[0m
+[1m                # Attempt to disable DTD in Jython's expat parser (Xerces-J).[0m
+[1m                feature = "http://apache.org/xml/features/disallow-doctype-decl"[0m
+[1m                parser._reader.setFeature(feature, True)[0m
+[1m            except AttributeError:[0m
+[1m                # For CPython / expat parser.[0m
+[1m                # Anything not handled ends up here and entities aren't expanded.[0m
+[1m                parser.DefaultHandler = lambda x: None[0m
+[1m                # Expects an integer return; zero means failure -> expat.ExpatError.[0m
+[1m                parser.ExternalEntityRefHandler = lambda *x: 1[0m
+[1m        if hasattr(xml_input, 'read'):[0m
+[1m>           parser.ParseFile(xml_input)[0m
+[1m[31mE           TypeError: read() did not return a bytes object (type=str)[0m
+
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/xmltodict.py[0m:325: TypeError
+[31m[1m______________________ TestDatacite.test_datacite_parser _______________________[0m
+
+self = <pyingest.tests.test_parsers.TestDatacite testMethod=test_datacite_parser>
+
+[1m    def test_datacite_parser(self):[0m
+[1m        parser = datacite.DataCiteParser()[0m
+[1m        for file in self.inputdocs:[0m
+[1m            # this will raise exceptions if something is wrong[0m
+[1m            with open(file, 'r') as fp:[0m
+[1m>               document = parser.parse(fp)[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mpyingest/parsers/datacite.py[0m:160: in parse
+[1m    r = self.resource_dict(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/datacite.py[0m:148: in resource_dict
+[1m    d = self.xmltodict(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/default.py[0m:45: in xmltodict
+[1m    return xmltodict_parser.parse(fp, **kwargs)[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+xml_input = <_io.TextIOWrapper name='/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/datacite-example-full-v3.1.xml' mode='r' encoding='UTF-8'>
+encoding = None
+expat = <module 'xml.parsers.expat' from '/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/xml/parsers/expat.py'>
+process_namespaces = False, namespace_separator = None, disable_entities = True
+kwargs = {}, handler = <xmltodict._DictSAXHandler object at 0x10f22eef0>
+parser = <pyexpat.xmlparser object at 0x10f25fa68>
+feature = 'http://apache.org/xml/features/disallow-doctype-decl'
+
+[1m    def parse(xml_input, encoding=None, expat=expat, process_namespaces=False,[0m
+[1m              namespace_separator=':', disable_entities=True, **kwargs):[0m
+[1m        """Parse the given XML input and convert it into a dictionary.[0m
+[1m    [0m
+[1m        `xml_input` can either be a `string` or a file-like object.[0m
+[1m    [0m
+[1m        If `xml_attribs` is `True`, element attributes are put in the dictionary[0m
+[1m        among regular child elements, using `@` as a prefix to avoid collisions. If[0m
+[1m        set to `False`, they are just ignored.[0m
+[1m    [0m
+[1m        Simple example::[0m
+[1m    [0m
+[1m            >>> import xmltodict[0m
+[1m            >>> doc = xmltodict.parse(\"\"\"[0m
+[1m            ... <a prop="x">[0m
+[1m            ...   <b>1</b>[0m
+[1m            ...   <b>2</b>[0m
+[1m            ... </a>[0m
+[1m            ... \"\"\")[0m
+[1m            >>> doc['a']['@prop'][0m
+[1m            u'x'[0m
+[1m            >>> doc['a']['b'][0m
+[1m            [u'1', u'2'][0m
+[1m    [0m
+[1m        If `item_depth` is `0`, the function returns a dictionary for the root[0m
+[1m        element (default behavior). Otherwise, it calls `item_callback` every time[0m
+[1m        an item at the specified depth is found and returns `None` in the end[0m
+[1m        (streaming mode).[0m
+[1m    [0m
+[1m        The callback function receives two parameters: the `path` from the document[0m
+[1m        root to the item (name-attribs pairs), and the `item` (dict). If the[0m
+[1m        callback's return value is false-ish, parsing will be stopped with the[0m
+[1m        :class:`ParsingInterrupted` exception.[0m
+[1m    [0m
+[1m        Streaming example::[0m
+[1m    [0m
+[1m            >>> def handle(path, item):[0m
+[1m            ...     print('path:%s item:%s' % (path, item))[0m
+[1m            ...     return True[0m
+[1m            ...[0m
+[1m            >>> xmltodict.parse(\"\"\"[0m
+[1m            ... <a prop="x">[0m
+[1m            ...   <b>1</b>[0m
+[1m            ...   <b>2</b>[0m
+[1m            ... </a>\"\"\", item_depth=2, item_callback=handle)[0m
+[1m            path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:1[0m
+[1m            path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:2[0m
+[1m    [0m
+[1m        The optional argument `postprocessor` is a function that takes `path`,[0m
+[1m        `key` and `value` as positional arguments and returns a new `(key, value)`[0m
+[1m        pair where both `key` and `value` may have changed. Usage example::[0m
+[1m    [0m
+[1m            >>> def postprocessor(path, key, value):[0m
+[1m            ...     try:[0m
+[1m            ...         return key + ':int', int(value)[0m
+[1m            ...     except (ValueError, TypeError):[0m
+[1m            ...         return key, value[0m
+[1m            >>> xmltodict.parse('<a><b>1</b><b>2</b><b>x</b></a>',[0m
+[1m            ...                 postprocessor=postprocessor)[0m
+[1m            OrderedDict([(u'a', OrderedDict([(u'b:int', [1, 2]), (u'b', u'x')]))])[0m
+[1m    [0m
+[1m        You can pass an alternate version of `expat` (such as `defusedexpat`) by[0m
+[1m        using the `expat` parameter. E.g:[0m
+[1m    [0m
+[1m            >>> import defusedexpat[0m
+[1m            >>> xmltodict.parse('<a>hello</a>', expat=defusedexpat.pyexpat)[0m
+[1m            OrderedDict([(u'a', u'hello')])[0m
+[1m    [0m
+[1m        You can use the force_list argument to force lists to be created even[0m
+[1m        when there is only a single child of a given level of hierarchy. The[0m
+[1m        force_list argument is a tuple of keys. If the key for a given level[0m
+[1m        of hierarchy is in the force_list argument, that level of hierarchy[0m
+[1m        will have a list as a child (even if there is only one sub-element).[0m
+[1m        The index_keys operation takes precendence over this. This is applied[0m
+[1m        after any user-supplied postprocessor has already run.[0m
+[1m    [0m
+[1m            For example, given this input:[0m
+[1m            <servers>[0m
+[1m              <server>[0m
+[1m                <name>host1</name>[0m
+[1m                <os>Linux</os>[0m
+[1m                <interfaces>[0m
+[1m                  <interface>[0m
+[1m                    <name>em0</name>[0m
+[1m                    <ip_address>10.0.0.1</ip_address>[0m
+[1m                  </interface>[0m
+[1m                </interfaces>[0m
+[1m              </server>[0m
+[1m            </servers>[0m
+[1m    [0m
+[1m            If called with force_list=('interface',), it will produce[0m
+[1m            this dictionary:[0m
+[1m            {'servers':[0m
+[1m              {'server':[0m
+[1m                {'name': 'host1',[0m
+[1m                 'os': 'Linux'},[0m
+[1m                 'interfaces':[0m
+[1m                  {'interface':[0m
+[1m                    [ {'name': 'em0', 'ip_address': '10.0.0.1' } ] } } }[0m
+[1m    [0m
+[1m            `force_list` can also be a callable that receives `path`, `key` and[0m
+[1m            `value`. This is helpful in cases where the logic that decides whether[0m
+[1m            a list should be forced is more complex.[0m
+[1m        """[0m
+[1m        handler = _DictSAXHandler(namespace_separator=namespace_separator,[0m
+[1m                                  **kwargs)[0m
+[1m        if isinstance(xml_input, _unicode):[0m
+[1m            if not encoding:[0m
+[1m                encoding = 'utf-8'[0m
+[1m            xml_input = xml_input.encode(encoding)[0m
+[1m        if not process_namespaces:[0m
+[1m            namespace_separator = None[0m
+[1m        parser = expat.ParserCreate([0m
+[1m            encoding,[0m
+[1m            namespace_separator[0m
+[1m        )[0m
+[1m        try:[0m
+[1m            parser.ordered_attributes = True[0m
+[1m        except AttributeError:[0m
+[1m            # Jython's expat does not support ordered_attributes[0m
+[1m            pass[0m
+[1m        parser.StartNamespaceDeclHandler = handler.startNamespaceDecl[0m
+[1m        parser.StartElementHandler = handler.startElement[0m
+[1m        parser.EndElementHandler = handler.endElement[0m
+[1m        parser.CharacterDataHandler = handler.characters[0m
+[1m        parser.buffer_text = True[0m
+[1m        if disable_entities:[0m
+[1m            try:[0m
+[1m                # Attempt to disable DTD in Jython's expat parser (Xerces-J).[0m
+[1m                feature = "http://apache.org/xml/features/disallow-doctype-decl"[0m
+[1m                parser._reader.setFeature(feature, True)[0m
+[1m            except AttributeError:[0m
+[1m                # For CPython / expat parser.[0m
+[1m                # Anything not handled ends up here and entities aren't expanded.[0m
+[1m                parser.DefaultHandler = lambda x: None[0m
+[1m                # Expects an integer return; zero means failure -> expat.ExpatError.[0m
+[1m                parser.ExternalEntityRefHandler = lambda *x: 1[0m
+[1m        if hasattr(xml_input, 'read'):[0m
+[1m>           parser.ParseFile(xml_input)[0m
+[1m[31mE           TypeError: read() did not return a bytes object (type=str)[0m
+
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/xmltodict.py[0m:325: TypeError
+----------------------------- Captured stderr call -----------------------------
+test cases are: ['/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/datacite-example-full-v3.1.xml', '/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/datacite-example-software-v4.1.xml', '/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/datacite-example-full-v4.1.xml']
+[31m[1m________________________ TestZenodo.test_zenodo_parser _________________________[0m
+
+self = <pyingest.tests.test_parsers.TestZenodo testMethod=test_zenodo_parser>
+
+[1m    def test_zenodo_parser(self):[0m
+[1m        parser = zenodo.ZenodoParser()[0m
+[1m        for file in self.inputdocs:[0m
+[1m            # this will raise exceptions if something is wrong[0m
+[1m            with open(file, 'r') as fp:[0m
+[1m>               document = parser.parse(fp)[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:84: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mpyingest/parsers/zenodo.py[0m:47: in parse
+[1m    doc = super(self.__class__, self).parse(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/datacite.py[0m:160: in parse
+[1m    r = self.resource_dict(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/datacite.py[0m:148: in resource_dict
+[1m    d = self.xmltodict(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/default.py[0m:45: in xmltodict
+[1m    return xmltodict_parser.parse(fp, **kwargs)[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+xml_input = <_io.TextIOWrapper name='/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/zenodo.org_record_16733_export_dcite3' mode='r' encoding='UTF-8'>
+encoding = None
+expat = <module 'xml.parsers.expat' from '/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/xml/parsers/expat.py'>
+process_namespaces = False, namespace_separator = None, disable_entities = True
+kwargs = {}, handler = <xmltodict._DictSAXHandler object at 0x10f324e10>
+parser = <pyexpat.xmlparser object at 0x10f2709a8>
+feature = 'http://apache.org/xml/features/disallow-doctype-decl'
+
+[1m    def parse(xml_input, encoding=None, expat=expat, process_namespaces=False,[0m
+[1m              namespace_separator=':', disable_entities=True, **kwargs):[0m
+[1m        """Parse the given XML input and convert it into a dictionary.[0m
+[1m    [0m
+[1m        `xml_input` can either be a `string` or a file-like object.[0m
+[1m    [0m
+[1m        If `xml_attribs` is `True`, element attributes are put in the dictionary[0m
+[1m        among regular child elements, using `@` as a prefix to avoid collisions. If[0m
+[1m        set to `False`, they are just ignored.[0m
+[1m    [0m
+[1m        Simple example::[0m
+[1m    [0m
+[1m            >>> import xmltodict[0m
+[1m            >>> doc = xmltodict.parse(\"\"\"[0m
+[1m            ... <a prop="x">[0m
+[1m            ...   <b>1</b>[0m
+[1m            ...   <b>2</b>[0m
+[1m            ... </a>[0m
+[1m            ... \"\"\")[0m
+[1m            >>> doc['a']['@prop'][0m
+[1m            u'x'[0m
+[1m            >>> doc['a']['b'][0m
+[1m            [u'1', u'2'][0m
+[1m    [0m
+[1m        If `item_depth` is `0`, the function returns a dictionary for the root[0m
+[1m        element (default behavior). Otherwise, it calls `item_callback` every time[0m
+[1m        an item at the specified depth is found and returns `None` in the end[0m
+[1m        (streaming mode).[0m
+[1m    [0m
+[1m        The callback function receives two parameters: the `path` from the document[0m
+[1m        root to the item (name-attribs pairs), and the `item` (dict). If the[0m
+[1m        callback's return value is false-ish, parsing will be stopped with the[0m
+[1m        :class:`ParsingInterrupted` exception.[0m
+[1m    [0m
+[1m        Streaming example::[0m
+[1m    [0m
+[1m            >>> def handle(path, item):[0m
+[1m            ...     print('path:%s item:%s' % (path, item))[0m
+[1m            ...     return True[0m
+[1m            ...[0m
+[1m            >>> xmltodict.parse(\"\"\"[0m
+[1m            ... <a prop="x">[0m
+[1m            ...   <b>1</b>[0m
+[1m            ...   <b>2</b>[0m
+[1m            ... </a>\"\"\", item_depth=2, item_callback=handle)[0m
+[1m            path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:1[0m
+[1m            path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:2[0m
+[1m    [0m
+[1m        The optional argument `postprocessor` is a function that takes `path`,[0m
+[1m        `key` and `value` as positional arguments and returns a new `(key, value)`[0m
+[1m        pair where both `key` and `value` may have changed. Usage example::[0m
+[1m    [0m
+[1m            >>> def postprocessor(path, key, value):[0m
+[1m            ...     try:[0m
+[1m            ...         return key + ':int', int(value)[0m
+[1m            ...     except (ValueError, TypeError):[0m
+[1m            ...         return key, value[0m
+[1m            >>> xmltodict.parse('<a><b>1</b><b>2</b><b>x</b></a>',[0m
+[1m            ...                 postprocessor=postprocessor)[0m
+[1m            OrderedDict([(u'a', OrderedDict([(u'b:int', [1, 2]), (u'b', u'x')]))])[0m
+[1m    [0m
+[1m        You can pass an alternate version of `expat` (such as `defusedexpat`) by[0m
+[1m        using the `expat` parameter. E.g:[0m
+[1m    [0m
+[1m            >>> import defusedexpat[0m
+[1m            >>> xmltodict.parse('<a>hello</a>', expat=defusedexpat.pyexpat)[0m
+[1m            OrderedDict([(u'a', u'hello')])[0m
+[1m    [0m
+[1m        You can use the force_list argument to force lists to be created even[0m
+[1m        when there is only a single child of a given level of hierarchy. The[0m
+[1m        force_list argument is a tuple of keys. If the key for a given level[0m
+[1m        of hierarchy is in the force_list argument, that level of hierarchy[0m
+[1m        will have a list as a child (even if there is only one sub-element).[0m
+[1m        The index_keys operation takes precendence over this. This is applied[0m
+[1m        after any user-supplied postprocessor has already run.[0m
+[1m    [0m
+[1m            For example, given this input:[0m
+[1m            <servers>[0m
+[1m              <server>[0m
+[1m                <name>host1</name>[0m
+[1m                <os>Linux</os>[0m
+[1m                <interfaces>[0m
+[1m                  <interface>[0m
+[1m                    <name>em0</name>[0m
+[1m                    <ip_address>10.0.0.1</ip_address>[0m
+[1m                  </interface>[0m
+[1m                </interfaces>[0m
+[1m              </server>[0m
+[1m            </servers>[0m
+[1m    [0m
+[1m            If called with force_list=('interface',), it will produce[0m
+[1m            this dictionary:[0m
+[1m            {'servers':[0m
+[1m              {'server':[0m
+[1m                {'name': 'host1',[0m
+[1m                 'os': 'Linux'},[0m
+[1m                 'interfaces':[0m
+[1m                  {'interface':[0m
+[1m                    [ {'name': 'em0', 'ip_address': '10.0.0.1' } ] } } }[0m
+[1m    [0m
+[1m            `force_list` can also be a callable that receives `path`, `key` and[0m
+[1m            `value`. This is helpful in cases where the logic that decides whether[0m
+[1m            a list should be forced is more complex.[0m
+[1m        """[0m
+[1m        handler = _DictSAXHandler(namespace_separator=namespace_separator,[0m
+[1m                                  **kwargs)[0m
+[1m        if isinstance(xml_input, _unicode):[0m
+[1m            if not encoding:[0m
+[1m                encoding = 'utf-8'[0m
+[1m            xml_input = xml_input.encode(encoding)[0m
+[1m        if not process_namespaces:[0m
+[1m            namespace_separator = None[0m
+[1m        parser = expat.ParserCreate([0m
+[1m            encoding,[0m
+[1m            namespace_separator[0m
+[1m        )[0m
+[1m        try:[0m
+[1m            parser.ordered_attributes = True[0m
+[1m        except AttributeError:[0m
+[1m            # Jython's expat does not support ordered_attributes[0m
+[1m            pass[0m
+[1m        parser.StartNamespaceDeclHandler = handler.startNamespaceDecl[0m
+[1m        parser.StartElementHandler = handler.startElement[0m
+[1m        parser.EndElementHandler = handler.endElement[0m
+[1m        parser.CharacterDataHandler = handler.characters[0m
+[1m        parser.buffer_text = True[0m
+[1m        if disable_entities:[0m
+[1m            try:[0m
+[1m                # Attempt to disable DTD in Jython's expat parser (Xerces-J).[0m
+[1m                feature = "http://apache.org/xml/features/disallow-doctype-decl"[0m
+[1m                parser._reader.setFeature(feature, True)[0m
+[1m            except AttributeError:[0m
+[1m                # For CPython / expat parser.[0m
+[1m                # Anything not handled ends up here and entities aren't expanded.[0m
+[1m                parser.DefaultHandler = lambda x: None[0m
+[1m                # Expects an integer return; zero means failure -> expat.ExpatError.[0m
+[1m                parser.ExternalEntityRefHandler = lambda *x: 1[0m
+[1m        if hasattr(xml_input, 'read'):[0m
+[1m>           parser.ParseFile(xml_input)[0m
+[1m[31mE           TypeError: read() did not return a bytes object (type=str)[0m
+
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/xmltodict.py[0m:325: TypeError
+----------------------------- Captured stderr call -----------------------------
+test cases are: ['/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/zenodo.org_record_16733_export_dcite3', '/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/zenodo.org_record_16839_export_dcite3', '/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/zenodo.org_record_16803_export_dcite3', '/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/zenodo.org_record_16728_export_dcite3', '/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/zenodo.org_record_10415_export_dcite3', '/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/zenodo.org_record_16861_export_dcite3', '/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/zenodo.org_record_16738_export_dcite3', '/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/zenodo.org_record_34495_export_dcite3']
+[31m[1m__________________ TestAuthorNames.test_default_author_names ___________________[0m
+
+self = <pyingest.tests.test_parsers.TestAuthorNames testMethod=test_default_author_names>
+
+[1m    def test_default_author_names(self):[0m
+[1m        # expected_authors_str = u"white smith, robert; power, m.; de la paz, maria antonia; bla., bli.; Collaboration; stuart, john; Collaboration, Gaia; John; github_handle; Unknown, Unknown; .."[0m
+[1m        expected_authors_str = u"white smith, robert; power, m.; de la paz, maria antonia; bla., bli.; Collaboration; stuart, john; Collaboration, Gaia; John; github_handle; ; .."[0m
+[1m        # Default[0m
+[1m>       corrected_authors_str = self.author_names.parse(self.authors_str)[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:119: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pyingest.parsers.author_names.AuthorNames object at 0x10f3941d0>
+authors_str = 'robert white smith; m. power; maria antonia de la paz; bla., bli.; the collaboration: john stuart; collaboration, Gaia; John; github_handle;;..'
+normalize = False, delimiter = ';', default_to_last_name = True
+collaborations_params = {'first_author_delimiter': ':', 'fix_arXiv_mixed_collaboration_string': False, 'keywords': ['group', 'team', 'collaboration', 'consortium'], 'remove_the': True}
+
+[1m    def parse(self, authors_str, normalize=False, delimiter=u';', default_to_last_name=True, collaborations_params={}):[0m
+[1m        """[0m
+[1m        Receives an authors string with individual author names separated by a[0m
+[1m        delimiter and returns re-formatted authors string where all author[0m
+[1m        names follow the structure: last name, first name[0m
+[1m    [0m
+[1m        It also verifies if an author name string contains a collaboration[0m
+[1m        string.  The collaboration extraction can be controlled by the[0m
+[1m        dictionary 'collaborations_params' which can have the following keys:[0m
+[1m    [0m
+[1m        - keywords [list of strings]: Keywords that appear in strings that[0m
+[1m          should be identifier as collaboration strings. Default: 'group',[0m
+[1m          'team', 'collaboration'[0m
+[1m        - remove_the [boolean]: Remove the article 'The' from collaboration[0m
+[1m          strings (e.g., 'The collaboration'). Default: False.[0m
+[1m        - first_author_delimiter [string]: Some collaboration strings include[0m
+[1m          the first author separated by a delimiter (e.g., The collaboration:[0m
+[1m          First author), the delimiter can be specified in this variable,[0m
+[1m          otherwise None or False values can be provided to avoid trying to[0m
+[1m          extract first authors from collaboration strings. Default: ':'[0m
+[1m        - fix_arXiv_mixed_collaboration_string [boolean]: Some arXiv entries[0m
+[1m          mix the collaboration string with the collaboration string.[0m
+[1m          (e.g. 'collaboration, Gaia'). Default: False[0m
+[1m        """[0m
+[1m        default_collaborations_params = self.default_collaborations_params.copy()[0m
+[1m        default_collaborations_params.update(collaborations_params)[0m
+[1m        collaborations_params = default_collaborations_params[0m
+[1m    [0m
+[1m        # Split and convert unicode characters and numerical HTML[0m
+[1m        # (e.g. 'u'both em\u2014and&#x2013;dashes&hellip;' -> 'both em&mdash;and&ndash;dashes&hellip;')[0m
+[1m        authors_list = [str(named_entities(n.strip())) for n in authors_str.split(delimiter)][0m
+[1m    [0m
+[1m        corrected_authors_list = [][0m
+[1m        for author_str in authors_list:[0m
+[1m            author_str = self._clean_author_name(author_str)[0m
+[1m            # Check for collaboration strings[0m
+[1m            is_collaboration, collaboration_str = self._extract_collaboration(author_str, default_to_last_name, delimiter, collaborations_params)[0m
+[1m            if is_collaboration:[0m
+[1m                # Collaboration strings can contain the first author, which we need to split[0m
+[1m>               for corrected_author_str in collaboration_str.split(delimiter):[0m
+[1m[31mE               TypeError: a bytes-like object is required, not 'str'[0m
+
+[1m[31mpyingest/parsers/author_names.py[0m:353: TypeError
+[31m[1m__________ TestAuthorNames.test_fix_arXiv_mixed_collaboration_string ___________[0m
+
+self = <pyingest.tests.test_parsers.TestAuthorNames testMethod=test_fix_arXiv_mixed_collaboration_string>
+
+[1m    def test_fix_arXiv_mixed_collaboration_string(self):[0m
+[1m        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; the Collaboration: john stuart; Gaia Collaboration; John; github_handle; ; "[0m
+[1m        collaborations_params = {[0m
+[1m            'keywords': ['group', 'team', 'collaboration'],[0m
+[1m            'first_author_delimiter': None,[0m
+[1m            'remove_the': False,[0m
+[1m            'fix_arXiv_mixed_collaboration_string': True,[0m
+[1m        }[0m
+[1m>       normalized_authors_str = self.author_names.parse(self.authors_str, normalize=True, collaborations_params=collaborations_params)[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:172: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pyingest.parsers.author_names.AuthorNames object at 0x10f209128>
+authors_str = 'robert white smith; m. power; maria antonia de la paz; bla., bli.; the collaboration: john stuart; collaboration, Gaia; John; github_handle;;..'
+normalize = True, delimiter = ';', default_to_last_name = True
+collaborations_params = {'first_author_delimiter': None, 'fix_arXiv_mixed_collaboration_string': True, 'keywords': ['group', 'team', 'collaboration'], 'remove_the': False}
+
+[1m    def parse(self, authors_str, normalize=False, delimiter=u';', default_to_last_name=True, collaborations_params={}):[0m
+[1m        """[0m
+[1m        Receives an authors string with individual author names separated by a[0m
+[1m        delimiter and returns re-formatted authors string where all author[0m
+[1m        names follow the structure: last name, first name[0m
+[1m    [0m
+[1m        It also verifies if an author name string contains a collaboration[0m
+[1m        string.  The collaboration extraction can be controlled by the[0m
+[1m        dictionary 'collaborations_params' which can have the following keys:[0m
+[1m    [0m
+[1m        - keywords [list of strings]: Keywords that appear in strings that[0m
+[1m          should be identifier as collaboration strings. Default: 'group',[0m
+[1m          'team', 'collaboration'[0m
+[1m        - remove_the [boolean]: Remove the article 'The' from collaboration[0m
+[1m          strings (e.g., 'The collaboration'). Default: False.[0m
+[1m        - first_author_delimiter [string]: Some collaboration strings include[0m
+[1m          the first author separated by a delimiter (e.g., The collaboration:[0m
+[1m          First author), the delimiter can be specified in this variable,[0m
+[1m          otherwise None or False values can be provided to avoid trying to[0m
+[1m          extract first authors from collaboration strings. Default: ':'[0m
+[1m        - fix_arXiv_mixed_collaboration_string [boolean]: Some arXiv entries[0m
+[1m          mix the collaboration string with the collaboration string.[0m
+[1m          (e.g. 'collaboration, Gaia'). Default: False[0m
+[1m        """[0m
+[1m        default_collaborations_params = self.default_collaborations_params.copy()[0m
+[1m        default_collaborations_params.update(collaborations_params)[0m
+[1m        collaborations_params = default_collaborations_params[0m
+[1m    [0m
+[1m        # Split and convert unicode characters and numerical HTML[0m
+[1m        # (e.g. 'u'both em\u2014and&#x2013;dashes&hellip;' -> 'both em&mdash;and&ndash;dashes&hellip;')[0m
+[1m        authors_list = [str(named_entities(n.strip())) for n in authors_str.split(delimiter)][0m
+[1m    [0m
+[1m        corrected_authors_list = [][0m
+[1m        for author_str in authors_list:[0m
+[1m            author_str = self._clean_author_name(author_str)[0m
+[1m            # Check for collaboration strings[0m
+[1m            is_collaboration, collaboration_str = self._extract_collaboration(author_str, default_to_last_name, delimiter, collaborations_params)[0m
+[1m            if is_collaboration:[0m
+[1m                # Collaboration strings can contain the first author, which we need to split[0m
+[1m>               for corrected_author_str in collaboration_str.split(delimiter):[0m
+[1m[31mE               TypeError: a bytes-like object is required, not 'str'[0m
+
+[1m[31mpyingest/parsers/author_names.py[0m:353: TypeError
+[31m[1m_________________ TestAuthorNames.test_normalize_author_names __________________[0m
+
+self = <pyingest.tests.test_parsers.TestAuthorNames testMethod=test_normalize_author_names>
+
+[1m    def test_normalize_author_names(self):[0m
+[1m        corrected_authors_str = u"white smith, robert; power, m; de la paz, maria antonia; bla, bli; Collaboration; stuart, john; Collaboration, Gaia; John; github_handle; ; "[0m
+[1m        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; Collaboration; Stuart, J; Collaboration Gaia; John; github_handle; ; "[0m
+[1m        # Normalize[0m
+[1m        normalized_authors_str = self.author_names._normalize(corrected_authors_str)[0m
+[1m        self.assertEqual(normalized_authors_str, expected_normalized_authors_str)[0m
+[1m>       normalized_authors_str = self.author_names.parse(self.authors_str, normalize=True)[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pyingest.parsers.author_names.AuthorNames object at 0x10f37ad30>
+authors_str = 'robert white smith; m. power; maria antonia de la paz; bla., bli.; the collaboration: john stuart; collaboration, Gaia; John; github_handle;;..'
+normalize = True, delimiter = ';', default_to_last_name = True
+collaborations_params = {'first_author_delimiter': ':', 'fix_arXiv_mixed_collaboration_string': False, 'keywords': ['group', 'team', 'collaboration', 'consortium'], 'remove_the': True}
+
+[1m    def parse(self, authors_str, normalize=False, delimiter=u';', default_to_last_name=True, collaborations_params={}):[0m
+[1m        """[0m
+[1m        Receives an authors string with individual author names separated by a[0m
+[1m        delimiter and returns re-formatted authors string where all author[0m
+[1m        names follow the structure: last name, first name[0m
+[1m    [0m
+[1m        It also verifies if an author name string contains a collaboration[0m
+[1m        string.  The collaboration extraction can be controlled by the[0m
+[1m        dictionary 'collaborations_params' which can have the following keys:[0m
+[1m    [0m
+[1m        - keywords [list of strings]: Keywords that appear in strings that[0m
+[1m          should be identifier as collaboration strings. Default: 'group',[0m
+[1m          'team', 'collaboration'[0m
+[1m        - remove_the [boolean]: Remove the article 'The' from collaboration[0m
+[1m          strings (e.g., 'The collaboration'). Default: False.[0m
+[1m        - first_author_delimiter [string]: Some collaboration strings include[0m
+[1m          the first author separated by a delimiter (e.g., The collaboration:[0m
+[1m          First author), the delimiter can be specified in this variable,[0m
+[1m          otherwise None or False values can be provided to avoid trying to[0m
+[1m          extract first authors from collaboration strings. Default: ':'[0m
+[1m        - fix_arXiv_mixed_collaboration_string [boolean]: Some arXiv entries[0m
+[1m          mix the collaboration string with the collaboration string.[0m
+[1m          (e.g. 'collaboration, Gaia'). Default: False[0m
+[1m        """[0m
+[1m        default_collaborations_params = self.default_collaborations_params.copy()[0m
+[1m        default_collaborations_params.update(collaborations_params)[0m
+[1m        collaborations_params = default_collaborations_params[0m
+[1m    [0m
+[1m        # Split and convert unicode characters and numerical HTML[0m
+[1m        # (e.g. 'u'both em\u2014and&#x2013;dashes&hellip;' -> 'both em&mdash;and&ndash;dashes&hellip;')[0m
+[1m        authors_list = [str(named_entities(n.strip())) for n in authors_str.split(delimiter)][0m
+[1m    [0m
+[1m        corrected_authors_list = [][0m
+[1m        for author_str in authors_list:[0m
+[1m            author_str = self._clean_author_name(author_str)[0m
+[1m            # Check for collaboration strings[0m
+[1m            is_collaboration, collaboration_str = self._extract_collaboration(author_str, default_to_last_name, delimiter, collaborations_params)[0m
+[1m            if is_collaboration:[0m
+[1m                # Collaboration strings can contain the first author, which we need to split[0m
+[1m>               for corrected_author_str in collaboration_str.split(delimiter):[0m
+[1m[31mE               TypeError: a bytes-like object is required, not 'str'[0m
+
+[1m[31mpyingest/parsers/author_names.py[0m:353: TypeError
+[31m[1m_____ TestAuthorNames.test_remove_the_from_collaborations_in_author_names ______[0m
+
+self = <pyingest.tests.test_parsers.TestAuthorNames testMethod=test_remove_the_from_collaborations_in_author_names>
+
+[1m    def test_remove_the_from_collaborations_in_author_names(self):[0m
+[1m        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; Collaboration; Stuart, J; Collaboration Gaia; John; github_handle; ; "[0m
+[1m        collaborations_params = {[0m
+[1m            'keywords': ['group', 'team', 'collaboration'],[0m
+[1m            'first_author_delimiter': ':',[0m
+[1m            'remove_the': True,[0m
+[1m            'fix_arXiv_mixed_collaboration_string': False,[0m
+[1m        }[0m
+[1m>       normalized_authors_str = self.author_names.parse(self.authors_str, normalize=True, collaborations_params=collaborations_params)[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pyingest.parsers.author_names.AuthorNames object at 0x10f35a128>
+authors_str = 'robert white smith; m. power; maria antonia de la paz; bla., bli.; the collaboration: john stuart; collaboration, Gaia; John; github_handle;;..'
+normalize = True, delimiter = ';', default_to_last_name = True
+collaborations_params = {'first_author_delimiter': ':', 'fix_arXiv_mixed_collaboration_string': False, 'keywords': ['group', 'team', 'collaboration'], 'remove_the': True}
+
+[1m    def parse(self, authors_str, normalize=False, delimiter=u';', default_to_last_name=True, collaborations_params={}):[0m
+[1m        """[0m
+[1m        Receives an authors string with individual author names separated by a[0m
+[1m        delimiter and returns re-formatted authors string where all author[0m
+[1m        names follow the structure: last name, first name[0m
+[1m    [0m
+[1m        It also verifies if an author name string contains a collaboration[0m
+[1m        string.  The collaboration extraction can be controlled by the[0m
+[1m        dictionary 'collaborations_params' which can have the following keys:[0m
+[1m    [0m
+[1m        - keywords [list of strings]: Keywords that appear in strings that[0m
+[1m          should be identifier as collaboration strings. Default: 'group',[0m
+[1m          'team', 'collaboration'[0m
+[1m        - remove_the [boolean]: Remove the article 'The' from collaboration[0m
+[1m          strings (e.g., 'The collaboration'). Default: False.[0m
+[1m        - first_author_delimiter [string]: Some collaboration strings include[0m
+[1m          the first author separated by a delimiter (e.g., The collaboration:[0m
+[1m          First author), the delimiter can be specified in this variable,[0m
+[1m          otherwise None or False values can be provided to avoid trying to[0m
+[1m          extract first authors from collaboration strings. Default: ':'[0m
+[1m        - fix_arXiv_mixed_collaboration_string [boolean]: Some arXiv entries[0m
+[1m          mix the collaboration string with the collaboration string.[0m
+[1m          (e.g. 'collaboration, Gaia'). Default: False[0m
+[1m        """[0m
+[1m        default_collaborations_params = self.default_collaborations_params.copy()[0m
+[1m        default_collaborations_params.update(collaborations_params)[0m
+[1m        collaborations_params = default_collaborations_params[0m
+[1m    [0m
+[1m        # Split and convert unicode characters and numerical HTML[0m
+[1m        # (e.g. 'u'both em\u2014and&#x2013;dashes&hellip;' -> 'both em&mdash;and&ndash;dashes&hellip;')[0m
+[1m        authors_list = [str(named_entities(n.strip())) for n in authors_str.split(delimiter)][0m
+[1m    [0m
+[1m        corrected_authors_list = [][0m
+[1m        for author_str in authors_list:[0m
+[1m            author_str = self._clean_author_name(author_str)[0m
+[1m            # Check for collaboration strings[0m
+[1m            is_collaboration, collaboration_str = self._extract_collaboration(author_str, default_to_last_name, delimiter, collaborations_params)[0m
+[1m            if is_collaboration:[0m
+[1m                # Collaboration strings can contain the first author, which we need to split[0m
+[1m>               for corrected_author_str in collaboration_str.split(delimiter):[0m
+[1m[31mE               TypeError: a bytes-like object is required, not 'str'[0m
+
+[1m[31mpyingest/parsers/author_names.py[0m:353: TypeError
+[31m[1m____________________________ TestArxiv.test_bad_xml ____________________________[0m
+
+self = <pyingest.tests.test_parsers.TestArxiv testMethod=test_bad_xml>
+
+[1m    def test_bad_xml(self):[0m
+[1m        with self.assertRaises(arxiv.EmptyParserException):[0m
+[1m            with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/readme.txt'), 'rU') as fp:[0m
+[1m                parser = arxiv.ArxivParser()[0m
+[1m>               document = parser.parse(fp)[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:182: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mpyingest/parsers/arxiv.py[0m:56: in parse
+[1m    result = super(self.__class__, self).parse(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/dubcore.py[0m:63: in parse
+[1m    idtag, r = self.resource_dict(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/dubcore.py[0m:48: in resource_dict
+[1m    d = self.xmltodict(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/default.py[0m:45: in xmltodict
+[1m    return xmltodict_parser.parse(fp, **kwargs)[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+[1m    def parse(xml_input, encoding=None, expat=expat, process_namespaces=False,[0m
+[1m              namespace_separator=':', disable_entities=True, **kwargs):[0m
+[1m        """Parse the given XML input and convert it into a dictionary.[0m
+[1m    [0m
+[1m        `xml_input` can either be a `string` or a file-like object.[0m
+[1m    [0m
+[1m        If `xml_attribs` is `True`, element attributes are put in the dictionary[0m
+[1m        among regular child elements, using `@` as a prefix to avoid collisions. If[0m
+[1m        set to `False`, they are just ignored.[0m
+[1m    [0m
+[1m        Simple example::[0m
+[1m    [0m
+[1m            >>> import xmltodict[0m
+[1m            >>> doc = xmltodict.parse(\"\"\"[0m
+[1m            ... <a prop="x">[0m
+[1m            ...   <b>1</b>[0m
+[1m            ...   <b>2</b>[0m
+[1m            ... </a>[0m
+[1m            ... \"\"\")[0m
+[1m            >>> doc['a']['@prop'][0m
+[1m            u'x'[0m
+[1m            >>> doc['a']['b'][0m
+[1m            [u'1', u'2'][0m
+[1m    [0m
+[1m        If `item_depth` is `0`, the function returns a dictionary for the root[0m
+[1m        element (default behavior). Otherwise, it calls `item_callback` every time[0m
+[1m        an item at the specified depth is found and returns `None` in the end[0m
+[1m        (streaming mode).[0m
+[1m    [0m
+[1m        The callback function receives two parameters: the `path` from the document[0m
+[1m        root to the item (name-attribs pairs), and the `item` (dict). If the[0m
+[1m        callback's return value is false-ish, parsing will be stopped with the[0m
+[1m        :class:`ParsingInterrupted` exception.[0m
+[1m    [0m
+[1m        Streaming example::[0m
+[1m    [0m
+[1m            >>> def handle(path, item):[0m
+[1m            ...     print('path:%s item:%s' % (path, item))[0m
+[1m            ...     return True[0m
+[1m            ...[0m
+[1m            >>> xmltodict.parse(\"\"\"[0m
+[1m            ... <a prop="x">[0m
+[1m            ...   <b>1</b>[0m
+[1m            ...   <b>2</b>[0m
+[1m            ... </a>\"\"\", item_depth=2, item_callback=handle)[0m
+[1m            path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:1[0m
+[1m            path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:2[0m
+[1m    [0m
+[1m        The optional argument `postprocessor` is a function that takes `path`,[0m
+[1m        `key` and `value` as positional arguments and returns a new `(key, value)`[0m
+[1m        pair where both `key` and `value` may have changed. Usage example::[0m
+[1m    [0m
+[1m            >>> def postprocessor(path, key, value):[0m
+[1m            ...     try:[0m
+[1m            ...         return key + ':int', int(value)[0m
+[1m            ...     except (ValueError, TypeError):[0m
+[1m            ...         return key, value[0m
+[1m            >>> xmltodict.parse('<a><b>1</b><b>2</b><b>x</b></a>',[0m
+[1m            ...                 postprocessor=postprocessor)[0m
+[1m            OrderedDict([(u'a', OrderedDict([(u'b:int', [1, 2]), (u'b', u'x')]))])[0m
+[1m    [0m
+[1m        You can pass an alternate version of `expat` (such as `defusedexpat`) by[0m
+[1m        using the `expat` parameter. E.g:[0m
+[1m    [0m
+[1m            >>> import defusedexpat[0m
+[1m            >>> xmltodict.parse('<a>hello</a>', expat=defusedexpat.pyexpat)[0m
+[1m            OrderedDict([(u'a', u'hello')])[0m
+[1m    [0m
+[1m        You can use the force_list argument to force lists to be created even[0m
+[1m        when there is only a single child of a given level of hierarchy. The[0m
+[1m        force_list argument is a tuple of keys. If the key for a given level[0m
+[1m        of hierarchy is in the force_list argument, that level of hierarchy[0m
+[1m        will have a list as a child (even if there is only one sub-element).[0m
+[1m        The index_keys operation takes precendence over this. This is applied[0m
+[1m        after any user-supplied postprocessor has already run.[0m
+[1m    [0m
+[1m            For example, given this input:[0m
+[1m            <servers>[0m
+[1m              <server>[0m
+[1m                <name>host1</name>[0m
+[1m                <os>Linux</os>[0m
+[1m                <interfaces>[0m
+[1m                  <interface>[0m
+[1m                    <name>em0</name>[0m
+[1m                    <ip_address>10.0.0.1</ip_address>[0m
+[1m                  </interface>[0m
+[1m                </interfaces>[0m
+[1m              </server>[0m
+[1m            </servers>[0m
+[1m    [0m
+[1m            If called with force_list=('interface',), it will produce[0m
+[1m            this dictionary:[0m
+[1m            {'servers':[0m
+[1m              {'server':[0m
+[1m                {'name': 'host1',[0m
+[1m                 'os': 'Linux'},[0m
+[1m                 'interfaces':[0m
+[1m                  {'interface':[0m
+[1m                    [ {'name': 'em0', 'ip_address': '10.0.0.1' } ] } } }[0m
+[1m    [0m
+[1m            `force_list` can also be a callable that receives `path`, `key` and[0m
+[1m            `value`. This is helpful in cases where the logic that decides whether[0m
+[1m            a list should be forced is more complex.[0m
+[1m        """[0m
+[1m        handler = _DictSAXHandler(namespace_separator=namespace_separator,[0m
+[1m                                  **kwargs)[0m
+[1m        if isinstance(xml_input, _unicode):[0m
+[1m            if not encoding:[0m
+[1m                encoding = 'utf-8'[0m
+[1m            xml_input = xml_input.encode(encoding)[0m
+[1m        if not process_namespaces:[0m
+[1m            namespace_separator = None[0m
+[1m        parser = expat.ParserCreate([0m
+[1m            encoding,[0m
+[1m            namespace_separator[0m
+[1m        )[0m
+[1m        try:[0m
+[1m            parser.ordered_attributes = True[0m
+[1m        except AttributeError:[0m
+[1m            # Jython's expat does not support ordered_attributes[0m
+[1m            pass[0m
+[1m        parser.StartNamespaceDeclHandler = handler.startNamespaceDecl[0m
+[1m        parser.StartElementHandler = handler.startElement[0m
+[1m        parser.EndElementHandler = handler.endElement[0m
+[1m        parser.CharacterDataHandler = handler.characters[0m
+[1m        parser.buffer_text = True[0m
+[1m        if disable_entities:[0m
+[1m            try:[0m
+[1m                # Attempt to disable DTD in Jython's expat parser (Xerces-J).[0m
+[1m                feature = "http://apache.org/xml/features/disallow-doctype-decl"[0m
+[1m                parser._reader.setFeature(feature, True)[0m
+[1m            except AttributeError:[0m
+[1m                # For CPython / expat parser.[0m
+[1m                # Anything not handled ends up here and entities aren't expanded.[0m
+[1m                parser.DefaultHandler = lambda x: None[0m
+[1m                # Expects an integer return; zero means failure -> expat.ExpatError.[0m
+[1m                parser.ExternalEntityRefHandler = lambda *x: 1[0m
+[1m        if hasattr(xml_input, 'read'):[0m
+[1m>           parser.ParseFile(xml_input)[0m
+[1m[31mE           TypeError: read() did not return a bytes object (type=str)[0m
+
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/xmltodict.py[0m:325: TypeError
+[31m[1m______________________ TestArxiv.test_old_style_subjects _______________________[0m
+
+self = <pyingest.tests.test_parsers.TestArxiv testMethod=test_old_style_subjects>
+
+[1m    def test_old_style_subjects(self):[0m
+[1m        testfiles = [os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_astro-ph_9501013'),[0m
+[1m                     os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_math_0306266'),[0m
+[1m                     os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_hep-th_0408048'),[0m
+[1m                     os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_cond-mat_9706061')][0m
+[1m        shouldbe = [{'bibcode': u'1995astro.ph..1013H'}, {'bibcode': u'2003math......6266C'}, {'bibcode': u'2004hep.th....8048S'}, {'bibcode': u'1997cond.mat..6061A'}][0m
+[1m        for f, b in zip(testfiles, shouldbe):[0m
+[1m            with open(f, 'rU') as fp:[0m
+[1m                parser = arxiv.ArxivParser()[0m
+[1m>               document = parser.parse(fp)[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:212: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mpyingest/parsers/arxiv.py[0m:56: in parse
+[1m    result = super(self.__class__, self).parse(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/dubcore.py[0m:63: in parse
+[1m    idtag, r = self.resource_dict(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/dubcore.py[0m:48: in resource_dict
+[1m    d = self.xmltodict(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/default.py[0m:45: in xmltodict
+[1m    return xmltodict_parser.parse(fp, **kwargs)[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+xml_input = <_io.TextIOWrapper name='/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/arxiv.test/oai_ArXiv.org_astro-ph_9501013' mode='rU' encoding='UTF-8'>
+encoding = None
+expat = <module 'xml.parsers.expat' from '/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/xml/parsers/expat.py'>
+process_namespaces = False, namespace_separator = None, disable_entities = True
+kwargs = {}, handler = <xmltodict._DictSAXHandler object at 0x10b9dcf60>
+parser = <pyexpat.xmlparser object at 0x10f2b04c8>
+feature = 'http://apache.org/xml/features/disallow-doctype-decl'
+
+[1m    def parse(xml_input, encoding=None, expat=expat, process_namespaces=False,[0m
+[1m              namespace_separator=':', disable_entities=True, **kwargs):[0m
+[1m        """Parse the given XML input and convert it into a dictionary.[0m
+[1m    [0m
+[1m        `xml_input` can either be a `string` or a file-like object.[0m
+[1m    [0m
+[1m        If `xml_attribs` is `True`, element attributes are put in the dictionary[0m
+[1m        among regular child elements, using `@` as a prefix to avoid collisions. If[0m
+[1m        set to `False`, they are just ignored.[0m
+[1m    [0m
+[1m        Simple example::[0m
+[1m    [0m
+[1m            >>> import xmltodict[0m
+[1m            >>> doc = xmltodict.parse(\"\"\"[0m
+[1m            ... <a prop="x">[0m
+[1m            ...   <b>1</b>[0m
+[1m            ...   <b>2</b>[0m
+[1m            ... </a>[0m
+[1m            ... \"\"\")[0m
+[1m            >>> doc['a']['@prop'][0m
+[1m            u'x'[0m
+[1m            >>> doc['a']['b'][0m
+[1m            [u'1', u'2'][0m
+[1m    [0m
+[1m        If `item_depth` is `0`, the function returns a dictionary for the root[0m
+[1m        element (default behavior). Otherwise, it calls `item_callback` every time[0m
+[1m        an item at the specified depth is found and returns `None` in the end[0m
+[1m        (streaming mode).[0m
+[1m    [0m
+[1m        The callback function receives two parameters: the `path` from the document[0m
+[1m        root to the item (name-attribs pairs), and the `item` (dict). If the[0m
+[1m        callback's return value is false-ish, parsing will be stopped with the[0m
+[1m        :class:`ParsingInterrupted` exception.[0m
+[1m    [0m
+[1m        Streaming example::[0m
+[1m    [0m
+[1m            >>> def handle(path, item):[0m
+[1m            ...     print('path:%s item:%s' % (path, item))[0m
+[1m            ...     return True[0m
+[1m            ...[0m
+[1m            >>> xmltodict.parse(\"\"\"[0m
+[1m            ... <a prop="x">[0m
+[1m            ...   <b>1</b>[0m
+[1m            ...   <b>2</b>[0m
+[1m            ... </a>\"\"\", item_depth=2, item_callback=handle)[0m
+[1m            path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:1[0m
+[1m            path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:2[0m
+[1m    [0m
+[1m        The optional argument `postprocessor` is a function that takes `path`,[0m
+[1m        `key` and `value` as positional arguments and returns a new `(key, value)`[0m
+[1m        pair where both `key` and `value` may have changed. Usage example::[0m
+[1m    [0m
+[1m            >>> def postprocessor(path, key, value):[0m
+[1m            ...     try:[0m
+[1m            ...         return key + ':int', int(value)[0m
+[1m            ...     except (ValueError, TypeError):[0m
+[1m            ...         return key, value[0m
+[1m            >>> xmltodict.parse('<a><b>1</b><b>2</b><b>x</b></a>',[0m
+[1m            ...                 postprocessor=postprocessor)[0m
+[1m            OrderedDict([(u'a', OrderedDict([(u'b:int', [1, 2]), (u'b', u'x')]))])[0m
+[1m    [0m
+[1m        You can pass an alternate version of `expat` (such as `defusedexpat`) by[0m
+[1m        using the `expat` parameter. E.g:[0m
+[1m    [0m
+[1m            >>> import defusedexpat[0m
+[1m            >>> xmltodict.parse('<a>hello</a>', expat=defusedexpat.pyexpat)[0m
+[1m            OrderedDict([(u'a', u'hello')])[0m
+[1m    [0m
+[1m        You can use the force_list argument to force lists to be created even[0m
+[1m        when there is only a single child of a given level of hierarchy. The[0m
+[1m        force_list argument is a tuple of keys. If the key for a given level[0m
+[1m        of hierarchy is in the force_list argument, that level of hierarchy[0m
+[1m        will have a list as a child (even if there is only one sub-element).[0m
+[1m        The index_keys operation takes precendence over this. This is applied[0m
+[1m        after any user-supplied postprocessor has already run.[0m
+[1m    [0m
+[1m            For example, given this input:[0m
+[1m            <servers>[0m
+[1m              <server>[0m
+[1m                <name>host1</name>[0m
+[1m                <os>Linux</os>[0m
+[1m                <interfaces>[0m
+[1m                  <interface>[0m
+[1m                    <name>em0</name>[0m
+[1m                    <ip_address>10.0.0.1</ip_address>[0m
+[1m                  </interface>[0m
+[1m                </interfaces>[0m
+[1m              </server>[0m
+[1m            </servers>[0m
+[1m    [0m
+[1m            If called with force_list=('interface',), it will produce[0m
+[1m            this dictionary:[0m
+[1m            {'servers':[0m
+[1m              {'server':[0m
+[1m                {'name': 'host1',[0m
+[1m                 'os': 'Linux'},[0m
+[1m                 'interfaces':[0m
+[1m                  {'interface':[0m
+[1m                    [ {'name': 'em0', 'ip_address': '10.0.0.1' } ] } } }[0m
+[1m    [0m
+[1m            `force_list` can also be a callable that receives `path`, `key` and[0m
+[1m            `value`. This is helpful in cases where the logic that decides whether[0m
+[1m            a list should be forced is more complex.[0m
+[1m        """[0m
+[1m        handler = _DictSAXHandler(namespace_separator=namespace_separator,[0m
+[1m                                  **kwargs)[0m
+[1m        if isinstance(xml_input, _unicode):[0m
+[1m            if not encoding:[0m
+[1m                encoding = 'utf-8'[0m
+[1m            xml_input = xml_input.encode(encoding)[0m
+[1m        if not process_namespaces:[0m
+[1m            namespace_separator = None[0m
+[1m        parser = expat.ParserCreate([0m
+[1m            encoding,[0m
+[1m            namespace_separator[0m
+[1m        )[0m
+[1m        try:[0m
+[1m            parser.ordered_attributes = True[0m
+[1m        except AttributeError:[0m
+[1m            # Jython's expat does not support ordered_attributes[0m
+[1m            pass[0m
+[1m        parser.StartNamespaceDeclHandler = handler.startNamespaceDecl[0m
+[1m        parser.StartElementHandler = handler.startElement[0m
+[1m        parser.EndElementHandler = handler.endElement[0m
+[1m        parser.CharacterDataHandler = handler.characters[0m
+[1m        parser.buffer_text = True[0m
+[1m        if disable_entities:[0m
+[1m            try:[0m
+[1m                # Attempt to disable DTD in Jython's expat parser (Xerces-J).[0m
+[1m                feature = "http://apache.org/xml/features/disallow-doctype-decl"[0m
+[1m                parser._reader.setFeature(feature, True)[0m
+[1m            except AttributeError:[0m
+[1m                # For CPython / expat parser.[0m
+[1m                # Anything not handled ends up here and entities aren't expanded.[0m
+[1m                parser.DefaultHandler = lambda x: None[0m
+[1m                # Expects an integer return; zero means failure -> expat.ExpatError.[0m
+[1m                parser.ExternalEntityRefHandler = lambda *x: 1[0m
+[1m        if hasattr(xml_input, 'read'):[0m
+[1m>           parser.ParseFile(xml_input)[0m
+[1m[31mE           TypeError: read() did not return a bytes object (type=str)[0m
+
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/xmltodict.py[0m:325: TypeError
+[31m[1m____________________________ TestArxiv.test_parsing ____________________________[0m
+
+self = <pyingest.tests.test_parsers.TestArxiv testMethod=test_parsing>
+
+[1m    def test_parsing(self):[0m
+[1m        shouldbe = {'authors': u'Luger, Rodrigo; Lustig-Yaeger, Jacob; Agol, Eric',[0m
+[1m                    'title': u'Planet-Planet Occultations in TRAPPIST-1 and Other Exoplanet Systems',[0m
+[1m                    'bibcode': u'2017arXiv171105739L'}[0m
+[1m        with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_1711_05739'), 'rU') as fp:[0m
+[1m            parser = arxiv.ArxivParser()[0m
+[1m>           document = parser.parse(fp)[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:190: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mpyingest/parsers/arxiv.py[0m:56: in parse
+[1m    result = super(self.__class__, self).parse(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/dubcore.py[0m:63: in parse
+[1m    idtag, r = self.resource_dict(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/dubcore.py[0m:48: in resource_dict
+[1m    d = self.xmltodict(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/default.py[0m:45: in xmltodict
+[1m    return xmltodict_parser.parse(fp, **kwargs)[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+xml_input = <_io.TextIOWrapper name='/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/arxiv.test/oai_ArXiv.org_1711_05739' mode='rU' encoding='UTF-8'>
+encoding = None
+expat = <module 'xml.parsers.expat' from '/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/xml/parsers/expat.py'>
+process_namespaces = False, namespace_separator = None, disable_entities = True
+kwargs = {}, handler = <xmltodict._DictSAXHandler object at 0x10f37cd30>
+parser = <pyexpat.xmlparser object at 0x10f2b0ee8>
+feature = 'http://apache.org/xml/features/disallow-doctype-decl'
+
+[1m    def parse(xml_input, encoding=None, expat=expat, process_namespaces=False,[0m
+[1m              namespace_separator=':', disable_entities=True, **kwargs):[0m
+[1m        """Parse the given XML input and convert it into a dictionary.[0m
+[1m    [0m
+[1m        `xml_input` can either be a `string` or a file-like object.[0m
+[1m    [0m
+[1m        If `xml_attribs` is `True`, element attributes are put in the dictionary[0m
+[1m        among regular child elements, using `@` as a prefix to avoid collisions. If[0m
+[1m        set to `False`, they are just ignored.[0m
+[1m    [0m
+[1m        Simple example::[0m
+[1m    [0m
+[1m            >>> import xmltodict[0m
+[1m            >>> doc = xmltodict.parse(\"\"\"[0m
+[1m            ... <a prop="x">[0m
+[1m            ...   <b>1</b>[0m
+[1m            ...   <b>2</b>[0m
+[1m            ... </a>[0m
+[1m            ... \"\"\")[0m
+[1m            >>> doc['a']['@prop'][0m
+[1m            u'x'[0m
+[1m            >>> doc['a']['b'][0m
+[1m            [u'1', u'2'][0m
+[1m    [0m
+[1m        If `item_depth` is `0`, the function returns a dictionary for the root[0m
+[1m        element (default behavior). Otherwise, it calls `item_callback` every time[0m
+[1m        an item at the specified depth is found and returns `None` in the end[0m
+[1m        (streaming mode).[0m
+[1m    [0m
+[1m        The callback function receives two parameters: the `path` from the document[0m
+[1m        root to the item (name-attribs pairs), and the `item` (dict). If the[0m
+[1m        callback's return value is false-ish, parsing will be stopped with the[0m
+[1m        :class:`ParsingInterrupted` exception.[0m
+[1m    [0m
+[1m        Streaming example::[0m
+[1m    [0m
+[1m            >>> def handle(path, item):[0m
+[1m            ...     print('path:%s item:%s' % (path, item))[0m
+[1m            ...     return True[0m
+[1m            ...[0m
+[1m            >>> xmltodict.parse(\"\"\"[0m
+[1m            ... <a prop="x">[0m
+[1m            ...   <b>1</b>[0m
+[1m            ...   <b>2</b>[0m
+[1m            ... </a>\"\"\", item_depth=2, item_callback=handle)[0m
+[1m            path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:1[0m
+[1m            path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:2[0m
+[1m    [0m
+[1m        The optional argument `postprocessor` is a function that takes `path`,[0m
+[1m        `key` and `value` as positional arguments and returns a new `(key, value)`[0m
+[1m        pair where both `key` and `value` may have changed. Usage example::[0m
+[1m    [0m
+[1m            >>> def postprocessor(path, key, value):[0m
+[1m            ...     try:[0m
+[1m            ...         return key + ':int', int(value)[0m
+[1m            ...     except (ValueError, TypeError):[0m
+[1m            ...         return key, value[0m
+[1m            >>> xmltodict.parse('<a><b>1</b><b>2</b><b>x</b></a>',[0m
+[1m            ...                 postprocessor=postprocessor)[0m
+[1m            OrderedDict([(u'a', OrderedDict([(u'b:int', [1, 2]), (u'b', u'x')]))])[0m
+[1m    [0m
+[1m        You can pass an alternate version of `expat` (such as `defusedexpat`) by[0m
+[1m        using the `expat` parameter. E.g:[0m
+[1m    [0m
+[1m            >>> import defusedexpat[0m
+[1m            >>> xmltodict.parse('<a>hello</a>', expat=defusedexpat.pyexpat)[0m
+[1m            OrderedDict([(u'a', u'hello')])[0m
+[1m    [0m
+[1m        You can use the force_list argument to force lists to be created even[0m
+[1m        when there is only a single child of a given level of hierarchy. The[0m
+[1m        force_list argument is a tuple of keys. If the key for a given level[0m
+[1m        of hierarchy is in the force_list argument, that level of hierarchy[0m
+[1m        will have a list as a child (even if there is only one sub-element).[0m
+[1m        The index_keys operation takes precendence over this. This is applied[0m
+[1m        after any user-supplied postprocessor has already run.[0m
+[1m    [0m
+[1m            For example, given this input:[0m
+[1m            <servers>[0m
+[1m              <server>[0m
+[1m                <name>host1</name>[0m
+[1m                <os>Linux</os>[0m
+[1m                <interfaces>[0m
+[1m                  <interface>[0m
+[1m                    <name>em0</name>[0m
+[1m                    <ip_address>10.0.0.1</ip_address>[0m
+[1m                  </interface>[0m
+[1m                </interfaces>[0m
+[1m              </server>[0m
+[1m            </servers>[0m
+[1m    [0m
+[1m            If called with force_list=('interface',), it will produce[0m
+[1m            this dictionary:[0m
+[1m            {'servers':[0m
+[1m              {'server':[0m
+[1m                {'name': 'host1',[0m
+[1m                 'os': 'Linux'},[0m
+[1m                 'interfaces':[0m
+[1m                  {'interface':[0m
+[1m                    [ {'name': 'em0', 'ip_address': '10.0.0.1' } ] } } }[0m
+[1m    [0m
+[1m            `force_list` can also be a callable that receives `path`, `key` and[0m
+[1m            `value`. This is helpful in cases where the logic that decides whether[0m
+[1m            a list should be forced is more complex.[0m
+[1m        """[0m
+[1m        handler = _DictSAXHandler(namespace_separator=namespace_separator,[0m
+[1m                                  **kwargs)[0m
+[1m        if isinstance(xml_input, _unicode):[0m
+[1m            if not encoding:[0m
+[1m                encoding = 'utf-8'[0m
+[1m            xml_input = xml_input.encode(encoding)[0m
+[1m        if not process_namespaces:[0m
+[1m            namespace_separator = None[0m
+[1m        parser = expat.ParserCreate([0m
+[1m            encoding,[0m
+[1m            namespace_separator[0m
+[1m        )[0m
+[1m        try:[0m
+[1m            parser.ordered_attributes = True[0m
+[1m        except AttributeError:[0m
+[1m            # Jython's expat does not support ordered_attributes[0m
+[1m            pass[0m
+[1m        parser.StartNamespaceDeclHandler = handler.startNamespaceDecl[0m
+[1m        parser.StartElementHandler = handler.startElement[0m
+[1m        parser.EndElementHandler = handler.endElement[0m
+[1m        parser.CharacterDataHandler = handler.characters[0m
+[1m        parser.buffer_text = True[0m
+[1m        if disable_entities:[0m
+[1m            try:[0m
+[1m                # Attempt to disable DTD in Jython's expat parser (Xerces-J).[0m
+[1m                feature = "http://apache.org/xml/features/disallow-doctype-decl"[0m
+[1m                parser._reader.setFeature(feature, True)[0m
+[1m            except AttributeError:[0m
+[1m                # For CPython / expat parser.[0m
+[1m                # Anything not handled ends up here and entities aren't expanded.[0m
+[1m                parser.DefaultHandler = lambda x: None[0m
+[1m                # Expects an integer return; zero means failure -> expat.ExpatError.[0m
+[1m                parser.ExternalEntityRefHandler = lambda *x: 1[0m
+[1m        if hasattr(xml_input, 'read'):[0m
+[1m>           parser.ParseFile(xml_input)[0m
+[1m[31mE           TypeError: read() did not return a bytes object (type=str)[0m
+
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/xmltodict.py[0m:325: TypeError
+[31m[1m_________________________ TestArxiv.test_unicode_init __________________________[0m
+
+self = <pyingest.tests.test_parsers.TestArxiv testMethod=test_unicode_init>
+
+[1m    def test_unicode_init(self):[0m
+[1m        shouldbe = {'bibcode': u'2009arXiv0901.2443O'}[0m
+[1m        with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_0901_2443'), 'rU') as fp:[0m
+[1m            parser = arxiv.ArxivParser()[0m
+[1m>           document = parser.parse(fp)[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:200: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mpyingest/parsers/arxiv.py[0m:56: in parse
+[1m    result = super(self.__class__, self).parse(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/dubcore.py[0m:63: in parse
+[1m    idtag, r = self.resource_dict(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/dubcore.py[0m:48: in resource_dict
+[1m    d = self.xmltodict(fp, **kwargs)[0m
+[1m[31mpyingest/parsers/default.py[0m:45: in xmltodict
+[1m    return xmltodict_parser.parse(fp, **kwargs)[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+xml_input = <_io.TextIOWrapper name='/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/arxiv.test/oai_ArXiv.org_0901_2443' mode='rU' encoding='UTF-8'>
+encoding = None
+expat = <module 'xml.parsers.expat' from '/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/xml/parsers/expat.py'>
+process_namespaces = False, namespace_separator = None, disable_entities = True
+kwargs = {}, handler = <xmltodict._DictSAXHandler object at 0x10f332ba8>
+parser = <pyexpat.xmlparser object at 0x10f0e9048>
+feature = 'http://apache.org/xml/features/disallow-doctype-decl'
+
+[1m    def parse(xml_input, encoding=None, expat=expat, process_namespaces=False,[0m
+[1m              namespace_separator=':', disable_entities=True, **kwargs):[0m
+[1m        """Parse the given XML input and convert it into a dictionary.[0m
+[1m    [0m
+[1m        `xml_input` can either be a `string` or a file-like object.[0m
+[1m    [0m
+[1m        If `xml_attribs` is `True`, element attributes are put in the dictionary[0m
+[1m        among regular child elements, using `@` as a prefix to avoid collisions. If[0m
+[1m        set to `False`, they are just ignored.[0m
+[1m    [0m
+[1m        Simple example::[0m
+[1m    [0m
+[1m            >>> import xmltodict[0m
+[1m            >>> doc = xmltodict.parse(\"\"\"[0m
+[1m            ... <a prop="x">[0m
+[1m            ...   <b>1</b>[0m
+[1m            ...   <b>2</b>[0m
+[1m            ... </a>[0m
+[1m            ... \"\"\")[0m
+[1m            >>> doc['a']['@prop'][0m
+[1m            u'x'[0m
+[1m            >>> doc['a']['b'][0m
+[1m            [u'1', u'2'][0m
+[1m    [0m
+[1m        If `item_depth` is `0`, the function returns a dictionary for the root[0m
+[1m        element (default behavior). Otherwise, it calls `item_callback` every time[0m
+[1m        an item at the specified depth is found and returns `None` in the end[0m
+[1m        (streaming mode).[0m
+[1m    [0m
+[1m        The callback function receives two parameters: the `path` from the document[0m
+[1m        root to the item (name-attribs pairs), and the `item` (dict). If the[0m
+[1m        callback's return value is false-ish, parsing will be stopped with the[0m
+[1m        :class:`ParsingInterrupted` exception.[0m
+[1m    [0m
+[1m        Streaming example::[0m
+[1m    [0m
+[1m            >>> def handle(path, item):[0m
+[1m            ...     print('path:%s item:%s' % (path, item))[0m
+[1m            ...     return True[0m
+[1m            ...[0m
+[1m            >>> xmltodict.parse(\"\"\"[0m
+[1m            ... <a prop="x">[0m
+[1m            ...   <b>1</b>[0m
+[1m            ...   <b>2</b>[0m
+[1m            ... </a>\"\"\", item_depth=2, item_callback=handle)[0m
+[1m            path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:1[0m
+[1m            path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:2[0m
+[1m    [0m
+[1m        The optional argument `postprocessor` is a function that takes `path`,[0m
+[1m        `key` and `value` as positional arguments and returns a new `(key, value)`[0m
+[1m        pair where both `key` and `value` may have changed. Usage example::[0m
+[1m    [0m
+[1m            >>> def postprocessor(path, key, value):[0m
+[1m            ...     try:[0m
+[1m            ...         return key + ':int', int(value)[0m
+[1m            ...     except (ValueError, TypeError):[0m
+[1m            ...         return key, value[0m
+[1m            >>> xmltodict.parse('<a><b>1</b><b>2</b><b>x</b></a>',[0m
+[1m            ...                 postprocessor=postprocessor)[0m
+[1m            OrderedDict([(u'a', OrderedDict([(u'b:int', [1, 2]), (u'b', u'x')]))])[0m
+[1m    [0m
+[1m        You can pass an alternate version of `expat` (such as `defusedexpat`) by[0m
+[1m        using the `expat` parameter. E.g:[0m
+[1m    [0m
+[1m            >>> import defusedexpat[0m
+[1m            >>> xmltodict.parse('<a>hello</a>', expat=defusedexpat.pyexpat)[0m
+[1m            OrderedDict([(u'a', u'hello')])[0m
+[1m    [0m
+[1m        You can use the force_list argument to force lists to be created even[0m
+[1m        when there is only a single child of a given level of hierarchy. The[0m
+[1m        force_list argument is a tuple of keys. If the key for a given level[0m
+[1m        of hierarchy is in the force_list argument, that level of hierarchy[0m
+[1m        will have a list as a child (even if there is only one sub-element).[0m
+[1m        The index_keys operation takes precendence over this. This is applied[0m
+[1m        after any user-supplied postprocessor has already run.[0m
+[1m    [0m
+[1m            For example, given this input:[0m
+[1m            <servers>[0m
+[1m              <server>[0m
+[1m                <name>host1</name>[0m
+[1m                <os>Linux</os>[0m
+[1m                <interfaces>[0m
+[1m                  <interface>[0m
+[1m                    <name>em0</name>[0m
+[1m                    <ip_address>10.0.0.1</ip_address>[0m
+[1m                  </interface>[0m
+[1m                </interfaces>[0m
+[1m              </server>[0m
+[1m            </servers>[0m
+[1m    [0m
+[1m            If called with force_list=('interface',), it will produce[0m
+[1m            this dictionary:[0m
+[1m            {'servers':[0m
+[1m              {'server':[0m
+[1m                {'name': 'host1',[0m
+[1m                 'os': 'Linux'},[0m
+[1m                 'interfaces':[0m
+[1m                  {'interface':[0m
+[1m                    [ {'name': 'em0', 'ip_address': '10.0.0.1' } ] } } }[0m
+[1m    [0m
+[1m            `force_list` can also be a callable that receives `path`, `key` and[0m
+[1m            `value`. This is helpful in cases where the logic that decides whether[0m
+[1m            a list should be forced is more complex.[0m
+[1m        """[0m
+[1m        handler = _DictSAXHandler(namespace_separator=namespace_separator,[0m
+[1m                                  **kwargs)[0m
+[1m        if isinstance(xml_input, _unicode):[0m
+[1m            if not encoding:[0m
+[1m                encoding = 'utf-8'[0m
+[1m            xml_input = xml_input.encode(encoding)[0m
+[1m        if not process_namespaces:[0m
+[1m            namespace_separator = None[0m
+[1m        parser = expat.ParserCreate([0m
+[1m            encoding,[0m
+[1m            namespace_separator[0m
+[1m        )[0m
+[1m        try:[0m
+[1m            parser.ordered_attributes = True[0m
+[1m        except AttributeError:[0m
+[1m            # Jython's expat does not support ordered_attributes[0m
+[1m            pass[0m
+[1m        parser.StartNamespaceDeclHandler = handler.startNamespaceDecl[0m
+[1m        parser.StartElementHandler = handler.startElement[0m
+[1m        parser.EndElementHandler = handler.endElement[0m
+[1m        parser.CharacterDataHandler = handler.characters[0m
+[1m        parser.buffer_text = True[0m
+[1m        if disable_entities:[0m
+[1m            try:[0m
+[1m                # Attempt to disable DTD in Jython's expat parser (Xerces-J).[0m
+[1m                feature = "http://apache.org/xml/features/disallow-doctype-decl"[0m
+[1m                parser._reader.setFeature(feature, True)[0m
+[1m            except AttributeError:[0m
+[1m                # For CPython / expat parser.[0m
+[1m                # Anything not handled ends up here and entities aren't expanded.[0m
+[1m                parser.DefaultHandler = lambda x: None[0m
+[1m                # Expects an integer return; zero means failure -> expat.ExpatError.[0m
+[1m                parser.ExternalEntityRefHandler = lambda *x: 1[0m
+[1m        if hasattr(xml_input, 'read'):[0m
+[1m>           parser.ParseFile(xml_input)[0m
+[1m[31mE           TypeError: read() did not return a bytes object (type=str)[0m
+
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/xmltodict.py[0m:325: TypeError
+[31m[1m___________________________ TestIOP.test_iop_parser ____________________________[0m
+
+self = <pyingest.tests.test_parsers.TestIOP testMethod=test_iop_parser>
+
+[1m    def test_iop_parser(self):[0m
+[1m        test_infile = os.path.join(self.inputdir, 'iop_apj.xml')[0m
+[1m        parser = iop.IOPJATSParser()[0m
+[1m        config.REFERENCE_TOPDIR = '/dev/null/'[0m
+[1m        with open(test_infile) as fp:[0m
+[1m>           test_data = parser.parse(fp)[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:227: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pyingest.parsers.iop.IOPJATSParser object at 0x10f2c6f28>
+fp = <_io.TextIOWrapper name='/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/iop_apj.xml' mode='r' encoding='UTF-8'>
+kwargs = {}
+output_metadata = {'abstract': '&#8287;W&#8287;e&#8287; &#8287;h&#8287;a&#8287;v&#8287;e&#8287; &#8287;p&#8287;e&#8287;r&#8287;f&#8287;o... &#8287;P&#8287;a&#8287;z&#8287;', 'copyright': '© 2019. The American Astronomical Society. All rights reserved.', ...}
+pubstring = 'The Astrophysical Journal, Volume 882, Issue 2, id.74, <NUMPAGES>13</NUMPAGES> pp.'
+page_id = '74', j_bibstem = 'ApJ'
+
+[1m    def parse(self, fp, **kwargs):[0m
+[1m        output_metadata = super(self.__class__, self).parse(fp, **kwargs)[0m
+[1m    [0m
+[1m        # Publication +[0m
+[1m        try:[0m
+[1m            pubstring = output_metadata['publication'][0m
+[1m        except Exception as err:[0m
+[1m            pass[0m
+[1m        else:[0m
+[1m            try:[0m
+[1m                output_metadata['volume'][0m
+[1m            except Exception as err:[0m
+[1m                pass[0m
+[1m            else:[0m
+[1m                pubstring = pubstring + ', Volume ' + output_metadata['volume'][0m
+[1m    [0m
+[1m            try:[0m
+[1m                pubstring = pubstring + ', Issue ' + output_metadata['issue'][0m
+[1m            except TypeError:[0m
+[1m                pass[0m
+[1m    [0m
+[1m            try:[0m
+[1m                page_id = output_metadata['page'][0m
+[1m            except Exception as err:[0m
+[1m                pass[0m
+[1m            else:[0m
+[1m                if "-" in page_id:[0m
+[1m                    pubstring = pubstring + ', pp.' + page_id[0m
+[1m                else:[0m
+[1m                    pubstring = pubstring + ', id.' + page_id[0m
+[1m                    if 'numpages' in output_metadata:[0m
+[1m                        pubstring = pubstring + ', ' + output_metadata['numpages'] + ' pp.'[0m
+[1m                        del(output_metadata['numpages'])[0m
+[1m    [0m
+[1m            output_metadata['publication'] = pubstring[0m
+[1m    [0m
+[1m        # Bibcode[0m
+[1m        try:[0m
+[1m            j_bibstem = self.iop_journals(output_metadata['pub-id'])[0m
+[1m        except KeyError:[0m
+[1m            pass[0m
+[1m        else:[0m
+[1m>           year = output_metadata['pubdate'][-4:][0m
+[1m[31mE           KeyError: 'pubdate'[0m
+
+[1m[31mpyingest/parsers/iop.py[0m:106: KeyError
+[31m[1m___________________________ TestOUP.test_oup_parser ____________________________[0m
+
+self = <pyingest.tests.test_parsers.TestOUP testMethod=test_oup_parser>
+
+[1m    def test_oup_parser(self):[0m
+[1m        parser = oup.OUPJATSParser()[0m
+[1m        config.REFERENCE_TOPDIR = '/dev/null/'[0m
+[1m        for file in self.inputdocs:[0m
+[1m            # this will raise exceptions if something is wrong[0m
+[1m            with open(file, 'r') as fp:[0m
+[1m>               test_data = parser.parse(fp)[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:251: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pyingest.parsers.oup.OUPJATSParser object at 0x10fd86cf8>
+fp = <_io.TextIOWrapper name='/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/oup_mnrasl_early_slaa054.xml' mode='r' encoding='UTF-8'>
+kwargs = {}
+output_metadata = {'abstract': '&#8287;T&#8287;h&#8287;e&#8287; &#8287;s&#8287;t&#8287;e&#8287;l&#8287;l&#8287;a&#8287;r&#8287; &#8287;m...pyright': '© 2020 The Author(s) Published by Oxford University Press on behalf of the Royal Astronomical Society', ...}
+isearly = 1
+pubstring = 'Monthly Notices of the Royal Astronomical Society: Letters, Advance Access'
+j_bibstem = 'MNRAS'
+
+[1m    def parse(self, fp, **kwargs):[0m
+[1m    [0m
+[1m        output_metadata = super(self.__class__, self).parse(fp, **kwargs)[0m
+[1m    [0m
+[1m        # Publication +[0m
+[1m        isearly = 0[0m
+[1m        try:[0m
+[1m            pubstring = output_metadata['publication'][0m
+[1m        except Exception as err:[0m
+[1m            pass[0m
+[1m        else:[0m
+[1m            try:[0m
+[1m                output_metadata['volume'][0m
+[1m            except Exception as err:[0m
+[1m                pass[0m
+[1m            else:[0m
+[1m                if output_metadata['volume'] == "None":[0m
+[1m                    pubstring = pubstring +', Advance Access'[0m
+[1m                    isearly = 1[0m
+[1m                else:[0m
+[1m                    pubstring = pubstring +', Volume '+ output_metadata['volume'][0m
+[1m    [0m
+[1m                    try:[0m
+[1m                        output_metadata['issue'][0m
+[1m                    except TypeError:[0m
+[1m                        pass[0m
+[1m                    else:[0m
+[1m                        pubstring = pubstring +', Issue '+ output_metadata['issue'][0m
+[1m    [0m
+[1m                    try:[0m
+[1m                        output_metadata['page'][0m
+[1m                    except Exception as err:[0m
+[1m                        pass[0m
+[1m                    else:[0m
+[1m                        if "-" in output_metadata['page']:[0m
+[1m                            pubstring = pubstring + ', pp.' + output_metadata['page'][0m
+[1m                        else:[0m
+[1m                            pubstring = pubstring + ', id.' + output_metadata['page'][0m
+[1m                            if 'numpages' in output_metadata:[0m
+[1m                                pubstring = pubstring + ', ' + output_metadata['numpages'] + ' pp.'[0m
+[1m                                del(output_metadata['numpages'])[0m
+[1m    [0m
+[1m            output_metadata['publication'] = pubstring[0m
+[1m    [0m
+[1m        # Bibcode[0m
+[1m        try:[0m
+[1m            j_bibstem = self.oup_journals(output_metadata['pub-id'])[0m
+[1m        except KeyError:[0m
+[1m            pass[0m
+[1m        else:[0m
+[1m>           year = output_metadata['pubdate'][-4:][0m
+[1m[31mE           KeyError: 'pubdate'[0m
+
+[1m[31mpyingest/parsers/oup.py[0m:158: KeyError
+----------------------------- Captured stderr call -----------------------------
+test cases are: ['/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/oup_mnrasl_early_slaa054.xml', '/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/oup_mnras_staa650.xml', '/Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/input/oup_ptep_ptaa007.xml']
+[31m[1m___________________________ TestAPSJATS.test_dehtml ____________________________[0m
+
+self = <pyingest.tests.test_parsers.TestAPSJATS testMethod=test_dehtml>
+
+[1m    def test_dehtml(self):[0m
+[1m        testfile = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/apsjats_10.1103.PhysRevA.97.019999.fulltext.xml')[0m
+[1m        shouldbe = {'title': 'Finite-error metrological bounds on multiparameter Hamiltonian estimation'}[0m
+[1m        with open(testfile, 'rU') as fp:[0m
+[1m            parser = aps.APSJATSParser()[0m
+[1m            document = parser.parse(fp)[0m
+[1m>       self.assertEqual(document['title'], shouldbe['title'])[0m
+[1m[31mE       AssertionError: '&#8287;F&#8287;i&#8287;n&#8287;i&#8287;t&[546 chars]287;' != 'Finite-error metrological bounds on multi[28 chars]tion'[0m
+[1m[31mE       Diff is 671 characters long. Set self.maxDiff to None to see it.[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:306: AssertionError
+[31m[1m___________________________ TestAPSJATS.test_dehtml2 ___________________________[0m
+
+self = <pyingest.tests.test_parsers.TestAPSJATS testMethod=test_dehtml2>
+
+[1m    def test_dehtml2(self):[0m
+[1m        self.maxDiff = None[0m
+[1m        testfile = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/apsjats_10.1103.PhysRevA.95.129999.fulltext.xml')[0m
+[1m        shouldbe = {'bibcode': u'2015PhRvA..95l9999T', 'publication': u'Physical Review A, Volume 95, Issue 1, id.129999, <NUMPAGES>9</NUMPAGES> pp.', 'pubdate': u'07/2015', 'copyright': u'\xa92018 American Physical Society', 'title': u'Fake article title with other kinds of markup inside <a href="http://www.reddit.com/r/aww">it</a> including paragraph tags that really have no place in a title.', 'abstract': u'<a href="http://naughtywebsite.gov">Fake URLs</a> are an increasing problem when trying to write fake abstracts. It\'s unlikely that a .gov domain would host a bad website, but then again what times are we living in now? Also, <inline-formula><mml:math><mml:mi>\u03b4</mml:mi></mml:math></inline-formula>. Also also, <inline-formula><mml:math>this is some math</mml:math></inline-formula>.', 'database': ['PHY'], 'page': u'129999', 'volume': u'95', 'affiliations': [u'NASA-ADS, Harvard-Smithsonian Center for Astrophysics, 60 Garden St., Cambridge, MA 02138, United States', u'Monty Python lol.'], 'authors': u'Templeton, Matthew; Organs, Harry Snapper', 'keywords': u'Fundamental concepts', 'issue': u'1', 'properties': {'DOI': u'10.1103/PhysRevA.95.129999'}, 'refhandler_list': ['<ref id="c1"><label>[1]</label><mixed-citation publication-type="journal"><object-id>1</object-id><person-group person-group-type="author"><string-name>A. S. Holevo</string-name></person-group>, <source/>J. Multivariate Anal. <volume>3</volume>, <page-range>337</page-range> (<year>1973</year>).<pub-id pub-id-type="coden">JMVAAI</pub-id><issn>0047-259X</issn><pub-id assigning-authority="crossref" pub-id-type="doi" specific-use="suppress-display">10.1016/0047-259X(73)90028-6</pub-id></mixed-citation></ref>']}[0m
+[1m        with open(testfile, 'rU') as fp:[0m
+[1m            parser = aps.APSJATSParser()[0m
+[1m            document = parser.parse(fp)[0m
+[1m            print("LOL DOCUMENT:",document)[0m
+[1m            print("LOL SHOULDBE:",shouldbe)[0m
+[1m>       self.assertDictEqual(document, shouldbe)[0m
+[1m[31mE       AssertionError: {'title': '&#8287;F&#8287;a&#8287;k&#8287;e[5768 chars]HY']} != {'bibcode': '2015PhRvA..95l9999T', 'publica[1619 chars]f>']}[0m
+[1m[31mE       + {'abstract': '<a href="http://naughtywebsite.gov">Fake URLs</a> are an '[0m
+[1m[31mE       +              "increasing problem when trying to write fake abstracts. It's "[0m
+[1m[31mE       +              'unlikely that a .gov domain would host a bad website, but then '[0m
+[1m[31mE       +              'again what times are we living in now? Also, '[0m
+[1m[31mE       +              '<inline-formula><mml:math><mml:mi>δ</mml:mi></mml:math></inline-formula>. '[0m
+[1m[31mE       +              'Also also, <inline-formula><mml:math>this is some '[0m
+[1m[31mE       +              'math</mml:math></inline-formula>.',[0m
+[1m[31mE       - {'abstract': '&#8287;<&#8287;a&#8287; '[0m
+[1m[31mE       -              '&#8287;h&#8287;r&#8287;e&#8287;f&#8287;=&#8287;"&#8287;h&#8287;t&#8287;t&#8287;p&#8287;:&#8287;/&#8287;/&#8287;n&#8287;a&#8287;u&#8287;g&#8287;h&#8287;t&#8287;y&#8287;w&#8287;e&#8287;b&#8287;s&#8287;i&#8287;t&#8287;e&#8287;.&#8287;g&#8287;o&#8287;v&#8287;"&#8287;>&#8287;F&#8287;a&#8287;k&#8287;e&#8287; '[0m
+[1m[31mE       -              '&#8287;U&#8287;R&#8287;L&#8287;s&#8287;<&#8287;/&#8287;a&#8287;>&#8287; '[0m
+[1m[31mE       -              '&#8287;a&#8287;r&#8287;e&#8287; &#8287;a&#8287;n&#8287; '[0m
+[1m[31mE       -              '&#8287;i&#8287;n&#8287;c&#8287;r&#8287;e&#8287;a&#8287;s&#8287;i&#8287;n&#8287;g&#8287; '[0m
+[1m[31mE       -              '&#8287;p&#8287;r&#8287;o&#8287;b&#8287;l&#8287;e&#8287;m&#8287; '[0m
+[1m[31mE       -              '&#8287;w&#8287;h&#8287;e&#8287;n&#8287; '[0m
+[1m[31mE       -              '&#8287;t&#8287;r&#8287;y&#8287;i&#8287;n&#8287;g&#8287; '[0m
+[1m[31mE       -              '&#8287;t&#8287;o&#8287; '[0m
+[1m[31mE       -              '&#8287;w&#8287;r&#8287;i&#8287;t&#8287;e&#8287; '[0m
+[1m[31mE       -              '&#8287;f&#8287;a&#8287;k&#8287;e&#8287; '[0m
+[1m[31mE       -              '&#8287;a&#8287;b&#8287;s&#8287;t&#8287;r&#8287;a&#8287;c&#8287;t&#8287;s&#8287;.&#8287; '[0m
+[1m[31mE       -              "&#8287;I&#8287;t&#8287;'&#8287;s&#8287; "[0m
+[1m[31mE       -              '&#8287;u&#8287;n&#8287;l&#8287;i&#8287;k&#8287;e&#8287;l&#8287;y&#8287; '[0m
+[1m[31mE       -              '&#8287;t&#8287;h&#8287;a&#8287;t&#8287; &#8287;a&#8287; '[0m
+[1m[31mE       -              '&#8287;.&#8287;g&#8287;o&#8287;v&#8287; '[0m
+[1m[31mE       -              '&#8287;d&#8287;o&#8287;m&#8287;a&#8287;i&#8287;n&#8287; '[0m
+[1m[31mE       -              '&#8287;w&#8287;o&#8287;u&#8287;l&#8287;d&#8287; '[0m
+[1m[31mE       -              '&#8287;h&#8287;o&#8287;s&#8287;t&#8287; &#8287;a&#8287; '[0m
+[1m[31mE       -              '&#8287;b&#8287;a&#8287;d&#8287; '[0m
+[1m[31mE       -              '&#8287;w&#8287;e&#8287;b&#8287;s&#8287;i&#8287;t&#8287;e&#8287;,&#8287; '[0m
+[1m[31mE       -              '&#8287;b&#8287;u&#8287;t&#8287; '[0m
+[1m[31mE       -              '&#8287;t&#8287;h&#8287;e&#8287;n&#8287; '[0m
+[1m[31mE       -              '&#8287;a&#8287;g&#8287;a&#8287;i&#8287;n&#8287; '[0m
+[1m[31mE       -              '&#8287;w&#8287;h&#8287;a&#8287;t&#8287; '[0m
+[1m[31mE       -              '&#8287;t&#8287;i&#8287;m&#8287;e&#8287;s&#8287; '[0m
+[1m[31mE       -              '&#8287;a&#8287;r&#8287;e&#8287; &#8287;w&#8287;e&#8287; '[0m
+[1m[31mE       -              '&#8287;l&#8287;i&#8287;v&#8287;i&#8287;n&#8287;g&#8287; '[0m
+[1m[31mE       -              '&#8287;i&#8287;n&#8287; &#8287;n&#8287;o&#8287;w&#8287;?&#8287; '[0m
+[1m[31mE       -              '&#8287;A&#8287;l&#8287;s&#8287;o&#8287;,&#8287; '[0m
+[1m[31mE       -              '&#8287;<&#8287;i&#8287;n&#8287;l&#8287;i&#8287;n&#8287;e&#8287;-&#8287;f&#8287;o&#8287;r&#8287;m&#8287;u&#8287;l&#8287;a&#8287;>&#8287;<&#8287;m&#8287;m&#8287;l&#8287;:&#8287;m&#8287;a&#8287;t&#8287;h&#8287;>&#8287;<&#8287;m&#8287;m&#8287;l&#8287;:&#8287;m&#8287;i&#8287;>&#8287;&&#8287;#&#8287;9&#8287;4&#8287;8&#8287;;&#8287;<&#8287;/&#8287;m&#8287;m&#8287;l&#8287;:&#8287;m&#8287;i&#8287;>&#8287;<&#8287;/&#8287;m&#8287;m&#8287;l&#8287;:&#8287;m&#8287;a&#8287;t&#8287;h&#8287;>&#8287;<&#8287;/&#8287;i&#8287;n&#8287;l&#8287;i&#8287;n&#8287;e&#8287;-&#8287;f&#8287;o&#8287;r&#8287;m&#8287;u&#8287;l&#8287;a&#8287;>&#8287;.&#8287; '[0m
+[1m[31mE       -              '&#8287;A&#8287;l&#8287;s&#8287;o&#8287; '[0m
+[1m[31mE       -              '&#8287;a&#8287;l&#8287;s&#8287;o&#8287;,&#8287; '[0m
+[1m[31mE       -              '&#8287;<&#8287;i&#8287;n&#8287;l&#8287;i&#8287;n&#8287;e&#8287;-&#8287;f&#8287;o&#8287;r&#8287;m&#8287;u&#8287;l&#8287;a&#8287;>&#8287;<&#8287;m&#8287;m&#8287;l&#8287;:&#8287;m&#8287;a&#8287;t&#8287;h&#8287;>&#8287;t&#8287;h&#8287;i&#8287;s&#8287; '[0m
+[1m[31mE       -              '&#8287;i&#8287;s&#8287; &#8287;s&#8287;o&#8287;m&#8287;e&#8287; '[0m
+[1m[31mE       -              '&#8287;m&#8287;a&#8287;t&#8287;h&#8287;<&#8287;/&#8287;m&#8287;m&#8287;l&#8287;:&#8287;m&#8287;a&#8287;t&#8287;h&#8287;>&#8287;<&#8287;/&#8287;i&#8287;n&#8287;l&#8287;i&#8287;n&#8287;e&#8287;-&#8287;f&#8287;o&#8287;r&#8287;m&#8287;u&#8287;l&#8287;a&#8287;>&#8287;.&#8287;',[0m
+[1m[31mE          'affiliations': ['NASA-ADS, Harvard-Smithsonian Center for Astrophysics, 60 '[0m
+[1m[31mE                           'Garden St., Cambridge, MA 02138, United States',[0m
+[1m[31mE                           'Monty Python lol.'],[0m
+[1m[31mE       +  'authors': 'Templeton, Matthew; Organs, Harry Snapper',[0m
+[1m[31mE       -  'authors': '&#8287;T&#8287;e&#8287;m&#8287;p&#8287;l&#8287;e&#8287;t&#8287;o&#8287;n&#8287;,&#8287; '[0m
+[1m[31mE       -             '&#8287;M&#8287;a&#8287;t&#8287;t&#8287;h&#8287;e&#8287;w&#8287;;&#8287; '[0m
+[1m[31mE       -             '&#8287;O&#8287;r&#8287;g&#8287;a&#8287;n&#8287;s&#8287;,&#8287; '[0m
+[1m[31mE       -             '&#8287;H&#8287;a&#8287;r&#8287;r&#8287;y&#8287; '[0m
+[1m[31mE       -             '&#8287;S&#8287;n&#8287;a&#8287;p&#8287;p&#8287;e&#8287;r&#8287;',[0m
+[1m[31mE       -  'bibcode': '2015PhRvA..95l9999.',[0m
+[1m[31mE       ?                                ^[0m
+[1m[31mE       [0m
+[1m[31mE       +  'bibcode': '2015PhRvA..95l9999T',[0m
+[1m[31mE       ?                                ^[0m
+[1m[31mE       [0m
+[1m[31mE          'copyright': '©2018 American Physical Society',[0m
+[1m[31mE          'database': ['PHY'],[0m
+[1m[31mE          'issue': '1',[0m
+[1m[31mE          'keywords': 'Fundamental concepts',[0m
+[1m[31mE          'page': '129999',[0m
+[1m[31mE          'properties': {'DOI': '10.1103/PhysRevA.95.129999'},[0m
+[1m[31mE          'pubdate': '07/2015',[0m
+[1m[31mE          'publication': 'Physical Review A, Volume 95, Issue 1, id.129999, '[0m
+[1m[31mE                         '<NUMPAGES>9</NUMPAGES> pp.',[0m
+[1m[31mE          'refhandler_list': ['<ref id="c1"><label>[1]</label><mixed-citation '[0m
+[1m[31mE                              'publication-type="journal"><object-id>1</object-id><person-group '[0m
+[1m[31mE                              'person-group-type="author"><string-name>A. S. '[0m
+[1m[31mE                              'Holevo</string-name></person-group>, <source/>J. '[0m
+[1m[31mE                              'Multivariate Anal. <volume>3</volume>, '[0m
+[1m[31mE                              '<page-range>337</page-range> (<year>1973</year>).<pub-id '[0m
+[1m[31mE                              'pub-id-type="coden">JMVAAI</pub-id><issn>0047-259X</issn><pub-id '[0m
+[1m[31mE                              'assigning-authority="crossref" pub-id-type="doi" '[0m
+[1m[31mE                              'specific-use="suppress-display">10.1016/0047-259X(73)90028-6</pub-id></mixed-citation></ref>'],[0m
+[1m[31mE       +  'title': 'Fake article title with other kinds of markup inside <a '[0m
+[1m[31mE       +           'href="http://www.reddit.com/r/aww">it</a> including paragraph tags '[0m
+[1m[31mE       +           'that really have no place in a title.',[0m
+[1m[31mE       -  'title': '&#8287;F&#8287;a&#8287;k&#8287;e&#8287; '[0m
+[1m[31mE       -           '&#8287;a&#8287;r&#8287;t&#8287;i&#8287;c&#8287;l&#8287;e&#8287; '[0m
+[1m[31mE       -           '&#8287;t&#8287;i&#8287;t&#8287;l&#8287;e&#8287; '[0m
+[1m[31mE       -           '&#8287;w&#8287;i&#8287;t&#8287;h&#8287; '[0m
+[1m[31mE       -           '&#8287;o&#8287;t&#8287;h&#8287;e&#8287;r&#8287; '[0m
+[1m[31mE       -           '&#8287;k&#8287;i&#8287;n&#8287;d&#8287;s&#8287; '[0m
+[1m[31mE       -           '&#8287;o&#8287;f&#8287; '[0m
+[1m[31mE       -           '&#8287;m&#8287;a&#8287;r&#8287;k&#8287;u&#8287;p&#8287; '[0m
+[1m[31mE       -           '&#8287;i&#8287;n&#8287;s&#8287;i&#8287;d&#8287;e&#8287; '[0m
+[1m[31mE       -           '&#8287;<&#8287;a&#8287; '[0m
+[1m[31mE       -           '&#8287;h&#8287;r&#8287;e&#8287;f&#8287;=&#8287;"&#8287;h&#8287;t&#8287;t&#8287;p&#8287;:&#8287;/&#8287;/&#8287;w&#8287;w&#8287;w&#8287;.&#8287;r&#8287;e&#8287;d&#8287;d&#8287;i&#8287;t&#8287;.&#8287;c&#8287;o&#8287;m&#8287;/&#8287;r&#8287;/&#8287;a&#8287;w&#8287;w&#8287;"&#8287;>&#8287;i&#8287;t&#8287;<&#8287;/&#8287;a&#8287;>&#8287; '[0m
+[1m[31mE       -           '&#8287;i&#8287;n&#8287;c&#8287;l&#8287;u&#8287;d&#8287;i&#8287;n&#8287;g&#8287; '[0m
+[1m[31mE       -           '&#8287;p&#8287;a&#8287;r&#8287;a&#8287;g&#8287;r&#8287;a&#8287;p&#8287;h&#8287; '[0m
+[1m[31mE       -           '&#8287;t&#8287;a&#8287;g&#8287;s&#8287; '[0m
+[1m[31mE       -           '&#8287;t&#8287;h&#8287;a&#8287;t&#8287; '[0m
+[1m[31mE       -           '&#8287;r&#8287;e&#8287;a&#8287;l&#8287;l&#8287;y&#8287; '[0m
+[1m[31mE       -           '&#8287;h&#8287;a&#8287;v&#8287;e&#8287; &#8287;n&#8287;o&#8287; '[0m
+[1m[31mE       -           '&#8287;p&#8287;l&#8287;a&#8287;c&#8287;e&#8287; '[0m
+[1m[31mE       -           '&#8287;i&#8287;n&#8287; &#8287;a&#8287; '[0m
+[1m[31mE       -           '&#8287;t&#8287;i&#8287;t&#8287;l&#8287;e&#8287;.&#8287;',[0m
+[1m[31mE          'volume': '95'}[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:317: AssertionError
+----------------------------- Captured stdout call -----------------------------
+LOL DOCUMENT: {'title': '&#8287;F&#8287;a&#8287;k&#8287;e&#8287; &#8287;a&#8287;r&#8287;t&#8287;i&#8287;c&#8287;l&#8287;e&#8287; &#8287;t&#8287;i&#8287;t&#8287;l&#8287;e&#8287; &#8287;w&#8287;i&#8287;t&#8287;h&#8287; &#8287;o&#8287;t&#8287;h&#8287;e&#8287;r&#8287; &#8287;k&#8287;i&#8287;n&#8287;d&#8287;s&#8287; &#8287;o&#8287;f&#8287; &#8287;m&#8287;a&#8287;r&#8287;k&#8287;u&#8287;p&#8287; &#8287;i&#8287;n&#8287;s&#8287;i&#8287;d&#8287;e&#8287; &#8287;<&#8287;a&#8287; &#8287;h&#8287;r&#8287;e&#8287;f&#8287;=&#8287;"&#8287;h&#8287;t&#8287;t&#8287;p&#8287;:&#8287;/&#8287;/&#8287;w&#8287;w&#8287;w&#8287;.&#8287;r&#8287;e&#8287;d&#8287;d&#8287;i&#8287;t&#8287;.&#8287;c&#8287;o&#8287;m&#8287;/&#8287;r&#8287;/&#8287;a&#8287;w&#8287;w&#8287;"&#8287;>&#8287;i&#8287;t&#8287;<&#8287;/&#8287;a&#8287;>&#8287; &#8287;i&#8287;n&#8287;c&#8287;l&#8287;u&#8287;d&#8287;i&#8287;n&#8287;g&#8287; &#8287;p&#8287;a&#8287;r&#8287;a&#8287;g&#8287;r&#8287;a&#8287;p&#8287;h&#8287; &#8287;t&#8287;a&#8287;g&#8287;s&#8287; &#8287;t&#8287;h&#8287;a&#8287;t&#8287; &#8287;r&#8287;e&#8287;a&#8287;l&#8287;l&#8287;y&#8287; &#8287;h&#8287;a&#8287;v&#8287;e&#8287; &#8287;n&#8287;o&#8287; &#8287;p&#8287;l&#8287;a&#8287;c&#8287;e&#8287; &#8287;i&#8287;n&#8287; &#8287;a&#8287; &#8287;t&#8287;i&#8287;t&#8287;l&#8287;e&#8287;.&#8287;', 'abstract': '&#8287;<&#8287;a&#8287; &#8287;h&#8287;r&#8287;e&#8287;f&#8287;=&#8287;"&#8287;h&#8287;t&#8287;t&#8287;p&#8287;:&#8287;/&#8287;/&#8287;n&#8287;a&#8287;u&#8287;g&#8287;h&#8287;t&#8287;y&#8287;w&#8287;e&#8287;b&#8287;s&#8287;i&#8287;t&#8287;e&#8287;.&#8287;g&#8287;o&#8287;v&#8287;"&#8287;>&#8287;F&#8287;a&#8287;k&#8287;e&#8287; &#8287;U&#8287;R&#8287;L&#8287;s&#8287;<&#8287;/&#8287;a&#8287;>&#8287; &#8287;a&#8287;r&#8287;e&#8287; &#8287;a&#8287;n&#8287; &#8287;i&#8287;n&#8287;c&#8287;r&#8287;e&#8287;a&#8287;s&#8287;i&#8287;n&#8287;g&#8287; &#8287;p&#8287;r&#8287;o&#8287;b&#8287;l&#8287;e&#8287;m&#8287; &#8287;w&#8287;h&#8287;e&#8287;n&#8287; &#8287;t&#8287;r&#8287;y&#8287;i&#8287;n&#8287;g&#8287; &#8287;t&#8287;o&#8287; &#8287;w&#8287;r&#8287;i&#8287;t&#8287;e&#8287; &#8287;f&#8287;a&#8287;k&#8287;e&#8287; &#8287;a&#8287;b&#8287;s&#8287;t&#8287;r&#8287;a&#8287;c&#8287;t&#8287;s&#8287;.&#8287; &#8287;I&#8287;t&#8287;\'&#8287;s&#8287; &#8287;u&#8287;n&#8287;l&#8287;i&#8287;k&#8287;e&#8287;l&#8287;y&#8287; &#8287;t&#8287;h&#8287;a&#8287;t&#8287; &#8287;a&#8287; &#8287;.&#8287;g&#8287;o&#8287;v&#8287; &#8287;d&#8287;o&#8287;m&#8287;a&#8287;i&#8287;n&#8287; &#8287;w&#8287;o&#8287;u&#8287;l&#8287;d&#8287; &#8287;h&#8287;o&#8287;s&#8287;t&#8287; &#8287;a&#8287; &#8287;b&#8287;a&#8287;d&#8287; &#8287;w&#8287;e&#8287;b&#8287;s&#8287;i&#8287;t&#8287;e&#8287;,&#8287; &#8287;b&#8287;u&#8287;t&#8287; &#8287;t&#8287;h&#8287;e&#8287;n&#8287; &#8287;a&#8287;g&#8287;a&#8287;i&#8287;n&#8287; &#8287;w&#8287;h&#8287;a&#8287;t&#8287; &#8287;t&#8287;i&#8287;m&#8287;e&#8287;s&#8287; &#8287;a&#8287;r&#8287;e&#8287; &#8287;w&#8287;e&#8287; &#8287;l&#8287;i&#8287;v&#8287;i&#8287;n&#8287;g&#8287; &#8287;i&#8287;n&#8287; &#8287;n&#8287;o&#8287;w&#8287;?&#8287; &#8287;A&#8287;l&#8287;s&#8287;o&#8287;,&#8287; &#8287;<&#8287;i&#8287;n&#8287;l&#8287;i&#8287;n&#8287;e&#8287;-&#8287;f&#8287;o&#8287;r&#8287;m&#8287;u&#8287;l&#8287;a&#8287;>&#8287;<&#8287;m&#8287;m&#8287;l&#8287;:&#8287;m&#8287;a&#8287;t&#8287;h&#8287;>&#8287;<&#8287;m&#8287;m&#8287;l&#8287;:&#8287;m&#8287;i&#8287;>&#8287;&&#8287;#&#8287;9&#8287;4&#8287;8&#8287;;&#8287;<&#8287;/&#8287;m&#8287;m&#8287;l&#8287;:&#8287;m&#8287;i&#8287;>&#8287;<&#8287;/&#8287;m&#8287;m&#8287;l&#8287;:&#8287;m&#8287;a&#8287;t&#8287;h&#8287;>&#8287;<&#8287;/&#8287;i&#8287;n&#8287;l&#8287;i&#8287;n&#8287;e&#8287;-&#8287;f&#8287;o&#8287;r&#8287;m&#8287;u&#8287;l&#8287;a&#8287;>&#8287;.&#8287; &#8287;A&#8287;l&#8287;s&#8287;o&#8287; &#8287;a&#8287;l&#8287;s&#8287;o&#8287;,&#8287; &#8287;<&#8287;i&#8287;n&#8287;l&#8287;i&#8287;n&#8287;e&#8287;-&#8287;f&#8287;o&#8287;r&#8287;m&#8287;u&#8287;l&#8287;a&#8287;>&#8287;<&#8287;m&#8287;m&#8287;l&#8287;:&#8287;m&#8287;a&#8287;t&#8287;h&#8287;>&#8287;t&#8287;h&#8287;i&#8287;s&#8287; &#8287;i&#8287;s&#8287; &#8287;s&#8287;o&#8287;m&#8287;e&#8287; &#8287;m&#8287;a&#8287;t&#8287;h&#8287;<&#8287;/&#8287;m&#8287;m&#8287;l&#8287;:&#8287;m&#8287;a&#8287;t&#8287;h&#8287;>&#8287;<&#8287;/&#8287;i&#8287;n&#8287;l&#8287;i&#8287;n&#8287;e&#8287;-&#8287;f&#8287;o&#8287;r&#8287;m&#8287;u&#8287;l&#8287;a&#8287;>&#8287;.&#8287;', 'authors': '&#8287;T&#8287;e&#8287;m&#8287;p&#8287;l&#8287;e&#8287;t&#8287;o&#8287;n&#8287;,&#8287; &#8287;M&#8287;a&#8287;t&#8287;t&#8287;h&#8287;e&#8287;w&#8287;;&#8287; &#8287;O&#8287;r&#8287;g&#8287;a&#8287;n&#8287;s&#8287;,&#8287; &#8287;H&#8287;a&#8287;r&#8287;r&#8287;y&#8287; &#8287;S&#8287;n&#8287;a&#8287;p&#8287;p&#8287;e&#8287;r&#8287;', 'affiliations': ['NASA-ADS, Harvard-Smithsonian Center for Astrophysics, 60 Garden St., Cambridge, MA 02138, United States', 'Monty Python lol.'], 'copyright': '©2018 American Physical Society', 'keywords': 'Fundamental concepts', 'volume': '95', 'issue': '1', 'publication': 'Physical Review A, Volume 95, Issue 1, id.129999, <NUMPAGES>9</NUMPAGES> pp.', 'properties': {'DOI': '10.1103/PhysRevA.95.129999'}, 'pubdate': '07/2015', 'page': '129999', 'refhandler_list': ['<ref id="c1"><label>[1]</label><mixed-citation publication-type="journal"><object-id>1</object-id><person-group person-group-type="author"><string-name>A. S. Holevo</string-name></person-group>, <source/>J. Multivariate Anal. <volume>3</volume>, <page-range>337</page-range> (<year>1973</year>).<pub-id pub-id-type="coden">JMVAAI</pub-id><issn>0047-259X</issn><pub-id assigning-authority="crossref" pub-id-type="doi" specific-use="suppress-display">10.1016/0047-259X(73)90028-6</pub-id></mixed-citation></ref>'], 'bibcode': '2015PhRvA..95l9999.', 'database': ['PHY']}
+LOL SHOULDBE: {'bibcode': '2015PhRvA..95l9999T', 'publication': 'Physical Review A, Volume 95, Issue 1, id.129999, <NUMPAGES>9</NUMPAGES> pp.', 'pubdate': '07/2015', 'copyright': '©2018 American Physical Society', 'title': 'Fake article title with other kinds of markup inside <a href="http://www.reddit.com/r/aww">it</a> including paragraph tags that really have no place in a title.', 'abstract': '<a href="http://naughtywebsite.gov">Fake URLs</a> are an increasing problem when trying to write fake abstracts. It\'s unlikely that a .gov domain would host a bad website, but then again what times are we living in now? Also, <inline-formula><mml:math><mml:mi>δ</mml:mi></mml:math></inline-formula>. Also also, <inline-formula><mml:math>this is some math</mml:math></inline-formula>.', 'database': ['PHY'], 'page': '129999', 'volume': '95', 'affiliations': ['NASA-ADS, Harvard-Smithsonian Center for Astrophysics, 60 Garden St., Cambridge, MA 02138, United States', 'Monty Python lol.'], 'authors': 'Templeton, Matthew; Organs, Harry Snapper', 'keywords': 'Fundamental concepts', 'issue': '1', 'properties': {'DOI': '10.1103/PhysRevA.95.129999'}, 'refhandler_list': ['<ref id="c1"><label>[1]</label><mixed-citation publication-type="journal"><object-id>1</object-id><person-group person-group-type="author"><string-name>A. S. Holevo</string-name></person-group>, <source/>J. Multivariate Anal. <volume>3</volume>, <page-range>337</page-range> (<year>1973</year>).<pub-id pub-id-type="coden">JMVAAI</pub-id><issn>0047-259X</issn><pub-id assigning-authority="crossref" pub-id-type="doi" specific-use="suppress-display">10.1016/0047-259X(73)90028-6</pub-id></mixed-citation></ref>']}
+[31m[1m_______________________ TestAPSJATS.test_unicode_initial _______________________[0m
+
+self = <pyingest.tests.test_parsers.TestAPSJATS testMethod=test_unicode_initial>
+
+[1m    def test_unicode_initial(self):[0m
+[1m        testfile = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/apsjats_10.1103.PhysRevB.96.081117.fulltext.xml')[0m
+[1m        shouldbe = {'bibcode': '2017PhRvB..96h1117S'}[0m
+[1m        with open(testfile, 'rU') as fp:[0m
+[1m            parser = aps.APSJATSParser()[0m
+[1m            document = parser.parse(fp)[0m
+[1m>       self.assertEqual(document['bibcode'], shouldbe['bibcode'])[0m
+[1m[31mE       AssertionError: '2017PhRvB..96h1117.' != '2017PhRvB..96h1117S'[0m
+[1m[31mE       - 2017PhRvB..96h1117.[0m
+[1m[31mE       ?                   ^[0m
+[1m[31mE       + 2017PhRvB..96h1117S[0m
+[1m[31mE       ?                   ^[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:298: AssertionError
+[31m[1m___________________________ TestProcSci.test_badsite ___________________________[0m
+
+self = <pyingest.tests.test_parsers.TestProcSci testMethod=test_badsite>
+
+[1m    def setUp(self):[0m
+[1m        "Mock procsci.PoSParser.urllib.urlopen"[0m
+[1m        self.patcher = patch('urllib.urlopen')[0m
+[1m>       self.urlopen_mock = self.patcher.start()[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:334: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/mock/mock.py[0m:1497: in start
+[1m    result = self.__enter__()[0m
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/mock/mock.py[0m:1369: in __enter__
+[1m    original, local = self.get_original()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <mock.mock._patch object at 0x1105eb668>
+
+[1m    def get_original(self):[0m
+[1m        target = self.getter()[0m
+[1m        name = self.attribute[0m
+[1m    [0m
+[1m        original = DEFAULT[0m
+[1m        local = False[0m
+[1m    [0m
+[1m        try:[0m
+[1m            original = target.__dict__[name][0m
+[1m        except (AttributeError, KeyError):[0m
+[1m            original = getattr(target, name, DEFAULT)[0m
+[1m        else:[0m
+[1m            local = True[0m
+[1m    [0m
+[1m        if name in _builtins and isinstance(target, ModuleType):[0m
+[1m            self.create = True[0m
+[1m    [0m
+[1m        if not self.create and original is DEFAULT:[0m
+[1m            raise AttributeError([0m
+[1m>               "%s does not have the attribute %r" % (target, name)[0m
+[1m            )[0m
+[1m[31mE           AttributeError: <module 'urllib' from '/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/urllib/__init__.py'> does not have the attribute 'urlopen'[0m
+
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/mock/mock.py[0m:1343: AttributeError
+[31m[1m___________________________ TestProcSci.test_output ____________________________[0m
+
+self = <pyingest.tests.test_parsers.TestProcSci testMethod=test_output>
+
+[1m    def setUp(self):[0m
+[1m        "Mock procsci.PoSParser.urllib.urlopen"[0m
+[1m        self.patcher = patch('urllib.urlopen')[0m
+[1m>       self.urlopen_mock = self.patcher.start()[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:334: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/mock/mock.py[0m:1497: in start
+[1m    result = self.__enter__()[0m
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/mock/mock.py[0m:1369: in __enter__
+[1m    original, local = self.get_original()[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <mock.mock._patch object at 0x10f2a9320>
+
+[1m    def get_original(self):[0m
+[1m        target = self.getter()[0m
+[1m        name = self.attribute[0m
+[1m    [0m
+[1m        original = DEFAULT[0m
+[1m        local = False[0m
+[1m    [0m
+[1m        try:[0m
+[1m            original = target.__dict__[name][0m
+[1m        except (AttributeError, KeyError):[0m
+[1m            original = getattr(target, name, DEFAULT)[0m
+[1m        else:[0m
+[1m            local = True[0m
+[1m    [0m
+[1m        if name in _builtins and isinstance(target, ModuleType):[0m
+[1m            self.create = True[0m
+[1m    [0m
+[1m        if not self.create and original is DEFAULT:[0m
+[1m            raise AttributeError([0m
+[1m>               "%s does not have the attribute %r" % (target, name)[0m
+[1m            )[0m
+[1m[31mE           AttributeError: <module 'urllib' from '/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.7/lib/python3.7/urllib/__init__.py'> does not have the attribute 'urlopen'[0m
+
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/mock/mock.py[0m:1343: AttributeError
+[31m[1m_____________________________ TestJOSS.test_output _____________________________[0m
+
+self = <pyingest.tests.test_parsers.TestJOSS testMethod=test_output>
+
+[1m    def setUp(self):[0m
+[1m        "Mock joss.JOSSParser.urllib.urlopen"[0m
+[1m        self.patcher = patch('urllib2.urlopen')[0m
+[1m>       self.urlopen_mock = self.patcher.start()[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:441: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/mock/mock.py[0m:1497: in start
+[1m    result = self.__enter__()[0m
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/mock/mock.py[0m:1353: in __enter__
+[1m    self.target = self.getter()[0m
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/mock/mock.py[0m:1520: in <lambda>
+[1m    getter = lambda: _importer(target)[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+target = 'urllib2'
+
+[1m    def _importer(target):[0m
+[1m        components = target.split('.')[0m
+[1m        import_path = components.pop(0)[0m
+[1m>       thing = __import__(import_path)[0m
+[1m[31mE       ModuleNotFoundError: No module named 'urllib2'[0m
+
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/mock/mock.py[0m:1206: ModuleNotFoundError
+[31m[1m_____________________________ TestATel.test_output _____________________________[0m
+
+self = <pyingest.tests.test_parsers.TestATel testMethod=test_output>
+
+[1m    def setUp(self):[0m
+[1m        "Mock atel.ATelParser.urllib.urlopen"[0m
+[1m        self.patcher = patch('urllib2.urlopen')[0m
+[1m>       self.urlopen_mock = self.patcher.start()[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:475: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/mock/mock.py[0m:1497: in start
+[1m    result = self.__enter__()[0m
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/mock/mock.py[0m:1353: in __enter__
+[1m    self.target = self.getter()[0m
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/mock/mock.py[0m:1520: in <lambda>
+[1m    getter = lambda: _importer(target)[0m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+target = 'urllib2'
+
+[1m    def _importer(target):[0m
+[1m        components = target.split('.')[0m
+[1m        import_path = components.pop(0)[0m
+[1m>       thing = __import__(import_path)[0m
+[1m[31mE       ModuleNotFoundError: No module named 'urllib2'[0m
+
+[1m[31m../../virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/mock/mock.py[0m:1206: ModuleNotFoundError
+[31m[1m___________________________ TestGCNC.test_gcn_parser ___________________________[0m
+
+self = <pyingest.tests.test_parsers.TestGCNC testMethod=test_gcn_parser>
+
+[1m    def test_gcn_parser(self):[0m
+[1m        test_infile = os.path.join(self.inputdir, '25321.gcn3')[0m
+[1m        with open(test_infile) as fp:[0m
+[1m            data = fp.read()[0m
+[1m            parser = gcncirc.GCNCParser(data)[0m
+[1m            test_data = parser.parse()[0m
+[1m            output_bibcode = '2019GCN.25321....1I'[0m
+[1m            output_authors = 'IceCube Collaboration'[0m
+[1m            output_pub = u'GRB Coordinates Network, Circular Service, No. 25321'[0m
+[1m>           self.assertEqual(test_data['bibcode'], output_bibcode)[0m
+[1m[31mE           KeyError: 'bibcode'[0m
+
+[1m[31mpyingest/tests/test_parsers.py[0m:518: KeyError
+[31m[1m_______________________ TestClassic.test_classic_tagged ________________________[0m
+
+self = <pyingest.tests.test_serializers.TestClassic testMethod=test_classic_tagged>
+
+[1m    def test_classic_tagged(self):[0m
+[1m        serializer = Tagged()[0m
+[1m        for file in self.inputdocs:[0m
+[1m            # this will raise exceptions if something is wrong[0m
+[1m            document = ''[0m
+[1m            with open(file, 'r') as fp:[0m
+[1m                document = json.load(fp)[0m
+[1m                self.assertIsNotNone(document, "%s: error reading doc" % file)[0m
+[1m            outputfp = io.StringIO()[0m
+[1m            serializer.write(document, outputfp)[0m
+[1m            output = outputfp.getvalue()[0m
+[1m            outputfp.close()[0m
+[1m            self.assertNotEqual(output, '')[0m
+[1m            basefile, _ = os.path.splitext(os.path.basename(file))[0m
+[1m            target = os.path.join(self.outputdir, basefile + '.tag')[0m
+[1m            # save temporary copy[0m
+[1m            target_saved = target + '.parsed'[0m
+[1m            with open(target_saved, 'w') as fp:[0m
+[1m                fp.write(output)[0m
+[1m    [0m
+[1m            ok = False[0m
+[1m            if os.path.exists(target):[0m
+[1m                with open(target, 'r') as fp:[0m
+[1m                    shouldbe = fp.read()[0m
+[1m>                   self.assertEqual(shouldbe, output, "results differ from %s" % target)[0m
+[1m[31mE                   AssertionError: '%T S[2090 chars]\n%I PDF: https://zenodo.org/record/16839/file[92 chars]\n\n' != '%T S[2090 chars]\n%I DOI: 10.5281/zenodo.16839; ELECTR: http:/[92 chars]\n\n'[0m
+[1m[31mE                   Diff is 2383 characters long. Set self.maxDiff to None to see it. : results differ from /Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/data/stubdata/serialized/zenodo.org_record_16839_export_dcite3.tag[0m
+
+[1m[31mpyingest/tests/test_serializers.py[0m:50: AssertionError
+[31m[1m________________ TestReferenceWriter.test_write_refhandler_data ________________[0m
+
+self = <pyingest.tests.test_serializers.TestReferenceWriter testMethod=test_write_refhandler_data>
+
+[1m    def test_write_refhandler_data(self):[0m
+[1m        paperdata = IOPJATSParser()[0m
+[1m        inputdoc = 'pyingest/tests/data/stubdata/input/iop_apj.xml'[0m
+[1m        with open(inputdoc, 'r') as fm:[0m
+[1m>           pdat = paperdata.parse(fm)[0m
+
+[1m[31mpyingest/tests/test_serializers.py[0m:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <pyingest.parsers.iop.IOPJATSParser object at 0x10f17a3c8>
+fp = <_io.TextIOWrapper name='pyingest/tests/data/stubdata/input/iop_apj.xml' mode='r' encoding='UTF-8'>
+kwargs = {}
+output_metadata = {'abstract': '&#8287;W&#8287;e&#8287; &#8287;h&#8287;a&#8287;v&#8287;e&#8287; &#8287;p&#8287;e&#8287;r&#8287;f&#8287;o... &#8287;P&#8287;a&#8287;z&#8287;', 'copyright': '© 2019. The American Astronomical Society. All rights reserved.', ...}
+pubstring = 'The Astrophysical Journal, Volume 882, Issue 2, id.74, <NUMPAGES>13</NUMPAGES> pp.'
+page_id = '74', j_bibstem = 'ApJ'
+
+[1m    def parse(self, fp, **kwargs):[0m
+[1m        output_metadata = super(self.__class__, self).parse(fp, **kwargs)[0m
+[1m    [0m
+[1m        # Publication +[0m
+[1m        try:[0m
+[1m            pubstring = output_metadata['publication'][0m
+[1m        except Exception as err:[0m
+[1m            pass[0m
+[1m        else:[0m
+[1m            try:[0m
+[1m                output_metadata['volume'][0m
+[1m            except Exception as err:[0m
+[1m                pass[0m
+[1m            else:[0m
+[1m                pubstring = pubstring + ', Volume ' + output_metadata['volume'][0m
+[1m    [0m
+[1m            try:[0m
+[1m                pubstring = pubstring + ', Issue ' + output_metadata['issue'][0m
+[1m            except TypeError:[0m
+[1m                pass[0m
+[1m    [0m
+[1m            try:[0m
+[1m                page_id = output_metadata['page'][0m
+[1m            except Exception as err:[0m
+[1m                pass[0m
+[1m            else:[0m
+[1m                if "-" in page_id:[0m
+[1m                    pubstring = pubstring + ', pp.' + page_id[0m
+[1m                else:[0m
+[1m                    pubstring = pubstring + ', id.' + page_id[0m
+[1m                    if 'numpages' in output_metadata:[0m
+[1m                        pubstring = pubstring + ', ' + output_metadata['numpages'] + ' pp.'[0m
+[1m                        del(output_metadata['numpages'])[0m
+[1m    [0m
+[1m            output_metadata['publication'] = pubstring[0m
+[1m    [0m
+[1m        # Bibcode[0m
+[1m        try:[0m
+[1m            j_bibstem = self.iop_journals(output_metadata['pub-id'])[0m
+[1m        except KeyError:[0m
+[1m            pass[0m
+[1m        else:[0m
+[1m>           year = output_metadata['pubdate'][-4:][0m
+[1m[31mE           KeyError: 'pubdate'[0m
+
+[1m[31mpyingest/parsers/iop.py[0m:106: KeyError
+[33m=============================== warnings summary ===============================[0m
+/Users/mtempleton/Projects/virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/html5lib/_trie/_base.py:3
+  /Users/mtempleton/Projects/virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/html5lib/_trie/_base.py:3: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated, and in 3.8 it will stop working
+    from collections import Mapping
+
+pyingest/config/config.py:148
+  /Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/config/config.py:148: DeprecationWarning: 'U' mode is deprecated
+    with open(APS_ASTRO_KEYWORDS_FILE, 'rU') as fk:
+
+pyingest/config/config.py:158
+  /Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/config/config.py:158: DeprecationWarning: 'U' mode is deprecated
+    with open(AAS_ASTRO_KEYWORDS_FILE, 'rU') as fk:
+
+pyingest/config/config.py:186
+  /Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/config/config.py:186: DeprecationWarning: 'U' mode is deprecated
+    with open(HTML_ENTITY_TABLE, 'rU') as fent:
+
+/Users/mtempleton/Projects/virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/jsonschema/compat.py:6
+/Users/mtempleton/Projects/virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/jsonschema/compat.py:6
+  /Users/mtempleton/Projects/virtual_environments/adsabs-pyingest/lib/python3.7/site-packages/jsonschema/compat.py:6: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated, and in 3.8 it will stop working
+    from collections import MutableMapping, Sequence  # noqa
+
+pyingest/tests/test_integration.py::TestParseAndSerialize::test_arxiv_to_classic
+  /Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/test_integration.py:24: DeprecationWarning: 'U' mode is deprecated
+    with open(f, 'rU') as fp:
+
+pyingest/tests/test_integration.py::TestParseAndSerialize::test_arxiv_to_classic
+pyingest/tests/test_integration.py::TestParseAndSerialize::test_arxiv_to_classic
+pyingest/tests/test_integration.py::TestParseAndSerialize::test_arxiv_to_classic
+pyingest/tests/test_integration.py::TestParseAndSerialize::test_arxiv_to_classic
+pyingest/tests/test_parsers.py::TestDatacite::test_datacite_parser
+pyingest/tests/test_parsers.py::TestDatacite::test_datacite_parser
+pyingest/tests/test_parsers.py::TestDatacite::test_datacite_parser
+pyingest/tests/test_parsers.py::TestDatacite::test_datacite_parser
+pyingest/tests/test_parsers.py::TestZenodo::test_zenodo_parser
+pyingest/tests/test_parsers.py::TestZenodo::test_zenodo_parser
+pyingest/tests/test_parsers.py::TestZenodo::test_zenodo_parser
+pyingest/tests/test_parsers.py::TestZenodo::test_zenodo_parser
+pyingest/tests/test_parsers.py::TestAuthorNames::test_default_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_default_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_default_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_default_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_fix_arXiv_mixed_collaboration_string
+pyingest/tests/test_parsers.py::TestAuthorNames::test_fix_arXiv_mixed_collaboration_string
+pyingest/tests/test_parsers.py::TestAuthorNames::test_fix_arXiv_mixed_collaboration_string
+pyingest/tests/test_parsers.py::TestAuthorNames::test_fix_arXiv_mixed_collaboration_string
+pyingest/tests/test_parsers.py::TestAuthorNames::test_ignore_collaborations_in_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_ignore_collaborations_in_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_ignore_collaborations_in_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_ignore_collaborations_in_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_ignore_names_in_collaborations_in_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_ignore_names_in_collaborations_in_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_ignore_names_in_collaborations_in_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_ignore_names_in_collaborations_in_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_normalize_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_normalize_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_normalize_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_normalize_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_remove_the_from_collaborations_in_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_remove_the_from_collaborations_in_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_remove_the_from_collaborations_in_author_names
+pyingest/tests/test_parsers.py::TestAuthorNames::test_remove_the_from_collaborations_in_author_names
+pyingest/tests/test_parsers.py::TestArxiv::test_bad_xml
+pyingest/tests/test_parsers.py::TestArxiv::test_bad_xml
+pyingest/tests/test_parsers.py::TestArxiv::test_bad_xml
+pyingest/tests/test_parsers.py::TestArxiv::test_bad_xml
+pyingest/tests/test_parsers.py::TestArxiv::test_old_style_subjects
+pyingest/tests/test_parsers.py::TestArxiv::test_old_style_subjects
+pyingest/tests/test_parsers.py::TestArxiv::test_old_style_subjects
+pyingest/tests/test_parsers.py::TestArxiv::test_old_style_subjects
+pyingest/tests/test_parsers.py::TestArxiv::test_parsing
+pyingest/tests/test_parsers.py::TestArxiv::test_parsing
+pyingest/tests/test_parsers.py::TestArxiv::test_parsing
+pyingest/tests/test_parsers.py::TestArxiv::test_parsing
+pyingest/tests/test_parsers.py::TestArxiv::test_unicode_init
+pyingest/tests/test_parsers.py::TestArxiv::test_unicode_init
+pyingest/tests/test_parsers.py::TestArxiv::test_unicode_init
+pyingest/tests/test_parsers.py::TestArxiv::test_unicode_init
+pyingest/tests/test_parsers.py::TestGCNC::test_gcn_parser
+pyingest/tests/test_parsers.py::TestGCNC::test_gcn_parser
+pyingest/tests/test_parsers.py::TestGCNC::test_gcn_parser
+pyingest/tests/test_parsers.py::TestGCNC::test_gcn_parser
+  /Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/parsers/author_names.py:23: DeprecationWarning: 'U' mode is deprecated
+    fp = open(filename, 'rU')
+
+pyingest/tests/test_parsers.py::TestArxiv::test_bad_xml
+  /Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/test_parsers.py:180: DeprecationWarning: 'U' mode is deprecated
+    with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/readme.txt'), 'rU') as fp:
+
+pyingest/tests/test_parsers.py::TestArxiv::test_old_style_subjects
+  /Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/test_parsers.py:210: DeprecationWarning: 'U' mode is deprecated
+    with open(f, 'rU') as fp:
+
+pyingest/tests/test_parsers.py::TestArxiv::test_parsing
+  /Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/test_parsers.py:188: DeprecationWarning: 'U' mode is deprecated
+    with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_1711_05739'), 'rU') as fp:
+
+pyingest/tests/test_parsers.py::TestArxiv::test_unicode_init
+  /Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/test_parsers.py:198: DeprecationWarning: 'U' mode is deprecated
+    with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_0901_2443'), 'rU') as fp:
+
+pyingest/tests/test_parsers.py::TestAPSJATS::test_dehtml
+  /Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/test_parsers.py:303: DeprecationWarning: 'U' mode is deprecated
+    with open(testfile, 'rU') as fp:
+
+pyingest/tests/test_parsers.py::TestAPSJATS::test_dehtml2
+  /Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/test_parsers.py:312: DeprecationWarning: 'U' mode is deprecated
+    with open(testfile, 'rU') as fp:
+
+pyingest/tests/test_parsers.py::TestAPSJATS::test_unicode_initial
+  /Users/mtempleton/Projects/Github_repos/adsabs-pyingest/pyingest/tests/test_parsers.py:295: DeprecationWarning: 'U' mode is deprecated
+    with open(testfile, 'rU') as fp:
+
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+
+---------- coverage: platform darwin, python 3.7.3-final-0 -----------
+Name                                 Stmts   Miss  Cover   Missing
+------------------------------------------------------------------
+pyingest/__init__.py                     0      0   100%
+pyingest/config/__init__.py              0      0   100%
+pyingest/config/config.py              114     13    89%   140-142, 151-152, 161-162, 202-203, 207-211
+pyingest/config/logging.py               1      1     0%   5
+pyingest/config/utils.py                35     20    43%   20-24, 31-61, 79, 83-86, 90-91, 94
+pyingest/extractors/__init__.py          0      0   100%
+pyingest/parsers/__init__.py             0      0   100%
+pyingest/parsers/affils.py              70     11    84%   31-33, 35-37, 48-50, 84-86
+pyingest/parsers/aps.py                 92     24    74%   35, 42-44, 54-55, 57-58, 68-69, 73-74, 80-81, 85-86, 98-99, 109-110, 114-115, 122-123
+pyingest/parsers/arxiv.py               81     55    32%   46-50, 58-126
+pyingest/parsers/atel.py                45     35    22%   14-57, 60-73
+pyingest/parsers/author_names.py       208     32    85%   24-25, 54-58, 108, 130-132, 200-201, 223-224, 257-259, 263-264, 272-274, 285, 292-298, 305-308, 368
+pyingest/parsers/datacite.py           169    132    22%   51-56, 63-64, 71-72, 79-80, 87-88, 95-96, 103-104, 107-108, 111-112, 115-121, 128-145, 150-151, 163-296
+pyingest/parsers/default.py             93     52    44%   34, 49-54, 58-63, 67-72, 76-83, 110-112, 115, 118-137, 141-152
+pyingest/parsers/dubcore.py             65     43    34%   29-37, 40-45, 49-51, 54, 64-112
+pyingest/parsers/entity_convert.py      13      0   100%
+pyingest/parsers/gcncirc.py             87     33    62%   28-35, 38-47, 50-52, 64, 84, 108-126
+pyingest/parsers/hstprop.py             84     13    85%   35-38, 42, 57-58, 73-79
+pyingest/parsers/iop.py                125     79    37%   33-37, 45-46, 51-62, 70-71, 75-76, 82-83, 87-88, 91, 103-104, 107-175
+pyingest/parsers/jats.py               460    124    73%   41-42, 59-60, 79-81, 112-113, 124-125, 129-135, 138-144, 151-152, 156-158, 164, 180-181, 185-186, 200-203, 212-214, 231-232, 242-243, 260-261, 270-271, 275-280, 284, 289, 291, 301, 304-305, 314, 325-326, 332, 353-357, 366, 371-372, 387-395, 411, 413, 419, 424-425, 429-430, 439-440, 463-468, 475-482, 489-490, 497-498, 506-508, 513-514, 528-529, 541, 555-557, 565-567, 570-571, 579-580, 586, 609-610, 624-625
+pyingest/parsers/joss.py               114    103    10%   15-120, 123-151
+pyingest/parsers/oup.py                186    143    23%   30-34, 39-40, 45-56, 59-79, 82-94, 98-105, 116-117, 121-122, 128-148, 155-156, 159-237
+pyingest/parsers/pnas.py               158    158     0%   1-218
+pyingest/parsers/procsci.py             72     56    22%   31, 34-41, 44-45, 49-121
+pyingest/parsers/proquest.py           161    161     0%   1-237
+pyingest/parsers/teixml.py             163    163     0%   5-274
+pyingest/parsers/uat_key2uri.py         18     18     0%   1-28
+pyingest/parsers/zenodo.py              33     20    39%   23-36, 39-42, 49-58
+pyingest/serializers/__init__.py         4      1    75%   5
+pyingest/serializers/classic.py         53      8    85%   33-38, 82-84
+pyingest/serializers/refwriter.py       35     24    31%   18-19, 22-51
+pyingest/validators/__init__.py          0      0   100%
+pyingest/validators/ads.py              29      3    90%   34, 39, 49
+------------------------------------------------------------------
+TOTAL                                 2768   1525    45%
+
+[31m[1m============== 23 failed, 7 passed, 70 warnings in 15.69 seconds ===============[0m
+(adsabs-pyingest) adsmt:adsabs-pyingest mtempleton$ exit
+exit
+
+Script done on Fri Sep 11 11:18:29 2020

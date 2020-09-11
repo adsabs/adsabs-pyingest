@@ -2,6 +2,10 @@
 #
 
 
+from __future__ import division
+from builtins import map
+from builtins import object
+from past.utils import old_div
 import os
 import requests
 import codecs
@@ -12,7 +16,7 @@ import time
 
 GROBID_SERVER = 'http://localhost:8080'
 GROBID_HANDLER = 'api/processFulltextDocument'
-DEFAULT_THREADS = multiprocessing.cpu_count() / 2;
+DEFAULT_THREADS = old_div(multiprocessing.cpu_count(), 2);
 DEFAULT_TIMEOUT = 60       # timeout on connection after this delay
 DEFAULT_MAX_RETRIES = 3    # try to reconnect these many times to grobid server
 DEFAULT_SLEEP_DELAY = 10   # give server enough time to restart grobid
@@ -169,7 +173,7 @@ if __name__ == "__main__":
         p = multiprocessing.Pool(threads)
         p.map(GrobidProcessor(service, destdir=args.destdir, force=args.force), args.files)
     else:
-        map(GrobidProcessor(service, destdir=args.destdir, force=args.force), args.files)
+        list(map(GrobidProcessor(service, destdir=args.destdir, force=args.force), args.files))
 
 
 

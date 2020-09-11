@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from pyingest.parsers.rnaas import RNAASJATSParser
 from pyingest.serializers.classic import Tagged
 from glob import glob
@@ -22,7 +23,7 @@ papers = ['./apj_878_1_11.xml']
 # papers = ['./rnaas_3_7_92.xml']
 documents = []
 for p in papers:
-    print("FILE:", p)
+    print(("FILE:", p))
     # try:
     with open(p, 'rU') as fp:
         doc = parser.parse(fp)

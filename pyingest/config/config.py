@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import json
 import requests
@@ -134,8 +135,8 @@ try:
     uat_request = requests.get(UAT_URL)
     uat_data = uat_request.json()
     get_uat(uat_request.json(), UAT_ASTRO_URI_DICT)
-    UAT_ASTRO_KEYWORDS = UAT_ASTRO_URI_DICT.keys()
-    UAT_ASTRO_URI_DICT = dict((k.lower(),v) for k,v in UAT_ASTRO_URI_DICT.items())
+    UAT_ASTRO_KEYWORDS = list(UAT_ASTRO_URI_DICT.keys())
+    UAT_ASTRO_URI_DICT = dict((k.lower(),v) for k,v in list(UAT_ASTRO_URI_DICT.items()))
 except Exception as e:
     print("Warning: could not load UAT from github!")
     UAT_ASTRO_KEYWORDS = list()
@@ -203,11 +204,11 @@ try:
                 ENTITY_DICTIONARY[UNI_ENTITY.strip()] = DEC_ENTITY.strip()
                 ENTITY_DICTIONARY[HEX_ENTITY.strip()] = DEC_ENTITY.strip()
             else:
-                print("broken HTML entity:", l.rstrip())
+                print(("broken HTML entity:", l.rstrip()))
                 NAME_ENTITY = "xxxxx"
 
 except Exception as e:
-    print("Problem in config:", e)
+    print(("Problem in config:", e))
 
 # ADS-specific translations
 # have been added to html5.txt
@@ -236,10 +237,8 @@ PROQUEST_DATASOURCE = "UMI"
 PROQUEST_BIB_TO_PUBNUM_FILE = os.path.dirname(os.path.abspath(__file__)) + 'bibcode2pubno.dat'
 PROQUEST_BIB_TO_PUBNUM = dict()
 try:
-    result = map(lambda b: PROQUEST_BIB_TO_PUBNUM.update({b[0]:b[1]}),
-             map(lambda a: a.split(),
-             open(PROQUEST_BIB_TO_PUBNUM_FILE).read().strip().split('\n')))
-except Exception, err:
+    result = [PROQUEST_BIB_TO_PUBNUM.update({b[0]:b[1]}) for b in [a.split() for a in open(PROQUEST_BIB_TO_PUBNUM_FILE).read().strip().split('\n')]]
+except Exception as err:
     pass
 
 PROQUEST_TO_DB = {

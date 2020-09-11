@@ -1,5 +1,8 @@
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
 import glob
-import cStringIO
+import io
 import pyingest.parsers.aps as aps
 import pyingest.parsers.arxiv as arxiv
 import pyingest.serializers.classic
@@ -67,6 +70,6 @@ for f in testfile:
             serializer.write(document, outputfp)
             outputfp.close()
     except Exception as e:
-        print "ERROR!\n%s\n" % f
+        print("ERROR!\n%s\n" % f)
         traceback.print_exc()
         pass

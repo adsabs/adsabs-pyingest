@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 
+from __future__ import absolute_import
+from builtins import str
 import bs4
 # from bs4 import Comment, CData
 from bs4 import CData
 from collections import OrderedDict
-from default import BaseBeautifulSoupParser
+from .default import BaseBeautifulSoupParser
 from pyingest.config.config import *
-from affils import AffiliationParser
-from entity_convert import EntityConverter
+from .affils import AffiliationParser
+from .entity_convert import EntityConverter
 # from uat_key2uri import UATURIConverter
 import namedentities
 import re
@@ -33,7 +35,7 @@ class JATSParser(BaseBeautifulSoupParser):
 
     def _detag(self, r, tags_keep, **kwargs):
 
-        newr = bs4.BeautifulSoup(unicode(r), 'html5lib')
+        newr = bs4.BeautifulSoup(str(r), 'html5lib')
         try:
             tag_list = list(set([x.name for x in newr.find_all()]))
         except Exception as err:
@@ -68,7 +70,7 @@ class JATSParser(BaseBeautifulSoupParser):
         # Note: newr is converted from a bs4 object to unicode here.
         # Everything after this point is string manipulation.
 
-        newr = unicode(newr)
+        newr = str(newr)
 
         # amp_pat = r'(?<=&amp\;)(.*?)(?=\;)'
         amp_pat = r'(&amp;)(.*?)(;)'
@@ -94,7 +96,7 @@ class JATSParser(BaseBeautifulSoupParser):
 
     def resource_dict(self, fp, **kwargs):
         d = self.bsfiletodict(fp, **kwargs)
-        r = self.bsstrtodict(unicode(d.article), **kwargs)
+        r = self.bsstrtodict(str(d.article), **kwargs)
         return r
 
     def parse(self, fp, **kwargs):
@@ -331,7 +333,7 @@ class JATSParser(BaseBeautifulSoupParser):
 
                 try:
                     new_aid_arr = []
-                    for a in affils.keys():
+                    for a in list(affils.keys()):
                         if a in aid_arr:
                             new_aid_arr.append(a)
                     aid_arr = new_aid_arr
@@ -511,6 +513,7 @@ class JATSParser(BaseBeautifulSoupParser):
         except Exception as err:
             pub_dates = []
         for d in pub_dates:
+            print('haha!',d)
             try:
                 a = d['publication-format']
             except KeyError:
@@ -524,21 +527,24 @@ class JATSParser(BaseBeautifulSoupParser):
                 try:
                     d.month
                 except Exception as err:
+                    print('error getting d.month:',err)
                     pubdate = "00" + pubdate
                 else:
                     try:
                         int(self._detag(d.month, []))
                     except Exception as errrr:
+                        print('error detagging d.month:',errrr)
                         month_name = self._detag(d.month, [])[0:3].lower()
                         month = MONTH_TO_NUMBER[month_name]
                     else:
                         month = self._detag(d.month, [])
-                    if month < 10:
+                    if int(month) < 10:
                         month = "0" + str(month)
                     else:
                         month = str(month)
                     pubdate = month + pubdate
             except Exception as errrr:
+                print('error getting pubdate:',errrr)
                 pass
             else:
                 if (a == 'print' or b == 'ppub'):
@@ -600,7 +606,7 @@ class JATSParser(BaseBeautifulSoupParser):
             try:
                 ref_results = back_meta.find('ref-list').find_all('ref')
                 for r in ref_results:
-                    s = unicode(r.extract()).replace('\n', '')
+                    s = str(r.extract()).replace('\n', '')
                     s = re.sub(r'\s+', r' ', s)
                     s = namedentities.named_entities(s)
                     ref_list_text.append(s)

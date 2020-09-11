@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from pyingest.parsers.oup import OUPJATSParser
 from pyingest.serializers.classic import Tagged
 from pyingest.serializers.refwriter import ReferenceWriter
@@ -18,7 +19,7 @@ import argparse
 try:
   DIR = sys.argv[1]
 except IndexError:
-  print 'missing argument: top level directory required'
+  print('missing argument: top level directory required')
   sys.exit(1)
 
 outfile = 'oup.tag'
@@ -33,7 +34,7 @@ for f in files:
             doc = parser.parse(fp)
             documents.append(doc)
     except Exception as e:
-        print("Error in OUP parser:", f, e)
+        print(("Error in OUP parser:", f, e))
 #   print(documents) 
 
 # Write everything out in Classic tagged format

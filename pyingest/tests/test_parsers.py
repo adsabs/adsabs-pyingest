@@ -1,7 +1,10 @@
 """
 Test parsers
 """
+from __future__ import print_function
 
+from builtins import zip
+from builtins import object
 import unittest
 import filecmp
 import sys
@@ -185,7 +188,7 @@ class TestArxiv(unittest.TestCase):
         with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_1711_05739'), 'rU') as fp:
             parser = arxiv.ArxivParser()
             document = parser.parse(fp)
-        for k in shouldbe.keys():
+        for k in list(shouldbe.keys()):
             self.assertEqual(shouldbe[k], document[k])
         shouldbe['title'] = 'Paper that has nothing to do with TRAPPIST-1'
         self.assertNotEqual(shouldbe['title'], document['title'])
@@ -309,8 +312,8 @@ class TestAPSJATS(unittest.TestCase):
         with open(testfile, 'rU') as fp:
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
-            print "LOL DOCUMENT:",document
-            print "LOL SHOULDBE:",shouldbe
+            print("LOL DOCUMENT:",document)
+            print("LOL SHOULDBE:",shouldbe)
         self.assertDictEqual(document, shouldbe)
 
 
@@ -340,7 +343,7 @@ class TestProcSci(unittest.TestCase):
         standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/procsci_299.tag")
         try:
             os.remove(test_outfile)
-        except Exception, err:
+        except Exception as err:
             pass
         for d in test_data:
             serializer = classic.Tagged()
@@ -381,7 +384,7 @@ class TestHSTProp(unittest.TestCase):
         standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/hstprop.tag")
         try:
             os.remove(test_outfile)
-        except Exception, err:
+        except Exception as err:
             pass
         for d in test_data:
             serializer = classic.Tagged()
@@ -434,7 +437,7 @@ class TestJOSS(unittest.TestCase):
 
     def setUp(self):
         "Mock joss.JOSSParser.urllib.urlopen"
-        self.patcher = patch('urllib2.urlopen')
+        self.patcher = patch('urllib.urlopen')
         self.urlopen_mock = self.patcher.start()
 
     def test_output(self):
@@ -448,7 +451,7 @@ class TestJOSS(unittest.TestCase):
         standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/joss.tag")
         try:
             os.remove(test_outfile)
-        except Exception, err:
+        except Exception as err:
             pass
         for d in test_data:
             serializer = classic.Tagged()
@@ -468,7 +471,7 @@ class TestATel(unittest.TestCase):
 
     def setUp(self):
         "Mock atel.ATelParser.urllib.urlopen"
-        self.patcher = patch('urllib2.urlopen')
+        self.patcher = patch('urllib.urlopen')
         self.urlopen_mock = self.patcher.start()
 
     def test_output(self):
@@ -482,7 +485,7 @@ class TestATel(unittest.TestCase):
         standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/atel.tag")
         try:
             os.remove(test_outfile)
-        except Exception, err:
+        except Exception as err:
             pass
         for d in test_data:
             serializer = classic.Tagged()

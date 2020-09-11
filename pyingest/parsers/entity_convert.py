@@ -1,8 +1,9 @@
+from builtins import object
 import re
 from pyingest.config import config
 
 
-class EntityConverter():
+class EntityConverter(object):
 
     def __init__(self):
         self.input_text = ''
@@ -12,7 +13,7 @@ class EntityConverter():
     def convert(self):
         o = self.input_text
         # ox = o
-        for k, v in self.ent_dict.items():
+        for k, v in list(self.ent_dict.items()):
             # ox = re.sub(k, v, ox)
             o = re.sub(k, v, o)
         self.output_text = o

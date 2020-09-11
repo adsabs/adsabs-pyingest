@@ -1,3 +1,7 @@
+from builtins import str
+from builtins import range
+from past.builtins import basestring
+from builtins import object
 import os
 import sys
 import re
@@ -17,7 +21,7 @@ class AuthorNames(object):
         output_list = []
         try:
             fp = open(filename, 'rU')
-        except Exception, err:
+        except Exception as err:
             logging.exception("Error reading file: %s", filename)
         else:
             with fp:
@@ -47,7 +51,7 @@ class AuthorNames(object):
         try:
             # Transliterates unicode characters to ASCII
             author_str = u2asc(author_str.strip())
-        except Exception, err:
+        except Exception as err:
             logging.exception("Unexpected error transliterating author name\
                                unicode string to ASCII")
             # TODO: Implement better error control
@@ -72,7 +76,7 @@ class AuthorNames(object):
                 last_name = match.group('last_name').strip().title()
                 initials_list = []
                 # Collect initials from first name if it is present
-                for i in xrange(self.max_first_name_initials):
+                for i in range(self.max_first_name_initials):
                     key = 'initial' + str(i)
                     if match.group(key):
                         initials_list.append(match.group(key).strip().upper())
@@ -140,7 +144,7 @@ class AuthorNames(object):
         self.regex_dash = re.compile(r"^-")
         self.regex_quote = re.compile(r"^'")
         self.regex_the = re.compile(r"^[Tt]he ")
-        self.regex_author = re.compile(r"^(?P<last_name>[^,]+),\s*(?P<initial0>\S)\w*" + "".join([r"(?:\s*(?P<initial{}>\S)\S*)?".format(i + 1) for i in xrange(self.max_first_name_initials - 1)]))
+        self.regex_author = re.compile(r"^(?P<last_name>[^,]+),\s*(?P<initial0>\S)\w*" + "".join([r"(?:\s*(?P<initial{}>\S)\S*)?".format(i + 1) for i in range(self.max_first_name_initials - 1)]))
 
         # Default collaboration parameters
         self.default_collaborations_params = {
@@ -290,7 +294,7 @@ class AuthorNames(object):
                         author.first = [author.first, last_name]
                     else:
                         verified_last_name_list.append(last_name)
-            except Exception, err:
+            except Exception as err:
                 logging.exception("Unexpected error in last name parsing")
             else:
                 verified_last_name_list.reverse()
@@ -298,7 +302,7 @@ class AuthorNames(object):
 
         try:
             reordered_author_str = str(author).strip()
-        except Exception, err:
+        except Exception as err:
             logging.exception("Unexpected error converting detected name into a string")
             # TODO: Implement better error control
             reordered_author_str = self.unknown_author_str
@@ -337,7 +341,7 @@ class AuthorNames(object):
 
         # Split and convert unicode characters and numerical HTML
         # (e.g. 'u'both em\u2014and&#x2013;dashes&hellip;' -> 'both em&mdash;and&ndash;dashes&hellip;')
-        authors_list = [unicode(named_entities(n.strip())) for n in authors_str.split(delimiter)]
+        authors_list = [str(named_entities(n.strip())) for n in authors_str.split(delimiter)]
 
         corrected_authors_list = []
         for author_str in authors_list:

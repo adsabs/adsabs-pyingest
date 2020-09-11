@@ -76,7 +76,7 @@ def u2asc(input):
 
     # TODO If used on anything but author names, add special handling for math symbols and other special chars
     if sys.version_info < (3,):
-        test_type = unicode
+        test_type = str
     else:
         test_type = str
     if not isinstance(input, test_type):

@@ -1,15 +1,18 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
+from __future__ import absolute_import
+from builtins import str
 import sys
 import os
 import json
 import codecs
 import string
 from pyingest.config.utils import u2asc
-from jats import JATSParser
+from .jats import JATSParser
 from pyingest.config.config import *
 from pyingest.parsers.entity_convert import EntityConverter
-from author_names import AuthorNames
+from .author_names import AuthorNames
 
 class NoSchemaException(Exception):
     pass
@@ -49,7 +52,7 @@ class OUPJATSParser(JATSParser):
                 with open(f,'rU') as fp:
                     p = fp.readline()
                 return p.split()[0]
-            except Exception, err:
+            except Exception as err:
                 pass
 
     def update_tmp_file(self, bs, bib, doi):
@@ -72,7 +75,7 @@ class OUPJATSParser(JATSParser):
                     lines[0] = c
                 with open(f,'w') as fp:
                     lines = fp.writelines(lines)
-            except Exception, err:
+            except Exception as err:
                 pass
 
     def dbfrombs(self, bs):
@@ -107,15 +110,15 @@ class OUPJATSParser(JATSParser):
         output_metadata = super(self.__class__, self).parse(fp, **kwargs)
 
         # Publication +
-	isearly = 0
-	try:
+        isearly = 0
+        try:
             pubstring = output_metadata['publication']
-        except Exception, err:
+        except Exception as err:
             pass
         else:
             try:
                 output_metadata['volume']
-            except Exception, err:
+            except Exception as err:
                 pass
             else:
                 if output_metadata['volume'] == "None":
@@ -133,7 +136,7 @@ class OUPJATSParser(JATSParser):
 
                     try:
                         output_metadata['page']
-                    except Exception, err:
+                    except Exception as err:
                         pass
                     else:
                         if "-" in output_metadata['page']:
@@ -163,8 +166,8 @@ class OUPJATSParser(JATSParser):
                 idno = self.get_tmp_page(bibstem)
                 try:
                     idno = int(idno) + 1
-                except Exception, err: 
-                    print "Issue with tmp bibstem:",err,idno
+                except Exception as err: 
+                    print("Issue with tmp bibstem:",err,idno)
                 idno = str(idno)
                 idno = idno.rjust(4,'.')
                 volume = ".tmp"
@@ -176,7 +179,7 @@ class OUPJATSParser(JATSParser):
                     if len(idno) == 6:
                         try:
                             idtwo = string.letters[int(idno[0:2]) - 1]
-                        except Exception, err:
+                        except Exception as err:
                             idtwo = idno[0:2]
                         idfour = idno[2:]
                     else:
@@ -200,7 +203,7 @@ class OUPJATSParser(JATSParser):
                     idno = idno.rjust(4,'.')
             try:
                 author_init = self.get_author_init(output_metadata['authors'])
-            except Exception, err:
+            except Exception as err:
                 author_init = '.'
             # would be better if I had two different variables for bibstem (since MNRASL shares a bibstem with MNRAS)
             if bibstem == "MNRASL":
@@ -221,14 +224,14 @@ class OUPJATSParser(JATSParser):
         # to remove bad entities
         entity_fields = ['abstract', 'title', 'authors']
         for ecf in entity_fields:
-            if ecf in output_metadata.keys():
+            if ecf in list(output_metadata.keys()):
                 try:
                     conv = EntityConverter()
                     conv.input_text = output_metadata[ecf]
                     conv.convert()
                     output_metadata[ecf] = conv.output_text
-                except Exception, err:
-                    print "problem converting %s for %s: %s" % (ecf, output_metadata['bibcode'], err)
+                except Exception as err:
+                    print("problem converting %s for %s: %s" % (ecf, output_metadata['bibcode'], err))
 
         # Return
         return output_metadata

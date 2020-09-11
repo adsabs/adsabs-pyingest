@@ -2,12 +2,15 @@
 Test parsers
 """
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import zip
 import unittest
 import sys
 import os
 import glob
 import json
-import cStringIO
+import io
 from pyingest.parsers import arxiv
 from pyingest.serializers import classic
 
@@ -20,7 +23,7 @@ class TestParseAndSerialize(unittest.TestCase):
         for f, b in zip(testfiles, shouldbe):
             with open(f, 'rU') as fp:
                 serializer = classic.Tagged()
-                outputfp = cStringIO.StringIO()
+                outputfp = io.StringIO()
                 parser = arxiv.ArxivParser()
                 document = parser.parse(fp)
                 serializer.write(document, outputfp)

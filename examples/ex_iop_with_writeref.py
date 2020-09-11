@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from pyingest.parsers.iop import IOPJATSParser
 from pyingest.serializers.classic import Tagged
 from pyingest.serializers.refwriter import ReferenceWriter
@@ -22,7 +23,7 @@ parser = IOPJATSParser()
 
 basedir = '/proj/ads/articles/sources/STACKS/'
 
-for issn in journal_ISSN.keys():
+for issn in list(journal_ISSN.keys()):
     b2 = basedir + issn
     vols = glob(b2 + '/*')
     v = vols[-1]
@@ -36,7 +37,7 @@ for issn in journal_ISSN.keys():
                 doc = parser.parse(fp)
             documents.append(doc)
         except Exception as e:
-            print("Error in IOP parser:", p, e)
+            print(("Error in IOP parser:", p, e))
 
     # Write everything out in Classic tagged format
     fo = open(outfile, 'a')
@@ -50,6 +51,6 @@ for issn in journal_ISSN.keys():
         serializer.write(d, fo)
         try:
             ref_handler.writeref(d,'iop')
-        except Exception, err:
-            print("Error with writeref:", err)
+        except Exception as err:
+            print(("Error with writeref:", err))
     fo.close()

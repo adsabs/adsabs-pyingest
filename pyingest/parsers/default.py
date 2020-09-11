@@ -1,9 +1,15 @@
+from future import standard_library
+standard_library.install_aliases()
+from builtins import map
+from builtins import range
+# from past.builtins import basestring
+from builtins import object
 import re
 import sys
 import bs4
 import xmltodict as xmltodict_parser
-import urllib
-import urllib2
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 import warnings
 import ssl
 
@@ -62,7 +68,8 @@ class BaseXmlToDictParser(object):
             return d
         elif isinstance(e, dict):
             return e.get('#text', d)
-        elif isinstance(e, basestring):
+        # elif isinstance(e, basestring):
+        elif isinstance(e, str):
             return e
 
     def _attr(self, e, k, d=''):
@@ -71,7 +78,8 @@ class BaseXmlToDictParser(object):
             return d
         elif isinstance(e, dict):
             return e.get('@' + k, d)
-        elif isinstance(e, basestring):
+        # elif isinstance(e, basestring):
+        elif isinstance(e, str):
             return d
         else:
             return d
@@ -97,7 +105,7 @@ class BaseRSSFeedParser(object):
     A parser that takes an RSS/Atom feed
     """
 
-    control_chars = ''.join(map(unichr, range(0, 32) + range(127, 160)))
+    control_chars = ''.join(map(chr, list(range(0, 32)) + list(range(127, 160))))
     control_char_re = re.compile('[%s]' % re.escape(control_chars))
 
     def __init__(self):
@@ -109,16 +117,16 @@ class BaseRSSFeedParser(object):
         return control_char_re.sub('', s)
 
     def get_records(self, rssURL, data_tag='entry', headers={}, **kwargs):
-        qparams = urllib.urlencode(kwargs)
+        qparams = urllib.parse.urlencode(kwargs)
         if qparams:
             url = "%s?%s" % (rssURL, qparams)
         else:
             url = rssURL
         if headers:
-            req = urllib2.Request(url, headers=headers)
+            req = urllib.request.Request(url, headers=headers)
         else:
-            req = urllib2.Request(url)
-        source = urllib2.urlopen(req)
+            req = urllib.request.Request(url)
+        source = urllib.request.urlopen(req)
         soup = bs4.BeautifulSoup(source, 'lxml')
         # soup = bs4.BeautifulSoup(source, 'html5lib')
         # NOTE: html5lib can't deal with bad encodings like lxml,
