@@ -17,7 +17,7 @@ class AuthorNames(object):
         output_list = []
         try:
             fp = open(filename, 'rU')
-        except Exception, err:
+        except Exception as err:
             logging.exception("Error reading file: %s", filename)
         else:
             with fp:
@@ -47,7 +47,7 @@ class AuthorNames(object):
         try:
             # Transliterates unicode characters to ASCII
             author_str = u2asc(author_str.strip())
-        except Exception, err:
+        except Exception as err:
             logging.exception("Unexpected error transliterating author name\
                                unicode string to ASCII")
             # TODO: Implement better error control
@@ -290,7 +290,7 @@ class AuthorNames(object):
                         author.first = [author.first, last_name]
                     else:
                         verified_last_name_list.append(last_name)
-            except Exception, err:
+            except Exception as err:
                 logging.exception("Unexpected error in last name parsing")
             else:
                 verified_last_name_list.reverse()
@@ -298,7 +298,7 @@ class AuthorNames(object):
 
         try:
             reordered_author_str = str(author).strip()
-        except Exception, err:
+        except Exception as err:
             logging.exception("Unexpected error converting detected name into a string")
             # TODO: Implement better error control
             reordered_author_str = self.unknown_author_str

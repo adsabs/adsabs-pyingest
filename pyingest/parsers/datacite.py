@@ -2,12 +2,13 @@
 #
 #
 
+from __future__ import absolute_import
 import sys
 import json
 import codecs
 from collections import OrderedDict
-from default import BaseXmlToDictParser
-from author_names import AuthorNames
+from .default import BaseXmlToDictParser
+from .author_names import AuthorNames
 
 
 class WrongSchemaException(Exception):

@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import json
 import requests
@@ -203,11 +204,11 @@ try:
                 ENTITY_DICTIONARY[UNI_ENTITY.strip()] = DEC_ENTITY.strip()
                 ENTITY_DICTIONARY[HEX_ENTITY.strip()] = DEC_ENTITY.strip()
             else:
-                print("broken HTML entity:", l.rstrip())
+                print(("broken HTML entity:", l.rstrip()))
                 NAME_ENTITY = "xxxxx"
 
 except Exception as e:
-    print("Problem in config:", e)
+    print(("Problem in config:", e))
 
 # ADS-specific translations
 # have been added to html5.txt
@@ -239,7 +240,7 @@ try:
     result = map(lambda b: PROQUEST_BIB_TO_PUBNUM.update({b[0]:b[1]}),
              map(lambda a: a.split(),
              open(PROQUEST_BIB_TO_PUBNUM_FILE).read().strip().split('\n')))
-except Exception, err:
+except Exception as err:
     pass
 
 PROQUEST_TO_DB = {

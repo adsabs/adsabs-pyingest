@@ -1,3 +1,4 @@
+from __future__ import print_function
 import re
 from .default import BaseBeautifulSoupParser
 
@@ -31,7 +32,7 @@ class AffiliationParser(BaseBeautifulSoupParser):
                 orcid = self.input_tagged.orcid.extract()
             orcid = unicode(orcid)
         except Exception as err:
-            print("AffiliationParser: problem finding orcid tag:", err)
+            print(("AffiliationParser: problem finding orcid tag:", err))
             orcid = u''
         self.original_string = re.sub(orcid, '', self.original_string)
         return orcid
@@ -44,7 +45,7 @@ class AffiliationParser(BaseBeautifulSoupParser):
             else:
                 email = self.input_tagged.email.extract()
         except Exception as err:
-            print("AffiliationParser: problem finding email tag:", err)
+            print(("AffiliationParser: problem finding email tag:", err))
             email = u''
         return email
 
@@ -80,5 +81,5 @@ class AffiliationParser(BaseBeautifulSoupParser):
             new_string = new_string.strip()
             return new_string
         except Exception as err:
-            print("AffiliationParser: PARSING FAILED:", err)
+            print(("AffiliationParser: PARSING FAILED:", err))
             return self.original_string

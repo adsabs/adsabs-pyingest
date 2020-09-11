@@ -1,3 +1,4 @@
+from __future__ import print_function
 from glob import glob
 from pyingest.parsers.gcncirc import GCNCParser
 from pyingest.serializers.classic import Tagged
@@ -17,34 +18,34 @@ def main():
                 with open(f2, 'rU') as fg:
                     try:
                         d = fg.read()
-                    except Exception, err:
+                    except Exception as err:
                         d = ''
-                        print f2
-                        print "couldnt read it:", err
+                        print(f2)
+                        print("couldnt read it:", err)
                 try:
                     # d = namedentities.hex_entities(d)
                     d = repr(hex_entities(d))
-                except Exception, err:
+                except Exception as err:
                     d = ''
-                    print f2
-                    print "Couldnt convert to hex:", err
+                    print(f2)
+                    print("Couldnt convert to hex:", err)
                 try:
                     x = GCNCParser(d)
-                except Exception, err:
-                    print "failed at GCNCParser(d) step:", err
+                except Exception as err:
+                    print("failed at GCNCParser(d) step:", err)
                 try:
                     y = x.parse()
-                except Exception, err:
-                    print "failed at x.parse step:", err
+                except Exception as err:
+                    print("failed at x.parse step:", err)
                 try:
                     serializer = Tagged()
                     serializer.write(y, fo)
-                except Exception, err:
-                    print f2
-                    print "Couldnt serialize it:", err
-            except Exception, err:
-                print "Problem parsing %s" % f2
-                print "Error: %s" % err
+                except Exception as err:
+                    print(f2)
+                    print("Couldnt serialize it:", err)
+            except Exception as err:
+                print("Problem parsing %s" % f2)
+                print("Error: %s" % err)
 
 
 if __name__ == '__main__':

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-from default import BaseRSSFeedParser
+from __future__ import absolute_import
+from .default import BaseRSSFeedParser
 import urlparse
 import sys
 
@@ -23,43 +24,43 @@ class JOSSParser(BaseRSSFeedParser):
         links = {}
         try:
             doi = entry.find('doi').text
-        except Exception, err:
+        except Exception as err:
             doi = ''
         try:
             spage = entry.find('page').text
-        except Exception, err:
+        except Exception as err:
             spage = str(int(doi.split('.')[-1]))
         if len(spage) <= 4:
             pg = spage.rjust(4, '.')
         try:
             volume = entry.find('volume').text
-        except Exception, err:
+        except Exception as err:
             volume = '0'
         try:
             issue = entry.find('issue').text
-        except Exception, err:
+        except Exception as err:
             issue = '0'
         try:
             links['DOI'] = doi
-        except Exception, err:
+        except Exception as err:
             pass
         try:
             links['PDF'] = entry.find('pdf_url').text
-        except Exception, err:
+        except Exception as err:
             pass
         try:
             links['data'] = entry.find('archive_doi').text
-        except Exception, err:
+        except Exception as err:
             pass
         # The user-defined tags are used as keywords
         try:
             keywords = entry.find('tags').text.split(',')
-        except Exception, err:
+        except Exception as err:
             keywords = []
         # Add the programming languages as keywords
         try:
             keywords += entry.find('languages').text.split(',')
-        except Exception, err:
+        except Exception as err:
             pass
         # strip spaces from keywords
         keywords = [k.strip() for k in keywords]
@@ -71,7 +72,7 @@ class JOSSParser(BaseRSSFeedParser):
             # GEN
             try:
                 database.remove('GEN')
-            except Exception, err:
+            except Exception as err:
                 pass
             database.append('PHY')
 
@@ -85,18 +86,18 @@ class JOSSParser(BaseRSSFeedParser):
             authors.append("%s, %s" % (ln, fn))
             try:
                 aff = a.find('affiliation').text
-            except Exception, err:
+            except Exception as err:
                 aff = ''
             try:
                 orcid = a.find('orcid').text
                 aff += ' <ID system="ORCID">%s</ID>' % orcid.strip()
-            except Exception, err:
+            except Exception as err:
                 pass
             affils.append(aff.strip())
 
         try:
             initial = authors[0][0]
-        except Exception, err:
+        except Exception as err:
             initial = '.'
         bibcode = "%sJOSS.%s.%s%s" % (pubdate[:4], volume.rjust(4, '.'), pg, initial)
         rec = {
@@ -122,7 +123,7 @@ class JOSSParser(BaseRSSFeedParser):
         for d in data:
             try:
                 joss_recs.append(self.extract_data(d))
-            except Exception, err:
+            except Exception as err:
                 sys.stderr.write('Failed to process record %s (%s). Skipping...\n' % (d.find('id').text, err))
                 continue
 
@@ -139,7 +140,7 @@ class JOSSParser(BaseRSSFeedParser):
             for d in data:
                 try:
                     joss_recs.append(self.extract_data(d))
-                except Exception, err:
+                except Exception as err:
                     sys.stderr.write('Failed to process record %s (%s). Skipping...\n' % (d.find('id').text, err))
                     continue
 

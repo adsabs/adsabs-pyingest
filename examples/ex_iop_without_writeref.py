@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from pyingest.parsers.iop import IOPJATSParser
 from pyingest.serializers.classic import Tagged
 from glob import glob
@@ -150,7 +151,7 @@ for issn in issn_list:
                 if doc != {}:
                     documents.append(doc)
         except Exception as e:
-            print("Error in IOP parser:", p, e)
+            print(("Error in IOP parser:", p, e))
 
     # Write everything out in Classic tagged format
     fo = open(outfile, 'a')
@@ -160,7 +161,7 @@ for issn in issn_list:
     for d in documents:
         if 'bibcode' in d:
             if 'XSTEM' in d['bibcode']:
-                print("Bad bibcode:", d['bibcode'])
+                print(("Bad bibcode:", d['bibcode']))
         else:
             print("no bibcode...")
         serializer.write(d, fo)

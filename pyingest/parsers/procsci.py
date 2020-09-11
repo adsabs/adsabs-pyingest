@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
+from __future__ import absolute_import
 import requests
 from argparse import ArgumentParser
-from default import BaseBeautifulSoupParser
+from .default import BaseBeautifulSoupParser
 
 
 class URLError(Exception):
@@ -76,7 +77,7 @@ class PoSParser(BaseBeautifulSoupParser):
                         if len(item) == 4:
                             try:
                                 int(item)
-                            except Exception, err:
+                            except Exception as err:
                                 pass
                             else:
                                 pubdate = item
