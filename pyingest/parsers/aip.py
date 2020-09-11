@@ -99,9 +99,9 @@ class AIPJATSParser(JATSParser):
 #           print (j_bibstem)
 
         try:
-            if 'pub-id' in output_metadata.keys():
+            if 'pub-id' in list(output_metadata.keys()):
                 bibstem_id = output_metadata['pub-id']
-            elif 'coden' in output_metadata.keys():
+            elif 'coden' in list(output_metadata.keys()):
                 bibstem_id = output_metadata['coden']
             j_bibstem = self.aip_journals(bibstem_id)
         except KeyError as err:
@@ -137,7 +137,7 @@ class AIPJATSParser(JATSParser):
         entity_fields = ['abstract', 'title', 'authors']
         # entity_fields = ['abstract', 'title']
         for ecf in entity_fields:
-            if ecf in output_metadata.keys():
+            if ecf in list(output_metadata.keys()):
                 try:
                     conv = EntityConverter()
                     conv.input_text = output_metadata[ecf]

@@ -1,3 +1,5 @@
+from builtins import range
+from builtins import object
 import sys
 import string
 import itertools
@@ -74,7 +76,7 @@ class Tagged(object):
             if isinstance(content, list):
                 content = jc.join(content)
             elif isinstance(content, dict):
-                content = jc.join([u"{0}: {1}".format(k, v) for k, v in content.items()])
+                content = jc.join([u"{0}: {1}".format(k, v) for k, v in list(content.items())])
             try:
                 fp.write('%{0} {1}\n'.format(d.get('tag'), named_entities(content)))
             except Exception as err:

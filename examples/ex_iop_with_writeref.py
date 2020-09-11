@@ -23,7 +23,7 @@ parser = IOPJATSParser()
 
 basedir = '/proj/ads/articles/sources/STACKS/'
 
-for issn in journal_ISSN.keys():
+for issn in list(journal_ISSN.keys()):
     b2 = basedir + issn
     vols = glob(b2 + '/*')
     v = vols[-1]

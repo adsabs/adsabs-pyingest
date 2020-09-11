@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+from past.builtins import basestring
 import sys
 import os
 import json
@@ -161,7 +162,7 @@ class IOPJATSParser(JATSParser):
         entity_fields = ['abstract', 'title', 'authors']
         # entity_fields = ['abstract', 'title']
         for ecf in entity_fields:
-            if ecf in output_metadata.keys():
+            if ecf in list(output_metadata.keys()):
                 try:
                     conv = EntityConverter()
                     conv.input_text = output_metadata[ecf]

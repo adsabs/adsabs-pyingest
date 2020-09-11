@@ -25,7 +25,7 @@ basedir = '/proj/ads/abstracts/sources/PNAS'
 outfile = 'pnas.tag'
 fo = open(outfile,'a')
 
-for k, v in PNAS_RSS_URLS.items():
+for k, v in list(PNAS_RSS_URLS.items()):
     feed = feedparser.parse(v)
     # print "feed:",k
     for _item in feed['entries']:

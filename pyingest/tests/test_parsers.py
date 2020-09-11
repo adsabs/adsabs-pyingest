@@ -3,6 +3,8 @@ Test parsers
 """
 from __future__ import print_function
 
+from builtins import zip
+from builtins import object
 import unittest
 import filecmp
 import sys
@@ -186,7 +188,7 @@ class TestArxiv(unittest.TestCase):
         with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_1711_05739'), 'rU') as fp:
             parser = arxiv.ArxivParser()
             document = parser.parse(fp)
-        for k in shouldbe.keys():
+        for k in list(shouldbe.keys()):
             self.assertEqual(shouldbe[k], document[k])
         shouldbe['title'] = 'Paper that has nothing to do with TRAPPIST-1'
         self.assertNotEqual(shouldbe['title'], document['title'])

@@ -1,4 +1,5 @@
 from __future__ import print_function
+from builtins import str
 import re
 from .default import BaseBeautifulSoupParser
 
@@ -30,7 +31,7 @@ class AffiliationParser(BaseBeautifulSoupParser):
                         orcid = u''
             else:
                 orcid = self.input_tagged.orcid.extract()
-            orcid = unicode(orcid)
+            orcid = str(orcid)
         except Exception as err:
             print(("AffiliationParser: problem finding orcid tag:", err))
             orcid = u''
@@ -68,13 +69,13 @@ class AffiliationParser(BaseBeautifulSoupParser):
             new_string = self.input_tagged.extract().text
             new_string = re.sub(' ;', '', new_string)
             if orcid != u'':
-                new_string = new_string + '; ' + unicode(orcid)
+                new_string = new_string + '; ' + str(orcid)
             if email != u'':
-                new_string = new_string + '; ' + unicode(email)
+                new_string = new_string + '; ' + str(email)
             else:
                 email = self.find_untagged_email()
                 new_string = re.sub(email, '', new_string)
-                new_string = new_string + '; ' + unicode(email)
+                new_string = new_string + '; ' + str(email)
             new_string = re.sub(' ;', '', new_string)
             new_string = new_string.strip()
             new_string = new_string.strip(';')

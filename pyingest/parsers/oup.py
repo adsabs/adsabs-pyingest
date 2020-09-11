@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+from builtins import str
 import sys
 import os
 import json
@@ -223,7 +224,7 @@ class OUPJATSParser(JATSParser):
         # to remove bad entities
         entity_fields = ['abstract', 'title', 'authors']
         for ecf in entity_fields:
-            if ecf in output_metadata.keys():
+            if ecf in list(output_metadata.keys()):
                 try:
                     conv = EntityConverter()
                     conv.input_text = output_metadata[ecf]

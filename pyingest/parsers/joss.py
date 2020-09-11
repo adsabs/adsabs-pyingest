@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
 from .default import BaseRSSFeedParser
-import urlparse
+import urllib.parse
 import sys
 
 
@@ -127,8 +131,8 @@ class JOSSParser(BaseRSSFeedParser):
                 sys.stderr.write('Failed to process record %s (%s). Skipping...\n' % (d.find('id').text, err))
                 continue
 
-        parsed_path = urlparse.urlparse(joss_links['last'])
-        urlparams = urlparse.parse_qs(parsed_path.query, keep_blank_values=1)
+        parsed_path = urllib.parse.urlparse(joss_links['last'])
+        urlparams = urllib.parse.parse_qs(parsed_path.query, keep_blank_values=1)
         last_page = int(urlparams['page'][0])
         # if last_page equals 1, we're done
         if last_page == 1:

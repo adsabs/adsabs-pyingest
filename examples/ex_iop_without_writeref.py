@@ -126,7 +126,7 @@ parser = IOPJATSParser()
 
 basedir = '/proj/ads/articles/sources/STACKS/'
 
-issn_list = journal_ISSN.keys()
+issn_list = list(journal_ISSN.keys())
 issn_list.sort()
 
 for issn in issn_list:
