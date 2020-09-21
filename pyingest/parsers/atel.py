@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-from default import BaseRSSFeedParser
+from __future__ import absolute_import
+from .default import BaseRSSFeedParser
 import urlparse
 import sys
 import re
@@ -63,7 +64,7 @@ class ATelParser(BaseRSSFeedParser):
         for d in data:
             try:
                 atel_recs.append(self.extract_data(d))
-            except Exception, err:
+            except Exception as err:
                 sys.stderr.write('Failed to process record %s (%s). Skipping...\n' % (d.find('identifier').text, err))
                 continue
 

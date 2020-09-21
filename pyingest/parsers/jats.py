@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 
+from __future__ import absolute_import
 import bs4
 # from bs4 import Comment, CData
 from bs4 import CData
 from collections import OrderedDict
-from default import BaseBeautifulSoupParser
+from .default import BaseBeautifulSoupParser
 from pyingest.config.config import *
-from affils import AffiliationParser
-from entity_convert import EntityConverter
+from .affils import AffiliationParser
+from .entity_convert import EntityConverter
 # from uat_key2uri import UATURIConverter
 import namedentities
 import re
@@ -36,7 +37,7 @@ class JATSParser(BaseBeautifulSoupParser):
         newr = bs4.BeautifulSoup(unicode(r), 'html5lib')
         try:
             tag_list = list(set([x.name for x in newr.find_all()]))
-        except Exception, err:
+        except Exception as err:
             tag_list = []
         for t in tag_list:
 
@@ -46,7 +47,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     try:
                         oldr = copy.deepcopy(newr)
                         newr.find(t).decompose()
-                    except Exception, err:
+                    except Exception as err:
                         pass
             elif t in tags_keep:
                 oldr = None
@@ -54,7 +55,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     try:
                         oldr = copy.deepcopy(newr)
                         newr.find(t).contents
-                    except Exception, err:
+                    except Exception as err:
                         pass
             else:
                 oldr = None
@@ -62,7 +63,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     try:
                         oldr = copy.deepcopy(newr)
                         newr.find(t).unwrap()
-                    except Exception, err:
+                    except Exception as err:
                         pass
 
         # Note: newr is converted from a bs4 object to unicode here.
@@ -107,7 +108,7 @@ class JATSParser(BaseBeautifulSoupParser):
         try:
             article_meta = r.find('article-meta')
             journal_meta = r.find('journal-meta')
-        except Exception, err:
+        except Exception as err:
             return {}
 
         back_meta = document.back
@@ -119,7 +120,7 @@ class JATSParser(BaseBeautifulSoupParser):
         title_fn_list = []
         try:
             title = article_meta.find('title-group').find('article-title')
-        except Exception, err:
+        except Exception as err:
             pass
         else:
             try:
@@ -129,7 +130,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     dx.decompose()
                 # title.xref.decompose()
                 # title.xref.extract()
-            except Exception, err:
+            except Exception as err:
                 pass
             try:
                 for df in title.find_all('fn'):
@@ -138,7 +139,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     df.decompose()
                 # title.fn.decompose()
                 # title.fn.extract()
-            except Exception, err:
+            except Exception as err:
                 pass
             base_metadata['title'] = (
                 self._detag(title, JATS_TAGSET['title']).strip())
@@ -146,13 +147,13 @@ class JATSParser(BaseBeautifulSoupParser):
 # Abstract:
         try:
             abstract = article_meta.abstract.p
-        except Exception, err:
+        except Exception as err:
             pass
         else:
             try:
                 for element in abstract(text=lambda text: isinstance(text, CData)):
                     element.extract()
-            except Exception, err:
+            except Exception as err:
                 pass
             else:
                 abstract = (
@@ -161,26 +162,25 @@ class JATSParser(BaseBeautifulSoupParser):
             if title_fn_list:
                 base_metadata['abstract'] += '  ' + ' '.join(title_fn_list)
 
-
-# Authors and Affiliations:
+        # Authors and Affiliations:
         # Set up affils storage
         affils = OrderedDict()
 
         # Author notes/note ids
         try:
             notes = article_meta.find('author-notes').find_all('fn')
-        except Exception, err:
+        except Exception as err:
             pass
         else:
             for n in notes:
                 try:
                     n.label.decompose()
-                except Exception, err:
+                except Exception as err:
                     pass
                 else:
                     try:
                         n['id']
-                    except Exception, err:
+                    except Exception as err:
                         pass
                         # print "I'm failing on author notes!",err
                     else:
@@ -195,19 +195,19 @@ class JATSParser(BaseBeautifulSoupParser):
             if len(affil) == 0:
                 try:
                     affil = article_meta.find_all('aff')
-                except Exception, err:
+                except Exception as err:
                     pass
-        except Exception, err:
+        except Exception as err:
             pass
         else:
             for a in affil:
                 try:
                     a.label.decompose()
-                except Exception, err:
+                except Exception as err:
                     pass
                 try:
                     a['id']
-                except Exception, err:
+                except Exception as err:
                     # print "I'm failing in the affils loop!",err
                     l_need_affils = True
                 else:
@@ -226,7 +226,7 @@ class JATSParser(BaseBeautifulSoupParser):
                                     affils[ekey] = address_new
                         while a.find('ext-link') is not None:
                             a.find('ext-link').extract()
-                    except Exception, err:
+                    except Exception as err:
                         pass
 
                     aff_text = self._detag(a, JATS_TAGSET['affiliations'])
@@ -237,7 +237,7 @@ class JATSParser(BaseBeautifulSoupParser):
         # Author name and affil/note lists:
         try:
             authors = article_meta.find('contrib-group').find_all('contrib')
-        except Exception, err:
+        except Exception as err:
             pass
         else:
             base_metadata['authors'] = []
@@ -253,9 +253,9 @@ class JATSParser(BaseBeautifulSoupParser):
                         if orcids['ext-link-type'] == 'orcid':
                             o = self._detag(orcids, [])
                             orcid_out = "<ID system=\"ORCID\">" + o + "</ID>"
-                    except Exception, err:
+                    except Exception as err:
                         pass
-                except Exception, err:
+                except Exception as err:
                     pass
                 if orcid_out is None:
                     try:
@@ -265,7 +265,7 @@ class JATSParser(BaseBeautifulSoupParser):
                                 o = self._detag(auth_id, [])
                                 o = o.split('/')[-1]
                                 orcid_out = "<ID system=\"ORCID\">" + o + "</ID>"
-                    except Exception, err:
+                    except Exception as err:
                         pass
 
                 # If you didn't get affiliations above, l_need_affils == True, so do this...
@@ -274,7 +274,7 @@ class JATSParser(BaseBeautifulSoupParser):
                         if a.find('aff') is not None:
                             aff_id = a.find('aff')
                             aff_text = self._detag(aff_id, JATS_TAGSET['affiliations'])
-                    except Exception, err:
+                    except Exception as err:
                         pass
                 
 
@@ -321,7 +321,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 # Author affil/note ids
                 try:
                     aid = a.find_all('xref')
-                except Exception, err:
+                except Exception as err:
                     pass
                 else:
                     if len(aid) > 0:
@@ -349,7 +349,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     if email is not None:
                         aff_text = aff_text + ' ' + email
                     base_metadata['affiliations'].append(aff_text)
-                except Exception, errrror:
+                except Exception as errrror:
                     if orcid_out is not None:
                         base_metadata['affiliations'].append(orcid_out)
                     else:
@@ -364,15 +364,15 @@ class JATSParser(BaseBeautifulSoupParser):
             else:
                 del base_metadata['authors']
 
-# Copyright:
+        # Copyright:
         try:
             copyright = article_meta.find('copyright-statement')
-        except Exception, err:
+        except Exception as err:
             pass
         else:
             base_metadata['copyright'] = self._detag(copyright, [])
 
-# Keywords:
+        # Keywords:
         try:
             keys_uat = []
             keys_misc = []
@@ -420,12 +420,12 @@ class JATSParser(BaseBeautifulSoupParser):
                     keywords = keys_misc
             if keywords:
                 base_metadata['keywords'] = ', '.join(keywords)
-        except Exception, err:
+        except Exception as err:
             pass
         if 'keywords' not in base_metadata:
             try:
                 keywords = article_meta.find('article-categories').find_all('subj-group')
-            except Exception, err:
+            except Exception as err:
                 keywords = []
             for c in keywords:
                 try:
@@ -435,35 +435,34 @@ class JATSParser(BaseBeautifulSoupParser):
                             klist.append(self._detag(k, (
                                 JATS_TAGSET['keywords'])))
                         base_metadata['keywords'] = ', '.join(klist)
-                except Exception, err:
+                except Exception as err:
                     pass
 
         # No longer required:
-        ## Now convert any UAT keywords to their URI:
+        # Now convert any UAT keywords to their URI:
         # try:
             # uat_cnv = UATURIConverter()
             # base_metadata['uatkeys'] = uat_cnv.convert_to_uri(base_metadata['uatkeys'])
         # except Exception, err:
             # pass
 
-
-# Volume:
+        # Volume:
         volume = article_meta.volume
         base_metadata['volume'] = self._detag(volume, [])
 
-# Issue:
+        # Issue:
         issue = article_meta.issue
         base_metadata['issue'] = self._detag(issue, [])
 
-# Journal name:
+        # Journal name:
         try:
             journal = journal_meta.find('journal-title-group').find('journal-title')
             base_metadata['publication'] = self._detag(journal, [])
-        except Exception, err:
+        except Exception as err:
             try:
                 journal = journal_meta.find('journal-title')
                 base_metadata['publication'] = self._detag(journal, [])
-            except Exception, err:
+            except Exception as err:
                 pass
 
         try:
@@ -475,17 +474,17 @@ class JATSParser(BaseBeautifulSoupParser):
                     jid = journal_meta.find('journal-id', {'journal-id-type':'coden'})
                     if jid:
                         base_metadata['coden'] = self._detag(jid, [])
-                except Exception, err:
+                except Exception as err:
                     pass
-        except Exception, err:
+        except Exception as err:
             pass 
 
-# links: DOI and arxiv preprints
+        # links: DOI and arxiv preprints
         # DOI
         base_metadata['properties'] = {}
         try:
             ids = article_meta.find_all('article-id')
-        except Exception, err:
+        except Exception as err:
             ids = []
         for d in ids:
             if d['pub-id-type'] == 'doi':
@@ -493,7 +492,7 @@ class JATSParser(BaseBeautifulSoupParser):
         # Arxiv Preprint
         try:
             arxiv = article_meta.find_all('custom-meta')
-        except Exception, err:
+        except Exception as err:
             pass
         else:
             ax_pref = 'https://arxiv.org/abs/'
@@ -503,13 +502,13 @@ class JATSParser(BaseBeautifulSoupParser):
                     x_value = self._detag(ax.find('meta-value'),[])
                     if x_name == 'arxivppt':
                         base_metadata['properties']['HTML'] = ax_pref + x_value
-                except Exception, err:
+                except Exception as err:
                     pass
 
-# Pubdate:
+        # Pubdate:
         try:
             pub_dates = article_meta.find_all('pub-date')
-        except Exception, err:
+        except Exception as err:
             pub_dates = []
         for d in pub_dates:
             try:
@@ -524,12 +523,12 @@ class JATSParser(BaseBeautifulSoupParser):
                 pubdate = "/" + self._detag(d.year, [])
                 try:
                     d.month
-                except Exception, err:
+                except Exception as err:
                     pubdate = "00" + pubdate
                 else:
                     try:
                         int(self._detag(d.month, []))
-                    except Exception, errrr:
+                    except Exception as errrr:
                         month_name = self._detag(d.month, [])[0:3].lower()
                         month = MONTH_TO_NUMBER[month_name]
                     else:
@@ -539,23 +538,23 @@ class JATSParser(BaseBeautifulSoupParser):
                     else:
                         month = str(month)
                     pubdate = month + pubdate
-            except Exception, errrr:
+            except Exception as errrr:
                 pass
             else:
-                if (a == 'print' or b == 'ppub'):
+                if a == 'print' or b == 'ppub':
                     base_metadata['pubdate'] = pubdate
-                elif (a == 'electronic' or b == 'epub'):
+                elif a == 'electronic' or b == 'epub':
                     try:
                         base_metadata['pubdate']
-                    except Exception, err:
+                    except Exception as err:
                         base_metadata['pubdate'] = pubdate
             try:
-                if (b == 'open-access'):
+                if b == 'open-access':
                     base_metadata.setdefault('properties', {}).setdefault('OPEN', 1)
-            except Exception, err:
+            except Exception as err:
                 pass
 
-# Pages:
+        # Pages:
 
         fpage = article_meta.fpage
         if fpage is None:
@@ -585,16 +584,16 @@ class JATSParser(BaseBeautifulSoupParser):
                 base_metadata['page'] = self._detag(fpage, []) + "-" + (
                     self._detag(lpage, []))
 
-# Number of Pages:
+        # Number of Pages:
         try:
             counts = article_meta.counts
             pagecount = counts.find('page-count')
             base_metadata['numpages'] = '<NUMPAGES>' + pagecount['count'] + '</NUMPAGES>'
-        except Exception, err:
+        except Exception as err:
             pass
             
 
-# References (now using back_meta):
+        # References (now using back_meta):
         if back_meta is not None:
 
             ref_list_text = []
@@ -605,14 +604,14 @@ class JATSParser(BaseBeautifulSoupParser):
                     s = re.sub(r'\s+',r' ',s)
                     s = namedentities.named_entities(s)
                     ref_list_text.append(s)
-            except Exception, err:
+            except Exception as err:
                 pass
             else:
                 base_metadata['refhandler_list'] = ref_list_text
 
         output_metadata = base_metadata
 
-# Last step: entity conversion
+        # Last step: entity conversion
         ec_fields = ['authors', 'abstract', 'title']
         econv = EntityConverter()
         for ecf in ec_fields:
@@ -620,7 +619,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 econv.input_text = output_metadata[ecf]
                 econv.convert()
                 output_metadata[ecf] = econv.output_text
-            except Exception, err:
+            except Exception as err:
                 pass
 
         return output_metadata

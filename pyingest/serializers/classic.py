@@ -30,7 +30,7 @@ def format_pubdate(date):
     if len(date) == 4:
         try:
             int(date)
-        except Exception, err:
+        except Exception as err:
             pass
         else:
             return date + "/00"
@@ -77,7 +77,7 @@ class Tagged(object):
                 content = jc.join([u"{0}: {1}".format(k, v) for k, v in content.items()])
             try:
                 fp.write('%{0} {1}\n'.format(d.get('tag'), named_entities(content)))
-            except Exception, err:
+            except Exception as err:
                 logging.error("error writing content for tag {0}: {1}\n".format(d.get('tag'), named_entities(content)))
                 raise
         fp.write('\n')

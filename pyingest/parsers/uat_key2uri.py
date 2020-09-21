@@ -23,5 +23,5 @@ class UATURIConverter():
                     kout = kw
                 kwl.append(kout)
             return ', '.join(kwl)
-        except Exception, err:
+        except Exception as err:
             return kw_list

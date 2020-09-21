@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from pyingest.parsers.oup import OUPJATSParser
 from pyingest.serializers.classic import Tagged
 from pyingest.serializers.refwriter import ReferenceWriter
@@ -16,10 +17,10 @@ import argparse
 # GJI_DIR  = "/proj/ads/abstracts/data/GJI"
 
 try:
-  DIR = sys.argv[1]
+    DIR = sys.argv[1]
 except IndexError:
-  print 'missing argument: top level directory required'
-  sys.exit(1)
+    print('missing argument: top level directory required')
+    sys.exit(1)
 
 outfile = 'oup.tag'
 
@@ -43,7 +44,7 @@ serializer = Tagged()
 ref_handler = ReferenceWriter()
 
 for d in documents:
-#   print(d)
+    #print(d)
     serializer.write(d,fo)
     ref_handler.writeref(d,'oup')
 fo.close()

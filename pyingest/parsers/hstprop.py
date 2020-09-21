@@ -50,7 +50,7 @@ class HSTParser():
         # Do the first query
         try:
             batch = self.get_batch(token, url, **kwargs)
-        except Exception, err:
+        except Exception as err:
             raise URLError("Request to HST blew up: %s" % err)
         # How many records are there?
         totrecs = batch['query']['total']
@@ -69,7 +69,7 @@ class HSTParser():
             kwargs['offset'] = offset
             try:
                 batch = self.get_batch(token, url, **kwargs)
-            except Exception, err:
+            except Exception as err:
                 raise URLError("Request to HST blew up: %s" % err)
             records += batch['programs']
             offset += maxrecs

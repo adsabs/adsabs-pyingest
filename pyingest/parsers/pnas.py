@@ -62,7 +62,7 @@ class PNASParser(BaseBeautifulSoupParser):
             for t in title_meta:
                 if t['content']:
                     output_metadata['title'] = t['content']
-        except Exception, err:
+        except Exception as err:
             # print "title not found:",err
             pass
 
@@ -73,9 +73,9 @@ class PNASParser(BaseBeautifulSoupParser):
             for a in abstract_meta:
                 try:
                     a['scheme']
-                except Exception, err:
+                except Exception as err:
                     output_metadata['abstract'] = a['content'].lstrip('<p>').rstrip('</p>')
-        except Exception, err:
+        except Exception as err:
             # print "abstract not found:",err
             pass
 
@@ -85,7 +85,7 @@ class PNASParser(BaseBeautifulSoupParser):
             author_meta = data.find_all(attrs={'name':'citation_author'})
             for a in author_meta:
                 auth_list.append(a['content'])
-        except Exception, err:
+        except Exception as err:
             # print "problem with authors",err
             pass
 
@@ -100,7 +100,7 @@ class PNASParser(BaseBeautifulSoupParser):
             journal_string = "Proceedings of the National Academy of Sciences, vol. %s, pp. %s"
             output_metadata['publication'] = journal_string % (volume,page)
             output_metadata['volume'] = vol
-        except Exception, err:
+        except Exception as err:
             pass
 
         # Properties (DOI, etc)
@@ -131,7 +131,7 @@ class PNASParser(BaseBeautifulSoupParser):
             for db_s in db_strings:
                 if db_s.a.get_text() == 'Astronomy':
                     output_metadata['database'] = 'AST'
-        except Exception, err:
+        except Exception as err:
             pass
 
         # Keywords
@@ -140,7 +140,7 @@ class PNASParser(BaseBeautifulSoupParser):
             keystrings = ', '.join(k.text for k in keys)
             uat_cnv = UATURIConverter()
             output_metadata['keywords'] = uat_cnv.convert_to_uri(keystrings)
-        except Exception, err:
+        except Exception as err:
             pass
         
 
@@ -149,7 +149,7 @@ class PNASParser(BaseBeautifulSoupParser):
             pubdate = data.findAll('meta', {'name':'citation_publication_date'})[0]['content']
             ymd = pubdate.split('/')
             output_metadata['pubdate'] = ymd[1].rjust(2,'0')+ '/' + ymd[0]
-        except Exception, err:
+        except Exception as err:
             pass
 
         # Affiliations/ORCID/email addresses:
@@ -160,7 +160,7 @@ class PNASParser(BaseBeautifulSoupParser):
             affils = []
             try:
                 div_data = data.find('div', {"class":class_attr})
-            except Exception, err:
+            except Exception as err:
                 pass
             else:
                 if div_data:
@@ -178,20 +178,19 @@ class PNASParser(BaseBeautifulSoupParser):
                     if email:
                         affils.append('<email>'+email.a.get_text()+'</email>')
 
-
             affil_list.append('; '.join(affils))
        
         # process both the author name and affiliation data
         try:
             parse_names = AuthorNames()
             output_metadata['authors'] = parse_names.parse("; ".join(auth_list))
-        except Exception, err:
+        except Exception as err:
             output_metadata['authors'] = "; ".join(auth_list)
         try:
-            parse_affil = AffilationParser()
+            parse_affil = AffiliationParser()
             affil_new = [parse_affil.parse(aff) for aff in affil_list]
             output_metadata['affiliations'] = affil_new
-        except Exception, err:
+        except Exception as err:
             output_metadata['affiliations'] = affil_list
 
         # Now you can make the bibcode...
@@ -208,7 +207,7 @@ class PNASParser(BaseBeautifulSoupParser):
             output_metadata['refhandler_list'] = []
             for r in reflist:
                 output_metadata['refhandler_list'].append(r)
-        except Exception, err:
+        except Exception as err:
             # print "in pnas references:",err
             pass
         

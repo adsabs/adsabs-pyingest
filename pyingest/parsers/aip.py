@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 
-import sys
-import os
-import json
-import codecs
+from __future__ import print_function
+from __future__ import absolute_import
 import string
 from pyingest.config.utils import u2asc
-from jats import JATSParser
+from .jats import JATSParser
 from pyingest.config.config import *
 from pyingest.parsers.entity_convert import EntityConverter
-from author_names import AuthorNames
 
 class NoSchemaException(Exception):
     pass
@@ -38,7 +35,7 @@ class AIPJATSParser(JATSParser):
     def aip_journals(self, pid):
         try:
             bibstem = AIP_PUBLISHER_IDS[pid]
-        except KeyError, err:
+        except KeyError as err:
             return 'XSTEM'
         else:
             return bibstem
@@ -51,14 +48,14 @@ class AIPJATSParser(JATSParser):
         document = self.resource_dict(fp, **kwargs)
 
         # Publication +
-	try:
+        try:
             pubstring = output_metadata['publication']
-        except Exception, err:
+        except Exception as err:
             pass
         else:
             try:
                 output_metadata['volume']
-            except Exception, err:
+            except Exception as err:
                 pass
             else:
                 pubstring = pubstring +', Volume '+ output_metadata['volume']
@@ -72,7 +69,7 @@ class AIPJATSParser(JATSParser):
 
                 try:
                     output_metadata['page']
-                except Exception, err:
+                except Exception as err:
                     pass
                 else:
                     if "-" in output_metadata['page']:
@@ -102,7 +99,7 @@ class AIPJATSParser(JATSParser):
             elif 'coden' in output_metadata.keys():
                 bibstem_id = output_metadata['coden']
             j_bibstem = self.aip_journals(bibstem_id)
-        except KeyError, err:
+        except KeyError as err:
             pass
         else:
             year = output_metadata['pubdate'][-4:]
@@ -116,7 +113,7 @@ class AIPJATSParser(JATSParser):
             if len(idno) == 6:
                 try:
                     idtwo = string.letters[int(idno[0:2]) - 1]
-                except Exception, err:
+                except Exception as err:
                     idtwo = idno[0:2]
                 idfour = idno[2:]
             else:
@@ -125,7 +122,7 @@ class AIPJATSParser(JATSParser):
             idno = idfour
             try:
                 author_init = self.get_author_init(output_metadata['authors'])
-            except Exception, err:
+            except Exception as err:
                 author_init = '.'
             output_metadata['bibcode'] = year + bibstem + volume + issue_letter + idno + author_init
 
@@ -141,8 +138,8 @@ class AIPJATSParser(JATSParser):
                     conv.input_text = output_metadata[ecf]
                     conv.convert()
                     output_metadata[ecf] = conv.output_text
-                except Exception, err:
-                    print "problem converting %s for %s: %s" % (ecf, output_metadata['bibcode'], err)
+                except Exception as err:
+                    print("problem converting %s for %s: %s" % (ecf, output_metadata['bibcode'], err))
     
         # Return
         return output_metadata

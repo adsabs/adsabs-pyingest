@@ -14,6 +14,6 @@ class CrossrefParser(object):
             self.record_list = []
 
 
-    def parse(self):
-
-        if
+    # def parse(self):
+    #
+    #     if

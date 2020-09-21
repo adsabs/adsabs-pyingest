@@ -2,10 +2,12 @@
 #
 #
 
+from __future__ import print_function
+from __future__ import absolute_import
 import sys
 import json
 import codecs
-from default import BaseXmlToDictParser
+from .default import BaseXmlToDictParser
 
 
 class WrongSchemaException(Exception):
@@ -173,7 +175,7 @@ class TeiXmlParser(BaseXmlToDictParser):
                           {u'surname': u'Grant'}}
         """
         org, address = '', ''
-        print self._text(author.get('affiliation', {}).get('orgName'))
+        print(self._text(author.get('affiliation', {}).get('orgName')))
         org = self._text(author.get('affiliation', {}).get('orgName')).strip()
         ainfo = author.get('affiliation', {}).get('address', {})
         affil = [org]
@@ -267,6 +269,6 @@ if __name__ == "__main__":
     for file in sys.argv[1:]:
         d = None
         with open(file, 'r') as fp:
-            print p.parse(fp)
+            print(p.parse(fp))
             d = p.parse(fp)
-            print json.dumps(d, indent=2)
+            print(json.dumps(d, indent=2))

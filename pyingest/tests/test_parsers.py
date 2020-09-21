@@ -1,6 +1,7 @@
 """
 Test parsers
 """
+from __future__ import print_function
 
 import unittest
 import filecmp
@@ -309,8 +310,8 @@ class TestAPSJATS(unittest.TestCase):
         with open(testfile, 'rU') as fp:
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
-            print "LOL DOCUMENT:",document
-            print "LOL SHOULDBE:",shouldbe
+            print("LOL DOCUMENT:",document)
+            print("LOL SHOULDBE:",shouldbe)
         self.assertDictEqual(document, shouldbe)
 
 
@@ -340,7 +341,7 @@ class TestProcSci(unittest.TestCase):
         standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/procsci_299.tag")
         try:
             os.remove(test_outfile)
-        except Exception, err:
+        except Exception as err:
             pass
         for d in test_data:
             serializer = classic.Tagged()
@@ -381,7 +382,7 @@ class TestHSTProp(unittest.TestCase):
         standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/hstprop.tag")
         try:
             os.remove(test_outfile)
-        except Exception, err:
+        except Exception as err:
             pass
         for d in test_data:
             serializer = classic.Tagged()
@@ -448,7 +449,7 @@ class TestJOSS(unittest.TestCase):
         standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/joss.tag")
         try:
             os.remove(test_outfile)
-        except Exception, err:
+        except Exception as err:
             pass
         for d in test_data:
             serializer = classic.Tagged()
@@ -482,7 +483,7 @@ class TestATel(unittest.TestCase):
         standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/atel.tag")
         try:
             os.remove(test_outfile)
-        except Exception, err:
+        except Exception as err:
             pass
         for d in test_data:
             serializer = classic.Tagged()

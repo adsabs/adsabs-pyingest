@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from pyingest.parsers.rnaas import RNAASJATSParser
 from pyingest.serializers.classic import Tagged
 from glob import glob

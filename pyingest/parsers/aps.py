@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
+from __future__ import absolute_import
 import sys
 import json
 import codecs
 from pyingest.config.utils import u2asc
-from jats import JATSParser
+from .jats import JATSParser
 from pyingest.config.config import *
 
 
@@ -36,8 +38,8 @@ class APSJATSParser(JATSParser):
         # mapping journal-meta/journal-id/publisher-id to bibstems
         try:
             bibstem = APS_PUBLISHER_IDS[pid]
-        except KeyError, err:
-            print "Warning, APS bibstem not found!"
+        except KeyError as err:
+            print("Warning, APS bibstem not found!")
             return 'XSTEM'
         else:
             return bibstem
@@ -62,12 +64,12 @@ class APSJATSParser(JATSParser):
         # Publication +
         try:
             pubstring = output_metadata['publication']
-        except Exception, err:
+        except Exception as err:
             pass
         else:
             try:
                 output_metadata['volume']
-            except Exception, err:
+            except Exception as err:
                 pass
             else:
                 pubstring = pubstring + ', Volume ' + output_metadata['volume']
@@ -79,7 +81,7 @@ class APSJATSParser(JATSParser):
 
             try:
                 output_metadata['page']
-            except Exception, err:
+            except Exception as err:
                 pass
             else:
                 pubstring = pubstring + ', id.' + output_metadata['page']
@@ -108,7 +110,7 @@ class APSJATSParser(JATSParser):
             idno = idtwo + idfour
             try:
                 author_init = self.get_author_init(output_metadata['authors'][0])
-            except Exception, err:
+            except Exception as err:
                 author_init = '.'
             output_metadata['bibcode'] = year + bibstem + volume + idno + author_init
             del output_metadata['pub-id']
@@ -116,7 +118,7 @@ class APSJATSParser(JATSParser):
 # Database (from APS keywords)
         try:
             output_metadata['database'] = self.dbfromkw(output_metadata['keywords'])
-        except Exception, err:
+        except Exception as err:
             pass
 
 # Return

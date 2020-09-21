@@ -1,9 +1,11 @@
+from __future__ import print_function
+from __future__ import absolute_import
 import os
 import re
 import pymarc
 from pyingest.config import config
 from pyingest.parsers.author_names import AuthorNames
-from default import DefaultParser
+from .default import DefaultParser
 
 
 # For the MARC2.1 standard guide, see:
@@ -24,7 +26,7 @@ class ProQuestParser(DefaultParser):
             entries = line.split(',')
             try:
                 self.oa_pubnum.append(str(int(entries[0])))
-            except Exception, err:
+            except Exception as err:
                 pass
         self.results = list()
 
@@ -49,7 +51,7 @@ class ProQuestParser(DefaultParser):
                         # sys.stderr.write("Could not find DB for category: %s\n"%cat)
                         pass
                     subjects.append(cat)
-        except Exception, err:
+        except Exception as err:
             pass
         return databases,subjects
 
@@ -72,7 +74,7 @@ class ProQuestParser(DefaultParser):
 
                 # read each record into a pymarc object
                 reader = pymarc.MARCReader(r, to_unicode=True)
-                record = reader.next()
+                record = next(reader)
 
                 # ProQuest ID (001)
                 proqid = record['001'].value()
@@ -97,7 +99,7 @@ class ProQuestParser(DefaultParser):
                 try:
                     author = re.sub('\.$','',record['100']['a'].strip())
                     # author = auth_parse.parse(author)
-                except Exception, err:
+                except Exception as err:
                     author = ''
             
                 # Title
@@ -115,7 +117,7 @@ class ProQuestParser(DefaultParser):
                 # Source
                 try:
                     school = record['502']['a']
-                except Exception, err:
+                except Exception as err:
                     pass
                 else:
                     jfield.append(school)
@@ -125,7 +127,7 @@ class ProQuestParser(DefaultParser):
                
                 try:
                     publsh = record['500']['a']
-                except Exception, err:
+                except Exception as err:
                     pass
                 else:
                     jfield.append(publsh)
@@ -158,7 +160,7 @@ class ProQuestParser(DefaultParser):
                 else:
                     try:
                         a2 = record['710']['b'].rstrip('.')
-                    except Exception, err:
+                    except Exception as err:
                         pass
                     else:
                         affil = a2 + ', ' + affil
@@ -172,13 +174,13 @@ class ProQuestParser(DefaultParser):
                             advisor.append(e['a'])
                     if advisor:
                         comments.append('Advisor: %s' % advisor[0])
-                except Exception, err:
+                except Exception as err:
                     pass
 
                 # Pubdate
                 try:
                     pubdate = record['792']['a']
-                except Exception, err:
+                except Exception as err:
                     pubdate = ''
 
                 # Language
@@ -187,7 +189,7 @@ class ProQuestParser(DefaultParser):
                     for l in record.get_fields('793'):
                         ln = l.value().strip() 
                         lang.append(ln)
-                except Exception, err:
+                except Exception as err:
                     pass
 
                 # properties
@@ -225,7 +227,7 @@ class ProQuestParser(DefaultParser):
                     output_metadata['properties'] = properties
 
 
-            except Exception, err:
+            except Exception as err:
                 print("Record skipped, MARC parsing failed: %s" % err)
             else:
                 self.results.append(output_metadata)
