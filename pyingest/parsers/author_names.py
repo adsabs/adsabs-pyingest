@@ -269,7 +269,8 @@ class AuthorNames(object):
             except Exception as e:
                 logging.exception("Unexpected error in middle name parsing")
             author.first = [author.first] + add_to_first
-            add_to_last.reverse()
+            # [MT 2020 Oct 07, can't reproduce where .reverse() is necessary?]
+            # add_to_last.reverse()
             author.last = add_to_last + [author.last]
         author.middle = u''
 
