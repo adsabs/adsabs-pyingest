@@ -2,6 +2,8 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+#from builtins import chr
+from past.builtins import basestring
 import sys
 import json
 import codecs
@@ -91,7 +93,7 @@ class APSJATSParser(JATSParser):
 
             output_metadata['publication'] = pubstring
 
-# Bibcode
+        # Bibcode
         try:
             j_bibstem = self.aps_journals(output_metadata['pub-id'])
         except KeyError:
@@ -115,11 +117,11 @@ class APSJATSParser(JATSParser):
             output_metadata['bibcode'] = year + bibstem + volume + idno + author_init
             del output_metadata['pub-id']
 
-# Database (from APS keywords)
+        # Database (from APS keywords)
         try:
             output_metadata['database'] = self.dbfromkw(output_metadata['keywords'])
         except Exception as err:
             pass
 
-# Return
+        # Return
         return output_metadata

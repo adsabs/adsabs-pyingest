@@ -1,3 +1,6 @@
+from builtins import range
+from past.builtins import basestring
+from builtins import object
 import os
 import sys
 import re
@@ -15,8 +18,12 @@ class AuthorNames(object):
 
     def _read_datfile(self, filename):
         output_list = []
+        if sys.version_info > (3,):
+            tags = 'r'
+        else:
+            tags = 'rU'
         try:
-            fp = open(filename, 'rU')
+            fp = open(filename, tags)
         except Exception as err:
             logging.exception("Error reading file: %s", filename)
         else:
@@ -72,7 +79,7 @@ class AuthorNames(object):
                 last_name = match.group('last_name').strip().title()
                 initials_list = []
                 # Collect initials from first name if it is present
-                for i in xrange(self.max_first_name_initials):
+                for i in range(self.max_first_name_initials):
                     key = 'initial' + str(i)
                     if match.group(key):
                         initials_list.append(match.group(key).strip().upper())
@@ -140,7 +147,7 @@ class AuthorNames(object):
         self.regex_dash = re.compile(r"^-")
         self.regex_quote = re.compile(r"^'")
         self.regex_the = re.compile(r"^[Tt]he ")
-        self.regex_author = re.compile(r"^(?P<last_name>[^,]+),\s*(?P<initial0>\S)\w*" + "".join([r"(?:\s*(?P<initial{}>\S)\S*)?".format(i + 1) for i in xrange(self.max_first_name_initials - 1)]))
+        self.regex_author = re.compile(r"^(?P<last_name>[^,]+),\s*(?P<initial0>\S)\w*" + "".join([r"(?:\s*(?P<initial{}>\S)\S*)?".format(i + 1) for i in range(self.max_first_name_initials - 1)]))
 
         # Default collaboration parameters
         self.default_collaborations_params = {
@@ -179,7 +186,7 @@ class AuthorNames(object):
                             # Based on an arXiv author case: "collaboration,
                             # Gaia"
                             string_list.reverse()
-                            corrected_collaboration_str = u' '.join(string_list).encode('utf-8')
+                            corrected_collaboration_str = u' '.join(string_list)
 
                     if collaborations_params['first_author_delimiter']:
                         # Based on an arXiv author case: "<tag>Collaboration:
@@ -191,7 +198,7 @@ class AuthorNames(object):
                                 corrected_authors_list.append(author.strip())
                             else:
                                 corrected_authors_list.append(self._reorder_author_name(author.strip(), default_to_last_name))
-                        corrected_collaboration_str = (delimiter + u' ').join(corrected_authors_list).strip().encode('utf-8')
+                        corrected_collaboration_str = (delimiter + u' ').join(corrected_authors_list).strip()
                     break
         except Exception as e:
             logging.exception("Unexpected error in collaboration checks")
@@ -337,7 +344,11 @@ class AuthorNames(object):
 
         # Split and convert unicode characters and numerical HTML
         # (e.g. 'u'both em\u2014and&#x2013;dashes&hellip;' -> 'both em&mdash;and&ndash;dashes&hellip;')
-        authors_list = [unicode(named_entities(n.strip())) for n in authors_str.split(delimiter)]
+        if sys.version_info > (3,):
+            str_type = str
+        else:
+            str_type = unicode
+        authors_list = [str_type(named_entities(n.strip())) for n in authors_str.split(delimiter)]
 
         corrected_authors_list = []
         for author_str in authors_list:

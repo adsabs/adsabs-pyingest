@@ -50,7 +50,11 @@ class OUPJATSParser(JATSParser):
         else:
             f = f + "early.dat.nocheck"
             try:
-                with open(f,'rU') as fp:
+                if sys.version_info > (3,):
+                    tags = 'rb'
+                else:
+                    tags = 'rU'
+                with open(f, tags) as fp:
                     p = fp.readline()
                 return p.split()[0]
             except Exception as err:
@@ -175,11 +179,11 @@ class OUPJATSParser(JATSParser):
             else:
                 volume = output_metadata['volume'].rjust(4,'.')
                 if output_metadata['pub-id'] == 'ptep':
-                    issue_letter = string.letters[int(output_metadata['issue'])-1]
+                    issue_letter = string.ascii_letters[int(output_metadata['issue'])-1]
                     idno = output_metadata['page']
                     if len(idno) == 6:
                         try:
-                            idtwo = string.letters[int(idno[0:2]) - 1]
+                            idtwo = string.ascii_letters[int(idno[0:2]) - 1]
                         except Exception as err:
                             idtwo = idno[0:2]
                         idfour = idno[2:]

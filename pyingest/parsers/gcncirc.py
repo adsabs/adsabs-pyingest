@@ -75,7 +75,7 @@ class GCNCParser(DefaultParser):
         auth_string = re.sub(r',?\s+,', ',', auth_string)
 
         auth_array = [s.strip() for s in auth_string.split(',')]
-        auth_array = list(filter(lambda a: len(a) > 3, auth_array))
+        auth_array = list([a for a in auth_array if len(a) > 3])
         # auth_string = u'; '.join(auth_array)
         auth_string = auth_delimiter.join(auth_array)
         auth_mod = AuthorNames()

@@ -8,5 +8,5 @@
 %K R, Bayesian statistics, rstan, eaystats, posterior distribution, Region of practical equivalence, ROPE, probability of direction, Bayes factor, Astronomy
 %W AST
 %P 1541
-%I PDF: https://www.theoj.org/joss-papers/joss.01541/10.21105.joss.01541.pdf; DOI: 10.21105/joss.01541; data: https://doi.org/10.5281/zenodo.3361605
+%I DOI: 10.21105/joss.01541; PDF: https://www.theoj.org/joss-papers/joss.01541/10.21105.joss.01541.pdf; data: https://doi.org/10.5281/zenodo.3361605
 

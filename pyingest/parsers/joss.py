@@ -1,7 +1,13 @@
 #!/usr/bin/env python
 from __future__ import absolute_import
+from builtins import str
+from builtins import range
 from .default import BaseRSSFeedParser
-import urlparse
+from collections import OrderedDict
+try:
+    from urlparse import urlparse, parse_qs
+except ImportError:
+    from urllib.parse import urlparse, parse_qs
 import sys
 
 
@@ -75,6 +81,11 @@ class JOSSParser(BaseRSSFeedParser):
             except Exception as err:
                 pass
             database.append('PHY')
+        # keep original keyword order but remove duplicates
+        if sys.version_info > (3,):
+            keywords = list(dict.fromkeys(keywords))
+        else:
+            keywords = list(OrderedDict.fromkeys(keywords))
 
         pubdate = entry.find('published_at').text
 
@@ -106,7 +117,7 @@ class JOSSParser(BaseRSSFeedParser):
             'authors': authors,
             'affiliations': affils,
             'properties': links,
-            'keywords': list(set([k.strip() for k in keywords])),
+            'keywords': keywords,
             'pubdate': pubdate,
             'page': spage,
             'publication': journal % (volume, issue, spage),
@@ -127,8 +138,8 @@ class JOSSParser(BaseRSSFeedParser):
                 sys.stderr.write('Failed to process record %s (%s). Skipping...\n' % (d.find('id').text, err))
                 continue
 
-        parsed_path = urlparse.urlparse(joss_links['last'])
-        urlparams = urlparse.parse_qs(parsed_path.query, keep_blank_values=1)
+        parsed_path = urlparse(joss_links['last'])
+        urlparams = parse_qs(parsed_path.query, keep_blank_values=1)
         last_page = int(urlparams['page'][0])
         # if last_page equals 1, we're done
         if last_page == 1:

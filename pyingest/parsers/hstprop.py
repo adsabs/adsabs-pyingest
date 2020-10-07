@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+from __future__ import division
+from builtins import range
+from builtins import object
+from past.utils import old_div
 from argparse import ArgumentParser
 import json
 import sys
@@ -19,7 +23,7 @@ class DataError(Exception):
     pass
 
 
-class HSTParser():
+class HSTParser(object):
     # HSTParser will return a list of articles taken from a HST API
     # (https://proper.stsci.edu/proper/adsProposalSearch/query)
 
@@ -57,7 +61,7 @@ class HSTParser():
         # Store the first batch of records
         records = batch['programs']
         # How often do we need to paginate to get them all?
-        num_paginates = int(math.ceil((totrecs) / (1.0 * maxrecs)))
+        num_paginates = int(math.ceil(old_div((totrecs), (1.0 * maxrecs))))
         # If we run in test mode, do not paginate
         if kwargs.get('test'):
             num_paginates = 0
@@ -77,7 +81,7 @@ class HSTParser():
 
     def is_complete(self, rec):
         required_fields = ['bibstem', 'title', 'authorNames', 'date', 'link', 'comment', 'journalCode', 'affiliations', 'authorOrcidIdentifiers']
-        return all(elem in rec.keys() for elem in required_fields)
+        return all(elem in list(rec.keys()) for elem in required_fields)
 
     def add_orcids(self, affs, orcids):
         if len(affs) != len(orcids):

@@ -1,3 +1,4 @@
+from builtins import range
 import requests
 from pyingest.config.utils import u2asc
 from pyingest.config import config

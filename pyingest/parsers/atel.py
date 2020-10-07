@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 from __future__ import absolute_import
 from .default import BaseRSSFeedParser
-import urlparse
 import sys
 import re
 

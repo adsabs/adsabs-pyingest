@@ -1,3 +1,5 @@
+from builtins import range
+from builtins import object
 import sys
 import string
 import itertools
@@ -8,7 +10,7 @@ from namedentities import numeric_entities, named_entities
 
 
 # some utility functions
-letters = [c for c in string.uppercase]
+letters = [c for c in string.ascii_uppercase]
 double_aff = ["%c%c" % (x, y) for (x, y) in itertools.product(letters, letters)]
 triple_aff = ["%s%c" % (x, y) for (x, y) in itertools.product(double_aff, letters)]
 AFFILIATION_LABELS = double_aff + triple_aff

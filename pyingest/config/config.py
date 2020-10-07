@@ -2,6 +2,7 @@ from __future__ import print_function
 import os
 import json
 import requests
+import sys
 
 
 def get_uat(data,data_dict):
@@ -20,6 +21,11 @@ def get_uat(data,data_dict):
         for n in data:
             get_uat(n,data_dict)
 
+
+if sys.version_info > (3,):
+    tags = 'rb'
+else:
+    tags = 'rU'
 
 MONTH_TO_NUMBER = {'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
                    'jul': 7, 'aug': 8, 'sep': 9, 'oct': 10, 'nov': 11,
@@ -135,8 +141,8 @@ try:
     uat_request = requests.get(UAT_URL)
     uat_data = uat_request.json()
     get_uat(uat_request.json(), UAT_ASTRO_URI_DICT)
-    UAT_ASTRO_KEYWORDS = UAT_ASTRO_URI_DICT.keys()
-    UAT_ASTRO_URI_DICT = dict((k.lower(),v) for k,v in UAT_ASTRO_URI_DICT.items())
+    UAT_ASTRO_KEYWORDS = list(UAT_ASTRO_URI_DICT.keys())
+    UAT_ASTRO_URI_DICT = dict((k.lower(), v) for k, v in list(UAT_ASTRO_URI_DICT.items()))
 except Exception as e:
     print("Warning: could not load UAT from github!")
     UAT_ASTRO_KEYWORDS = list()
@@ -145,7 +151,7 @@ except Exception as e:
 APS_ASTRO_KEYWORDS_FILE = os.path.dirname(os.path.abspath(__file__)) + '/kw_aps_astro.dat'
 APS_ASTRO_KEYWORDS = []
 try:
-    with open(APS_ASTRO_KEYWORDS_FILE, 'rU') as fk:
+    with open(APS_ASTRO_KEYWORDS_FILE, tags) as fk:
         for l in fk.readlines():
             APS_ASTRO_KEYWORDS.append(l.strip())
 except Exception as e:
@@ -155,7 +161,7 @@ except Exception as e:
 AAS_ASTRO_KEYWORDS_FILE = os.path.dirname(os.path.abspath(__file__)) + '/kw_aas_astro.dat'
 AAS_ASTRO_KEYWORDS = []
 try:
-    with open(AAS_ASTRO_KEYWORDS_FILE, 'rU') as fk:
+    with open(AAS_ASTRO_KEYWORDS_FILE, tags) as fk:
         for l in fk.readlines():
             AAS_ASTRO_KEYWORDS.append(l.strip())
 except Exception as e:
@@ -183,7 +189,7 @@ AUTHOR_ALIAS_DIR = '/proj/ads/abstracts/config/Authors/'
 HTML_ENTITY_TABLE = os.path.dirname(os.path.abspath(__file__)) + '/html5.dat'
 ENTITY_DICTIONARY = dict()
 try:
-    with open(HTML_ENTITY_TABLE, 'rU') as fent:
+    with open(HTML_ENTITY_TABLE, tags) as fent:
         for l in fent.readlines():
             carr = l.rstrip().split('\t')
 
@@ -237,9 +243,7 @@ PROQUEST_DATASOURCE = "UMI"
 PROQUEST_BIB_TO_PUBNUM_FILE = os.path.dirname(os.path.abspath(__file__)) + 'bibcode2pubno.dat'
 PROQUEST_BIB_TO_PUBNUM = dict()
 try:
-    result = map(lambda b: PROQUEST_BIB_TO_PUBNUM.update({b[0]:b[1]}),
-             map(lambda a: a.split(),
-             open(PROQUEST_BIB_TO_PUBNUM_FILE).read().strip().split('\n')))
+    result = [PROQUEST_BIB_TO_PUBNUM.update({b[0]:b[1]}) for b in [a.split() for a in open(PROQUEST_BIB_TO_PUBNUM_FILE).read().strip().split('\n')]]
 except Exception as err:
     pass
 

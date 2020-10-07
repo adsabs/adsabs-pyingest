@@ -1,8 +1,14 @@
 from __future__ import print_function
 from __future__ import absolute_import
+from builtins import next
 import os
 import re
-import pymarc
+import sys
+if sys.version_info > (3,):
+    import pymarc
+else:
+    print('Error: need to manually install an older version of pymarc for ingestion. '
+          'Run the following: "pip install pymarc<=2.9.1"')
 from pyingest.config import config
 from pyingest.parsers.author_names import AuthorNames
 from .default import DefaultParser

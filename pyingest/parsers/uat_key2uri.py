@@ -1,8 +1,9 @@
+from builtins import object
 import re
 from pyingest.config import config
 
 
-class UATURIConverter():
+class UATURIConverter(object):
     '''
     Takes a string containing a comma-separated list of string as input,
     and converts any that match UAT entities to their UAT:URI_# instead 

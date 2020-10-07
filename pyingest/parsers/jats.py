@@ -13,7 +13,12 @@ from .entity_convert import EntityConverter
 import namedentities
 import re
 import copy
+import sys
 
+if sys.version_info > (3,):
+    str_type = str
+else:
+    str_type = unicode
 
 class NoSchemaException(Exception):
     pass
@@ -34,7 +39,7 @@ class JATSParser(BaseBeautifulSoupParser):
 
     def _detag(self, r, tags_keep, **kwargs):
 
-        newr = bs4.BeautifulSoup(unicode(r), 'html5lib')
+        newr = bs4.BeautifulSoup(str_type(r), 'html5lib')
         try:
             tag_list = list(set([x.name for x in newr.find_all()]))
         except Exception as err:
@@ -69,7 +74,7 @@ class JATSParser(BaseBeautifulSoupParser):
         # Note: newr is converted from a bs4 object to unicode here.
         # Everything after this point is string manipulation.
 
-        newr = unicode(newr)
+        newr = str_type(newr)
 
         # amp_pat = r'(?<=&amp\;)(.*?)(?=\;)'
         amp_pat = r'(&amp;)(.*?)(;)'
@@ -95,7 +100,7 @@ class JATSParser(BaseBeautifulSoupParser):
 
     def resource_dict(self, fp, **kwargs):
         d = self.bsfiletodict(fp, **kwargs)
-        r = self.bsstrtodict(unicode(d.article), **kwargs)
+        r = self.bsstrtodict(str_type(d.article), **kwargs)
         return r
 
     def parse(self, fp, **kwargs):
@@ -115,7 +120,7 @@ class JATSParser(BaseBeautifulSoupParser):
 
         base_metadata = {}
 
-# Title:
+        # Title:
         title_xref_list = []
         title_fn_list = []
         try:
@@ -144,7 +149,7 @@ class JATSParser(BaseBeautifulSoupParser):
             base_metadata['title'] = (
                 self._detag(title, JATS_TAGSET['title']).strip())
 
-# Abstract:
+        # Abstract:
         try:
             abstract = article_meta.abstract.p
         except Exception as err:
@@ -533,7 +538,7 @@ class JATSParser(BaseBeautifulSoupParser):
                         month = MONTH_TO_NUMBER[month_name]
                     else:
                         month = self._detag(d.month, [])
-                    if month < 10:
+                    if int(month) < 10:
                         month = "0" + str(month)
                     else:
                         month = str(month)
@@ -600,7 +605,7 @@ class JATSParser(BaseBeautifulSoupParser):
             try:
                 ref_results = back_meta.find('ref-list').find_all('ref')
                 for r in ref_results:
-                    s = unicode(r.extract()).replace('\n', '')
+                    s = str_type(r.extract()).replace('\n', '')
                     s = re.sub(r'\s+',r' ',s)
                     s = namedentities.named_entities(s)
                     ref_list_text.append(s)
