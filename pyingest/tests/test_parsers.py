@@ -107,18 +107,18 @@ class TestAuthorNames(unittest.TestCase):
 
     def setUp(self):
         self.author_names = AuthorNames()
-        self.authors_str = u"robert white smith; m. power; maria antonia de la paz; bla., bli.; the collaboration: john stuart; collaboration, Gaia; John; github_handle;;.."
+        self.authors_str = u"robert white smith; m. power; maria antonia de la paz; bla., bli.; the collaboration: john stuart; collaboration, gaia; john; github_handle;;.."
 
     def test_default_author_names(self):
         # expected_authors_str = u"white smith, robert; power, m.; de la paz, maria antonia; bla., bli.; Collaboration; stuart, john; Collaboration, Gaia; John; github_handle; Unknown, Unknown; .."
-        expected_authors_str = u"white smith, robert; power, m.; de la paz, maria antonia; bla., bli.; Collaboration; stuart, john; Collaboration, Gaia; John; github_handle; ; .."
+        expected_authors_str = u"white smith, robert; power, m.; de la paz, maria antonia; bla., bli.; Collaboration; stuart, john; Collaboration, gaia; john; github_handle; ; .."
         # Default
         corrected_authors_str = self.author_names.parse(self.authors_str)
         self.assertEqual(corrected_authors_str, expected_authors_str)
 
     def test_normalize_author_names(self):
-        corrected_authors_str = u"white smith, robert; power, m; de la paz, maria antonia; bla, bli; Collaboration; stuart, john; Collaboration, Gaia; John; github_handle; ; "
-        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; Collaboration; Stuart, J; Collaboration Gaia; John; github_handle; ; "
+        corrected_authors_str = u"white smith, Robert; power, M; de la paz, Maria Antonia; bla, Bli; Collaboration; stuart, John; Collaboration, gaia; john; github_handle; ; "
+        expected_normalized_authors_str = u"white smith, R; power, M; de la paz, M A; bla, B; Collaboration; stuart, J; Collaboration gaia; john; github_handle; ; "
         # Normalize
         normalized_authors_str = self.author_names._normalize(corrected_authors_str)
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
@@ -126,7 +126,7 @@ class TestAuthorNames(unittest.TestCase):
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
 
     def test_ignore_collaborations_in_author_names(self):
-        expected_normalized_authors_str = "White Smith, R; Power, M; De La Paz, M A; Bla, B; Stuart, T C J; Collaboration, G; John; github_handle; ; "
+        expected_normalized_authors_str = "white smith, R; power, M; de la paz, M A; bla, B; stuart, T C J; collaboration, G; john; github_handle; ; "
         collaborations_params = {
             'keywords': [],
             'first_author_delimiter': None,
@@ -137,7 +137,7 @@ class TestAuthorNames(unittest.TestCase):
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
 
     def test_remove_the_from_collaborations_in_author_names(self):
-        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; Collaboration; Stuart, J; Collaboration Gaia; John; github_handle; ; "
+        expected_normalized_authors_str = u"white smith, R; power, M; de la paz, M A; bla, B; Collaboration; stuart, J; Collaboration gaia; john; github_handle; ; "
         collaborations_params = {
             'keywords': ['group', 'team', 'collaboration'],
             'first_author_delimiter': ':',
@@ -148,7 +148,7 @@ class TestAuthorNames(unittest.TestCase):
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
 
     def test_ignore_names_in_collaborations_in_author_names(self):
-        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; the Collaboration: john stuart; Collaboration Gaia; John; github_handle; ; "
+        expected_normalized_authors_str = u"white smith, R; power, M; de la paz, M A; bla, B; the Collaboration: john stuart; Collaboration gaia; john; github_handle; ; "
         collaborations_params = {
             'keywords': ['group', 'team', 'collaboration'],
             'first_author_delimiter': None,
@@ -159,7 +159,7 @@ class TestAuthorNames(unittest.TestCase):
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
 
     def test_fix_arXiv_mixed_collaboration_string(self):
-        expected_normalized_authors_str = u"White Smith, R; Power, M; De La Paz, M A; Bla, B; the Collaboration: john stuart; Gaia Collaboration; John; github_handle; ; "
+        expected_normalized_authors_str = u"white smith, R; power, M; de la paz, M A; bla, B; the Collaboration: john stuart; gaia Collaboration; john; github_handle; ; "
         collaborations_params = {
             'keywords': ['group', 'team', 'collaboration'],
             'first_author_delimiter': None,
@@ -168,6 +168,12 @@ class TestAuthorNames(unittest.TestCase):
         }
         normalized_authors_str = self.author_names.parse(self.authors_str, normalize=True, collaborations_params=collaborations_params)
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
+
+    def test_dutch_people(self):
+        input_names = u"Berg, Imme van den; Imme van den Berg; 't Hooft, Gerard; Hooft, Gerard 't; Hooft, Bas van't; van't Hooft, Bas"
+        expected_output_names = u"van den Berg, I; van den Berg, I; 't Hooft, G; 't Hooft, G; van't Hooft, B; van't Hooft, B"
+        output_names = self.author_names.parse(input_names, normalize=True)
+        self.assertEqual(output_names, expected_output_names)
 
 
 class TestArxiv(unittest.TestCase):
@@ -271,18 +277,6 @@ class TestOUP(unittest.TestCase):
 
         return
 
-    # def test_tex_abstract(self):
-        # parser = oup.OUPJATSParser()
-        # config.REFERENCE_TOPDIR = '/dev/null'
-        # input_data_file = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/mnras_cdata_example_staa093.xml')
-        # print ("OMFG:",input_data_file)
-        # with open(input_data_file,'r') as fp:
-            # test_data = parser.parse(fp)
-            # self.assertIsNotNone(test_data)
-        # print ("LOL",test_data['abstract'])
-        # self.assertEqual(1,2)
-        # return
-
 
 class TestAPSJATS(unittest.TestCase):
 
@@ -309,8 +303,6 @@ class TestAPSJATS(unittest.TestCase):
         with open(testfile, 'rU') as fp:
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
-            print "LOL DOCUMENT:",document
-            print "LOL SHOULDBE:",shouldbe
         self.assertDictEqual(document, shouldbe)
 
 
