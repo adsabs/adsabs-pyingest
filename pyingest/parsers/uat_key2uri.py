@@ -1,5 +1,7 @@
 from builtins import object
 import re
+import sys
+from collections import OrderedDict
 from pyingest.config import config
 
 
@@ -14,7 +16,10 @@ class UATURIConverter(object):
     def convert_to_uri(self,kw_list):
         try:
             kw_list_new = [x.strip() for x in kw_list.split(',')]
-            kw_list_new = list(set(kw_list_new))
+            if sys.version_info > (3,):
+                kw_list_new = list(dict.fromkeys(kw_list_new))
+            else:
+                kw_list_new = list(OrderedDict.fromkeys(kw_list_new))
             uat_conv = UATURIConverter()
             kwl = list()
             for kw in kw_list_new:

@@ -1,5 +1,6 @@
 from builtins import range
 import requests
+from collections import OrderedDict
 from pyingest.config.utils import u2asc
 from pyingest.config import config
 from pyingest.parsers.default import BaseBeautifulSoupParser

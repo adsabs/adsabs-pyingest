@@ -4,7 +4,7 @@ from builtins import next
 import os
 import re
 import sys
-if sys.version_info > (3,):
+if sys.version_info > (3,) or 'unittest' in sys.modules.keys():
     import pymarc
 else:
     print('Error: need to manually install an older version of pymarc for ingestion. '
@@ -42,7 +42,7 @@ class ProQuestParser(DefaultParser):
         try:
             for chunk in rec.get_fields('650'):
                 if chunk['a'] not in subjects:
-                    cat = re.sub('\.$','',chunk['a'])
+                    cat = re.sub('\\.$','',chunk['a'])
                     try:
                         db = config.PROQUEST_TO_DB.get(cat, 'PHY')
                         if 'physics' in cat.lower():
@@ -79,7 +79,10 @@ class ProQuestParser(DefaultParser):
                 jfield = ['ProQuest Dissertations And Thesis']
 
                 # read each record into a pymarc object
-                reader = pymarc.MARCReader(r, to_unicode=True)
+                if sys.version_info > (3,):
+                    reader = pymarc.MARCReader(r.encode('utf-8'), to_unicode=True)
+                else:
+                    reader = pymarc.MARCReader(r, to_unicode=True)
                 record = next(reader)
 
                 # ProQuest ID (001)
@@ -103,14 +106,14 @@ class ProQuestParser(DefaultParser):
 
                 # Author (100)
                 try:
-                    author = re.sub('\.$','',record['100']['a'].strip())
+                    author = re.sub('\\.$','',record['100']['a'].strip())
                     # author = auth_parse.parse(author)
                 except Exception as err:
                     author = ''
             
                 # Title
                 try:
-                    title = re.sub('\.$','',record['245']['a'].strip())
+                    title = re.sub('\\.$','',record['245']['a'].strip())
                 except:
                     title = ''
 

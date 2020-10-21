@@ -11,6 +11,7 @@ import sys
 import os
 import glob
 import json
+import feedparser
 from mock import patch, Mock, mock_open
 
 from pyingest.parsers import aps
@@ -22,6 +23,8 @@ from pyingest.parsers import hstprop
 from pyingest.parsers import iop
 from pyingest.parsers import joss
 from pyingest.parsers import oup
+from pyingest.parsers import pnas
+from pyingest.parsers import proquest
 from pyingest.parsers import procsci
 from pyingest.parsers import zenodo
 from pyingest.config import config
@@ -548,3 +551,72 @@ class TestGCNC(unittest.TestCase):
             self.assertEqual(test_data['bibcode'], output_bibcode)
             self.assertEqual(test_data['authors'], output_authors)
             self.assertEqual(test_data['publication'], output_pub)
+
+class TestProQuest(unittest.TestCase):
+
+    def setUp(self):
+        stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata')
+        config.PROQUEST_BASE_PATH = os.path.join(stubdata_dir, 'input/')
+        self.outputdir = os.path.join(stubdata_dir, 'serialized')
+
+    def test_proquest_parser(self):
+        infilename = 'SAO_NASA_Sep_2020.UNX'
+        parser = proquest.ProQuestParser(infilename)
+        parsed = parser.parse()
+        serializer = classic.Tagged()
+        standard_outfile = os.path.join(self.outputdir, 'SAO_NASA_Sep_2020.UNX.new')
+        test_outfile = os.path.join(self.outputdir, 'test_proquest.UNX.new')
+        try:
+            os.remove(test_outfile)
+        except Exception as err:
+            pass
+        with open(test_outfile, 'w') as fo:
+            for rec in parser.results:
+                serializer.write(rec, fo)
+        result = filecmp.cmp(test_outfile, standard_outfile)
+        self.assertEqual(result, True)
+        os.remove(test_outfile)
+
+class TestPnas(unittest.TestCase):
+
+    def setUp(self):
+        self.stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata')
+        self.patcher = patch('requests.get')
+        self.requests_mock = self.patcher.start()
+
+    def test_pnas_parser(self):
+        mock_infile = os.path.join(self.stubdata_dir, 'input', 'pnas_feedparser.resp')
+        mock_html_file = os.path.join(self.stubdata_dir, 'input', 'pnas_resp.html')
+        if sys.version_info > (3,):
+            tags = 'rb'
+        else:
+            tags = 'rU'
+        mock_data = open(mock_infile, tags).read()
+        mock_html = open(mock_html_file, tags).read()
+        self.requests_mock.return_value.text = MockResponse(mock_html)
+        feed = json.loads(mock_data)
+        for _item in feed['entries']:
+            record = {}
+            absURL = _item['link']
+            volno = _item['prism_volume'].zfill(4)
+            ident = _item['dc_identifier']
+            ident = ident.replace('hwp:master-id:pnas;', '')
+            parser = pnas.PNASParser()
+            output = parser.parse(absURL)
+
+        serializer = classic.Tagged()
+        test_outfile = os.path.join(self.stubdata_dir, 'serialized', 'test_pnas.tag')
+        if sys.version_info > (3,):
+            standard_outfile = os.path.join(self.stubdata_dir, 'serialized', 'python3', 'pnas.tag')
+        else:
+            standard_outfile = os.path.join(self.stubdata_dir, 'serialized', 'pnas.tag')
+        try:
+            os.remove(test_outfile)
+        except Exception as err:
+            pass
+        with open(test_outfile, 'w') as fo:
+            serializer.write(output, fo)
+
+        result = filecmp.cmp(test_outfile, standard_outfile)
+        self.assertEqual(result, True)
+        os.remove(test_outfile)
