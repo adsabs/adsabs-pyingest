@@ -8,7 +8,6 @@ import re
 class ATelParser(BaseRSSFeedParser):
 
     def extract_data(self, entry):
-        rec = {}
         links = {}
         # Journal string template
         journal = "The Astronomer's Telegram, No. %s"

@@ -180,7 +180,7 @@ class TeiXmlParser(BaseXmlToDictParser):
         ainfo = author.get('affiliation', {}).get('address', {})
         affil = [org]
         for k in ('settlement', 'region', 'postCode'):
-            if (ainfo.get(k)):
+            if ainfo.get(k):
                 affil.append(ainfo[k])
 
         return ", ".join(affil)

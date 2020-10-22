@@ -2,12 +2,11 @@
 Test parsers
 """
 
-from builtins import zip
 import unittest
 import sys
 import os
 import glob
-import json
+
 try:
     from cStringIO import StringIO
 except ImportError:

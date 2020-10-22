@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 
-from __future__ import division
-from builtins import range
-from builtins import object
 from past.utils import old_div
-from argparse import ArgumentParser
-import json
 import sys
 import math
 import requests
@@ -46,7 +41,6 @@ class HSTParser(object):
         token = kwargs['api_key']
         del kwargs['api_key']
         buff = {}
-        records = []
         # Store the value of maxRecords, if this was set
         maxrecs = kwargs.get('maxRecords', 200)
         # First get 1 record to determine the total amount of records
@@ -61,7 +55,7 @@ class HSTParser(object):
         # Store the first batch of records
         records = batch['programs']
         # How often do we need to paginate to get them all?
-        num_paginates = int(math.ceil(old_div((totrecs), (1.0 * maxrecs))))
+        num_paginates = int(math.ceil(old_div(totrecs, (1.0 * maxrecs))))
         # If we run in test mode, do not paginate
         if kwargs.get('test'):
             num_paginates = 0

@@ -1,19 +1,17 @@
-from builtins import object
-import re
 import sys
 from collections import OrderedDict
 from pyingest.config import config
 
 
 class UATURIConverter(object):
-    '''
+    """
     Takes a string containing a comma-separated list of string as input,
     and converts any that match UAT entities to their UAT:URI_# instead 
     (not including URL).  Returns a string consisting of comma-separated
     keywords/uris.
-    '''
+    """
 
-    def convert_to_uri(self,kw_list):
+    def convert_to_uri(self, kw_list):
         try:
             kw_list_new = [x.strip() for x in kw_list.split(',')]
             if sys.version_info > (3,):

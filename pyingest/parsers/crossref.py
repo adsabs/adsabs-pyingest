@@ -1,4 +1,3 @@
-from builtins import object
 from habanero import Crossref
 
 

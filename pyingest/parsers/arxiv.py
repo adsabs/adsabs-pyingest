@@ -51,7 +51,6 @@ class ArxivParser(DublinCoreParser):
 
     def parse(self, fp, **kwargs):
 
-
         try:
             result = super(self.__class__, self).parse(fp, **kwargs)
         except expat.ExpatError:

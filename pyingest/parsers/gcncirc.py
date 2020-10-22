@@ -1,9 +1,6 @@
 from __future__ import print_function
 from __future__ import absolute_import
-import sys
-import json
 import re
-import logging
 from pyingest.config.utils import u2asc
 from .default import DefaultParser
 from .author_names import AuthorNames

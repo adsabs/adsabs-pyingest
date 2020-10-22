@@ -8,11 +8,14 @@ from .jats import JATSParser
 from pyingest.config.config import *
 from pyingest.parsers.entity_convert import EntityConverter
 
+
 class NoSchemaException(Exception):
     pass
 
+
 class WrongSchemaException(Exception):
     pass
+
 
 class UnparseableException(Exception):
     pass
@@ -24,8 +27,7 @@ class AIPJATSParser(JATSParser):
     AST_WORDS = AST_WORDS + [x.lower() for x in AAS_ASTRO_KEYWORDS]
     AST_WORDS = AST_WORDS + [x.lower() for x in APS_ASTRO_KEYWORDS]
 
-
-    def get_author_init(self,namestring):
+    def get_author_init(self, namestring):
         output = u2asc(namestring)
         for c in output:
             if c.isalpha():
@@ -58,14 +60,14 @@ class AIPJATSParser(JATSParser):
             except Exception as err:
                 pass
             else:
-                pubstring = pubstring +', Volume '+ output_metadata['volume']
+                pubstring = pubstring + ', Volume ' + output_metadata['volume']
             
                 try:
                     output_metadata['issue']
                 except TypeError:
                     pass
                 else:
-                    pubstring = pubstring +', Issue '+ output_metadata['issue']
+                    pubstring = pubstring + ', Issue ' + output_metadata['issue']
 
                 try:
                     output_metadata['page']
@@ -103,8 +105,8 @@ class AIPJATSParser(JATSParser):
             pass
         else:
             year = output_metadata['pubdate'][-4:]
-            bibstem = j_bibstem.ljust(5,'.')
-            volume = output_metadata['volume'].rjust(4,'.')
+            bibstem = j_bibstem.ljust(5, '.')
+            volume = output_metadata['volume'].rjust(4, '.')
             if j_bibstem == 'AIPC':
                 issue_letter = string.letters[int(output_metadata['page'][0:2]) - 1]
             else:
@@ -118,7 +120,7 @@ class AIPJATSParser(JATSParser):
                 idfour = idno[2:]
             else:
                 idtwo = ''
-                idfour = idno.rjust(4,'.')
+                idfour = idno.rjust(4, '.')
             idno = idfour
             try:
                 author_init = self.get_author_init(output_metadata['authors'])
@@ -143,4 +145,3 @@ class AIPJATSParser(JATSParser):
     
         # Return
         return output_metadata
-

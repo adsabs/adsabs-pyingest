@@ -1,6 +1,3 @@
-#from builtins import str
-from builtins import object
-import os
 from pyingest.config.config import *
 
 

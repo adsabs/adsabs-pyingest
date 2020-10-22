@@ -20,6 +20,7 @@ if sys.version_info > (3,):
 else:
     str_type = unicode
 
+
 class NoSchemaException(Exception):
     pass
 
@@ -89,7 +90,7 @@ class JATSParser(BaseBeautifulSoupParser):
 
         # CDATA removal
         # cdata_pat = r'(\<.*?CDATA\[*)(.*?)(\]*>)' # csg 2020apr06
-        cdata_pat = r'(<inline-formula>.*?CDATA\[*)(.*?)(\]*<\/inline-formula>)' # csg 2020apr30
+        cdata_pat = r'(<inline-formula>.*?CDATA\[*)(.*?)(\]*<\/inline-formula>)'  # csg 2020apr30
         cdata = re.findall(cdata_pat, newr)
         for s in cdata:
             s_old = ''.join(s)
@@ -130,8 +131,7 @@ class JATSParser(BaseBeautifulSoupParser):
         else:
             try:
                 for dx in title.find_all('xref'):
-                    title_xref_list.append(self._detag(dx,
-                        JATS_TAGSET['abstract']).strip())
+                    title_xref_list.append(self._detag(dx, JATS_TAGSET['abstract']).strip())
                     dx.decompose()
                 # title.xref.decompose()
                 # title.xref.extract()
@@ -139,8 +139,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 pass
             try:
                 for df in title.find_all('fn'):
-                    title_fn_list.append(self._detag(df,
-                        JATS_TAGSET['abstract']).strip())
+                    title_fn_list.append(self._detag(df, JATS_TAGSET['abstract']).strip())
                     df.decompose()
                 # title.fn.decompose()
                 # title.fn.extract()
@@ -281,7 +280,6 @@ class JATSParser(BaseBeautifulSoupParser):
                             aff_text = self._detag(aff_id, JATS_TAGSET['affiliations'])
                     except Exception as err:
                         pass
-                
 
                 # Author names
                 if a.find('collab') is not None:
@@ -337,9 +335,9 @@ class JATSParser(BaseBeautifulSoupParser):
 
                 try:
                     new_aid_arr = []
-                    for a in affils.keys():
-                        if a in aid_arr:
-                            new_aid_arr.append(a)
+                    for af in affils.keys():
+                        if af in aid_arr:
+                            new_aid_arr.append(af)
                     aid_arr = new_aid_arr
 
                     # check whether or not you got affil data in one way or the other...
@@ -391,25 +389,21 @@ class JATSParser(BaseBeautifulSoupParser):
                     keys_uat_test = kg.find_all('compound-kwd-part')
                     for kk in keys_uat_test:
                         if kk['content-type'] == 'uat-code':
-                            keys_uat.append(self._detag(kk, 
-                                JATS_TAGSET['keywords']))
+                            keys_uat.append(self._detag(kk, JATS_TAGSET['keywords']))
                     if not keys_uat:
                         keys_misc_test = kg.find_all('kwd')
                         for kk in keys_misc_test:
-                            keys_misc.append(self._detag(kk, 
-                                JATS_TAGSET['keywords']))
+                            keys_misc.append(self._detag(kk, JATS_TAGSET['keywords']))
                 # Then check for AAS:
                 elif kg['kwd-group-type'] == 'AAS':
                     keys_aas_test = kg.find_all('kwd')
                     for kk in keys_aas_test:
-                        keys_aas.append(self._detag(kk, 
-                            JATS_TAGSET['keywords']))
+                        keys_aas.append(self._detag(kk, JATS_TAGSET['keywords']))
                 # If all else fails, just search for 'kwd'
                 else:
                     keys_misc_test = kg.find_all('kwd')
                     for kk in keys_misc_test:
-                        keys_misc.append(self._detag(kk, 
-                            JATS_TAGSET['keywords']))
+                        keys_misc.append(self._detag(kk, JATS_TAGSET['keywords']))
 
             if keys_uat:
                 uatkeys = keys_uat
@@ -437,8 +431,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     if c['subj-group-type'] == 'toc-minor':
                         klist = []
                         for k in c.find_all('subject'):
-                            klist.append(self._detag(k, (
-                                JATS_TAGSET['keywords'])))
+                            klist.append(self._detag(k, JATS_TAGSET['keywords']))
                         base_metadata['keywords'] = ', '.join(klist)
                 except Exception as err:
                     pass
@@ -471,12 +464,12 @@ class JATSParser(BaseBeautifulSoupParser):
                 pass
 
         try:
-            jid = journal_meta.find('journal-id', {'journal-id-type':'publisher-id'})
+            jid = journal_meta.find('journal-id', {'journal-id-type': 'publisher-id'})
             if jid:
                 base_metadata['pub-id'] = self._detag(jid, [])
             else:
                 try:
-                    jid = journal_meta.find('journal-id', {'journal-id-type':'coden'})
+                    jid = journal_meta.find('journal-id', {'journal-id-type': 'coden'})
                     if jid:
                         base_metadata['coden'] = self._detag(jid, [])
                 except Exception as err:
@@ -503,8 +496,8 @@ class JATSParser(BaseBeautifulSoupParser):
             ax_pref = 'https://arxiv.org/abs/'
             for ax in arxiv:
                 try:
-                    x_name = self._detag(ax.find('meta-name'),[])
-                    x_value = self._detag(ax.find('meta-value'),[])
+                    x_name = self._detag(ax.find('meta-name'), [])
+                    x_value = self._detag(ax.find('meta-value'), [])
                     if x_name == 'arxivppt':
                         base_metadata['properties']['HTML'] = ax_pref + x_value
                 except Exception as err:
@@ -596,7 +589,6 @@ class JATSParser(BaseBeautifulSoupParser):
             base_metadata['numpages'] = '<NUMPAGES>' + pagecount['count'] + '</NUMPAGES>'
         except Exception as err:
             pass
-            
 
         # References (now using back_meta):
         if back_meta is not None:
@@ -606,7 +598,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 ref_results = back_meta.find('ref-list').find_all('ref')
                 for r in ref_results:
                     s = str_type(r.extract()).replace('\n', '')
-                    s = re.sub(r'\s+',r' ',s)
+                    s = re.sub(r'\s+', r' ', s)
                     s = namedentities.named_entities(s)
                     ref_list_text.append(s)
             except Exception as err:

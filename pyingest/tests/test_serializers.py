@@ -3,8 +3,6 @@ Test serializer
 """
 
 import unittest
-import sys
-import os
 import glob
 import json
 try:

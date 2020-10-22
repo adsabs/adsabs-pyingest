@@ -1,6 +1,4 @@
-from builtins import range
 from past.builtins import basestring
-from builtins import object
 import os
 import sys
 import re
@@ -61,7 +59,6 @@ class AuthorNames(object):
             return self._normalize_author(self.unknown_author_str,
                                           collaborations_params)
 
-        normalized_author_str = u''
         # Check first if it is a collaboration, given that collaboration strings
         # may have commas and it may be wrongly interpreted as a name
         collaboration = False
@@ -226,7 +223,7 @@ class AuthorNames(object):
             author.first = author.suffix
             author.suffix = u'Jr.'
 
-        if (author.middle):
+        if author.middle:
             # Move middle names to first name if detected as so,
             # or move to last name if detected as so
             # or move to the default

@@ -1,4 +1,3 @@
-from builtins import object
 import re
 from pyingest.config import config
 

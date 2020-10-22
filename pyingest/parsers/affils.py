@@ -1,5 +1,4 @@
 from __future__ import print_function
-from builtins import str
 import re
 import sys
 from .default import BaseBeautifulSoupParser
@@ -23,7 +22,6 @@ class AffiliationParser(BaseBeautifulSoupParser):
             str_type = str
         else:
             str_type = unicode
-        orcid = str_type('')
         try:
             if not self.input_tagged.orcid:
                 if not self.input_tagged.id:
@@ -44,7 +42,6 @@ class AffiliationParser(BaseBeautifulSoupParser):
         return orcid
 
     def find_email_tag(self):
-        email = u''
         try:
             if not self.input_tagged.email:
                 email = u''

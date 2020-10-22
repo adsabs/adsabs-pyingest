@@ -1,7 +1,5 @@
 from __future__ import print_function
 from __future__ import absolute_import
-from builtins import next
-import os
 import re
 import sys
 if sys.version_info > (3,) or 'unittest' in sys.modules.keys():
@@ -24,7 +22,7 @@ class ProQuestParser(DefaultParser):
 
     def __init__(self, filename):
         marc_input_file = config.PROQUEST_BASE_PATH + filename
-        oa_input_file = marc_input_file.replace('.UNX','_OpenAccessTitles.csv')
+        oa_input_file = marc_input_file.replace('.UNX', '_OpenAccessTitles.csv')
         self.records = open(marc_input_file).read().strip().split('\n')
         oa_input_data = open(oa_input_file).read().strip().split('\n')
         self.oa_pubnum = list()
@@ -42,7 +40,7 @@ class ProQuestParser(DefaultParser):
         try:
             for chunk in rec.get_fields('650'):
                 if chunk['a'] not in subjects:
-                    cat = re.sub('\\.$','',chunk['a'])
+                    cat = re.sub('\\.$', '', chunk['a'])
                     try:
                         db = config.PROQUEST_TO_DB.get(cat, 'PHY')
                         if 'physics' in cat.lower():
@@ -51,7 +49,7 @@ class ProQuestParser(DefaultParser):
                             db = 'AST'
                         if db not in databases:
                             databases.append(db)
-                    except:
+                    except Exception as err:
                         # if cat not in missingCats:
                             # missingCats.append(cat)
                         # sys.stderr.write("Could not find DB for category: %s\n"%cat)
@@ -59,7 +57,7 @@ class ProQuestParser(DefaultParser):
                     subjects.append(cat)
         except Exception as err:
             pass
-        return databases,subjects
+        return databases, subjects
 
     def parse(self):
 
@@ -87,7 +85,7 @@ class ProQuestParser(DefaultParser):
 
                 # ProQuest ID (001)
                 proqid = record['001'].value()
-                pubnr = proqid.replace('AAI','')
+                pubnr = proqid.replace('AAI', '')
 
                 # MARC 2.1 fixed length data elements (005)
                 flde = record['005'].value()
@@ -101,26 +99,26 @@ class ProQuestParser(DefaultParser):
                 # ISBN (020)
                 try:
                     isbn = record['020']['a']
-                except:
+                except Exception as err:
                     isbn = ''
 
                 # Author (100)
                 try:
-                    author = re.sub('\\.$','',record['100']['a'].strip())
+                    author = re.sub('\\.$', '', record['100']['a'].strip())
                     # author = auth_parse.parse(author)
                 except Exception as err:
                     author = ''
             
                 # Title
                 try:
-                    title = re.sub('\\.$','',record['245']['a'].strip())
-                except:
+                    title = re.sub('\\.$', '', record['245']['a'].strip())
+                except Exception as err:
                     title = ''
 
                 # Page length
                 try:
                     npage = record['300']['a']
-                except:
+                except Exception as err:
                     npage = ''
 
                 # Source
@@ -130,9 +128,9 @@ class ProQuestParser(DefaultParser):
                     pass
                 else:
                     jfield.append(school)
-                jfield.append('Publication Number: %s'%re.sub('AAI','AAT ',proqid))
+                jfield.append('Publication Number: %s' % re.sub('AAI', 'AAT ', proqid))
                 if isbn:
-                    jfield.append('ISBN: %s'%isbn)
+                    jfield.append('ISBN: %s' % isbn)
                
                 try:
                     publsh = record['500']['a']
@@ -143,28 +141,24 @@ class ProQuestParser(DefaultParser):
 
                 if npage:
                     jfield.append(npage)
-          
-
 
                 # Abstract (multiline field: 520)
                 abstract = ''
                 for l in record.get_fields('520'):
                     try:
                         abstract += ' ' + l.value().strip()
-                    except:
+                    except Exception as err:
                         pass
                 abstract = abstract.strip()
 
-
                 # ADS Collection/Database
                 (databases, subjects) = self.get_db(record)
-             
 
                 # Affil
-                affil=''
+                affil = ''
                 try:
                     affil = record['710']['a'].rstrip('.')
-                except:
+                except Exception as err:
                     pass
                 else:
                     try:
@@ -210,9 +204,6 @@ class ProQuestParser(DefaultParser):
                 else:
                     url = url_base % pubnr
                 properties['ELECTR'] = url
-             
-                    
-
 
                 output_metadata['source'] = datasource
                 output_metadata['authors'] = author
@@ -234,7 +225,6 @@ class ProQuestParser(DefaultParser):
                     output_metadata['subjectcategory'] = subjects
                 if properties:
                     output_metadata['properties'] = properties
-
 
             except Exception as err:
                 print("Record skipped, MARC parsing failed: %s" % err)

@@ -3,10 +3,6 @@
 from __future__ import print_function
 from __future__ import absolute_import
 from past.builtins import basestring
-import sys
-import os
-import json
-import codecs
 import string
 from pyingest.config.utils import u2asc
 from .jats import JATSParser
@@ -133,7 +129,7 @@ class IOPJATSParser(JATSParser):
                 issue_letter = u'L'
                 idno = idno.replace('L', '.')
 
-            if (bibstem in IOP_SPECIAL_ID_HANDLING):
+            if bibstem in IOP_SPECIAL_ID_HANDLING:
                 bib_tail = idno + author_init
             else:
                 bib_tail = issue_letter + idno + author_init

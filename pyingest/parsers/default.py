@@ -1,9 +1,5 @@
-from builtins import map
-from builtins import range
 from past.builtins import basestring
-from builtins import object
 import re
-import sys
 import bs4
 import xmltodict as xmltodict_parser
 try:

@@ -1,6 +1,4 @@
-from builtins import object
 import os
-import sys
 import json
 import jsonschema
 

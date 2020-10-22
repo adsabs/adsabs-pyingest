@@ -2,11 +2,7 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
-#from builtins import chr
 from past.builtins import basestring
-import sys
-import json
-import codecs
 from pyingest.config.utils import u2asc
 from .jats import JATSParser
 from pyingest.config.config import *
@@ -27,7 +23,6 @@ class UnparseableException(Exception):
 class APSJATSParser(JATSParser):
 
     AST_WORDS = [x.lower() for x in APS_ASTRO_KEYWORDS]
-    
 
     def get_author_init(self, namestring):
         output = u2asc(namestring)

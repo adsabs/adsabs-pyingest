@@ -3,15 +3,12 @@ Test parsers
 """
 from __future__ import print_function
 
-from builtins import zip
-from builtins import object
 import unittest
 import filecmp
 import sys
 import os
 import glob
 import json
-import feedparser
 from mock import patch, Mock, mock_open
 
 from pyingest.parsers import aps
@@ -335,8 +332,8 @@ class TestAPSJATS(unittest.TestCase):
         with open(testfile, self.tags) as fp:
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
-            print("LOL DOCUMENT:",document)
-            print("LOL SHOULDBE:",shouldbe)
+            print("LOL DOCUMENT:", document)
+            print("LOL SHOULDBE:", shouldbe)
         self.assertDictEqual(document, shouldbe)
 
 
@@ -552,6 +549,7 @@ class TestGCNC(unittest.TestCase):
             self.assertEqual(test_data['authors'], output_authors)
             self.assertEqual(test_data['publication'], output_pub)
 
+
 class TestProQuest(unittest.TestCase):
 
     def setUp(self):
@@ -577,6 +575,7 @@ class TestProQuest(unittest.TestCase):
         self.assertEqual(result, True)
         os.remove(test_outfile)
 
+
 class TestPnas(unittest.TestCase):
 
     def setUp(self):
@@ -596,11 +595,7 @@ class TestPnas(unittest.TestCase):
         self.requests_mock.return_value.text = MockResponse(mock_html)
         feed = json.loads(mock_data)
         for _item in feed['entries']:
-            record = {}
             absURL = _item['link']
-            volno = _item['prism_volume'].zfill(4)
-            ident = _item['dc_identifier']
-            ident = ident.replace('hwp:master-id:pnas;', '')
             parser = pnas.PNASParser()
             output = parser.parse(absURL)
 

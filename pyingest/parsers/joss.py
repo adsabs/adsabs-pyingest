@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 from __future__ import absolute_import
-from builtins import str
-from builtins import range
 from .default import BaseRSSFeedParser
 from collections import OrderedDict
 try:
@@ -14,7 +12,6 @@ import sys
 class JOSSParser(BaseRSSFeedParser):
 
     def extract_data(self, entry):
-        rec = {}
         # By default we put these records in the General database
         # This may be replaced by AST and/or PHY later on
         database = ['GEN']
