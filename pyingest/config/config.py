@@ -22,9 +22,9 @@ def get_uat(data,data_dict):
 
 
 if sys.version_info > (3,):
-    tags = 'rb'
+    open_mode = 'rb'
 else:
-    tags = 'rU'
+    open_mode = 'rU'
 
 MONTH_TO_NUMBER = {'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
                    'jul': 7, 'aug': 8, 'sep': 9, 'oct': 10, 'nov': 11,
@@ -150,7 +150,7 @@ except Exception as e:
 APS_ASTRO_KEYWORDS_FILE = os.path.dirname(os.path.abspath(__file__)) + '/kw_aps_astro.dat'
 APS_ASTRO_KEYWORDS = []
 try:
-    with open(APS_ASTRO_KEYWORDS_FILE, tags) as fk:
+    with open(APS_ASTRO_KEYWORDS_FILE, open_mode) as fk:
         for l in fk.readlines():
             APS_ASTRO_KEYWORDS.append(l.strip())
 except Exception as e:
@@ -160,7 +160,7 @@ except Exception as e:
 AAS_ASTRO_KEYWORDS_FILE = os.path.dirname(os.path.abspath(__file__)) + '/kw_aas_astro.dat'
 AAS_ASTRO_KEYWORDS = []
 try:
-    with open(AAS_ASTRO_KEYWORDS_FILE, tags) as fk:
+    with open(AAS_ASTRO_KEYWORDS_FILE, open_mode) as fk:
         for l in fk.readlines():
             AAS_ASTRO_KEYWORDS.append(l.strip())
 except Exception as e:
@@ -186,7 +186,7 @@ AUTHOR_ALIAS_DIR = '/proj/ads/abstracts/config/Authors/'
 HTML_ENTITY_TABLE = os.path.dirname(os.path.abspath(__file__)) + '/html5.dat'
 ENTITY_DICTIONARY = dict()
 try:
-    with open(HTML_ENTITY_TABLE, tags) as fent:
+    with open(HTML_ENTITY_TABLE, open_mode) as fent:
         for l in fent.readlines():
             carr = l.rstrip().split('\t')
 

@@ -47,10 +47,10 @@ class OUPJATSParser(JATSParser):
             f = f + "early.dat.nocheck"
             try:
                 if sys.version_info > (3,):
-                    tags = 'rb'
+                    open_mode = 'rb'
                 else:
-                    tags = 'rU'
-                with open(f, tags) as fp:
+                    open_mode = 'rU'
+                with open(f, open_mode) as fp:
                     p = fp.readline()
                 return p.split()[0]
             except Exception as err:

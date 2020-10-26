@@ -3,6 +3,10 @@ import re
 import sys
 from .default import BaseBeautifulSoupParser
 
+if sys.version_info > (3,):
+    str_type = str
+else:
+    str_type = unicode
 
 class AffiliationParser(BaseBeautifulSoupParser):
     """
@@ -18,10 +22,6 @@ class AffiliationParser(BaseBeautifulSoupParser):
         return _d
 
     def find_orcid_tag(self):
-        if sys.version_info > (3,):
-            str_type = str
-        else:
-            str_type = unicode
         try:
             if not self.input_tagged.orcid:
                 if not self.input_tagged.id:
@@ -65,10 +65,6 @@ class AffiliationParser(BaseBeautifulSoupParser):
         return email
 
     def parse(self):
-        if sys.version_info > (3,):
-            str_type = str
-        else:
-            str_type = unicode
         try:
             orcid = self.find_orcid_tag()
             email = self.find_email_tag()

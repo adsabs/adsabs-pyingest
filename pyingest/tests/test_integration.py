@@ -25,10 +25,10 @@ class TestParseAndSerialize(unittest.TestCase):
             if sys.version_info > (3,) and os.path.exists(b.replace('/tagged/oai', '/tagged/python3/oai')):
                 b = b.replace('/tagged/oai', '/tagged/python3/oai')
             if sys.version_info > (3,):
-                tags = 'rb'
+                open_mode = 'rb'
             else:
-                tags = 'rU'
-            with open(f, tags) as fp:
+                open_mode = 'rU'
+            with open(f, open_mode) as fp:
                 serializer = classic.Tagged()
                 outputfp = StringIO()
                 parser = arxiv.ArxivParser()
@@ -37,8 +37,8 @@ class TestParseAndSerialize(unittest.TestCase):
                 testoutput = outputfp.getvalue()
                 outputfp.close()
                 if sys.version_info > (3,):
-                    tags_read = 'r'
+                    read_mode = 'r'
                 else:
-                    tags_read = 'rU'
-                with open(b, tags_read) as bp:
+                    read_mode = 'rU'
+                with open(b, read_mode) as bp:
                     self.assertEqual(testoutput, bp.read())

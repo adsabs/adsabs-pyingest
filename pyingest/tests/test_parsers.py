@@ -29,6 +29,12 @@ from pyingest.parsers.author_names import AuthorNames
 
 from pyingest.serializers import classic
 
+if sys.version_info > (3,):
+    open_mode = 'rb'
+    open_mode_u = 'rb'
+else:
+    open_mode = 'r'
+    open_mode_u = 'rU'
 
 class TestDatacite(unittest.TestCase):
 
@@ -42,11 +48,7 @@ class TestDatacite(unittest.TestCase):
         parser = datacite.DataCiteParser()
         for file in self.inputdocs:
             # this will raise exceptions if something is wrong
-            if sys.version_info > (3,):
-                tags = 'rb'
-            else:
-                tags = 'r'
-            with open(file, tags) as fp:
+            with open(file, open_mode) as fp:
                 document = parser.parse(fp)
                 self.assertIsNotNone(document, "%s: error reading doc" % file)
             basefile = os.path.basename(file)
@@ -84,11 +86,7 @@ class TestZenodo(unittest.TestCase):
         parser = zenodo.ZenodoParser()
         for file in self.inputdocs:
             # this will raise exceptions if something is wrong
-            if sys.version_info > (3,):
-                tags = 'rb'
-            else:
-                tags = 'r'
-            with open(file, tags) as fp:
+            with open(file, open_mode) as fp:
                 document = parser.parse(fp)
                 self.assertIsNotNone(document, "%s: error reading doc" % file)
             basefile = os.path.basename(file)
@@ -182,14 +180,10 @@ class TestAuthorNames(unittest.TestCase):
 
 
 class TestArxiv(unittest.TestCase):
-    if sys.version_info > (3,):
-        tags = 'rb'
-    else:
-        tags = 'rU'
 
     def test_bad_xml(self):
         with self.assertRaises(arxiv.EmptyParserException):
-            with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/readme.txt'), self.tags) as fp:
+            with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/readme.txt'), open_mode_u) as fp:
                 parser = arxiv.ArxivParser()
                 document = parser.parse(fp)
 
@@ -197,7 +191,7 @@ class TestArxiv(unittest.TestCase):
         shouldbe = {'authors': u'Luger, Rodrigo; Lustig-Yaeger, Jacob; Agol, Eric',
                     'title': u'Planet-Planet Occultations in TRAPPIST-1 and Other Exoplanet Systems',
                     'bibcode': u'2017arXiv171105739L'}
-        with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_1711_05739'), self.tags) as fp:
+        with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_1711_05739'), open_mode_u) as fp:
             parser = arxiv.ArxivParser()
             document = parser.parse(fp)
         for k in shouldbe.keys():
@@ -207,7 +201,7 @@ class TestArxiv(unittest.TestCase):
 
     def test_unicode_init(self):
         shouldbe = {'bibcode': u'2009arXiv0901.2443O'}
-        with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_0901_2443'), self.tags) as fp:
+        with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_0901_2443'), open_mode_u) as fp:
             parser = arxiv.ArxivParser()
             document = parser.parse(fp)
             self.assertEqual(document['bibcode'], shouldbe['bibcode'])
@@ -219,7 +213,7 @@ class TestArxiv(unittest.TestCase):
                      os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_cond-mat_9706061')]
         shouldbe = [{'bibcode': u'1995astro.ph..1013H'}, {'bibcode': u'2003math......6266C'}, {'bibcode': u'2004hep.th....8048S'}, {'bibcode': u'1997cond.mat..6061A'}]
         for f, b in zip(testfiles, shouldbe):
-            with open(f, self.tags) as fp:
+            with open(f, open_mode_u) as fp:
                 parser = arxiv.ArxivParser()
                 document = parser.parse(fp)
                 self.assertEqual(document['bibcode'], b['bibcode'])
@@ -255,15 +249,11 @@ class TestOUP(unittest.TestCase):
         sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
 
     def test_oup_parser(self):
-        if sys.version_info > (3,):
-            tags = 'rb'
-        else:
-            tags = 'rU'
         parser = oup.OUPJATSParser()
         config.REFERENCE_TOPDIR = '/dev/null/'
         for file in self.inputdocs:
             # this will raise exceptions if something is wrong
-            with open(file, tags) as fp:
+            with open(file, open_mode_u) as fp:
                 test_data = parser.parse(fp)
                 self.assertIsNotNone(test_data, "%s: error reading doc" % file)
             basefile = os.path.basename(file)
@@ -304,15 +294,11 @@ class TestOUP(unittest.TestCase):
 
 
 class TestAPSJATS(unittest.TestCase):
-    if sys.version_info > (3,):
-        tags = 'rb'
-    else:
-        tags = 'rU'
 
     def test_unicode_initial(self):
         testfile = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/apsjats_10.1103.PhysRevB.96.081117.fulltext.xml')
         shouldbe = {'bibcode': '2017PhRvB..96h1117S'}
-        with open(testfile, self.tags) as fp:
+        with open(testfile, open_mode_u) as fp:
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
         self.assertEqual(document['bibcode'], shouldbe['bibcode'])
@@ -320,7 +306,7 @@ class TestAPSJATS(unittest.TestCase):
     def test_dehtml(self):
         testfile = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/apsjats_10.1103.PhysRevA.97.019999.fulltext.xml')
         shouldbe = {'title': 'Finite-error metrological bounds on multiparameter Hamiltonian estimation'}
-        with open(testfile, self.tags) as fp:
+        with open(testfile, open_mode_u) as fp:
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
         self.assertEqual(document['title'], shouldbe['title'])
@@ -329,7 +315,7 @@ class TestAPSJATS(unittest.TestCase):
         self.maxDiff = None
         testfile = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/apsjats_10.1103.PhysRevA.95.129999.fulltext.xml')
         shouldbe = {'bibcode': u'2015PhRvA..95l9999T', 'publication': u'Physical Review A, Volume 95, Issue 1, id.129999, <NUMPAGES>9</NUMPAGES> pp.', 'pubdate': u'07/2015', 'copyright': u'\xa92018 American Physical Society', 'title': u'Fake article title with other kinds of markup inside <a href="http://www.reddit.com/r/aww">it</a> including paragraph tags that really have no place in a title.', 'abstract': u'<a href="http://naughtywebsite.gov">Fake URLs</a> are an increasing problem when trying to write fake abstracts. It\'s unlikely that a .gov domain would host a bad website, but then again what times are we living in now? Also, <inline-formula><mml:math><mml:mi>\u03b4</mml:mi></mml:math></inline-formula>. Also also, <inline-formula><mml:math>this is some math</mml:math></inline-formula>.', 'database': ['PHY'], 'page': u'129999', 'volume': u'95', 'affiliations': [u'NASA-ADS, Harvard-Smithsonian Center for Astrophysics, 60 Garden St., Cambridge, MA 02138, United States', u'Monty Python lol.'], 'authors': u'Templeton, Matthew; Organs, Harry Snapper', 'keywords': u'Fundamental concepts', 'issue': u'1', 'properties': {'DOI': u'10.1103/PhysRevA.95.129999'}, 'refhandler_list': ['<ref id="c1"><label>[1]</label><mixed-citation publication-type="journal"><object-id>1</object-id><person-group person-group-type="author"><string-name>A. S. Holevo</string-name></person-group>, <source/>J. Multivariate Anal. <volume>3</volume>, <page-range>337</page-range> (<year>1973</year>).<pub-id pub-id-type="coden">JMVAAI</pub-id><issn>0047-259X</issn><pub-id assigning-authority="crossref" pub-id-type="doi" specific-use="suppress-display">10.1016/0047-259X(73)90028-6</pub-id></mixed-citation></ref>']}
-        with open(testfile, self.tags) as fp:
+        with open(testfile, open_mode_u) as fp:
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
             print("LOL DOCUMENT:", document)
@@ -356,11 +342,7 @@ class TestProcSci(unittest.TestCase):
     def test_output(self):
         parser = procsci.PoSParser()
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/pos_sissa_it_299.html")
-        if sys.version_info > (3,):
-            tags = 'rb'
-        else:
-            tags = 'rU'
-        mock_data = open(mock_infile, tags).read()
+        mock_data = open(mock_infile, open_mode_u).read()
         self.requests_mock.return_value.text = MockResponse(mock_data)
         test_data = parser.parse("https://pos.sissa.it/299_test")
         test_outfile = "test_pos.tag"
@@ -586,12 +568,8 @@ class TestPnas(unittest.TestCase):
     def test_pnas_parser(self):
         mock_infile = os.path.join(self.stubdata_dir, 'input', 'pnas_feedparser.resp')
         mock_html_file = os.path.join(self.stubdata_dir, 'input', 'pnas_resp.html')
-        if sys.version_info > (3,):
-            tags = 'rb'
-        else:
-            tags = 'rU'
-        mock_data = open(mock_infile, tags).read()
-        mock_html = open(mock_html_file, tags).read()
+        mock_data = open(mock_infile, open_mode_u).read()
+        mock_html = open(mock_html_file, open_mode_u).read()
         self.requests_mock.return_value.text = MockResponse(mock_html)
         feed = json.loads(mock_data)
         for _item in feed['entries']:

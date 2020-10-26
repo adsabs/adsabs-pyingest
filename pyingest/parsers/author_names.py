@@ -17,11 +17,11 @@ class AuthorNames(object):
     def _read_datfile(self, filename):
         output_list = []
         if sys.version_info > (3,):
-            tags = 'r'
+            open_mode = 'r'
         else:
-            tags = 'rU'
+            open_mode = 'rU'
         try:
-            fp = open(filename, tags)
+            fp = open(filename, open_mode)
         except Exception as err:
             logging.exception("Error reading file: %s", filename)
         else:
