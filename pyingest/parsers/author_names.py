@@ -39,9 +39,9 @@ class AuthorNames(object):
         default_collaborations_params.update(collaborations_params)
         collaborations_params = default_collaborations_params
         normalized_authors_list = []
+        
         for author_str in authors_str.split(delimiter):
-            normalized_authors_list.append(self._normalize_author(author_str,
-                                           collaborations_params))
+            normalized_authors_list.append(self._normalize_author(author_str, collaborations_params))
         return (delimiter + u' ').join(normalized_authors_list)
 
     def _normalize_author(self, author_str, collaborations_params):
@@ -73,7 +73,9 @@ class AuthorNames(object):
             match = self.regex_author.search(author_str)
             if match:
                 # Last name detected
-                last_name = match.group('last_name').strip().title()
+                ## Using .title() breaks dutch last names!
+                # last_name = match.group('last_name').strip().title()
+                last_name = match.group('last_name').strip()
                 initials_list = []
                 # Collect initials from first name if it is present
                 for i in range(self.max_first_name_initials):
@@ -102,6 +104,7 @@ class AuthorNames(object):
                  max_first_name_initials=6):
         self.max_first_name_initials = max(1, max_first_name_initials)
         self.normalized_unknown_author_str = u''
+        self.dutch_last_names = [u"van", u"von", u"'t", u"den", u"der", u"van't"]
 
         # Paths
         if not os.path.isdir(data_dirname):
@@ -273,7 +276,8 @@ class AuthorNames(object):
             except Exception as e:
                 logging.exception("Unexpected error in middle name parsing")
             author.first = [author.first] + add_to_first
-            add_to_last.reverse()
+            # [MT 2020 Oct 07, can't reproduce where .reverse() is necessary?]
+            # add_to_last.reverse()
             author.last = add_to_last + [author.last]
         author.middle = u''
 

@@ -441,7 +441,7 @@ class JATSParser(BaseBeautifulSoupParser):
         # try:
             # uat_cnv = UATURIConverter()
             # base_metadata['uatkeys'] = uat_cnv.convert_to_uri(base_metadata['uatkeys'])
-        # except Exception, err:
+        # except Exception as err:
             # pass
 
         # Volume:
@@ -475,7 +475,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 except Exception as err:
                     pass
         except Exception as err:
-            pass 
+            pass
 
         # links: DOI and arxiv preprints
         # DOI
