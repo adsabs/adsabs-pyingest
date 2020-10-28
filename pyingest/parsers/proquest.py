@@ -5,8 +5,13 @@ import sys
 if sys.version_info > (3,) or 'unittest' in sys.modules.keys():
     import pymarc
 else:
-    raise ImportError('Error: ProQuest parser requires an older version of pymarc that is only compatible with Python 2'
-                      ' and it needs to be manually installed. Run the following: pip install "pymarc<=2.9.1"')
+    import pkg_resources
+    if pkg_resources.get_distribution('pymarc').version > '2.9.1':
+        raise ImportError('Error: ProQuest parser requires an older version of pymarc that is only compatible with '
+                          'Python 2 and it needs to be manually installed. '
+                          'Run the following: pip install "pymarc<=2.9.1"')
+    else:
+        import pymarc
 from pyingest.config import config
 from pyingest.parsers.author_names import AuthorNames
 from .default import DefaultParser
