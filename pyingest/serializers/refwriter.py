@@ -1,4 +1,3 @@
-import os
 from pyingest.config.config import *
 
 
@@ -20,7 +19,7 @@ class ReferenceWriter(object):
         if isinstance(output_metadata, dict):
             try:
                 output_metadata['refhandler_list']
-            except Exception, err:
+            except Exception as err:
                 pass
                 # raise NoReferencesException(err)
             else:
@@ -42,7 +41,7 @@ class ReferenceWriter(object):
                         fw.write("<ADSBIBCODE>%s</ADSBIBCODE>\n" % bibcode)
                         for s in reflist:
                             fw.write(s.encode('utf8') + '\n')
-                except Exception, err:
+                except Exception as err:
                     # print "exception in writeref:",err
                     pass
                     # raise WriteErrorException(err)

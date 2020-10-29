@@ -2,7 +2,7 @@ import re
 from pyingest.config import config
 
 
-class EntityConverter():
+class EntityConverter(object):
 
     def __init__(self):
         self.input_text = ''

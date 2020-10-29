@@ -1,15 +1,13 @@
 #!/usr/bin/env python
 
-import sys
-import os
-import json
-import codecs
+from __future__ import print_function
+from __future__ import absolute_import
+from past.builtins import basestring
 import string
 from pyingest.config.utils import u2asc
-from jats import JATSParser
+from .jats import JATSParser
 from pyingest.config.config import *
 from pyingest.parsers.entity_convert import EntityConverter
-from author_names import AuthorNames
 
 
 class NoSchemaException(Exception):
@@ -64,12 +62,12 @@ class IOPJATSParser(JATSParser):
         # Publication +
         try:
             pubstring = output_metadata['publication']
-        except Exception, err:
+        except Exception as err:
             pass
         else:
             try:
                 output_metadata['volume']
-            except Exception, err:
+            except Exception as err:
                 pass
             else:
                 pubstring = pubstring + ', Volume ' + output_metadata['volume']
@@ -81,7 +79,7 @@ class IOPJATSParser(JATSParser):
 
             try:
                 page_id = output_metadata['page']
-            except Exception, err:
+            except Exception as err:
                 pass
             else:
                 if "-" in page_id:
@@ -113,7 +111,7 @@ class IOPJATSParser(JATSParser):
                 if len(idno) == 6:
                     try:
                         idtwo = string.letters[int(idno[0:2]) - 1]
-                    except Exception, err:
+                    except Exception as err:
                         idtwo = idno[0:2]
                     idfour = idno[2:]
                     issue_letter = ''
@@ -123,7 +121,7 @@ class IOPJATSParser(JATSParser):
                 idno = idtwo + idfour
             try:
                 author_init = self.get_author_init(output_metadata['authors'])
-            except Exception, err:
+            except Exception as err:
                 author_init = '.'
 
             if bibstem == u'ApJL.':
@@ -131,7 +129,7 @@ class IOPJATSParser(JATSParser):
                 issue_letter = u'L'
                 idno = idno.replace('L', '.')
 
-            if (bibstem in IOP_SPECIAL_ID_HANDLING):
+            if bibstem in IOP_SPECIAL_ID_HANDLING:
                 bib_tail = idno + author_init
             else:
                 bib_tail = issue_letter + idno + author_init
@@ -150,7 +148,7 @@ class IOPJATSParser(JATSParser):
         # Database (from APS keywords)
         try:
             output_metadata['database'] = self.dbfromkw(output_metadata['keywords'])
-        except Exception, err:
+        except Exception as err:
             pass
 
         # pass relevant fields through EntityConverter
@@ -165,8 +163,8 @@ class IOPJATSParser(JATSParser):
                     conv.input_text = output_metadata[ecf]
                     conv.convert()
                     output_metadata[ecf] = conv.output_text
-                except Exception, err:
-                    print "problem converting %s for %s: %s" % (ecf, output_metadata['bibcode'], err)
+                except Exception as err:
+                    print("problem converting %s for %s: %s" % (ecf, output_metadata['bibcode'], err))
 
         # Return
         return output_metadata

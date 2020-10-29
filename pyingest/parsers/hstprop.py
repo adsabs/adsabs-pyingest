@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-from argparse import ArgumentParser
-import json
+from past.utils import old_div
 import sys
 import math
 import requests
@@ -19,7 +18,7 @@ class DataError(Exception):
     pass
 
 
-class HSTParser():
+class HSTParser(object):
     # HSTParser will return a list of articles taken from a HST API
     # (https://proper.stsci.edu/proper/adsProposalSearch/query)
 
@@ -42,7 +41,6 @@ class HSTParser():
         token = kwargs['api_key']
         del kwargs['api_key']
         buff = {}
-        records = []
         # Store the value of maxRecords, if this was set
         maxrecs = kwargs.get('maxRecords', 200)
         # First get 1 record to determine the total amount of records
@@ -50,14 +48,14 @@ class HSTParser():
         # Do the first query
         try:
             batch = self.get_batch(token, url, **kwargs)
-        except Exception, err:
+        except Exception as err:
             raise URLError("Request to HST blew up: %s" % err)
         # How many records are there?
         totrecs = batch['query']['total']
         # Store the first batch of records
         records = batch['programs']
         # How often do we need to paginate to get them all?
-        num_paginates = int(math.ceil((totrecs) / (1.0 * maxrecs)))
+        num_paginates = int(math.ceil(old_div(totrecs, (1.0 * maxrecs))))
         # If we run in test mode, do not paginate
         if kwargs.get('test'):
             num_paginates = 0
@@ -69,7 +67,7 @@ class HSTParser():
             kwargs['offset'] = offset
             try:
                 batch = self.get_batch(token, url, **kwargs)
-            except Exception, err:
+            except Exception as err:
                 raise URLError("Request to HST blew up: %s" % err)
             records += batch['programs']
             offset += maxrecs
@@ -77,7 +75,7 @@ class HSTParser():
 
     def is_complete(self, rec):
         required_fields = ['bibstem', 'title', 'authorNames', 'date', 'link', 'comment', 'journalCode', 'affiliations', 'authorOrcidIdentifiers']
-        return all(elem in rec.keys() for elem in required_fields)
+        return all(elem in list(rec.keys()) for elem in required_fields)
 
     def add_orcids(self, affs, orcids):
         if len(affs) != len(orcids):

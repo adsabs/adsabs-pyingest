@@ -2,11 +2,11 @@
 #
 #
 
-import sys
+from __future__ import absolute_import
 import json
 import re
 import logging
-from datacite import DataCiteParser
+from .datacite import DataCiteParser
 
 
 class WrongPublisherException(Exception):

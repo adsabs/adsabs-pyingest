@@ -8,6 +8,7 @@ import argparse
 import importlib
 import unidecode
 
+
 def import_class(name):
     """
     performs the proper imports at runtime and class instantiations;

@@ -1,9 +1,15 @@
+from past.builtins import basestring
 import re
-import sys
 import bs4
 import xmltodict as xmltodict_parser
-import urllib
-import urllib2
+try:
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlencode
+try:
+    import urllib2 as url_lib
+except ImportError:
+    import urllib.request as url_lib
 import warnings
 import ssl
 
@@ -97,7 +103,7 @@ class BaseRSSFeedParser(object):
     A parser that takes an RSS/Atom feed
     """
 
-    control_chars = ''.join(map(unichr, range(0, 32) + range(127, 160)))
+    control_chars = ''.join(map(chr, list(range(0, 32)) + list(range(127, 160))))
     control_char_re = re.compile('[%s]' % re.escape(control_chars))
 
     def __init__(self):
@@ -109,16 +115,16 @@ class BaseRSSFeedParser(object):
         return control_char_re.sub('', s)
 
     def get_records(self, rssURL, data_tag='entry', headers={}, **kwargs):
-        qparams = urllib.urlencode(kwargs)
+        qparams = urlencode(kwargs)
         if qparams:
             url = "%s?%s" % (rssURL, qparams)
         else:
             url = rssURL
         if headers:
-            req = urllib2.Request(url, headers=headers)
+            req = url_lib.Request(url, headers=headers)
         else:
-            req = urllib2.Request(url)
-        source = urllib2.urlopen(req)
+            req = url_lib.Request(url)
+        source = url_lib.urlopen(req)
         soup = bs4.BeautifulSoup(source, 'lxml')
         # soup = bs4.BeautifulSoup(source, 'html5lib')
         # NOTE: html5lib can't deal with bad encodings like lxml,

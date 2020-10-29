@@ -1,11 +1,10 @@
-import sys
-import json
+from __future__ import print_function
+from __future__ import absolute_import
 import re
-import logging
 from pyingest.config.utils import u2asc
-from default import DefaultParser
-from author_names import AuthorNames
-from entity_convert import EntityConverter
+from .default import DefaultParser
+from .author_names import AuthorNames
+from .entity_convert import EntityConverter
 
 head_dict = {'TITLE:': 'journal', 'NUMBER:': 'volume', 'SUBJECT:': 'title',
              'DATE:': 'pubdate', 'FROM:': 'email'
@@ -39,7 +38,7 @@ class GCNCParser(DefaultParser):
         volume = self.data_dict['volume'].ljust(9, '.') + '1'
         try:
             init = u2asc(self.data_dict['authors'][0][0])
-        except Exception, err:
+        except Exception as err:
             print ("Problem generating author initial")
             init = '.'
         self.data_dict['bibcode'] = year + bibcode + volume + init
@@ -73,7 +72,7 @@ class GCNCParser(DefaultParser):
         auth_string = re.sub(r',?\s+,', ',', auth_string)
 
         auth_array = [s.strip() for s in auth_string.split(',')]
-        auth_array = list(filter(lambda a: len(a) > 3, auth_array))
+        auth_array = list([a for a in auth_array if len(a) > 3])
         # auth_string = u'; '.join(auth_array)
         auth_string = auth_delimiter.join(auth_array)
         auth_mod = AuthorNames()
@@ -123,7 +122,7 @@ class GCNCParser(DefaultParser):
                 econv.convert()
                 self.data_dict[ecf] = econv.output_text
 
-        except Exception, err:
+        except Exception as err:
             self.data_dict['raw'] = self.raw
             self.data_dict['error'] = err
 

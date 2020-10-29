@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from pyingest.parsers.iop import IOPJATSParser
 from pyingest.serializers.classic import Tagged
 from pyingest.serializers.refwriter import ReferenceWriter
@@ -39,7 +40,7 @@ for bs in stacks_bibstems:
         v = vols[i]
 
     papers = glob(v + '/*.xml')
-    print "VEE:", v
+    print("VEE:", v)
 
     # Try the parser
     documents = []
@@ -62,6 +63,6 @@ for bs in stacks_bibstems:
         serializer.write(d, fo)
         try:
             refwriter.writeref(d)
-        except Exception, err:
+        except Exception as err:
             print("Error in refwriter: %s" % err)
     fo.close()

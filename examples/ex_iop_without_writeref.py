@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from pyingest.parsers.iop import IOPJATSParser
 from pyingest.serializers.classic import Tagged
 from glob import glob
@@ -104,17 +105,17 @@ journal_ISSN = {
 }
 '''
 journal_ISSN = {
-#   '1538-3881': 'AJ',
+    #'1538-3881': 'AJ',
     '0004-637X': 'ApJ',
-#   '1402-4896': 'PhST',
+    #'1402-4896': 'PhST',
     '0031-9120': 'PhyEd',
-#   '0967-3334': 'PhyM',
+    #'0967-3334': 'PhyM',
     '1402-4896': 'PhyS',
-#   '1063-7869': 'PhyU',
+    #'1063-7869': 'PhyU',
     '1009-0630': 'PlST',
-#   '2516-1083': 'PrEne',
+    #'2516-1083': 'PrEne',
     '2058-9565': 'QS&T',
-#   '1063-7818': 'QuEle',
+    #'1063-7818': 'QuEle',
     '1674-4527': 'RAA',
     '2515-5172': 'RNAAS',
     '0034-4885': 'RPPh'
@@ -125,7 +126,7 @@ parser = IOPJATSParser()
 
 basedir = '/proj/ads/articles/sources/STACKS/'
 
-issn_list = journal_ISSN.keys()
+issn_list = list(journal_ISSN.keys())
 issn_list.sort()
 
 for issn in issn_list:
@@ -136,7 +137,7 @@ for issn in issn_list:
     papers = glob(v + '/*/*/*.xml')
     papers2 = []
     for p in papers:
-        if ('refs.xml' not in p and 'meta.xml' not in p):
+        if 'refs.xml' not in p and 'meta.xml' not in p:
             papers2.append(p)
 
     papers = papers2

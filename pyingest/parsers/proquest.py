@@ -1,9 +1,20 @@
-import os
+from __future__ import print_function
+from __future__ import absolute_import
 import re
-import pymarc
+import sys
+if sys.version_info > (3,) or 'unittest' in sys.modules.keys():
+    import pymarc
+else:
+    import pkg_resources
+    if pkg_resources.get_distribution('pymarc').version > '2.9.1':
+        raise ImportError('Error: ProQuest parser requires an older version of pymarc that is only compatible with '
+                          'Python 2 and it needs to be manually installed. '
+                          'Run the following: pip install "pymarc<=2.9.1"')
+    else:
+        import pymarc
 from pyingest.config import config
 from pyingest.parsers.author_names import AuthorNames
-from default import DefaultParser
+from .default import DefaultParser
 
 
 # For the MARC2.1 standard guide, see:
@@ -16,7 +27,7 @@ class ProQuestParser(DefaultParser):
 
     def __init__(self, filename):
         marc_input_file = config.PROQUEST_BASE_PATH + filename
-        oa_input_file = marc_input_file.replace('.UNX','_OpenAccessTitles.csv')
+        oa_input_file = marc_input_file.replace('.UNX', '_OpenAccessTitles.csv')
         self.records = open(marc_input_file).read().strip().split('\n')
         oa_input_data = open(oa_input_file).read().strip().split('\n')
         self.oa_pubnum = list()
@@ -24,7 +35,7 @@ class ProQuestParser(DefaultParser):
             entries = line.split(',')
             try:
                 self.oa_pubnum.append(str(int(entries[0])))
-            except Exception, err:
+            except Exception as err:
                 pass
         self.results = list()
 
@@ -34,7 +45,7 @@ class ProQuestParser(DefaultParser):
         try:
             for chunk in rec.get_fields('650'):
                 if chunk['a'] not in subjects:
-                    cat = re.sub('\.$','',chunk['a'])
+                    cat = re.sub('\\.$', '', chunk['a'])
                     try:
                         db = config.PROQUEST_TO_DB.get(cat, 'PHY')
                         if 'physics' in cat.lower():
@@ -43,15 +54,15 @@ class ProQuestParser(DefaultParser):
                             db = 'AST'
                         if db not in databases:
                             databases.append(db)
-                    except:
+                    except Exception as err:
                         # if cat not in missingCats:
                             # missingCats.append(cat)
                         # sys.stderr.write("Could not find DB for category: %s\n"%cat)
                         pass
                     subjects.append(cat)
-        except Exception, err:
+        except Exception as err:
             pass
-        return databases,subjects
+        return databases, subjects
 
     def parse(self):
 
@@ -71,12 +82,15 @@ class ProQuestParser(DefaultParser):
                 jfield = ['ProQuest Dissertations And Thesis']
 
                 # read each record into a pymarc object
-                reader = pymarc.MARCReader(r, to_unicode=True)
-                record = reader.next()
+                if sys.version_info > (3,):
+                    reader = pymarc.MARCReader(r.encode('utf-8'), to_unicode=True)
+                else:
+                    reader = pymarc.MARCReader(r, to_unicode=True)
+                record = next(reader)
 
                 # ProQuest ID (001)
                 proqid = record['001'].value()
-                pubnr = proqid.replace('AAI','')
+                pubnr = proqid.replace('AAI', '')
 
                 # MARC 2.1 fixed length data elements (005)
                 flde = record['005'].value()
@@ -90,75 +104,71 @@ class ProQuestParser(DefaultParser):
                 # ISBN (020)
                 try:
                     isbn = record['020']['a']
-                except:
+                except Exception as err:
                     isbn = ''
 
                 # Author (100)
                 try:
-                    author = re.sub('\.$','',record['100']['a'].strip())
+                    author = re.sub('\\.$', '', record['100']['a'].strip())
                     # author = auth_parse.parse(author)
-                except Exception, err:
+                except Exception as err:
                     author = ''
             
                 # Title
                 try:
-                    title = re.sub('\.$','',record['245']['a'].strip())
-                except:
+                    title = re.sub('\\.$', '', record['245']['a'].strip())
+                except Exception as err:
                     title = ''
 
                 # Page length
                 try:
                     npage = record['300']['a']
-                except:
+                except Exception as err:
                     npage = ''
 
                 # Source
                 try:
                     school = record['502']['a']
-                except Exception, err:
+                except Exception as err:
                     pass
                 else:
                     jfield.append(school)
-                jfield.append('Publication Number: %s'%re.sub('AAI','AAT ',proqid))
+                jfield.append('Publication Number: %s' % re.sub('AAI', 'AAT ', proqid))
                 if isbn:
-                    jfield.append('ISBN: %s'%isbn)
+                    jfield.append('ISBN: %s' % isbn)
                
                 try:
                     publsh = record['500']['a']
-                except Exception, err:
+                except Exception as err:
                     pass
                 else:
                     jfield.append(publsh)
 
                 if npage:
                     jfield.append(npage)
-          
-
 
                 # Abstract (multiline field: 520)
                 abstract = ''
                 for l in record.get_fields('520'):
                     try:
                         abstract += ' ' + l.value().strip()
-                    except:
+                    except Exception as err:
                         pass
                 abstract = abstract.strip()
 
-
                 # ADS Collection/Database
                 (databases, subjects) = self.get_db(record)
-             
 
                 # Affil
-                affil=''
+                affil = ''
                 try:
                     affil = record['710']['a'].rstrip('.')
-                except:
+                except Exception as err:
                     pass
                 else:
                     try:
                         a2 = record['710']['b'].rstrip('.')
-                    except Exception, err:
+                    except Exception as err:
                         pass
                     else:
                         affil = a2 + ', ' + affil
@@ -172,13 +182,13 @@ class ProQuestParser(DefaultParser):
                             advisor.append(e['a'])
                     if advisor:
                         comments.append('Advisor: %s' % advisor[0])
-                except Exception, err:
+                except Exception as err:
                     pass
 
                 # Pubdate
                 try:
                     pubdate = record['792']['a']
-                except Exception, err:
+                except Exception as err:
                     pubdate = ''
 
                 # Language
@@ -187,7 +197,7 @@ class ProQuestParser(DefaultParser):
                     for l in record.get_fields('793'):
                         ln = l.value().strip() 
                         lang.append(ln)
-                except Exception, err:
+                except Exception as err:
                     pass
 
                 # properties
@@ -199,9 +209,6 @@ class ProQuestParser(DefaultParser):
                 else:
                     url = url_base % pubnr
                 properties['ELECTR'] = url
-             
-                    
-
 
                 output_metadata['source'] = datasource
                 output_metadata['authors'] = author
@@ -224,8 +231,7 @@ class ProQuestParser(DefaultParser):
                 if properties:
                     output_metadata['properties'] = properties
 
-
-            except Exception, err:
+            except Exception as err:
                 print("Record skipped, MARC parsing failed: %s" % err)
             else:
                 self.results.append(output_metadata)

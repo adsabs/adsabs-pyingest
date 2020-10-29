@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from pyingest.parsers.iop import IOPJATSParser
 from pyingest.serializers.classic import Tagged
 from glob import glob
@@ -38,7 +39,7 @@ for issn in journal_ISSN.keys():
     serializer = Tagged()
 
     for d in documents:
-        print("KEYS:", d.keys())
+        print("KEYS:", list(d.keys()))
         print(json.dumps(d, indent=4, sort_keys=True))
         # print("Hi, here's a document structure:\n%s\n\n\n"%d)
         # serializer.write(d, fo)

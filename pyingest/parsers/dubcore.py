@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
-import sys
-import json
-import codecs
-from default import BaseXmlToDictParser
+from __future__ import absolute_import
+from .default import BaseXmlToDictParser
 
 
 class NoSchemaException(Exception):
@@ -62,7 +60,7 @@ class DublinCoreParser(BaseXmlToDictParser):
         idtag, r = self.resource_dict(fp, **kwargs)
         try:
             self.check_schema(r)
-        except Exception, err:
+        except Exception as err:
             raise UnparseableException("Cannot parse record.")
         else:
             # Bibcode

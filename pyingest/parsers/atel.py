@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from default import BaseRSSFeedParser
-import urlparse
+from __future__ import absolute_import
+from .default import BaseRSSFeedParser
 import sys
 import re
 
@@ -8,7 +8,6 @@ import re
 class ATelParser(BaseRSSFeedParser):
 
     def extract_data(self, entry):
-        rec = {}
         links = {}
         # Journal string template
         journal = "The Astronomer's Telegram, No. %s"
@@ -63,7 +62,7 @@ class ATelParser(BaseRSSFeedParser):
         for d in data:
             try:
                 atel_recs.append(self.extract_data(d))
-            except Exception, err:
+            except Exception as err:
                 sys.stderr.write('Failed to process record %s (%s). Skipping...\n' % (d.find('identifier').text, err))
                 continue
 

@@ -1,6 +1,7 @@
 """
 Test parsers
 """
+from __future__ import print_function
 
 import unittest
 import filecmp
@@ -19,6 +20,8 @@ from pyingest.parsers import hstprop
 from pyingest.parsers import iop
 from pyingest.parsers import joss
 from pyingest.parsers import oup
+from pyingest.parsers import pnas
+from pyingest.parsers import proquest
 from pyingest.parsers import procsci
 from pyingest.parsers import zenodo
 from pyingest.config import config
@@ -26,6 +29,12 @@ from pyingest.parsers.author_names import AuthorNames
 
 from pyingest.serializers import classic
 
+if sys.version_info > (3,):
+    open_mode = 'rb'
+    open_mode_u = 'rb'
+else:
+    open_mode = 'r'
+    open_mode_u = 'rU'
 
 class TestDatacite(unittest.TestCase):
 
@@ -39,7 +48,7 @@ class TestDatacite(unittest.TestCase):
         parser = datacite.DataCiteParser()
         for file in self.inputdocs:
             # this will raise exceptions if something is wrong
-            with open(file, 'r') as fp:
+            with open(file, open_mode) as fp:
                 document = parser.parse(fp)
                 self.assertIsNotNone(document, "%s: error reading doc" % file)
             basefile = os.path.basename(file)
@@ -77,7 +86,7 @@ class TestZenodo(unittest.TestCase):
         parser = zenodo.ZenodoParser()
         for file in self.inputdocs:
             # this will raise exceptions if something is wrong
-            with open(file, 'r') as fp:
+            with open(file, open_mode) as fp:
                 document = parser.parse(fp)
                 self.assertIsNotNone(document, "%s: error reading doc" % file)
             basefile = os.path.basename(file)
@@ -180,7 +189,7 @@ class TestArxiv(unittest.TestCase):
 
     def test_bad_xml(self):
         with self.assertRaises(arxiv.EmptyParserException):
-            with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/readme.txt'), 'rU') as fp:
+            with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/readme.txt'), open_mode_u) as fp:
                 parser = arxiv.ArxivParser()
                 document = parser.parse(fp)
 
@@ -188,7 +197,7 @@ class TestArxiv(unittest.TestCase):
         shouldbe = {'authors': u'Luger, Rodrigo; Lustig-Yaeger, Jacob; Agol, Eric',
                     'title': u'Planet-Planet Occultations in TRAPPIST-1 and Other Exoplanet Systems',
                     'bibcode': u'2017arXiv171105739L'}
-        with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_1711_05739'), 'rU') as fp:
+        with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_1711_05739'), open_mode_u) as fp:
             parser = arxiv.ArxivParser()
             document = parser.parse(fp)
         for k in shouldbe.keys():
@@ -198,7 +207,7 @@ class TestArxiv(unittest.TestCase):
 
     def test_unicode_init(self):
         shouldbe = {'bibcode': u'2009arXiv0901.2443O'}
-        with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_0901_2443'), 'rU') as fp:
+        with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_0901_2443'), open_mode_u) as fp:
             parser = arxiv.ArxivParser()
             document = parser.parse(fp)
             self.assertEqual(document['bibcode'], shouldbe['bibcode'])
@@ -210,7 +219,7 @@ class TestArxiv(unittest.TestCase):
                      os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_cond-mat_9706061')]
         shouldbe = [{'bibcode': u'1995astro.ph..1013H'}, {'bibcode': u'2003math......6266C'}, {'bibcode': u'2004hep.th....8048S'}, {'bibcode': u'1997cond.mat..6061A'}]
         for f, b in zip(testfiles, shouldbe):
-            with open(f, 'rU') as fp:
+            with open(f, open_mode_u) as fp:
                 parser = arxiv.ArxivParser()
                 document = parser.parse(fp)
                 self.assertEqual(document['bibcode'], b['bibcode'])
@@ -250,7 +259,7 @@ class TestOUP(unittest.TestCase):
         config.REFERENCE_TOPDIR = '/dev/null/'
         for file in self.inputdocs:
             # this will raise exceptions if something is wrong
-            with open(file, 'r') as fp:
+            with open(file, open_mode_u) as fp:
                 test_data = parser.parse(fp)
                 self.assertIsNotNone(test_data, "%s: error reading doc" % file)
             basefile = os.path.basename(file)
@@ -283,7 +292,7 @@ class TestAPSJATS(unittest.TestCase):
     def test_unicode_initial(self):
         testfile = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/apsjats_10.1103.PhysRevB.96.081117.fulltext.xml')
         shouldbe = {'bibcode': '2017PhRvB..96h1117S'}
-        with open(testfile, 'rU') as fp:
+        with open(testfile, open_mode_u) as fp:
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
         self.assertEqual(document['bibcode'], shouldbe['bibcode'])
@@ -291,7 +300,7 @@ class TestAPSJATS(unittest.TestCase):
     def test_dehtml(self):
         testfile = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/apsjats_10.1103.PhysRevA.97.019999.fulltext.xml')
         shouldbe = {'title': 'Finite-error metrological bounds on multiparameter Hamiltonian estimation'}
-        with open(testfile, 'rU') as fp:
+        with open(testfile, open_mode_u) as fp:
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
         self.assertEqual(document['title'], shouldbe['title'])
@@ -300,7 +309,7 @@ class TestAPSJATS(unittest.TestCase):
         self.maxDiff = None
         testfile = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/apsjats_10.1103.PhysRevA.95.129999.fulltext.xml')
         shouldbe = {'bibcode': u'2015PhRvA..95l9999T', 'publication': u'Physical Review A, Volume 95, Issue 1, id.129999, <NUMPAGES>9</NUMPAGES> pp.', 'pubdate': u'07/2015', 'copyright': u'\xa92018 American Physical Society', 'title': u'Fake article title with other kinds of markup inside <a href="http://www.reddit.com/r/aww">it</a> including paragraph tags that really have no place in a title.', 'abstract': u'<a href="http://naughtywebsite.gov">Fake URLs</a> are an increasing problem when trying to write fake abstracts. It\'s unlikely that a .gov domain would host a bad website, but then again what times are we living in now? Also, <inline-formula><mml:math><mml:mi>\u03b4</mml:mi></mml:math></inline-formula>. Also also, <inline-formula><mml:math>this is some math</mml:math></inline-formula>.', 'database': ['PHY'], 'page': u'129999', 'volume': u'95', 'affiliations': [u'NASA-ADS, Harvard-Smithsonian Center for Astrophysics, 60 Garden St., Cambridge, MA 02138, United States', u'Monty Python lol.'], 'authors': u'Templeton, Matthew; Organs, Harry Snapper', 'keywords': u'Fundamental concepts', 'issue': u'1', 'properties': {'DOI': u'10.1103/PhysRevA.95.129999'}, 'refhandler_list': ['<ref id="c1"><label>[1]</label><mixed-citation publication-type="journal"><object-id>1</object-id><person-group person-group-type="author"><string-name>A. S. Holevo</string-name></person-group>, <source/>J. Multivariate Anal. <volume>3</volume>, <page-range>337</page-range> (<year>1973</year>).<pub-id pub-id-type="coden">JMVAAI</pub-id><issn>0047-259X</issn><pub-id assigning-authority="crossref" pub-id-type="doi" specific-use="suppress-display">10.1016/0047-259X(73)90028-6</pub-id></mixed-citation></ref>']}
-        with open(testfile, 'rU') as fp:
+        with open(testfile, open_mode_u) as fp:
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
         self.assertDictEqual(document, shouldbe)
@@ -318,21 +327,21 @@ class MockResponse(object):
 class TestProcSci(unittest.TestCase):
 
     def setUp(self):
-        "Mock procsci.PoSParser.urllib.urlopen"
-        self.patcher = patch('urllib.urlopen')
-        self.urlopen_mock = self.patcher.start()
+        # Mock procsci.PoSParser.urllib.urlopen
+        self.patcher = patch('requests.get')
+        self.requests_mock = self.patcher.start()
 
     def test_output(self):
         parser = procsci.PoSParser()
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/pos_sissa_it_299.html")
-        mock_data = open(mock_infile, 'rU').read()
-        self.urlopen_mock.return_value = MockResponse(mock_data)
-        test_data = parser.parse("https://pos.sissa.it/299")
+        mock_data = open(mock_infile, open_mode_u).read()
+        self.requests_mock.return_value.text = MockResponse(mock_data)
+        test_data = parser.parse("https://pos.sissa.it/299_test")
         test_outfile = "test_pos.tag"
         standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/procsci_299.tag")
         try:
             os.remove(test_outfile)
-        except Exception, err:
+        except Exception as err:
             pass
         for d in test_data:
             serializer = classic.Tagged()
@@ -353,10 +362,9 @@ class TestProcSci(unittest.TestCase):
 
 
 class TestHSTProp(unittest.TestCase):
-    import pytest
 
     def setUp(self):
-        "Mock hstprop.HSTParser.get_batch"
+        # Mock hstprop.HSTParser.get_batch
         self.patcher = patch('pyingest.parsers.hstprop.HSTParser.get_batch')
         self.get_batch_mock = self.patcher.start()
 
@@ -366,14 +374,14 @@ class TestHSTProp(unittest.TestCase):
         mock_data = json.loads(open(mock_infile).read())
         # self.get_batch_mock.return_value = MockResponse(mock_data)
         self.get_batch_mock.return_value = mock_data
-        api_url = 'https://proper.stsci.edu/proper/adsProposalSearch/query'
+        api_url = 'https://proper.stsci.edu/proper/adsProposalSearch/query_test'
         token = 'foo'
         test_data = parser.parse(api_url, api_key=token, fromDate='2019-01-01', maxRecords=1, test=True)
         test_outfile = "test_hst.tag"
         standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/hstprop.tag")
         try:
             os.remove(test_outfile)
-        except Exception, err:
+        except Exception as err:
             pass
         for d in test_data:
             serializer = classic.Tagged()
@@ -390,7 +398,7 @@ class TestHSTProp(unittest.TestCase):
         mock_data = json.loads(open(mock_infile).read())
         # self.get_batch_mock.return_value = MockResponse(mock_data)
         self.get_batch_mock.return_value = mock_data
-        api_url = 'https://proper.stsci.edu/proper/adsProposalSearch/query'
+        api_url = 'https://proper.stsci.edu/proper/adsProposalSearch/query_test'
         with self.assertRaises(hstprop.RequestError):
             test_data = parser.parse(api_url, fromDate='2019-01-01', maxRecords=1, test=True)
 
@@ -400,7 +408,7 @@ class TestHSTProp(unittest.TestCase):
         mock_data = json.loads(open(mock_infile).read())
         # self.get_batch_mock.return_value = MockResponse(mock_data)
         self.get_batch_mock.return_value = mock_data
-        api_url = 'https://proper.stsci.edu/proper/adsProposalSearch/query'
+        api_url = 'https://proper.stsci.edu/proper/adsProposalSearch/query_test'
         token = 'foo'
         test_data = parser.parse(api_url, api_key=token, fromDate='2019-01-01', maxRecords=1, test=True)
         # A missing data error should be reported
@@ -411,7 +419,7 @@ class TestHSTProp(unittest.TestCase):
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/hstprop_misaligned_arrays.json")
         mock_data = json.loads(open(mock_infile).read())
         self.get_batch_mock.return_value = mock_data
-        api_url = 'https://proper.stsci.edu/proper/adsProposalSearch/query'
+        api_url = 'https://proper.stsci.edu/proper/adsProposalSearch/query_test'
         token = 'foo'
         test_data = parser.parse(api_url, api_key=token, fromDate='2019-01-01', maxRecords=1, test=True)
         # Misaligned arrays should be reported
@@ -422,11 +430,13 @@ class TestHSTProp(unittest.TestCase):
 
 
 class TestJOSS(unittest.TestCase):
-    import pytest
 
     def setUp(self):
-        "Mock joss.JOSSParser.urllib.urlopen"
-        self.patcher = patch('urllib2.urlopen')
+        # Mock joss.JOSSParser.urllib.urlopen
+        if sys.version_info > (3,):
+            self.patcher = patch('urllib.request.urlopen')
+        else:
+            self.patcher = patch('urllib2.urlopen')
         self.urlopen_mock = self.patcher.start()
 
     def test_output(self):
@@ -434,13 +444,16 @@ class TestJOSS(unittest.TestCase):
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/joss_atom.xml")
         mock_data = open(mock_infile).read()
         self.urlopen_mock.return_value = MockResponse(mock_data)
-        joss_url = 'https://joss.theoj.org/papers/published.atom'
+        joss_url = 'https://joss.theoj.org/papers/published.atom.test'
         test_data = parser.parse(joss_url, since='2019-07-10', page=1)
         test_outfile = "test_joss.tag"
-        standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/joss.tag")
+        if sys.version_info > (3,):
+            standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/python3/joss.tag")
+        else:
+            standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/joss.tag")
         try:
             os.remove(test_outfile)
-        except Exception, err:
+        except Exception as err:
             pass
         for d in test_data:
             serializer = classic.Tagged()
@@ -456,11 +469,13 @@ class TestJOSS(unittest.TestCase):
 
 
 class TestATel(unittest.TestCase):
-    import pytest
 
     def setUp(self):
-        "Mock atel.ATelParser.urllib.urlopen"
-        self.patcher = patch('urllib2.urlopen')
+        # Mock atel.ATelParser.urllib.urlopen
+        if sys.version_info > (3,):
+            self.patcher = patch('urllib.request.urlopen')
+        else:
+            self.patcher = patch('urllib2.urlopen')
         self.urlopen_mock = self.patcher.start()
 
     def test_output(self):
@@ -468,13 +483,13 @@ class TestATel(unittest.TestCase):
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/ATel_rss.xml")
         mock_data = open(mock_infile).read()
         self.urlopen_mock.return_value = MockResponse(mock_data)
-        joss_url = 'http://www.astronomerstelegram.org/?adsbiblio'
+        joss_url = 'http://www.astronomerstelegram.org/?adsbiblio.test'
         test_data = parser.parse(joss_url, data_tag='item')
         test_outfile = "test_atel.tag"
         standard_outfile = os.path.join(os.path.dirname(__file__), "data/stubdata/serialized/atel.tag")
         try:
             os.remove(test_outfile)
-        except Exception, err:
+        except Exception as err:
             pass
         for d in test_data:
             serializer = classic.Tagged()
@@ -507,3 +522,66 @@ class TestGCNC(unittest.TestCase):
             self.assertEqual(test_data['bibcode'], output_bibcode)
             self.assertEqual(test_data['authors'], output_authors)
             self.assertEqual(test_data['publication'], output_pub)
+
+
+class TestProQuest(unittest.TestCase):
+
+    def setUp(self):
+        stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata')
+        config.PROQUEST_BASE_PATH = os.path.join(stubdata_dir, 'input/')
+        self.outputdir = os.path.join(stubdata_dir, 'serialized')
+
+    def test_proquest_parser(self):
+        infilename = 'SAO_NASA_Sep_2020.UNX'
+        parser = proquest.ProQuestParser(infilename)
+        parsed = parser.parse()
+        serializer = classic.Tagged()
+        standard_outfile = os.path.join(self.outputdir, 'SAO_NASA_Sep_2020.UNX.new')
+        test_outfile = os.path.join(self.outputdir, 'test_proquest.UNX.new')
+        try:
+            os.remove(test_outfile)
+        except Exception as err:
+            pass
+        with open(test_outfile, 'w') as fo:
+            for rec in parser.results:
+                serializer.write(rec, fo)
+        result = filecmp.cmp(test_outfile, standard_outfile)
+        self.assertEqual(result, True)
+        os.remove(test_outfile)
+
+
+class TestPnas(unittest.TestCase):
+
+    def setUp(self):
+        self.stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata')
+        self.patcher = patch('requests.get')
+        self.requests_mock = self.patcher.start()
+
+    def test_pnas_parser(self):
+        mock_infile = os.path.join(self.stubdata_dir, 'input', 'pnas_feedparser.resp')
+        mock_html_file = os.path.join(self.stubdata_dir, 'input', 'pnas_resp.html')
+        mock_data = open(mock_infile, open_mode_u).read()
+        mock_html = open(mock_html_file, open_mode_u).read()
+        self.requests_mock.return_value.text = MockResponse(mock_html)
+        feed = json.loads(mock_data)
+        for _item in feed['entries']:
+            absURL = _item['link']
+            parser = pnas.PNASParser()
+            output = parser.parse(absURL)
+
+        serializer = classic.Tagged()
+        test_outfile = os.path.join(self.stubdata_dir, 'serialized', 'test_pnas.tag')
+        if sys.version_info > (3,):
+            standard_outfile = os.path.join(self.stubdata_dir, 'serialized', 'python3', 'pnas.tag')
+        else:
+            standard_outfile = os.path.join(self.stubdata_dir, 'serialized', 'pnas.tag')
+        try:
+            os.remove(test_outfile)
+        except Exception as err:
+            pass
+        with open(test_outfile, 'w') as fo:
+            serializer.write(output, fo)
+
+        result = filecmp.cmp(test_outfile, standard_outfile)
+        self.assertEqual(result, True)
+        os.remove(test_outfile)
