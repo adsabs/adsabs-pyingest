@@ -327,11 +327,14 @@ class JATSParser(BaseBeautifulSoupParser):
                 except Exception as err:
                     pass
                 else:
+                    aid_arr = []
                     if len(aid) > 0:
-                        aid_str = ' '.join([x['rid'] for x in aid])
-                        aid_arr = aid_str.split()
-                    else:
-                        aid_arr = []
+                        try:
+                            aid_str = ' '.join([x['rid'] for x in aid])
+                        except Exception as err:
+                            print("jats.py: Failure in affil parsing: %s" % err)
+                        else:
+                            aid_arr = aid_str.split()
 
                 try:
                     new_aid_arr = []
