@@ -65,7 +65,8 @@ class ADSFeedbackParser(DefaultParser):
 
                 output_metadata['affiliations'] = affil_list
             else:
-                print("WARNING: Lengths of author and affil arrays different, ignoring affils")
+                # send a warning to logger when logging is implemented
+                pass
         except Exception as err:
             pass
 
