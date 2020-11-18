@@ -59,8 +59,9 @@ class ADSFeedbackParser(DefaultParser):
                 if n_orcid == n_affil:
                     new_affils = list()
                     for (affil,orcid) in zip(affil_list,orcid_list):
-                        newaff = affil + ' <id system="ORCID">' + orcid + '</id>'
-                        new_affils.append(newaff)
+                        if orcid:
+                            affil = affil + ' <id system="ORCID">' + orcid + '</id>'
+                        new_affils.append(affil)
                     affil_list = new_affils
 
                 output_metadata['affiliations'] = affil_list
