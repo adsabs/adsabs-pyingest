@@ -535,7 +535,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     else:
                         month = self._detag(d.month, [])
                     if int(month) < 10:
-                        month = "0" + str(month)
+                        month = "0" + str(int(month))
                     else:
                         month = str(month)
                     pubdate = month + pubdate
