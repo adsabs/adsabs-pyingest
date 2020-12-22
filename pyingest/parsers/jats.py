@@ -542,7 +542,7 @@ class JATSParser(BaseBeautifulSoupParser):
             except Exception as errrr:
                 pass
             else:
-                if a == 'print' or b == 'ppub':
+                if a == 'print' or b == 'ppub' or b == 'cover':
                     base_metadata['pubdate'] = pubdate
                 elif a == 'electronic' or b == 'epub':
                     try:
