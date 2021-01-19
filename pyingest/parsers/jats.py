@@ -275,9 +275,16 @@ class JATSParser(BaseBeautifulSoupParser):
                 # If you didn't get affiliations above, l_need_affils == True, so do this...
                 if l_need_affils:
                     try:
-                        if a.find('aff') is not None:
-                            aff_id = a.find('aff')
-                            aff_text = self._detag(aff_id, JATS_TAGSET['affiliations'])
+                        # MT, 2021-Jan-19 MNRAS fix:
+                        # note that a may have multiple aff.affiliations tags, so use find_all here
+                        # if a .find('aff') is not None:
+                            # aff_id = a.find('aff')
+                            # aff_text = self._detag(aff_id, JATS_TAGSET['affiliations'])
+                        if a.find_all('aff') is not None:
+                            aff_text_arr = list()
+                            for ax in a.find_all('aff'):
+                                aff_text_arr.append(self._detag(ax, JATS_TAGSET['affiliations']).strip())
+                            aff_text = "; ".join(aff_text_arr)
                     except Exception as err:
                         pass
 
