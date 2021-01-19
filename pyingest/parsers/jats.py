@@ -200,7 +200,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 try:
                     affil = article_meta.find_all('aff')
                 except Exception as err:
-                    pass
+                    print("Error parsing affils: %s" % err)
         except Exception as err:
             pass
         else:
@@ -212,7 +212,6 @@ class JATSParser(BaseBeautifulSoupParser):
                 try:
                     a['id']
                 except Exception as err:
-                    # print "I'm failing in the affils loop!",err
                     l_need_affils = True
                 else:
                     key = a['id']
@@ -231,6 +230,7 @@ class JATSParser(BaseBeautifulSoupParser):
                         while a.find('ext-link') is not None:
                             a.find('ext-link').extract()
                     except Exception as err:
+                        print("Error getting email: %s" % err)
                         pass
 
                     aff_text = self._detag(a, JATS_TAGSET['affiliations'])
@@ -275,9 +275,16 @@ class JATSParser(BaseBeautifulSoupParser):
                 # If you didn't get affiliations above, l_need_affils == True, so do this...
                 if l_need_affils:
                     try:
-                        if a.find('aff') is not None:
-                            aff_id = a.find('aff')
-                            aff_text = self._detag(aff_id, JATS_TAGSET['affiliations'])
+                        # MT, 2021-Jan-19 MNRAS fix:
+                        # note that a may have multiple aff.affiliations tags, so use find_all here
+                        # if a .find('aff') is not None:
+                            # aff_id = a.find('aff')
+                            # aff_text = self._detag(aff_id, JATS_TAGSET['affiliations'])
+                        if a.find_all('aff') is not None:
+                            aff_text_arr = list()
+                            for ax in a.find_all('aff'):
+                                aff_text_arr.append(self._detag(ax, JATS_TAGSET['affiliations']).strip())
+                            aff_text = "; ".join(aff_text_arr)
                     except Exception as err:
                         pass
 
