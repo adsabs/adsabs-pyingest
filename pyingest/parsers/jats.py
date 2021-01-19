@@ -200,7 +200,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 try:
                     affil = article_meta.find_all('aff')
                 except Exception as err:
-                    print("Error parsing affils: %s" % err)
+                    pass
         except Exception as err:
             pass
         else:
@@ -212,6 +212,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 try:
                     a['id']
                 except Exception as err:
+                    # print "I'm failing in the affils loop!",err
                     l_need_affils = True
                 else:
                     key = a['id']
@@ -230,7 +231,6 @@ class JATSParser(BaseBeautifulSoupParser):
                         while a.find('ext-link') is not None:
                             a.find('ext-link').extract()
                     except Exception as err:
-                        print("Error getting email: %s" % err)
                         pass
 
                     aff_text = self._detag(a, JATS_TAGSET['affiliations'])
