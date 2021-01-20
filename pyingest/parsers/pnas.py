@@ -1,3 +1,4 @@
+import re
 import requests
 from pyingest.config.utils import u2asc
 from pyingest.parsers.default import BaseBeautifulSoupParser
@@ -89,11 +90,19 @@ class PNASParser(BaseBeautifulSoupParser):
         try:
             vol = data.find_all(attrs={'name': 'citation_volume'})[0]['content']
             iss = data.find_all(attrs={'name': 'citation_issue'})[0]['content']
-            fpg = data.find_all(attrs={'name': 'citation_firstpage'})[0]['content']
-            lpg = data.find_all(attrs={'name': 'citation_lastpage'})[0]['content']
-            volume = vol + ', issue ' + iss
-            page = fpg + '-' + lpg
             journal_string = "Proceedings of the National Academy of Sciences, vol. %s, pp. %s"
+            try:
+                fpg = data.find_all(attrs={'name': 'citation_firstpage'})[0]['content']
+                lpg = data.find_all(attrs={'name': 'citation_lastpage'})[0]['content']
+                page = fpg + '-' + lpg
+            except Exception as err:
+                try:
+                    page_id = data.find_all(attrs={'name': 'citation_id'})[0]['content']
+                    page = re.sub('[^0-9]','',page_id.split('/')[-1])
+                    journal_string = "Proceedings of the National Academy of Sciences, vol. %s, id. %s"
+                except Exception as err:
+                    page = ''
+            volume = vol + ', issue ' + iss
             output_metadata['publication'] = journal_string % (volume, page)
             output_metadata['volume'] = vol
         except Exception as err:
@@ -192,7 +201,10 @@ class PNASParser(BaseBeautifulSoupParser):
         year = str(int(vol) + 1903)
         bibstem = 'PNAS.'
         vol_bib = vol.rjust(4, '.')
-        fpg_bib = fpg.rjust(5, '.')
+        try:
+            fpg_bib = fpg.rjust(5, '.')
+        except Exception as err:
+            fpg_bib = page[0:5]
         auth_init = self.get_author_init(output_metadata['authors'][0])
         output_metadata['bibcode'] = year + bibstem + vol_bib + fpg_bib + auth_init
 
