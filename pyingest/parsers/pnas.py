@@ -99,7 +99,7 @@ class PNASParser(BaseBeautifulSoupParser):
                 try:
                     page_id = data.find_all(attrs={'name': 'citation_id'})[0]['content']
                     page = re.sub('[^0-9]','',page_id.split('/')[-1])
-                    journal_string = "Proceedings of the National Academy of Sciences, vol. %s, id %s"
+                    journal_string = "Proceedings of the National Academy of Sciences, vol. %s, id. %s"
                 except Exception as err:
                     page = ''
             volume = vol + ', issue ' + iss
