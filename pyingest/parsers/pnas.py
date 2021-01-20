@@ -90,11 +90,11 @@ class PNASParser(BaseBeautifulSoupParser):
         try:
             vol = data.find_all(attrs={'name': 'citation_volume'})[0]['content']
             iss = data.find_all(attrs={'name': 'citation_issue'})[0]['content']
+            journal_string = "Proceedings of the National Academy of Sciences, vol. %s, pp. %s"
             try:
                 fpg = data.find_all(attrs={'name': 'citation_firstpage'})[0]['content']
                 lpg = data.find_all(attrs={'name': 'citation_lastpage'})[0]['content']
                 page = fpg + '-' + lpg
-                journal_string = "Proceedings of the National Academy of Sciences, vol. %s, pp. %s"
             except Exception as err:
                 try:
                     page_id = data.find_all(attrs={'name': 'citation_id'})[0]['content']
