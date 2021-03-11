@@ -36,8 +36,7 @@ def get_git_version(default="v0.0.1"):
         _p.stderr.close()
         line = _p.stdout.readlines()[0]
         line = line.strip()
-        if isinstance(default, unicode):
-            return python_2_and_3_compatible(line)
+        return python_2_and_3_compatible(line)
     except Exception:
         return default
 
