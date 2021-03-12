@@ -4,11 +4,11 @@ future==0.18.2
 habanero==0.7.4
 html5lib==1.1
 jsonschema==3.1.1
-lxml==4.2.1
+lxml==4.6.2
 namedentities==1.9.4
 nameparser==1.0.6
 pymarc==3.2.0
 python-dateutil==2.8.1
 requests==2.20.0
-unidecode
+Unidecode==1.2.0
 xmltodict==0.12.0
