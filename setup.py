@@ -16,18 +16,6 @@ except (IOError, ImportError):
 with open('requirements.txt') as f:
     REQUIRED = f.read().splitlines()
 
-import sys
-def python_2_and_3_compatible(object):
-    """to decide what type to return based on what is running"""
-    if sys.version_info[0] < 3:
-        text_type = unicode
-    else:
-        text_type = str
-    if isinstance(object, text_type):
-        result = object.encode('utf-8')
-    else:
-        result = object
-    return result
 
 def get_git_version(default="v0.0.1"):
     """runs the command to get the local version of git"""
@@ -36,7 +24,7 @@ def get_git_version(default="v0.0.1"):
         _p.stderr.close()
         line = _p.stdout.readlines()[0]
         line = line.strip()
-        return python_2_and_3_compatible(line)
+        return line
     except Exception:
         return default
 
