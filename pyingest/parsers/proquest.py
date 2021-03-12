@@ -66,7 +66,6 @@ class ProQuestParser(DefaultParser):
 
     def parse(self):
 
-        b2p = config.PROQUEST_BIB_TO_PUBNUM
         oa_base = config.PROQUEST_OA_BASE
         url_base = config.PROQUEST_URL_BASE
 
