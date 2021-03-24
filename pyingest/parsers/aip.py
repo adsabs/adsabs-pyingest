@@ -108,13 +108,13 @@ class AIPJATSParser(JATSParser):
             bibstem = j_bibstem.ljust(5, '.')
             volume = output_metadata['volume'].rjust(4, '.')
             if j_bibstem == 'AIPC':
-                issue_letter = string.letters[int(output_metadata['page'][0:2]) - 1]
+                issue_letter = string.ascii_letters[int(output_metadata['page'][0:2]) - 1]
             else:
-                issue_letter = string.letters[int(output_metadata['issue'])-1]
+                issue_letter = string.ascii_letters[int(output_metadata['issue'])-1]
             idno = output_metadata['page']
             if len(idno) == 6:
                 try:
-                    idtwo = string.letters[int(idno[0:2]) - 1]
+                    idtwo = string.ascii_letters[int(idno[0:2]) - 1]
                 except Exception as err:
                     idtwo = idno[0:2]
                 idfour = idno[2:]
@@ -128,20 +128,6 @@ class AIPJATSParser(JATSParser):
                 author_init = '.'
             output_metadata['bibcode'] = year + bibstem + volume + issue_letter + idno + author_init
 
-        # pass relevant fields through EntityConverter
-        # to remove bad entities
-        # entity_fields = ['abstract', 'title', 'authors', 'affiliations']
-        entity_fields = ['abstract', 'title', 'authors']
-        # entity_fields = ['abstract', 'title']
-        for ecf in entity_fields:
-            if ecf in list(output_metadata.keys()):
-                try:
-                    conv = EntityConverter()
-                    conv.input_text = output_metadata[ecf]
-                    conv.convert()
-                    output_metadata[ecf] = conv.output_text
-                except Exception as err:
-                    print("problem converting %s for %s: %s" % (ecf, output_metadata['bibcode'], err))
     
         # Return
         return output_metadata

@@ -124,11 +124,17 @@ class JATSParser(BaseBeautifulSoupParser):
         # Title:
         title_xref_list = []
         title_fn_list = []
+        titledoi = None
         try:
             title = article_meta.find('title-group').find('article-title')
         except Exception as err:
             pass
         else:
+            try:
+                for dx in title.find_all('ext-link'):
+                    titledoi = dx['xlink:href']
+            except Exception as err:
+                pass
             try:
                 for dx in title.find_all('xref'):
                     title_xref_list.append(self._detag(dx, JATS_TAGSET['abstract']).strip())
@@ -386,6 +392,7 @@ class JATSParser(BaseBeautifulSoupParser):
             base_metadata['copyright'] = self._detag(copyright, [])
 
         # Keywords:
+        isErratum = False
         try:
             keys_uat = []
             keys_misc = []
@@ -431,6 +438,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 base_metadata['keywords'] = ', '.join(keywords)
         except Exception as err:
             pass
+
         if 'keywords' not in base_metadata:
             try:
                 keywords = article_meta.find('article-categories').find_all('subj-group')
@@ -443,6 +451,10 @@ class JATSParser(BaseBeautifulSoupParser):
                         for k in c.find_all('subject'):
                             klist.append(self._detag(k, JATS_TAGSET['keywords']))
                         base_metadata['keywords'] = ', '.join(klist)
+                    else:
+                        for k in c.find_all('subject'):
+                            if k.string == 'Errata' or k.string == 'Corrigendum':
+                                isErratum = True
                 except Exception as err:
                     pass
 
@@ -453,6 +465,7 @@ class JATSParser(BaseBeautifulSoupParser):
             # base_metadata['uatkeys'] = uat_cnv.convert_to_uri(base_metadata['uatkeys'])
         # except Exception as err:
             # pass
+        
 
         # Volume:
         volume = article_meta.volume
@@ -487,9 +500,34 @@ class JATSParser(BaseBeautifulSoupParser):
         except Exception as err:
             pass
 
+        # Related article data, especially corrections and errata
+        relateddoi = None
+        try:
+            related = article_meta.find_all('related-article')
+            for r in related:
+                if r['related-article-type'] == 'corrected-article':
+                    isErratum = True
+                    if r['ext-link-type'] == 'uri':
+                        relateddoi = r['xlink:href']
+        except Exception as err:
+            pass
+
         # links: DOI and arxiv preprints
         # DOI
         base_metadata['properties'] = {}
+        if isErratum:
+            try:
+                doiurl_pat = r'(.*?)(doi.org\/)'
+                if titledoi:
+                    base_metadata['properties']['ERRATUM'] = re.sub(doiurl_pat, '', titledoi)
+                elif relateddoi:
+                    base_metadata['properties']['ERRATUM'] = re.sub(doiurl_pat, '', relateddoi
+                else:
+                    print('warning, no doi for erratum!')
+                    # pass
+            except Exception as err:
+                print('warning, problem making erratum: %s' % err)
+                # pass
         try:
             ids = article_meta.find_all('article-id')
         except Exception as err:
@@ -618,15 +656,15 @@ class JATSParser(BaseBeautifulSoupParser):
 
         output_metadata = base_metadata
 
-        # Last step: entity conversion
-        ec_fields = ['authors', 'abstract', 'title']
-        econv = EntityConverter()
-        for ecf in ec_fields:
-            try:
-                econv.input_text = output_metadata[ecf]
-                econv.convert()
-                output_metadata[ecf] = econv.output_text
-            except Exception as err:
-                pass
+        # # Last step: entity conversion
+        # ec_fields = ['authors', 'abstract', 'title']
+        # econv = EntityConverter()
+        # for ecf in ec_fields:
+            # try:
+                # econv.input_text = output_metadata[ecf]
+                # econv.convert()
+                # output_metadata[ecf] = econv.output_text
+            # except Exception as err:
+                # pass
 
         return output_metadata

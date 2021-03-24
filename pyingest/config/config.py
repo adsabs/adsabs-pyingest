@@ -22,7 +22,7 @@ def get_uat(data,data_dict):
 
 
 if sys.version_info > (3,):
-    open_mode = 'rb'
+    open_mode = 'r'
 else:
     open_mode = 'rU'
 
