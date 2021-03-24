@@ -220,18 +220,5 @@ class OUPJATSParser(JATSParser):
                               output_metadata['properties']['DOI']])
             output_metadata['properties'].update({'PDF': plink})
 
-        # pass relevant fields through EntityConverter
-        # to remove bad entities
-        entity_fields = ['abstract', 'title', 'authors']
-        for ecf in entity_fields:
-            if ecf in output_metadata.keys():
-                try:
-                    conv = EntityConverter()
-                    conv.input_text = output_metadata[ecf]
-                    conv.convert()
-                    output_metadata[ecf] = conv.output_text
-                except Exception as err:
-                    print("problem converting %s for %s: %s" % (ecf, output_metadata['bibcode'], err))
-
         # Return
         return output_metadata
