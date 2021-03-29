@@ -1,4 +1,5 @@
 import re
+import namedentities
 from pyingest.config import config
 
 
@@ -10,7 +11,7 @@ class EntityConverter(object):
         self.ent_dict = config.ENTITY_DICTIONARY
 
     def convert(self):
-        o = self.input_text
+        o = namedentities.named_entities(self.input_text)
         # ox = o
         for k, v in self.ent_dict.items():
             # ox = re.sub(k, v, ox)

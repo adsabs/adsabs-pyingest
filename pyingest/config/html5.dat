@@ -378,10 +378,6 @@
 ќ	&kjcy;	&#x0045C;	&#1116;	CYRILLIC SMALL LETTER KJE
 ў	&ubrcy;	&#x0045E;	&#1118;	CYRILLIC SMALL LETTER SHORT U
 џ	&dzcy;	&#x0045F;	&#1119;	CYRILLIC SMALL LETTER DZHE
- 	&emsp13;	&#x02004;	&#8196;	THREE-PER-EM SPACE
- 	&emsp14;	&#x02005;	&#8197;	FOUR-PER-EM SPACE
- 	&numsp;	&#x02007;	&#8199;	FIGURE SPACE
- 	&puncsp;	&#x02008;	&#8200;	PUNCTUATION SPACE
 ​	&ZeroWidthSpace; &NegativeVeryThinSpace; &NegativeThinSpace; &NegativeMediumSpace; &NegativeThickSpace;	&#x0200B;	&#8203;	ZERO WIDTH SPACE
 ‌	&zwnj;	&#x0200C;	&#8204;	ZERO WIDTH NON-JOINER
 ‍	&zwj;	&#x0200D;	&#8205;	ZERO WIDTH JOINER
@@ -410,11 +406,6 @@
 ⁄	&frasl;	&#x02044;	&#8260;	FRACTION SLASH
 ⁏	&bsemi;	&#x0204F;	&#8271;	REVERSED SEMICOLON
 ⁗	&qprime;	&#x02057;	&#8279;	QUADRUPLE PRIME
- 	&MediumSpace;	&#x0205F;	&#8287;	MEDIUM MATHEMATICAL SPACE
-⁠	&NoBreak;	&#x02060;	&#8288;	WORD JOINER
-⁡	&ApplyFunction; &af;	&#x02061;	&#8289;	FUNCTION APPLICATION
-⁢	&InvisibleTimes; &it;	&#x02062;	&#8290;	INVISIBLE TIMES
-⁣	&InvisibleComma; &ic;	&#x02063;	&#8291;	INVISIBLE SEPARATOR
 €	&euro;	&#x020AC;	&#8364;	EURO SIGN
 ⃛	&tdot; &TripleDot;	&#x020DB;	&#8411;	COMBINING THREE DOTS ABOVE
 ⃜	&DotDot;	&#x020DC;	&#8412;	COMBINING FOUR DOTS ABOVE

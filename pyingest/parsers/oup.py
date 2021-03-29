@@ -5,6 +5,7 @@ from __future__ import absolute_import
 import string
 from pyingest.config.utils import u2asc
 from .jats import JATSParser
+from .author_init import AuthorInitial
 from pyingest.config.config import *
 from pyingest.parsers.entity_convert import EntityConverter
 
@@ -22,13 +23,6 @@ class UnparseableException(Exception):
 
 
 class OUPJATSParser(JATSParser):
-
-    def get_author_init(self, namestring):
-        output = u2asc(namestring)
-        for c in output:
-            if c.isalpha():
-                return c.upper()
-        return u'.'
 
     def oup_journals(self, pid):
         try:
@@ -201,7 +195,8 @@ class OUPJATSParser(JATSParser):
                         idno = output_metadata['page']
                     idno = idno.rjust(4, '.')
             try:
-                author_init = self.get_author_init(output_metadata['authors'])
+                a = AuthorInitial()
+                author_init = a.get_author_init(output_metadata['authors'])
             except Exception as err:
                 author_init = '.'
             # would be better if I had two different variables for bibstem (since MNRASL shares a bibstem with MNRAS)

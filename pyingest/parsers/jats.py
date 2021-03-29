@@ -40,7 +40,7 @@ class JATSParser(BaseBeautifulSoupParser):
 
     def _detag(self, r, tags_keep, **kwargs):
 
-        newr = bs4.BeautifulSoup(str_type(r), 'html5lib')
+        newr = bs4.BeautifulSoup(str_type(r), 'lxml')
         try:
             tag_list = list(set([x.name for x in newr.find_all()]))
         except Exception as err:
@@ -507,8 +507,7 @@ class JATSParser(BaseBeautifulSoupParser):
             for r in related:
                 if r['related-article-type'] == 'corrected-article':
                     isErratum = True
-                    if r['ext-link-type'] == 'uri':
-                        relateddoi = r['xlink:href']
+                    relateddoi = r['xlink:href']
         except Exception as err:
             pass
 
@@ -521,7 +520,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 if titledoi:
                     base_metadata['properties']['ERRATUM'] = re.sub(doiurl_pat, '', titledoi)
                 elif relateddoi:
-                    base_metadata['properties']['ERRATUM'] = re.sub(doiurl_pat, '', relateddoi
+                    base_metadata['properties']['ERRATUM'] = re.sub(doiurl_pat, '', relateddoi)
                 else:
                     print('warning, no doi for erratum!')
                     # pass
@@ -654,17 +653,24 @@ class JATSParser(BaseBeautifulSoupParser):
             else:
                 base_metadata['refhandler_list'] = ref_list_text
 
-        output_metadata = base_metadata
+        # Entity Conversions:
+        econv = EntityConverter()
+        for k, v in base_metadata.items():
+            if isinstance(v,str_type):
+                econv.input_text = v
+                econv.convert()
+                v = econv.output_text
+            elif isinstance(v, list):
+                newv = []
+                for l in v:
+                    if isinstance(l,str_type):
+                        econv.input_text = l
+                        econv.convert()
+                        l = econv.output_text
+                    newv.append(l)
+                v = newv
+                
+            output_metadata[k] = v
 
-        # # Last step: entity conversion
-        # ec_fields = ['authors', 'abstract', 'title']
-        # econv = EntityConverter()
-        # for ecf in ec_fields:
-            # try:
-                # econv.input_text = output_metadata[ecf]
-                # econv.convert()
-                # output_metadata[ecf] = econv.output_text
-            # except Exception as err:
-                # pass
 
         return output_metadata
