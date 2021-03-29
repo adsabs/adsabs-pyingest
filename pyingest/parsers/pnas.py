@@ -198,7 +198,7 @@ class PNASParser(BaseBeautifulSoupParser):
         try:
             fpg_bib = fpg.rjust(5, '.')
         except Exception as err:
-            fpg_bib = page[0:5]
+            fpg_bib = page[2:7]
         try:
             a = AuthorInitial()
             auth_init = a.get_author_init(output_metadata['authors'])
