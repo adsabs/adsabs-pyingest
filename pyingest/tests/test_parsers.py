@@ -37,6 +37,15 @@ else:
     open_mode = 'r'
     open_mode_u = 'rU'
 
+class MockResponse(object):
+
+    def __init__(self, resp_data):
+        self.resp_data = resp_data
+
+    def read(self):
+        return self.resp_data
+
+
 class TestDatacite(unittest.TestCase):
 
     def setUp(self):
@@ -106,10 +115,6 @@ class TestZenodo(unittest.TestCase):
             else:
                 sys.stderr.write("could not find shouldbe file %s\n" % target)
 
-            # if ok:
-            #     os.remove(target_saved)
-            # else:
-            #     sys.stderr.write("parsed output dumped in %s\n" % target_saved)
             os.remove(target_saved)
 
 
@@ -235,7 +240,6 @@ class TestIOP(unittest.TestCase):
     def test_iop_parser(self):
         test_infile = os.path.join(self.inputdir, 'iop_apj.xml')
         parser = iop.IOPJATSParser()
-        config.REFERENCE_TOPDIR = '/dev/null/'
         with open(test_infile) as fp:
             test_data = parser.parse(fp)
             output_bibcode = '2019ApJ...882...74H'
@@ -257,7 +261,6 @@ class TestOUP(unittest.TestCase):
 
     def test_oup_parser(self):
         parser = oup.OUPJATSParser()
-        config.REFERENCE_TOPDIR = '/dev/null/'
         for file in self.inputdocs:
             # this will raise exceptions if something is wrong
             with open(file, open_mode_u) as fp:
@@ -309,20 +312,11 @@ class TestAPSJATS(unittest.TestCase):
     def test_dehtml2(self):
         self.maxDiff = None
         testfile = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/apsjats_10.1103.PhysRevA.95.129999.fulltext.xml')
-        shouldbe = {'bibcode': u'2015PhRvA..95l9999T', 'publication': u'Physical Review A, Volume 95, Issue 1, id.129999, <NUMPAGES>9</NUMPAGES> pp.', 'pubdate': u'07/2015', 'copyright': u'\xa92018 American Physical Society', 'title': u'Fake article title with other kinds of markup inside <a href="http://www.reddit.com/r/aww">it</a> including paragraph tags that really have no place in a title.', 'abstract': u'<a href="http://naughtywebsite.gov">Fake URLs</a> are an increasing problem when trying to write fake abstracts. It\'s unlikely that a .gov domain would host a bad website, but then again what times are we living in now? Also, <inline-formula><mml:math><mml:mi>\u03b4</mml:mi></mml:math></inline-formula>. Also also, <inline-formula><mml:math>this is some math</mml:math></inline-formula>.', 'database': ['PHY'], 'page': u'129999', 'volume': u'95', 'affiliations': [u'NASA-ADS, Harvard-Smithsonian Center for Astrophysics, 60 Garden St., Cambridge, MA 02138, United States', u'Monty Python lol.'], 'authors': u'Templeton, Matthew; Organs, Harry Snapper', 'keywords': u'Fundamental concepts', 'issue': u'1', 'properties': {'DOI': u'10.1103/PhysRevA.95.129999'}, 'refhandler_list': ['<ref id="c1"><label>[1]</label><mixed-citation publication-type="journal"><object-id>1</object-id><person-group person-group-type="author"><string-name>A. S. Holevo</string-name></person-group>, <source/>J. Multivariate Anal. <volume>3</volume>, <page-range>337</page-range> (<year>1973</year>).<pub-id pub-id-type="coden">JMVAAI</pub-id><issn>0047-259X</issn><pub-id assigning-authority="crossref" pub-id-type="doi" specific-use="suppress-display">10.1016/0047-259X(73)90028-6</pub-id></mixed-citation></ref>']}
+        shouldbe = {'bibcode': u'2015PhRvA..95l9999T', 'publication': u'Physical Review A, Volume 95, Issue 1, id.129999, <NUMPAGES>9</NUMPAGES> pp.', 'pubdate': u'07/2015', 'copyright': u'&#169;2018 American Physical Society', 'title': u'Fake article title with other kinds of markup inside <a href="http://www.reddit.com/r/aww">it</a> including paragraph tags that really have no place in a title.', 'abstract': u'<a href="http://naughtywebsite.gov">Fake URLs</a> are an increasing problem when trying to write fake abstracts. It\'s unlikely that a .gov domain would host a bad website, but then again what times are we living in now? Also, <inline-formula><mml:math><mml:mi>&#948;</mml:mi></mml:math></inline-formula>. Also also, <inline-formula><mml:math>this is some math</mml:math></inline-formula>.', 'database': ['PHY'], 'page': u'129999', 'volume': u'95', 'affiliations': [u'NASA-ADS, Harvard-Smithsonian Center for Astrophysics, 60 Garden St., Cambridge, MA 02138, United States', u'Monty Python lol.'], 'authors': u'Templeton, Matthew; Organs, Harry Snapper', 'keywords': u'Fundamental concepts', 'issue': u'1', 'properties': {'DOI': u'10.1103/PhysRevA.95.129999'}, 'refhandler_list': ['<ref id="c1"><label>[1]</label><mixed-citation publication-type="journal"><object-id>1</object-id><person-group person-group-type="author"><string-name>A. S. Holevo</string-name></person-group>, <source>J. Multivariate Anal.</source> <volume>3</volume>, <page-range>337</page-range> (<year>1973</year>).<pub-id pub-id-type="coden">JMVAAI</pub-id><issn>0047-259X</issn><pub-id assigning-authority="crossref" pub-id-type="doi" specific-use="suppress-display">10.1016/0047-259X(73)90028-6</pub-id></mixed-citation></ref>']}
         with open(testfile, open_mode_u) as fp:
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
         self.assertDictEqual(document, shouldbe)
-
-
-class MockResponse(object):
-
-    def __init__(self, resp_data):
-        self.resp_data = resp_data
-
-    def read(self):
-        return self.resp_data
 
 
 class TestProcSci(unittest.TestCase):
@@ -602,7 +596,7 @@ class TestFeedback(unittest.TestCase):
             test_data = parser.parse()
             output_bibcode = '2525ApJ..9999.9999T'
             output_affil = ['Center for Astrophysics | Harvard & Smithsonian <id system="ORCID">0000-0003-1918-0622</id>']
-            print(test_data['affiliations'])
+            # print(test_data['affiliations'])
             self.assertEqual(test_data['bibcode'], output_bibcode)
             self.assertEqual(test_data['affiliations'], output_affil)
 

@@ -5,6 +5,7 @@ from pyingest.parsers.default import BaseBeautifulSoupParser
 from pyingest.parsers.author_names import AuthorNames
 from pyingest.parsers.affils import AffiliationParser
 from pyingest.parsers.uat_key2uri import UATURIConverter
+from .author_init import AuthorInitial
 
 
 class URLError(Exception):
@@ -23,13 +24,6 @@ class PNASParser(BaseBeautifulSoupParser):
 
     def __init__(self):
         pass
-
-    def get_author_init(self, namestring):
-        output = u2asc(namestring)
-        for c in output:
-            if c.isalpha():
-                return c.upper()
-        return u'.'
 
     def get_buffer(self, url, **kwargs):
         hostname = url.split('/')[2]
@@ -204,8 +198,13 @@ class PNASParser(BaseBeautifulSoupParser):
         try:
             fpg_bib = fpg.rjust(5, '.')
         except Exception as err:
-            fpg_bib = page[0:5]
-        auth_init = self.get_author_init(output_metadata['authors'][0])
+            fpg_bib = page[2:7]
+        try:
+            a = AuthorInitial()
+            auth_init = a.get_author_init(output_metadata['authors'])
+        except Exception as err:
+            print(err)
+            auth_init = '.'
         output_metadata['bibcode'] = year + bibstem + vol_bib + fpg_bib + auth_init
 
         # References

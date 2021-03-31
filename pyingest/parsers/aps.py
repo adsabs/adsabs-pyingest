@@ -5,6 +5,7 @@ from __future__ import absolute_import
 from past.builtins import basestring
 from pyingest.config.utils import u2asc
 from .jats import JATSParser
+from .author_init import AuthorInitial
 from pyingest.config.config import *
 
 
@@ -23,13 +24,6 @@ class UnparseableException(Exception):
 class APSJATSParser(JATSParser):
 
     AST_WORDS = [x.lower() for x in APS_ASTRO_KEYWORDS]
-
-    def get_author_init(self, namestring):
-        output = u2asc(namestring)
-        for c in output:
-            if c.isalpha():
-                return c
-        return u'.'
 
     def aps_journals(self, pid):
         # mapping journal-meta/journal-id/publisher-id to bibstems
@@ -106,8 +100,10 @@ class APSJATSParser(JATSParser):
                 idfour = idno.rjust(5, '.')
             idno = idtwo + idfour
             try:
-                author_init = self.get_author_init(output_metadata['authors'][0])
+                a = AuthorInitial()
+                author_init = a.get_author_init(output_metadata['authors'])
             except Exception as err:
+                print(err)
                 author_init = '.'
             output_metadata['bibcode'] = year + bibstem + volume + idno + author_init
             del output_metadata['pub-id']

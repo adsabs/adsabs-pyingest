@@ -4,6 +4,7 @@ from xml.parsers import expat
 from pyingest.config.utils import u2asc
 from pyingest.parsers.dubcore import DublinCoreParser
 from pyingest.parsers.author_names import AuthorNames
+from .author_init import AuthorInitial
 
 
 class MissingAuthorException(Exception):
@@ -41,13 +42,6 @@ class ArxivParser(DublinCoreParser):
             'remove_the': False,
             'fix_arXiv_mixed_collaboration_string': True,
         }
-
-    def get_author_init(self, namestring):
-        output = u2asc(namestring)
-        for _c in output:
-            if _c.isalpha():
-                return _c.upper()
-        return u'.'
 
     def parse(self, fp, **kwargs):
 
@@ -95,7 +89,12 @@ class ArxivParser(DublinCoreParser):
             else:
                 year = u'20' + arx_yy
 
-            author_init = self.get_author_init(result['authors'])
+            try:
+                a = AuthorInitial()
+                author_init = a.get_author_init(result['authors'])
+            except Exception as err:
+                print(err)
+                author_init = '.'
 
             bibcode1 = year + arx_field
             bibcode2 = arx_num + author_init

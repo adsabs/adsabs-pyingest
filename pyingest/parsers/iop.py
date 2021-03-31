@@ -6,6 +6,7 @@ from past.builtins import basestring
 import string
 from pyingest.config.utils import u2asc
 from .jats import JATSParser
+from .author_init import AuthorInitial
 from pyingest.config.config import *
 from pyingest.parsers.entity_convert import EntityConverter
 
@@ -23,13 +24,6 @@ class UnparseableException(Exception):
 
 
 class IOPJATSParser(JATSParser):
-
-    def get_author_init(self, namestring):
-        output = u2asc(namestring)
-        for c in output:
-            if c.isalpha():
-                return c.upper()
-        return u'.'
 
     def iop_journals(self, pid):
         # mapping journal-meta/journal-id/publisher-id to bibstems
@@ -120,8 +114,10 @@ class IOPJATSParser(JATSParser):
                     idfour = idno.rjust(4, '.')
                 idno = idtwo + idfour
             try:
-                author_init = self.get_author_init(output_metadata['authors'])
+                a = AuthorInitial()
+                author_init = a.get_author_init(output_metadata['authors'])
             except Exception as err:
+                print(err)
                 author_init = '.'
 
             if bibstem == u'ApJL.':
@@ -150,21 +146,6 @@ class IOPJATSParser(JATSParser):
             output_metadata['database'] = self.dbfromkw(output_metadata['keywords'])
         except Exception as err:
             pass
-
-        # pass relevant fields through EntityConverter
-        # to remove bad entities
-        # entity_fields = ['abstract', 'title', 'authors', 'affiliations']
-        entity_fields = ['abstract', 'title', 'authors']
-        # entity_fields = ['abstract', 'title']
-        for ecf in entity_fields:
-            if ecf in output_metadata.keys():
-                try:
-                    conv = EntityConverter()
-                    conv.input_text = output_metadata[ecf]
-                    conv.convert()
-                    output_metadata[ecf] = conv.output_text
-                except Exception as err:
-                    print("problem converting %s for %s: %s" % (ecf, output_metadata['bibcode'], err))
 
         # Return
         return output_metadata
