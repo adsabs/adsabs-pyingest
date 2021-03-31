@@ -1,6 +1,10 @@
 import namedentities
 from pyingest.config.utils import u2asc
 
+class BadAuthorInitialException(Exception):
+    pass
+
+
 class AuthorInitial(object):
 
      def __init__(self):
@@ -13,5 +17,6 @@ class AuthorInitial(object):
              if outstring.isalpha():
                  return outstring
          except Exception as err:
-             pass
-         return '.'
+             raise BadAuthorInitialException(err)
+         else:
+             return '.'
