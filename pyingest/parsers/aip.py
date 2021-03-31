@@ -108,6 +108,7 @@ class AIPJATSParser(JATSParser):
                 a = AuthorInitial()
                 author_init = a.get_author_init(output_metadata['authors'])
             except Exception as err:
+                print(err)
                 author_init = '.'
             output_metadata['bibcode'] = year + bibstem + volume + issue_letter + idno + author_init
 

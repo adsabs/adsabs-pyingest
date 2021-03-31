@@ -203,6 +203,7 @@ class PNASParser(BaseBeautifulSoupParser):
             a = AuthorInitial()
             auth_init = a.get_author_init(output_metadata['authors'])
         except Exception as err:
+            print(err)
             auth_init = '.'
         output_metadata['bibcode'] = year + bibstem + vol_bib + fpg_bib + auth_init
 

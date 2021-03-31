@@ -93,6 +93,7 @@ class ArxivParser(DublinCoreParser):
                 a = AuthorInitial()
                 author_init = a.get_author_init(result['authors'])
             except Exception as err:
+                print(err)
                 author_init = '.'
 
             bibcode1 = year + arx_field

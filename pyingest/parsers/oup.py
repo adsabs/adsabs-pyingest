@@ -198,6 +198,7 @@ class OUPJATSParser(JATSParser):
                 a = AuthorInitial()
                 author_init = a.get_author_init(output_metadata['authors'])
             except Exception as err:
+                print(err)
                 author_init = '.'
             # would be better if I had two different variables for bibstem (since MNRASL shares a bibstem with MNRAS)
             if bibstem == "MNRASL":
