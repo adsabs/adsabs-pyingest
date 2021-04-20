@@ -174,6 +174,7 @@ REFERENCE_TOPDIR = '/proj/ads/references/sources/'
 
 # REFSOURCE DICTIONARY
 REFSOURCE_DICT = {
+    'aip': 'aipft.xml',
     'iop': 'iopft.xml',
     'oup': 'oupft.xml',
     'pnas': 'pnas.xml'
