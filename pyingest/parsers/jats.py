@@ -613,6 +613,20 @@ class JATSParser(BaseBeautifulSoupParser):
             except Exception as err:
                 pass
 
+        # Check for open-access / "Permissions" field
+        try:
+            permissions = article_meta.find('permissions').find_all('license')
+        except Exception as err:
+            pass
+        else:
+            for p in permissions:
+                try:
+                    if p['license-type'] == 'open':
+                        base_metadata.setdefault('properties', {}).setdefault('OPEN', 1)
+                except Exception as err:
+                    pass
+                
+
         # Pages:
 
         fpage = article_meta.fpage
