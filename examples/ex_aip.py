@@ -5,7 +5,8 @@ import pyingest.config.config as config
 
 
 # infile = '/proj/ads/abstracts/data/AIP/AIP.test/RSI/v91/i5/054901_1/Markup/VOR_10.1063_5.0005676.xml'
-infile = '/proj/ads/abstracts/data/AIP/JATS.0127/JCP/v154/i2/024904_1/Markup/VOR_10.1063_5.0033645.xml'
+# infile = '/proj/ads/abstracts/data/AIP/JATS.0127/JCP/v154/i2/024904_1/Markup/VOR_10.1063_5.0033645.xml'
+infile = '/proj/ads/abstracts/data/AIP/JATS.0127/AJP/v89/i2/210_1/Markup/VOR_10.1119_10.0002365.xml'
 
 
 with open(infile,'r') as fp:

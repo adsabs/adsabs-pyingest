@@ -218,8 +218,12 @@ class JATSParser(BaseBeautifulSoupParser):
                 try:
                     a['id']
                 except Exception as err:
-                    # print "I'm failing in the affils loop!",err
-                    l_need_affils = True
+                    try:
+                        aff_text = self._detag(a,[])
+                    except Exception as err:
+                        l_need_affils = True
+                    else:
+                        affils['ALLAUTHS'] = aff_text.strip()
                 else:
                     key = a['id']
                     ekey = ''
@@ -243,6 +247,7 @@ class JATSParser(BaseBeautifulSoupParser):
                     affils[key] = aff_text.strip()
                     # if ekey is not '':
                     #     affils[ekey] = address_new
+
 
         # Author name and affil/note lists:
         try:
@@ -328,10 +333,15 @@ class JATSParser(BaseBeautifulSoupParser):
                         else:
                             base_metadata['authors'].append(forename)
 
-                    # EMAIL in contrib-group (e.g. OUP)
+                    # EMAIL in contrib-group (e.g. OUP, AIP)
                     email = None
                     if a.find('email') is not None:
                         email = self._detag(a.email, [])
+                        # AIP makes the email an 'xlink:href' attribute...
+                        # You could also use an author note instead.
+                        if email == '':
+                            email = a.email['xlink:href']
+                            email = email.replace('mailto:','')
                         email = '<EMAIL>' + email + '</EMAIL>'
 
                 # Author affil/note ids
@@ -352,15 +362,19 @@ class JATSParser(BaseBeautifulSoupParser):
                 try:
                     new_aid_arr = []
                     for af in affils.keys():
-                        if af in aid_arr:
+                        if af in aid_arr or af == 'ALLAUTHS':
                             new_aid_arr.append(af)
                     aid_arr = new_aid_arr
 
                     # check whether or not you got affil data in one way or the other...
                     if not l_need_affils:
                         aff_text = '; '.join(affils[x] for x in aid_arr)
+
                     aff_text = aff_text.replace(';;', ';').rstrip(';')
                     aff_text = aff_text.replace('; ,', '').rstrip()
+                    if aff_text == '':
+                        if 'ALLAUTH' in affils:
+                            aff_text = affils['ALLAUTH'].strip()
 
                     # Got ORCID?
                     if orcid_out is not None:
