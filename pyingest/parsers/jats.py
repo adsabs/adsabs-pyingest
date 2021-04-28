@@ -218,12 +218,14 @@ class JATSParser(BaseBeautifulSoupParser):
                 try:
                     a['id']
                 except Exception as err:
-                    try:
-                        aff_text = self._detag(a,[])
-                    except Exception as err:
-                        l_need_affils = True
-                    else:
-                        affils['ALLAUTHS'] = aff_text.strip()
+                    l_need_affils = True
+                    pass
+                    # try:
+                        # aff_text = self._detag(a,[])
+                    # except Exception as err:
+                        # l_need_affils = True
+                    # else:
+                        # affils['ALLAUTHS'] = aff_text.strip()
                 else:
                     key = a['id']
                     ekey = ''

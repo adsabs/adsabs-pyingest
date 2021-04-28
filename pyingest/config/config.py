@@ -84,10 +84,10 @@ OUP_PUBLISHER_IDS = {'mnras': u'MNRAS', 'mnrasl': u'MNRAS',
 OUP_PDFDIR = 'https://academic.oup.com'
 
 OUP_TMP_DIRS = {
-    'mnrasl': '/proj/ads/abstracts/config/links//DOI/MNRASL',
-    'mnras':  '/proj/ads/abstracts/config/links//DOI/MNRAS',
-    'pasj.':  '/proj/ads/abstracts/config/links//DOI/PASJ',
-    'geoji':    '/proj/ads/abstracts/config/links//DOI/GeoJI'
+    'mnrasl': '/proj/ads/abstracts/config/links/DOI/MNRASL',
+    'mnras':  '/proj/ads/abstracts/config/links/DOI/MNRAS',
+    'pasj.':  '/proj/ads/abstracts/config/links/DOI/PASJ',
+    'geoji':    '/proj/ads/abstracts/config/links/DOI/GeoJI'
 }
 
 AIP_PUBLISHER_IDS = {'AAIDBI': u'AIPA', 'APCPCS': u'AIPC', 'APPLAB': u'ApPhL',

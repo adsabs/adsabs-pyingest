@@ -67,9 +67,16 @@ class OUPJATSParser(JATSParser):
                 c = c + "\n"
                 with open(f, 'r') as fp:
                     lines = fp.readlines()
+                    # if you're replacing the first line, this is fine
                     lines[0] = c
+                    # if you want to insert something before the first line,
+                    # use this:
+                    # lines.insert(0, c)
                 with open(f, 'w') as fp:
-                    lines = fp.writelines(lines)
+                    # writelines doesn't need a return value, and doing this
+                    # will destroy lines after it's done.
+                    # lines = fp.writelines(lines)
+                    fp.writelines(lines)
             except Exception as err:
                 pass
 
