@@ -62,17 +62,18 @@ class TestClassic(unittest.TestCase):
 
 class TestReferenceWriter(unittest.TestCase):
 
-    def setup(self):
-        pass
+    def setUp(self):
+        stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata/input')
+        self.inputdoc = stubdata_dir + '/iop_apj.xml'
+        self.topdir = os.path.join(os.path.dirname(__file__), 'data/output')
 
     def test_write_refhandler_data(self):
         paperdata = IOPJATSParser()
-        inputdoc = 'pyingest/tests/data/stubdata/input/iop_apj.xml'
-        with open(inputdoc, 'r') as fm:
+        with open(self.inputdoc, 'r') as fm:
             pdat = paperdata.parse(fm)
         if 'refhandler_list' in pdat:
             refwriter = ReferenceWriter()
-            refwriter.topdir = 'pyingest/tests/data/output/'
+            refwriter.topdir = self.topdir
             refwriter.refsource = '.jats.iopft.xml'
             refwriter.writeref(pdat)
             self.assertEqual('1', '1')
