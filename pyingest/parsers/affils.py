@@ -60,6 +60,7 @@ class AffiliationParser(BaseBeautifulSoupParser):
             _at = _e.split('@')
             if len(_at) > 1 and re.search(r'\w\.\w', _at[1]):
                 email_list.append(_e)
+                self.original_string = re.sub(_e, '', self.original_string)
             email = ', '.join(email_list)
         email = re.sub(';', '', email)
         return email

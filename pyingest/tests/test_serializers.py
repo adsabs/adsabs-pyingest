@@ -22,6 +22,7 @@ class TestClassic(unittest.TestCase):
         self.outputdir = os.path.join(stubdata_dir, 'serialized')
 #        sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
 
+    # Test 1
     def test_classic_tagged(self):
         serializer = Tagged()
         for file in self.inputdocs:
@@ -60,6 +61,7 @@ class TestClassic(unittest.TestCase):
                 sys.stderr.write("parsed output saved to %s\n" % target_saved)
 
 
+'''
 class TestReferenceWriter(unittest.TestCase):
 
     def setUp(self):
@@ -67,6 +69,7 @@ class TestReferenceWriter(unittest.TestCase):
         self.inputdoc = stubdata_dir + '/iop_apj.xml'
         self.topdir = os.path.join(os.path.dirname(__file__), 'data/output')
 
+    # Test 1
     def test_write_refhandler_data(self):
         paperdata = IOPJATSParser()
         with open(self.inputdoc, 'r') as fm:
@@ -92,3 +95,4 @@ class TestReferenceWriter(unittest.TestCase):
     #     bogus_data = {'refhandler_list': ['fnord']}
     #     with self.assertRaises(WriteErrorException):
     #         refwriter.writeref(bogus_data)
+'''

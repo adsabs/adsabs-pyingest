@@ -27,6 +27,7 @@ from pyingest.parsers import procsci
 from pyingest.parsers import zenodo
 from pyingest.config import config
 from pyingest.parsers.author_names import AuthorNames
+from pyingest.parsers.affils import AffiliationParser
 from pyingest.parsers import adsfeedback
 
 from pyingest.serializers import classic
@@ -55,6 +56,7 @@ class TestDatacite(unittest.TestCase):
         self.outputdir = os.path.join(stubdata_dir, 'parsed')
         sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
 
+    # Test 1
     def test_datacite_parser(self):
         parser = datacite.DataCiteParser()
         for file in self.inputdocs:
@@ -93,6 +95,7 @@ class TestZenodo(unittest.TestCase):
         self.outputdir = os.path.join(stubdata_dir, 'parsed')
         sys.stderr.write("test cases are: {}\n".format(self.inputdocs))
 
+    # Test 2
     def test_zenodo_parser(self):
         parser = zenodo.ZenodoParser()
         for file in self.inputdocs:
@@ -119,12 +122,37 @@ class TestZenodo(unittest.TestCase):
             os.remove(target_saved)
 
 
+class TestAffiliationParser(unittest.TestCase):
+
+    def setUp(self):
+        self.aff_str = ['Canadian Institute for Theoretical Astrophysics, University of Toronto, 60 St. George Street, Toronto, ON M5S 1A7, Canada; testing.fun@cita.utoronto.ca; 0000-0000-0000-1234',
+                        'Canadian Institute for Theoretical Astrophysics, University of Toronto, 60 St. George Street, Toronto, ON M5S 1A7, Canada; <EMAIL>testing.fun@cita.utoronto.ca</EMAIL>; <id system="ORCID">0000-0000-0000-1234</id>',
+                        'fnord@fnord.com ; This is not an affiliation.; This is: CITA, 60 whatevs, Toronto, ON, CA',
+        ]
+
+        self.out_str = ['Canadian Institute for Theoretical Astrophysics, University of Toronto, 60 St. George Street, Toronto, ON M5S 1A7, Canada; 0000-0000-0000-1234; testing.fun@cita.utoronto.ca',
+                        'Canadian Institute for Theoretical Astrophysics, University of Toronto, 60 St. George Street, Toronto, ON M5S 1A7, Canada; <id system="ORCID">0000-0000-0000-1234</id>; <email>testing.fun@cita.utoronto.ca</email>',
+                        'This is not an affiliation.; This is: CITA, 60 whatevs, Toronto, ON, CA; fnord@fnord.com',
+        ]
+
+    # Test 3
+    def test_simple_parse(self):
+        for _in, _out in zip(self.aff_str, self.out_str):
+            affil = AffiliationParser(_in)
+            output_field = affil.parse()
+            # print(_in)
+            # print(output_field)
+            self.assertEqual(_out, output_field)
+        
+
+
 class TestAuthorNames(unittest.TestCase):
 
     def setUp(self):
         self.author_names = AuthorNames()
         self.authors_str = u"robert white smith; m. power; maria antonia de la paz; bla., bli.; the collaboration: john stuart; collaboration, gaia; john; github_handle;;.."
 
+    # Test 4
     def test_default_author_names(self):
         # expected_authors_str = u"white smith, robert; power, m.; de la paz, maria antonia; bla., bli.; Collaboration; stuart, john; Collaboration, Gaia; John; github_handle; Unknown, Unknown; .."
         expected_authors_str = u"white smith, robert; power, m.; de la paz, maria antonia; bla., bli.; Collaboration; stuart, john; Collaboration, gaia; john; github_handle; ; .."
@@ -132,6 +160,7 @@ class TestAuthorNames(unittest.TestCase):
         corrected_authors_str = self.author_names.parse(self.authors_str)
         self.assertEqual(corrected_authors_str, expected_authors_str)
 
+    # Test 5
     def test_normalize_author_names(self):
         corrected_authors_str = u"white smith, Robert; power, M; de la paz, Maria Antonia; bla, Bli; Collaboration; stuart, John; Collaboration, gaia; john; github_handle; ; "
         expected_normalized_authors_str = u"white smith, R; power, M; de la paz, M A; bla, B; Collaboration; stuart, J; Collaboration gaia; john; github_handle; ; "
@@ -141,6 +170,7 @@ class TestAuthorNames(unittest.TestCase):
         normalized_authors_str = self.author_names.parse(self.authors_str, normalize=True)
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
 
+    # Test 6
     def test_ignore_collaborations_in_author_names(self):
         expected_normalized_authors_str = "white smith, R; power, M; de la paz, M A; bla, B; stuart, T C J; collaboration, G; john; github_handle; ; "
         collaborations_params = {
@@ -152,6 +182,7 @@ class TestAuthorNames(unittest.TestCase):
         normalized_authors_str = self.author_names.parse(self.authors_str, normalize=True, collaborations_params=collaborations_params)
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
 
+    # Test 7
     def test_remove_the_from_collaborations_in_author_names(self):
         expected_normalized_authors_str = u"white smith, R; power, M; de la paz, M A; bla, B; Collaboration; stuart, J; Collaboration gaia; john; github_handle; ; "
         collaborations_params = {
@@ -163,6 +194,7 @@ class TestAuthorNames(unittest.TestCase):
         normalized_authors_str = self.author_names.parse(self.authors_str, normalize=True, collaborations_params=collaborations_params)
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
 
+    # Test 8
     def test_ignore_names_in_collaborations_in_author_names(self):
         expected_normalized_authors_str = u"white smith, R; power, M; de la paz, M A; bla, B; the Collaboration: john stuart; Collaboration gaia; john; github_handle; ; "
         collaborations_params = {
@@ -174,6 +206,7 @@ class TestAuthorNames(unittest.TestCase):
         normalized_authors_str = self.author_names.parse(self.authors_str, normalize=True, collaborations_params=collaborations_params)
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
 
+    # Test 9
     def test_fix_arXiv_mixed_collaboration_string(self):
         expected_normalized_authors_str = u"white smith, R; power, M; de la paz, M A; bla, B; the Collaboration: john stuart; gaia Collaboration; john; github_handle; ; "
         collaborations_params = {
@@ -185,6 +218,7 @@ class TestAuthorNames(unittest.TestCase):
         normalized_authors_str = self.author_names.parse(self.authors_str, normalize=True, collaborations_params=collaborations_params)
         self.assertEqual(normalized_authors_str, expected_normalized_authors_str)
 
+    # Test 10
     def test_dutch_people(self):
         input_names = u"Berg, Imme van den; Imme van den Berg; 't Hooft, Gerard; Hooft, Gerard 't; Hooft, Bas van't; van't Hooft, Bas"
         expected_output_names = u"van den Berg, I; van den Berg, I; 't Hooft, G; 't Hooft, G; van't Hooft, B; van't Hooft, B"
@@ -194,12 +228,14 @@ class TestAuthorNames(unittest.TestCase):
 
 class TestArxiv(unittest.TestCase):
 
+    # Test 11
     def test_bad_xml(self):
         with self.assertRaises(arxiv.EmptyParserException):
             with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/readme.txt'), open_mode_u) as fp:
                 parser = arxiv.ArxivParser()
                 document = parser.parse(fp)
 
+    # Test 12
     def test_parsing(self):
         shouldbe = {'authors': u'Luger, Rodrigo; Lustig-Yaeger, Jacob; Agol, Eric',
                     'title': u'Planet-Planet Occultations in TRAPPIST-1 and Other Exoplanet Systems',
@@ -212,6 +248,7 @@ class TestArxiv(unittest.TestCase):
         shouldbe['title'] = 'Paper that has nothing to do with TRAPPIST-1'
         self.assertNotEqual(shouldbe['title'], document['title'])
 
+    # Test 13
     def test_unicode_init(self):
         shouldbe = {'bibcode': u'2009arXiv0901.2443O'}
         with open(os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_0901_2443'), open_mode_u) as fp:
@@ -219,6 +256,7 @@ class TestArxiv(unittest.TestCase):
             document = parser.parse(fp)
             self.assertEqual(document['bibcode'], shouldbe['bibcode'])
 
+    # Test 14
     def test_old_style_subjects(self):
         testfiles = [os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_astro-ph_9501013'),
                      os.path.join(os.path.dirname(__file__), 'data/arxiv.test/oai_ArXiv.org_math_0306266'),
@@ -232,12 +270,14 @@ class TestArxiv(unittest.TestCase):
                 self.assertEqual(document['bibcode'], b['bibcode'])
 
 
+'''
 class TestIOP(unittest.TestCase):
 
     def setUp(self):
         stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata/')
         self.inputdir = os.path.join(stubdata_dir, 'input')
 
+    # Test 15
     def test_iop_parser(self):
         test_infile = os.path.join(self.inputdir, 'iop_apj.xml')
         parser = iop.IOPJATSParser()
@@ -250,8 +290,10 @@ class TestIOP(unittest.TestCase):
             self.assertEqual(test_data['publication'], output_pub)
             self.assertEqual(test_data['affiliations'], output_aff)
         return
+'''
 
 
+'''
 class TestOUP(unittest.TestCase):
 
     def setUp(self):
@@ -268,6 +310,7 @@ class TestOUP(unittest.TestCase):
             'geoji':  self.tmplogdir + 'GeoJI'
         }
 
+    # Test 16
     def test_oup_parser(self):
         with patch.dict(config.OUP_TMP_DIRS, self.FAKE_OUP_TMP_DIRS, clear=True):
             parser = oup.OUPJATSParser()
@@ -300,10 +343,13 @@ class TestOUP(unittest.TestCase):
 
                 
         return
+'''
 
 
+'''
 class TestAPSJATS(unittest.TestCase):
 
+    # Test 17
     def test_unicode_initial(self):
         testfile = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/apsjats_10.1103.PhysRevB.96.081117.fulltext.xml')
         shouldbe = {'bibcode': '2017PhRvB..96h1117S'}
@@ -312,6 +358,7 @@ class TestAPSJATS(unittest.TestCase):
             document = parser.parse(fp)
         self.assertEqual(document['bibcode'], shouldbe['bibcode'])
 
+    # Test 18
     def test_dehtml(self):
         testfile = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/apsjats_10.1103.PhysRevA.97.019999.fulltext.xml')
         shouldbe = {'title': 'Finite-error metrological bounds on multiparameter Hamiltonian estimation'}
@@ -320,6 +367,7 @@ class TestAPSJATS(unittest.TestCase):
             document = parser.parse(fp)
         self.assertEqual(document['title'], shouldbe['title'])
 
+    # Test 19
     def test_dehtml2(self):
         self.maxDiff = None
         testfile = os.path.join(os.path.dirname(__file__), 'data/stubdata/input/apsjats_10.1103.PhysRevA.95.129999.fulltext.xml')
@@ -328,6 +376,7 @@ class TestAPSJATS(unittest.TestCase):
             parser = aps.APSJATSParser()
             document = parser.parse(fp)
         self.assertDictEqual(document, shouldbe)
+'''
 
 
 class TestProcSci(unittest.TestCase):
@@ -337,6 +386,7 @@ class TestProcSci(unittest.TestCase):
         self.patcher = patch('requests.get')
         self.requests_mock = self.patcher.start()
 
+    # Test 20
     def test_output(self):
         parser = procsci.PoSParser()
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/pos_sissa_it_299.html")
@@ -358,6 +408,7 @@ class TestProcSci(unittest.TestCase):
         self.assertEqual(result, True)
         os.remove(test_outfile)
 
+    # Test 21
     def test_badsite(self):
         parser = procsci.PoSParser()
         with self.assertRaises(procsci.URLError):
@@ -374,6 +425,7 @@ class TestHSTProp(unittest.TestCase):
         self.patcher = patch('pyingest.parsers.hstprop.HSTParser.get_batch')
         self.get_batch_mock = self.patcher.start()
 
+    # Test 22
     def test_output(self):
         parser = hstprop.HSTParser()
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/hstprop.json")
@@ -398,6 +450,7 @@ class TestHSTProp(unittest.TestCase):
         self.assertEqual(result, True)
         os.remove(test_outfile)
 
+    # Test 23
     def test_missing_token(self):
         parser = hstprop.HSTParser()
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/hstprop.json")
@@ -408,6 +461,7 @@ class TestHSTProp(unittest.TestCase):
         with self.assertRaises(hstprop.RequestError):
             test_data = parser.parse(api_url, fromDate='2019-01-01', maxRecords=1, test=True)
 
+    # Test 24
     def test_missing_field(self):
         parser = hstprop.HSTParser()
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/hstprop_missing_field.json")
@@ -420,6 +474,7 @@ class TestHSTProp(unittest.TestCase):
         # A missing data error should be reported
         self.assertEqual(parser.errors[0], 'Found record with missing data: HST Proposal#15677')
 
+    # Test 25
     def test_misaligned_arrays(self):
         parser = hstprop.HSTParser()
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/hstprop_misaligned_arrays.json")
@@ -445,6 +500,7 @@ class TestJOSS(unittest.TestCase):
             self.patcher = patch('urllib2.urlopen')
         self.urlopen_mock = self.patcher.start()
 
+    # Test 26
     def test_output(self):
         parser = joss.JOSSParser()
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/joss_atom.xml")
@@ -484,6 +540,7 @@ class TestATel(unittest.TestCase):
             self.patcher = patch('urllib2.urlopen')
         self.urlopen_mock = self.patcher.start()
 
+    # Test 27
     def test_output(self):
         parser = atel.ATelParser()
         mock_infile = os.path.join(os.path.dirname(__file__), "data/stubdata/input/ATel_rss.xml")
@@ -516,6 +573,7 @@ class TestGCNC(unittest.TestCase):
         stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata')
         self.inputdir = os.path.join(stubdata_dir, 'input/gcncirc')
 
+    # Test 28
     def test_gcn_parser(self):
         test_infile = os.path.join(self.inputdir, '25321.gcn3')
         with open(test_infile) as fp:
@@ -537,6 +595,7 @@ class TestProQuest(unittest.TestCase):
         config.PROQUEST_BASE_PATH = os.path.join(stubdata_dir, 'input/')
         self.outputdir = os.path.join(stubdata_dir, 'serialized')
 
+    # Test 29
     def test_proquest_parser(self):
         infilename = 'SAO_NASA_Sep_2020.UNX'
         parser = proquest.ProQuestParser(infilename)
@@ -563,6 +622,7 @@ class TestPnas(unittest.TestCase):
         self.patcher = patch('requests.get')
         self.requests_mock = self.patcher.start()
 
+    # Test 30
     def test_pnas_parser(self):
         mock_infile = os.path.join(self.stubdata_dir, 'input', 'pnas_feedparser.resp')
         mock_html_file = os.path.join(self.stubdata_dir, 'input', 'pnas_resp.html')
@@ -599,6 +659,7 @@ class TestFeedback(unittest.TestCase):
         stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata')
         self.inputdir = os.path.join(stubdata_dir, 'input/')
 
+    # Test 31
     def test_gcn_parser(self):
         test_infile = os.path.join(self.inputdir, 'ads_feedback.json')
         with open(test_infile) as fp:
