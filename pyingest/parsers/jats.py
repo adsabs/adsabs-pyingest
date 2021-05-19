@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
 from __future__ import absolute_import
-import bs4
-# from bs4 import Comment, CData
-from bs4 import CData
+# import bs4
+from bs4 import BeautifulSoup, CData, Tag
 from collections import OrderedDict
 from .default import BaseBeautifulSoupParser
 from pyingest.config.config import *
@@ -38,15 +37,32 @@ class JATSParser(BaseBeautifulSoupParser):
     def __init__(self):
         pass
 
+    def _deCData(self, r, keep_string):
+        try: 
+            soup = BeautifulSoup(r, 'html.parser')
+            for x in soup(text=True):
+                if isinstance(x, CData):
+                    tag = Tag(soup, name='ads_cdata')
+                    tag.insert(0, x[:])
+                    x.replaceWith(tag)
+            for x in soup.findAll('ads_cdata'):
+                if keep_string:
+                    x.unwrap()
+                else:
+                    x.extract()
+            return str(soup)
+        except Exception as err:
+            print('Error in deCData: %s' % err)
+            return r
+
     def _detag(self, r, tags_keep, **kwargs):
 
-        newr = bs4.BeautifulSoup(str_type(r), 'lxml')
+        newr = BeautifulSoup(str_type(r), 'lxml')
         try:
             tag_list = list(set([x.name for x in newr.find_all()]))
         except Exception as err:
             tag_list = []
         for t in tag_list:
-
             if t in JATS_TAGS_DANGER:
                 oldr = None
                 while oldr != newr:
@@ -88,20 +104,12 @@ class JATSParser(BaseBeautifulSoupParser):
         newr = newr.replace(u'\n', u' ').replace(u'  ', u' ')
         newr = newr.replace('&nbsp;', ' ')
 
-        # CDATA removal
-        # cdata_pat = r'(\<.*?CDATA\[*)(.*?)(\]*>)' # csg 2020apr06
-        cdata_pat = r'(<inline-formula>.*?CDATA\[*)(.*?)(\]*<\/inline-formula>)'  # csg 2020apr30
-        cdata = re.findall(cdata_pat, newr)
-        for s in cdata:
-            s_old = ''.join(s)
-            s_new = ' <inline-formula>' + s[1] + '</inline-formula> '
-            newr = newr.replace(s_old, s_new)
-
         return newr
 
     def resource_dict(self, fp, **kwargs):
-        d = self.bsfiletodict(fp, **kwargs)
-        r = self.bsstrtodict(str_type(d.article), **kwargs)
+        d = self._deCData(fp.read(), True)
+        d = self.bsstrtodict(d, 'lxml', **kwargs)
+        r = d.article
         return r
 
     def parse(self, fp, **kwargs):
@@ -160,14 +168,7 @@ class JATSParser(BaseBeautifulSoupParser):
         except Exception as err:
             pass
         else:
-            try:
-                for element in abstract(text=lambda text: isinstance(text, CData)):
-                    element.extract()
-            except Exception as err:
-                pass
-            else:
-                abstract = (
-                    self._detag(abstract, JATS_TAGSET['abstract']))
+            abstract = (self._detag(abstract, JATS_TAGSET['abstract']))
             base_metadata['abstract'] = abstract
             if title_fn_list:
                 base_metadata['abstract'] += '  ' + ' '.join(title_fn_list)
@@ -699,7 +700,8 @@ class JATSParser(BaseBeautifulSoupParser):
                         l = econv.output_text
                     newv.append(l)
                 v = newv
-                
+            else:
+                pass
             output_metadata[k] = v
 
 
