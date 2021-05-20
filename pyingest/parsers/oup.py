@@ -105,9 +105,9 @@ class OUPJATSParser(JATSParser):
             database = "PHY"
         return tmpid
 
-    def parse(self, fp, **kwargs):
+    def parse(self, input_data, **kwargs):
 
-        output_metadata = super(self.__class__, self).parse(fp, **kwargs)
+        output_metadata = super(self.__class__, self).parse(input_data, **kwargs)
 
         # Publication +
         isearly = 0

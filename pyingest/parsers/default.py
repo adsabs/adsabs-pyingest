@@ -89,15 +89,15 @@ class BaseBeautifulSoupParser(object):
     out of the input XML stream.  Used by jats.py and aps.py
     """
 
-    def bsfiletodict(self, fp, **kwargs):
+    def bsfiletodict(self, fp, parser='lxml', **kwargs):
         """returns a BeautifulSoup tree"""
-        # return bs4.BeautifulSoup(fp.read(), 'html5lib', **kwargs)
-        return bs4.BeautifulSoup(fp.read(), 'lxml', **kwargs)
+        # parser e.g. 'html.parser', 'html5lib', 'lxml'
+        return bs4.BeautifulSoup(fp.read(), parser, **kwargs)
 
-    def bsstrtodict(self, r, **kwargs):
+    def bsstrtodict(self, r, parser='lxml', **kwargs):
         """returns a BeautifulSoup tree"""
-        # return bs4.BeautifulSoup(r, 'html5lib', **kwargs)
-        return bs4.BeautifulSoup(r, 'lxml', **kwargs)
+        # parser e.g. 'html.parser', 'html5lib', 'lxml'
+        return bs4.BeautifulSoup(r, parser, **kwargs)
 
 
 class BaseRSSFeedParser(object):

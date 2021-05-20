@@ -50,8 +50,8 @@ class IOPJATSParser(JATSParser):
                     return db
         return db
 
-    def parse(self, fp, **kwargs):
-        output_metadata = super(self.__class__, self).parse(fp, **kwargs)
+    def parse(self, input_data, **kwargs):
+        output_metadata = super(self.__class__, self).parse(input_data, **kwargs)
 
         # Publication +
         try:
