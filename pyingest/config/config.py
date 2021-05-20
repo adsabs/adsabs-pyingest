@@ -108,7 +108,6 @@ JATS_TAGS_DANGER = ['php', 'script', 'css']
 
 JATS_TAGS_MATH = ['inline-formula',
                   'tex-math',
-                  'sc',
                   'mml:math',
                   'mml:semantics',
                   'mml:mrow',

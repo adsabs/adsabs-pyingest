@@ -1,57 +1,46 @@
-#!/usr/bin/env python
-
-from __future__ import print_function
+'''
+MNRAS parsing example
+'''
 from pyingest.parsers.oup import OUPJATSParser
 from pyingest.serializers.classic import Tagged
 from pyingest.serializers.refwriter import ReferenceWriter
-from glob import glob
-import sys
-import subprocess
 import argparse
-
-# MNRAS_EDIR  = "/proj/ads/abstracts/data/MNRAS/EARLY/test/"
-# MNRAS_DIR  = "/proj/ads/abstracts/data/MNRAS/493.1/"
-# MNRASL_DIR  = "/proj/ads/abstracts/data/MNRASL/493.1/"
-# PTEP_DIR  = "/proj/ads/abstracts/data/PTEP"
-# PASJ_DIR  = "/proj/ads/abstracts/data/PASJ"
-# GJI_DIR  = "/proj/ads/abstracts/data/GJI"
-
-#try:
-#    DIR = sys.argv[1]
-#except IndexError:
-#    print('missing argument: top level directory required')
-#    sys.exit(1)
 
 outfile = 'mnras.tag'
 
-parser = OUPJATSParser()
-# files = glob(DIR+'/TagTextFiles/*.xml')
-documents = []
-files = ['/proj/ads/abstracts/data/MNRAS/504.1/TagTextFiles/stab770.xml',
-         '/proj/ads/abstracts/data/MNRAS/504.4/TagTextFiles/stab367.xml'
-        ]
+test_files = ['/proj/ads/abstracts/data/MNRAS/504.1/TagTextFiles/stab770.xml',
+              '/proj/ads/abstracts/data/MNRAS/504.4/TagTextFiles/stab367.xml',
+              ]
 
-for f in files:
-    try:
-        with open(f,'r') as fp:
-            doc = parser.parse(fp)
-            documents.append(doc)
-    except Exception as e:
-        print("Error in OUP parser:", f, e)
+def main():
 
-# Write everything out in Classic tagged format
-fo = open(outfile, 'a')
+    parser = OUPJATSParser()
 
-serializer = Tagged()
+    documents = []
+
+    do_refs = False
+
+    for f in test_files:
+        try:
+            with open(f,'r') as fp:
+                input_data = fp.read()
+                doc = parser.parse(input_data)
+                documents.append(doc)
+        except Exception as err:
+            print("Error in MNRAS (OUP) parser:", f, err)
+
+    # Write everything out in Classic tagged format
+    serializer = Tagged()
+    with open(outfile,'w') as ftag:
+        for d in documents:
+            try:
+                serializer.write(d,ftag)
+            except Exception as err:
+                print("Error in serialization:", err)
+
 # ref_handler = ReferenceWriter()
 
-for d in documents:
-    try:
-        serializer.write(d,fo)
-    except:
-        print('lol serializer fail')
-#       print(d)
     # ref_handler.writeref(d,'oup')
-fo.close()
 
-
+if __name__ == '__main__':
+    main()

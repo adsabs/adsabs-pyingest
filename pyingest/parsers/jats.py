@@ -19,6 +19,8 @@ if sys.version_info > (3,):
 else:
     str_type = unicode
 
+fix_ampersand = re.compile(r"(&amp;)(.*?)(;)")
+
 
 class NoSchemaException(Exception):
     pass
@@ -37,24 +39,6 @@ class JATSParser(BaseBeautifulSoupParser):
     def __init__(self):
         pass
 
-    def _deCData(self, r, keep_string):
-        try: 
-            soup = BeautifulSoup(r, 'html.parser')
-            for x in soup(text=True):
-                if isinstance(x, CData):
-                    tag = Tag(soup, name='ads_cdata')
-                    tag.insert(0, x[:])
-                    x.replaceWith(tag)
-            for x in soup.findAll('ads_cdata'):
-                if keep_string:
-                    x.unwrap()
-                else:
-                    x.extract()
-            return str(soup)
-        except Exception as err:
-            print('Error in deCData: %s' % err)
-            return r
-
     def _detag(self, r, tags_keep, **kwargs):
 
         newr = BeautifulSoup(str_type(r), 'lxml')
@@ -63,39 +47,24 @@ class JATSParser(BaseBeautifulSoupParser):
         except Exception as err:
             tag_list = []
         for t in tag_list:
-            if t in JATS_TAGS_DANGER:
-                oldr = None
-                while oldr != newr:
-                    try:
-                        oldr = copy.deepcopy(newr)
-                        newr.find(t).decompose()
-                    except Exception as err:
-                        pass
-            elif t in tags_keep:
-                oldr = None
-                while oldr != newr:
-                    try:
-                        oldr = copy.deepcopy(newr)
-                        newr.find(t).contents
-                    except Exception as err:
-                        pass
-            else:
-                oldr = None
-                while oldr != newr:
-                    try:
-                        oldr = copy.deepcopy(newr)
-                        newr.find(t).unwrap()
-                    except Exception as err:
-                        pass
+            elements = newr.findAll(t)
+            for e in elements:
+                if t in JATS_TAGS_DANGER:
+                    e.decompose()
+                elif t in tags_keep:
+                    e.contents
+                else:
+                    if t.lower() == 'sc':
+                        e.string = e.string.upper()
+                    e.unwrap()
 
         # Note: newr is converted from a bs4 object to unicode here.
         # Everything after this point is string manipulation.
 
         newr = str_type(newr)
 
-        # amp_pat = r'(?<=&amp\;)(.*?)(?=\;)'
-        amp_pat = r'(&amp;)(.*?)(;)'
-        amp_fix = re.findall(amp_pat, newr)
+        # amp_pat = r'(&amp;)(.*?)(;)'
+        amp_fix = fix_ampersand.findall(newr)
         for s in amp_fix:
             s_old = ''.join(s)
             s_new = '&' + s[1] + ';'
@@ -106,17 +75,17 @@ class JATSParser(BaseBeautifulSoupParser):
 
         return newr
 
-    def resource_dict(self, fp, **kwargs):
-        d = self._deCData(fp.read(), True)
-        d = self.bsstrtodict(d, 'lxml', **kwargs)
+    def resource_dict(self, input_data, **kwargs):
+        d = self.bsstrtodict(input_data, 'lxml-xml', **kwargs)
         r = d.article
         return r
 
-    def parse(self, fp, **kwargs):
+    def parse(self, input_data, **kwargs):
 
         output_metadata = {}
 
-        document = self.resource_dict(fp, **kwargs)
+        document = self.resource_dict(input_data, **kwargs)
+
         r = document.front
 
         try:
@@ -221,12 +190,6 @@ class JATSParser(BaseBeautifulSoupParser):
                 except Exception as err:
                     l_need_affils = True
                     pass
-                    # try:
-                        # aff_text = self._detag(a,[])
-                    # except Exception as err:
-                        # l_need_affils = True
-                    # else:
-                        # affils['ALLAUTHS'] = aff_text.strip()
                 else:
                     key = a['id']
                     ekey = ''
@@ -289,11 +252,6 @@ class JATSParser(BaseBeautifulSoupParser):
                 # If you didn't get affiliations above, l_need_affils == True, so do this...
                 if l_need_affils:
                     try:
-                        # MT, 2021-Jan-19 MNRAS fix:
-                        # note that a may have multiple aff.affiliations tags, so use find_all here
-                        # if a .find('aff') is not None:
-                            # aff_id = a.find('aff')
-                            # aff_text = self._detag(aff_id, JATS_TAGSET['affiliations'])
                         if a.find_all('aff') is not None:
                             aff_text_arr = list()
                             for ax in a.find_all('aff'):

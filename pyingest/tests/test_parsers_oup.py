@@ -71,8 +71,9 @@ class TestOUP(unittest.TestCase):
             for file in self.inputdocs:
                 # this will raise exceptions if something is wrong
                 with open(file, open_mode_u) as fp:
-                    test_data = parser.parse(fp)
-                    self.assertIsNotNone(test_data, "%s: error reading doc" % file)
+                    input_data = fp.read()
+                test_data = parser.parse(input_data)
+                self.assertIsNotNone(test_data, "%s: error reading doc" % file)
                 basefile = os.path.basename(file)
            
                 target = os.path.join(self.outputdir, basefile + '.parsed')
