@@ -211,19 +211,61 @@ class JATSParser(BaseBeautifulSoupParser):
 
                     aff_text = self._detag(a, JATS_TAGSET['affiliations'])
                     affils[key] = aff_text.strip()
-                    # if ekey is not '':
-                    #     affils[ekey] = address_new
 
 
-        # Author name and affil/note lists:
+        # <contrib-group>: Author name and affil/note lists:
         try:
             authors = article_meta.find('contrib-group').find_all('contrib')
         except Exception as err:
             pass
         else:
+            # you have data for each author in <contrib> tags, 
+            # so create the storage lists and loop over all contrib
             base_metadata['authors'] = []
             base_metadata['affiliations'] = []
+
             for a in authors:
+
+                # Author names
+                if a.find('collab') is not None:
+                    base_metadata['authors'].append(self._detag(a.collab, []))
+                else:
+                    if a.find('surname') is not None:
+                        surname = self._detag(a.surname, [])
+                    else:
+                        surname = ''
+                    if a.find('prefix') is not None:
+                        prefix = self._detag(a.prefix, []) + ' '
+                    else:
+                        prefix = ''
+                    if a.find('suffix') is not None:
+                        suffix = ' ' + self._detag(a.suffix, [])
+                    else:
+                        suffix = ''
+                    if a.find('given-names') is not None:
+                        given = self._detag(a.find('given-names'), [])
+                    else:
+                        given = ''
+                    forename = prefix + given + suffix
+                    if forename == '':
+                        if surname != '':
+                            base_metadata['authors'].append(surname)
+                    else:
+                        if surname != '':
+                            base_metadata['authors'].append(surname + ', ' + forename)
+                        else:
+                            base_metadata['authors'].append(forename)
+
+                    # EMAIL in contrib-group (e.g. OUP, AIP)
+                    email = None
+                    if a.find('email') is not None:
+                        email = self._detag(a.email, [])
+                        # AIP makes the email an 'xlink:href' attribute...
+                        # You could also use an author note instead.
+                        if email == '':
+                            email = a.email['xlink:href']
+                            email = email.replace('mailto:','')
+                        email = '<EMAIL>' + email + '</EMAIL>'
 
                 # ORCIDs
                 orcid_out = None
@@ -259,51 +301,6 @@ class JATSParser(BaseBeautifulSoupParser):
                             aff_text = "; ".join(aff_text_arr)
                     except Exception as err:
                         pass
-
-                # Author names
-                if a.find('collab') is not None:
-                    base_metadata['authors'].append(self._detag(a.collab, []))
-                else:
-                    if a.find('surname') is not None:
-                        surname = self._detag(a.surname, [])
-                    else:
-                        surname = ''
-                    if a.find('prefix') is not None:
-                        prefix = self._detag(a.prefix, []) + ' '
-                    else:
-                        prefix = ''
-                    if a.find('suffix') is not None:
-                        suffix = ' ' + self._detag(a.suffix, [])
-                    else:
-                        suffix = ''
-                    if a.find('given-names') is not None:
-                        given = self._detag(a.find('given-names'), [])
-                    else:
-                        given = ''
-                    forename = prefix + given + suffix
-                    if forename == '':
-                        if surname != '':
-                            base_metadata['authors'].append(surname)
-                        # else:
-                            # base_metadata['authors'].append('ANONYMOUS')
-                        # check instead whether author array is empty, and
-                        # pass an empty array to serializer
-                    else:
-                        if surname != '':
-                            base_metadata['authors'].append(surname + ', ' + forename)
-                        else:
-                            base_metadata['authors'].append(forename)
-
-                    # EMAIL in contrib-group (e.g. OUP, AIP)
-                    email = None
-                    if a.find('email') is not None:
-                        email = self._detag(a.email, [])
-                        # AIP makes the email an 'xlink:href' attribute...
-                        # You could also use an author note instead.
-                        if email == '':
-                            email = a.email['xlink:href']
-                            email = email.replace('mailto:','')
-                        email = '<EMAIL>' + email + '</EMAIL>'
 
                 # Author affil/note ids
                 try:

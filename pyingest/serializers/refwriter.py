@@ -1,4 +1,10 @@
+import sys
 from pyingest.config.config import *
+
+if sys.version_info > (3,):
+    str_type = str
+else:
+    str_type = unicode
 
 
 class WriteErrorException(Exception):
@@ -28,7 +34,7 @@ class ReferenceWriter(object):
                     # if any arent available, generate exception
                     bibcode = output_metadata['bibcode']
                     bibstem = bibcode[4:9].rstrip('.')
-                    volume = str(output_metadata['volume']).rjust(4, '0')
+                    volume = str_type(output_metadata['volume']).rjust(4, '0')
                     file_ext = self.refsource[source]
                     reflist = output_metadata['refhandler_list']
 
@@ -40,9 +46,9 @@ class ReferenceWriter(object):
                     with open(outfile, 'w') as fw:
                         fw.write("<ADSBIBCODE>%s</ADSBIBCODE>\n" % bibcode)
                         for s in reflist:
-                            fw.write(s.encode('utf8') + '\n')
+                            fw.write(str_type(s) + '\n')
                 except Exception as err:
-                    # print "exception in writeref:",err
-                    pass
+                    print("exception in writeref:",err)
+                    # pass
                     # raise WriteErrorException(err)
         return
