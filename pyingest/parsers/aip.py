@@ -36,12 +36,11 @@ class AIPJATSParser(JATSParser):
         else:
             return bibstem
 
-    def parse(self, fp, **kwargs):
+    def parse(self, input_data, **kwargs):
 
-        output_metadata = super(self.__class__, self).parse(fp, **kwargs)
+        output_metadata = super(self.__class__, self).parse(input_data, **kwargs)
 
-        fp.seek(0)
-        document = self.resource_dict(fp, **kwargs)
+        document = self.resource_dict(input_data, **kwargs)
 
         # Publication +
         try:
