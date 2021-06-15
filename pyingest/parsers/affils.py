@@ -83,6 +83,20 @@ class AffiliationParser(BaseBeautifulSoupParser):
             new_string = new_string.strip()
             new_string = new_string.strip(';')
             new_string = new_string.strip()
+            # look for duplicate emails here
+            new_aff_array = list()
+            aff_array = new_string.split(';')
+            ldup = False
+            for a in aff_array:
+                for b in aff_array:
+                    if a in b and b not in a:
+                        ldup = True
+                    elif a.strip() == '':
+                        ldup = True
+                if not ldup:
+                    new_aff_array.append(a.strip())
+                ldup = False
+            new_string = '; '.join(new_aff_array)
             return new_string
         except Exception as err:
             print("AffiliationParser: PARSING FAILED:", err)

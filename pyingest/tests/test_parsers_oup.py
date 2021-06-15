@@ -87,10 +87,10 @@ class TestOUP(unittest.TestCase):
                     except Exception as err:
                         pass
 
-                # # save temporary copy of data structure
-                # target_saved = target + '.NEW'
-                # with open(target_saved, 'w') as fp:
-                    # json.dump(test_data, fp, sort_keys=True, indent=4)
+                # save temporary copy of data structure
+                target_saved = target + '.NEW'
+                with open(target_saved, 'w') as fp:
+                    json.dump(test_data, fp, sort_keys=True, indent=4)
 
                 with open(target, 'r') as fp:
                     shouldbe = json.load(fp)

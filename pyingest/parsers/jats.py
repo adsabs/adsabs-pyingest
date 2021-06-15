@@ -162,7 +162,6 @@ class JATSParser(BaseBeautifulSoupParser):
                         n['id']
                     except Exception as err:
                         pass
-                        # print "I'm failing on author notes!",err
                     else:
                         key = n['id']
                         note_text = self._detag(n, JATS_TAGSET['affiliations'])
@@ -183,34 +182,36 @@ class JATSParser(BaseBeautifulSoupParser):
             for a in affil:
                 try:
                     a.label.decompose()
+                    # a.label.extract()
                 except Exception as err:
                     pass
                 try:
                     a['id']
                 except Exception as err:
-                    l_need_affils = True
-                    pass
+                    key = 'ALL'
                 else:
                     key = a['id']
-                    ekey = ''
-                    try:
-                        email_array = []
-                        email_a = a.find_all('ext-link')
-                        for em in email_a:
-                            if em['ext-link-type'] == 'email':
-                                address = self._detag(em, (
-                                    JATS_TAGSET['affiliations']))
-                                address_new = "<EMAIL>" + address + "</EMAIL>"
-                                ekey = em['id']
-                                if ekey is not '':
-                                    affils[ekey] = address_new
-                        while a.find('ext-link') is not None:
-                            a.find('ext-link').extract()
-                    except Exception as err:
-                        pass
+                aff_text = self._detag(a, JATS_TAGSET['affiliations'])
+                affils[key] = aff_text.strip()
 
-                    aff_text = self._detag(a, JATS_TAGSET['affiliations'])
-                    affils[key] = aff_text.strip()
+                ekey = ''
+                try:
+                    email_array = []
+                    email_a = a.find_all('ext-link')
+                    for em in email_a:
+                        if em['ext-link-type'] == 'email':
+                            address = self._detag(em, (
+                                JATS_TAGSET['affiliations']))
+                            address_new = "<EMAIL>" + address + "</EMAIL>"
+                            ekey = em['id']
+                            if ekey is not '':
+                                affils[ekey] = address_new
+                    # while a.find('ext-link') is not None:
+                    #     a.find('ext-link').extract()
+                    print('hey, I have an email array...')
+                except Exception as err:
+                    pass
+
 
 
         # <contrib-group>: Author name and affil/note lists:
@@ -292,15 +293,14 @@ class JATSParser(BaseBeautifulSoupParser):
                         pass
 
                 # If you didn't get affiliations above, l_need_affils == True, so do this...
-                if l_need_affils:
-                    try:
-                        if a.find_all('aff') is not None:
-                            aff_text_arr = list()
-                            for ax in a.find_all('aff'):
-                                aff_text_arr.append(self._detag(ax, JATS_TAGSET['affiliations']).strip())
-                            aff_text = "; ".join(aff_text_arr)
-                    except Exception as err:
-                        pass
+                try:
+                    if a.find_all('aff') is not None:
+                        aff_text_arr = list()
+                        for ax in a.find_all('aff'):
+                            aff_text_arr.append(self._detag(ax, JATS_TAGSET['affiliations']).strip())
+                        aff_text = "; ".join(aff_text_arr)
+                except Exception as err:
+                    pass
 
                 # Author affil/note ids
                 try:
@@ -320,7 +320,7 @@ class JATSParser(BaseBeautifulSoupParser):
                 try:
                     new_aid_arr = []
                     for af in affils.keys():
-                        if af in aid_arr or af == 'ALLAUTHS':
+                        if af in aid_arr or af == 'ALL':
                             new_aid_arr.append(af)
                     aid_arr = new_aid_arr
 
@@ -331,8 +331,8 @@ class JATSParser(BaseBeautifulSoupParser):
                     aff_text = aff_text.replace(';;', ';').rstrip(';')
                     aff_text = aff_text.replace('; ,', '').rstrip()
                     if aff_text == '':
-                        if 'ALLAUTH' in affils:
-                            aff_text = affils['ALLAUTH'].strip()
+                        if 'ALL' in affils:
+                            aff_text = affils['ALL'].strip()
 
                     # Got ORCID?
                     if orcid_out is not None:
