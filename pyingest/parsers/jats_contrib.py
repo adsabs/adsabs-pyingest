@@ -13,6 +13,7 @@ class JATSContribs(object):
         self.regex_multisp = re.compile(r'\s+')
         self.regex_email = re.compile(r'^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+')
         self.soup = soup
+        self.collab = {}
         self.auth_list = []
         self.xref_dict = OrderedDict()
         self.email_xref = OrderedDict()
@@ -24,8 +25,11 @@ class JATSContribs(object):
         conv a flded name (surname/given) to ADS text name ('surname, given')
         '''
         try:
-            surname = name.find('surname').contents[0]
-            given = name.find('given-names').contents[0]
+            # NOTE: using 'contents[0]' will strip out any markup in the object
+            # surname = name.find('surname').contents[0]
+            # given = name.find('given-names').contents[0]
+            surname = name.find('surname').text
+            given = name.find('given-names').text
             ads_name = str(surname) + ', ' + str(given)
             return ads_name
         except Exception as noop:
@@ -44,15 +48,19 @@ class JATSContribs(object):
                         except Exception as err:
                             # print('missing key in xaff!', err)
                             pass
-                    # if you found any emails in an affstring, add them to email field
+
+                    # if you found any emails in an affstring, add them
+                    # to the email field
                     if item in self.email_xref:
-                        a['email'].extend(self.email_xref[item])
+                        a['email'].append(self.email_xref[item])
+
                 # Check for 'ALLAUTH' affils (global affils without a key), 
                 # and assign them to all authors
                 if 'ALLAUTH' in self.xref_dict:
                     a['aff'].append(self.xref_dict['ALLAUTH'])
             except Exception as noop:
                 pass
+
             try:
                 for item in a['xemail']:
                     try:
@@ -66,10 +74,13 @@ class JATSContribs(object):
     def _fix_email(self, email):
         email_new = []
         for em in email:
-            esplit = em.strip().split()
-            for e in esplit:
-                if '@' in e:
-                    email_new.append(e.strip())
+            if ' ' in em:
+                for e in em.strip().split():
+                    if '@' in e:
+                        email_new.append(e.strip())
+            else:
+                if '@' in em:
+                    email_new.append(em.strip())
         return list(dict.fromkeys(email_new))
 
     def _fix_orcid(self, orcid):
@@ -86,19 +97,22 @@ class JATSContribs(object):
         new_aff = []
         emails = []
         for a in aff_list:
-            xxx = self.regex_email.match(a.strip())
             if self.regex_email.match(a.strip()):
                 emails.append(a.strip())
             else:
-                new_aff.append(a.strip())
+                if a.strip():
+                    new_aff.append(a.strip())
+
         newaffstr = '; '.join(new_aff)
         return (newaffstr, emails)
-            
+
 
 
     def _refield(self):
         out_auth = []
         out_aff = []
+        email = None
+        orcid = None
         for a in self.auth_list:
             name = a['name']
             aff = a['aff']
@@ -107,11 +121,11 @@ class JATSContribs(object):
             aff_new = '; '.join(aff)
             if orcid:
                 orcid = '; '.join(orcid).strip()
-                orcid = '; <id system="orcid">' + orcid + '</id>'
+                orcid = '; <ID system="ORCID">' + orcid + '</ID>'
                 aff_new = aff_new + orcid
             if email:
                 email = '; '.join(email).strip()
-                email = '<email>' + email + '</email>'
+                email = '<EMAIL>' + email + '</EMAIL>'
                 aff_new = aff_new + ' ' + email
             aff_new = self.regex_spcom.sub(',',aff_new)
             aff_new = self.regex_multisp.sub(' ',aff_new)
@@ -140,7 +154,6 @@ class JATSContribs(object):
 
             # De-label everything:
             try:
-                #art_meta.label.decompose()
                 art_meta = self._decompose(soup=art_meta, tag='label')
             except Exception as noop:
                 pass
@@ -164,9 +177,7 @@ class JATSContribs(object):
                     if a['contrib-type'] == 'collab' or 'collab' in a.text:
                         # print('ZOMG COLLAB: %s' % a)
                         # print('ZOMG COLLAB!', a)
-                        # c.decompose()
                         pass
-                    # print('lol auth:',auth)
                     elif a['contrib-type'] == 'author':
                         # corresponding author?
                         try:
@@ -230,9 +241,12 @@ class JATSContribs(object):
                         emails = []
                         # first, add any emails found by stripping raw emails out of affil strings above...
                         try:
-                            emails.extend(email_list)
+                            for e in email_list:
+                                emails.append(e)
                         except Exception as noop:
                             pass
+                        else:
+                            email_list = []
                         try:
                             email = a.find_all('email')
                             for e in email:
@@ -263,6 +277,8 @@ class JATSContribs(object):
                         auth.update(orcid=orcid)
                         auth.update(email=emails)
                         a.decompose()
+                        emails = None
+                        orcid = None
 
                     # this is a list of author dicts
                     self.auth_list.append(auth)
@@ -272,6 +288,15 @@ class JATSContribs(object):
                 #               not in individual contrib
                 contrib_aff = art_contrib_group.find_all('aff')
                 for a in contrib_aff:
+                    # check and see if the publisher defined an email tag
+                    # inside an affil (like IOP does...)
+                    nested_email_list = a.find_all('ext-link')
+                    if nested_email_list:
+                         for e in nested_email_list:
+                             key = e['id']
+                             value = e.text
+                             self.email_xref[key] = value
+                             e.decompose()
                     try:
                         key = a['id']
                     except:
@@ -281,12 +306,16 @@ class JATSContribs(object):
                         try:
                             a = self._decompose(soup=a, tag='sup')
                             a = self._decompose(soup=a, tag='institution-id')
+                            # getting rid of ext-link eliminates *all* emails,
+                            # so this is not the place to fix the iop thing
+                            # a = self._decompose(soup=a, tag='ext-link')
                         except Exception as noop:
                             pass
                         affstr = a.get_text(separator=' ').strip()
                         (affstr, email_list) = self._fix_affil(affstr)
                         if email_list:
                             self.email_xref[key] = email_list
+                            email_list = []
                         self.xref_dict[key] = affstr
                     except Exception as err:
                         pass
@@ -306,19 +335,16 @@ class JATSContribs(object):
                         # special case: get rid of <sup>...
                         try:
                             a = self._decompose(soup=a, tag='sup')
-                            # a.sup.decompose()
                         except Exception as noop:
                             pass
                         try:
                             # NOTE: institution-id is actually useful, but at
                             # at the moment, strip it
                             a = self._decompose(soup=a, tag='institution-id')
-                            # a.institution-id.decompose()
                         except Exception as noop:
                             pass
                         affstr = a.get_text(separator=' ').strip()
                         (affstr, email_list) = self._fix_affil(affstr)
-                        # self.xref_dict[key] = a.get_text(separator=' ').strip()
                         self.xref_dict[key] = affstr
                         a.decompose()
                 except Exception as err:
@@ -339,7 +365,6 @@ class JATSContribs(object):
                             key = c['id']
                             try:
                                 c = self._decompose(soup=c, tag='sup')
-                                # c.sup.decompose()
                             except Exception as noop:
                                 pass
                             val = c.get_text(separator=' ').strip()
@@ -355,45 +380,3 @@ class JATSContribs(object):
             return
         except Exception as err:
             raise JATSContribException(err)
-
-
-def main():
-
-    import html
-    from glob import glob
-    from bs4 import BeautifulSoup
-
-    files = glob('*.xml')
-    for f in files:
-
-        print('\n%s' % f)
-        with open(f,'rb') as fx:
-            data = fx.read()
-
-        # Cheat: beautifulsoup is expecting xml with the 'lxml-xml' parser,
-        #        so HTML entities will get cut without the following:
-        data = html.unescape(data.decode('utf-8'))
-
-        '''
-        WARNING: bs4 seems to choke on HTML comments, so if you use lxml-xml
-        on (at least) Taylor & Francis, it will fail....
-        
-        soup = BeautifulSoup(data,'lxml-xml')
-        if 't-f_ex' in f:
-            print('data: "%s"' % data)
-            print('soup: "%s"' % soup)
-        '''
-        soup = BeautifulSoup(data,'lxml')
-        article_meta = soup.find('article-meta')
-        try:
-            test = JATSContribs(soup=article_meta)
-            test.parse()
-            foo = test.output
-            print(foo)
-        except Exception as err:
-            print('it didnt work: %s' % err)
-    return
-
-
-if __name__ == '__main__':
-    main()

@@ -5,6 +5,7 @@ from __future__ import absolute_import
 from bs4 import BeautifulSoup, CData, Tag
 from collections import OrderedDict
 from .default import BaseBeautifulSoupParser
+from .jats_contrib import JATSContribs
 from pyingest.config.config import *
 from .affils import AffiliationParser
 from .entity_convert import EntityConverter
@@ -142,218 +143,16 @@ class JATSParser(BaseBeautifulSoupParser):
             if title_fn_list:
                 base_metadata['abstract'] += '  ' + ' '.join(title_fn_list)
 
-        # Authors and Affiliations:
-        # Set up affils storage
-        affils = OrderedDict()
-
-        # Author notes/note ids
+        # Authors and their Affiliations:
         try:
-            notes = article_meta.find('author-notes').find_all('fn')
+            auth_affil = JATSContribs(soup=article_meta)
+            auth_affil.parse()
+            aa_output = auth_affil.output
         except Exception as err:
-            pass
+            print('oopsie, problem', err)
         else:
-            for n in notes:
-                try:
-                    n.label.decompose()
-                except Exception as err:
-                    pass
-                else:
-                    try:
-                        n['id']
-                    except Exception as err:
-                        pass
-                    else:
-                        key = n['id']
-                        note_text = self._detag(n, JATS_TAGSET['affiliations'])
-                        affils[key] = note_text.strip()
-
-        # Affils/affil ids
-        l_need_affils = False
-        try:
-            affil = article_meta.find('contrib-group').find_all('aff')
-            if len(affil) == 0:
-                try:
-                    affil = article_meta.find_all('aff')
-                except Exception as err:
-                    pass
-        except Exception as err:
-            pass
-        else:
-            for a in affil:
-                try:
-                    a.label.decompose()
-                    # a.label.extract()
-                except Exception as err:
-                    pass
-                try:
-                    a['id']
-                except Exception as err:
-                    key = 'ALL'
-                else:
-                    key = a['id']
-                aff_text = self._detag(a, JATS_TAGSET['affiliations'])
-                affils[key] = aff_text.strip()
-
-                ekey = ''
-                try:
-                    email_array = []
-                    email_a = a.find_all('ext-link')
-                    for em in email_a:
-                        if em['ext-link-type'] == 'email':
-                            address = self._detag(em, (
-                                JATS_TAGSET['affiliations']))
-                            address_new = "<EMAIL>" + address + "</EMAIL>"
-                            ekey = em['id']
-                            if ekey is not '':
-                                affils[ekey] = address_new
-                    # while a.find('ext-link') is not None:
-                    #     a.find('ext-link').extract()
-                    print('hey, I have an email array...')
-                except Exception as err:
-                    pass
-
-
-
-        # <contrib-group>: Author name and affil/note lists:
-        try:
-            authors = article_meta.find('contrib-group').find_all('contrib')
-        except Exception as err:
-            pass
-        else:
-            # you have data for each author in <contrib> tags, 
-            # so create the storage lists and loop over all contrib
-            base_metadata['authors'] = []
-            base_metadata['affiliations'] = []
-
-            for a in authors:
-
-                # Author names
-                if a.find('collab') is not None:
-                    base_metadata['authors'].append(self._detag(a.collab, []))
-                else:
-                    if a.find('surname') is not None:
-                        surname = self._detag(a.surname, [])
-                    else:
-                        surname = ''
-                    if a.find('prefix') is not None:
-                        prefix = self._detag(a.prefix, []) + ' '
-                    else:
-                        prefix = ''
-                    if a.find('suffix') is not None:
-                        suffix = ' ' + self._detag(a.suffix, [])
-                    else:
-                        suffix = ''
-                    if a.find('given-names') is not None:
-                        given = self._detag(a.find('given-names'), [])
-                    else:
-                        given = ''
-                    forename = prefix + given + suffix
-                    if forename == '':
-                        if surname != '':
-                            base_metadata['authors'].append(surname)
-                    else:
-                        if surname != '':
-                            base_metadata['authors'].append(surname + ', ' + forename)
-                        else:
-                            base_metadata['authors'].append(forename)
-
-                    # EMAIL in contrib-group (e.g. OUP, AIP)
-                    email = None
-                    if a.find('email') is not None:
-                        email = self._detag(a.email, [])
-                        # AIP makes the email an 'xlink:href' attribute...
-                        # You could also use an author note instead.
-                        if email == '':
-                            email = a.email['xlink:href']
-                            email = email.replace('mailto:','')
-                        email = '<EMAIL>' + email + '</EMAIL>'
-
-                # ORCIDs
-                orcid_out = None
-                try:
-                    # orcids = a.find_all('ext-link')
-                    orcids = a.find('ext-link')
-                    try:
-                        if orcids['ext-link-type'] == 'orcid':
-                            o = self._detag(orcids, [])
-                            orcid_out = "<ID system=\"ORCID\">" + o + "</ID>"
-                    except Exception as err:
-                        pass
-                except Exception as err:
-                    pass
-                if orcid_out is None:
-                    try:
-                        if a.find('contrib-id') is not None:
-                            auth_id = a.find('contrib-id')
-                            if auth_id['contrib-id-type'] == 'orcid':
-                                o = self._detag(auth_id, [])
-                                o = o.split('/')[-1]
-                                orcid_out = "<ID system=\"ORCID\">" + o + "</ID>"
-                    except Exception as err:
-                        pass
-
-                # If you didn't get affiliations above, l_need_affils == True, so do this...
-                try:
-                    if a.find_all('aff') is not None:
-                        aff_text_arr = list()
-                        for ax in a.find_all('aff'):
-                            aff_text_arr.append(self._detag(ax, JATS_TAGSET['affiliations']).strip())
-                        aff_text = "; ".join(aff_text_arr)
-                except Exception as err:
-                    pass
-
-                # Author affil/note ids
-                try:
-                    aid = a.find_all('xref')
-                except Exception as err:
-                    pass
-                else:
-                    aid_arr = []
-                    if len(aid) > 0:
-                        try:
-                            aid_str = ' '.join([x['rid'] for x in aid])
-                        except Exception as err:
-                            print("jats.py: Failure in affil parsing: %s" % err)
-                        else:
-                            aid_arr = aid_str.split()
-
-                try:
-                    new_aid_arr = []
-                    for af in affils.keys():
-                        if af in aid_arr or af == 'ALL':
-                            new_aid_arr.append(af)
-                    aid_arr = new_aid_arr
-
-                    # check whether or not you got affil data in one way or the other...
-                    if not l_need_affils:
-                        aff_text = '; '.join(affils[x] for x in aid_arr)
-
-                    aff_text = aff_text.replace(';;', ';').rstrip(';')
-                    aff_text = aff_text.replace('; ,', '').rstrip()
-                    if aff_text == '':
-                        if 'ALL' in affils:
-                            aff_text = affils['ALL'].strip()
-
-                    # Got ORCID?
-                    if orcid_out is not None:
-                        aff_text = aff_text + '; ' + orcid_out
-                    if email is not None:
-                        aff_text = aff_text + ' ' + email
-                    base_metadata['affiliations'].append(aff_text)
-                except Exception as errrror:
-                    if orcid_out is not None:
-                        base_metadata['affiliations'].append(orcid_out)
-                    else:
-                        base_metadata['affiliations'].append('')
-                affnew = []
-                for affx in base_metadata['affiliations']:
-                    affnew.append(AffiliationParser(affx).parse())
-                base_metadata['affiliations'] = affnew
-
-            if len(base_metadata['authors']) > 0:
-                base_metadata['authors'] = "; ".join(base_metadata['authors'])
-            else:
-                del base_metadata['authors']
+            base_metadata['authors'] = '; '.join(aa_output['authors'])
+            base_metadata['affiliations'] = aa_output['affiliations']
 
         # Copyright:
         try:
