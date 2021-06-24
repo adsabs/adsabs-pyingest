@@ -149,7 +149,7 @@ class JATSParser(BaseBeautifulSoupParser):
             auth_affil.parse()
             aa_output = auth_affil.output
         except Exception as err:
-            print('oopsie, problem', err)
+            pass
         else:
             base_metadata['authors'] = '; '.join(aa_output['authors'])
             base_metadata['affiliations'] = aa_output['affiliations']
