@@ -80,9 +80,22 @@ class AffiliationParser(BaseBeautifulSoupParser):
                 new_string = re.sub(email, '', new_string)
                 new_string = new_string + '; ' + str_type(email)
             new_string = re.sub(' ;', '', new_string)
-            new_string = new_string.strip()
-            new_string = new_string.strip(';')
-            new_string = new_string.strip()
+            aff_array = [x.strip() for x in new_string.split(';') if x.strip()]
+            aff_array = list(dict.fromkeys(aff_array))
+            # if one string is an untagged version of another 
+            # tagged string (e.g. untagged email), omit it
+            new_aff_array = list()
+            for x in aff_array:
+                ldup = False
+                for y in aff_array:
+                    # tagged string will contain an untagged
+                    # string but not vice versa
+                    if x in y and y not in x:
+                        ldup = True
+                if not ldup:
+                    new_aff_array.append(x)
+            new_string = '; '.join(new_aff_array)
+
             return new_string
         except Exception as err:
             print("AffiliationParser: PARSING FAILED:", err)
