@@ -1,0 +1,3283 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" "http://ej.iop.org/dtd/nlm-3.0/journalpublishing3.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+<front>
+<journal-meta>
+<journal-id journal-id-type="publisher-id">aj</journal-id>
+<journal-title-group>
+<journal-title>The Astronomical Journal</journal-title>
+<abbrev-journal-title abbrev-type="AAS">AJ</abbrev-journal-title>
+<abbrev-journal-title abbrev-type="publisher">Astron. J.</abbrev-journal-title>
+</journal-title-group>
+<issn pub-type="ppub">0004-6256</issn>
+<issn pub-type="epub">1538-3881</issn>
+<publisher>
+<publisher-name>The American Astronomical Society</publisher-name>
+</publisher>
+</journal-meta>
+<article-meta>
+<article-id pub-id-type="publisher-id">ajabfdc9</article-id>
+<article-id pub-id-type="doi">10.3847/1538-3881/abfdc9</article-id>
+<article-id pub-id-type="manuscript">abfdc9</article-id>
+<article-id pub-id-type="other">AAS29268</article-id>
+<article-categories>
+<subj-group subj-group-type="section">
+<subject content-type="order">350</subject>
+<subject content-type="heading">The Solar System, Exoplanets, and Astrobiology</subject>
+</subj-group>
+</article-categories>
+<title-group>
+<article-title>Meteoroid Stream of Comet C/1961 T1 (Seki) and Its Relation to the December <italic>&rgr;</italic>-Virginids and <italic>&gamma;</italic>-Sagittariids</article-title>
+<alt-title alt-title-type="ascii">Meteoroid Stream of Comet C/1961 T1 (Seki) and Its Relation to the December <italic>&rgr;</italic>-Virginids and <italic>&gamma;</italic>-Sagittariids</alt-title>
+<alt-title alt-title-type="toc-author">Lubo&scaron; Neslu&scaron;an, and M&aacute;ria Hajdukov&aacute;</alt-title>
+</title-group>
+<contrib-group content-type="all">
+<contrib contrib-type="author" corresp="yes">
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>Lubo&scaron;</given-names>
+</name>
+<xref ref-type="aff" rid="ajabfdc9af1">1</xref>
+<xref ref-type="aff" rid="ajabfdc9em1"/>
+<ext-link ext-link-type="orcid">0000-0001-9758-1144</ext-link>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Hajdukov&aacute;</surname>
+<given-names>M&aacute;ria</given-names>
+</name>
+<xref ref-type="aff" rid="ajabfdc9af2">2</xref>
+<ext-link ext-link-type="orcid">0000-0002-7837-2627</ext-link>
+</contrib>
+<aff id="ajabfdc9af1">
+<label>1</label>
+<institution>Astronomical Institute</institution>, Slovak Academy of Science, 05960 Tatransk&aacute; Lomnica, <country>Slovakia</country>; <ext-link id="ajabfdc9em1" ext-link-type="email">ne@ta3.sk</ext-link>
+</aff>
+<aff id="ajabfdc9af2">
+<label>2</label>
+<institution>Astronomical Institute</institution>, Slovak Academy of Science, D&uacute;bravsk&aacute; cesta 9, 84504 Bratislava, <country>Slovakia</country>
+</aff>
+<author-comment content-type="short-author-list">
+<p>Neslu&scaron;an &amp; Hajdukov&aacute;</p>
+</author-comment>
+</contrib-group>
+<pub-date pub-type="ppub">
+<month>7</month>
+<year>2021</year>
+</pub-date>
+<pub-date pub-type="epub">
+<day>18</day>
+<month>06</month>
+<year>2021</year>
+</pub-date>
+<volume>162</volume>
+<issue>1</issue>
+<elocation-id content-type="artnum">20</elocation-id>
+<history>
+<date date-type="received">
+<day>17</day>
+<month>12</month>
+<year>2020</year>
+</date>
+<date date-type="rev-recd">
+<day>8</day>
+<month>2</month>
+<year>2021</year>
+</date>
+<date date-type="accepted">
+<day>2</day>
+<month>5</month>
+<year>2021</year>
+</date>
+</history>
+<permissions>
+<copyright-statement>&copy; 2021. The American Astronomical Society. All rights reserved.</copyright-statement>
+<copyright-year>2021</copyright-year>
+</permissions>
+<self-uri xlink:href="http://stacks.iop.org/AJ/162/20"/>
+<abstract>
+<title>Abstract</title>
+<p>We answer the question of whether long-period comet C/1961 T1 (Seki) is the parent body of a meteor shower observed in Earth&rsquo;s atmosphere. We model discrete parts of a meteoroid stream associated with this comet and follow the orbital evolution of its particles via a numerical integration of their orbits. The gravitational perturbations of major planets and the Poynting&ndash;Robertson effect, which influences the motion of the particles, are taken into account. We predict two showers which are related to C/1961 T1. One of these showers was identified with the December <italic>&rgr;</italic>-Virginids, #502. This identification confirms an earlier suggested relationship between the shower and the comet. The second predicted shower was identified with the <italic>&gamma;</italic>-Sagittariids, #657. The radiant areas of both showers are symmetrical in respect to the apex of Earth&rsquo;s heliocentric motion.</p>
+</abstract>
+<kwd-group kwd-group-type="author">
+<title content-type="vocab">unified-astronomy-thesaurus</title>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/280</compound-kwd-part>
+<compound-kwd-part content-type="term">Comets</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">280</compound-kwd-part>
+</compound-kwd>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/1035</compound-kwd-part>
+<compound-kwd-part content-type="term">Meteor streams</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">1035</compound-kwd-part>
+</compound-kwd>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/1034</compound-kwd-part>
+<compound-kwd-part content-type="term">Meteor showers</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">1034</compound-kwd-part>
+</compound-kwd>
+</kwd-group>
+<kwd-group kwd-group-type="AAS">
+<kwd>Comets</kwd>
+<kwd>Meteor streams</kwd>
+<kwd>Meteor showers</kwd>
+</kwd-group>
+<funding-group>
+<award-group>
+<funding-source>EC &mid; European Regional Development Fund (ERDF)<named-content content-type="funder-id">https://doi.org/10.13039/501100008530</named-content>
+</funding-source>
+<award-id>ITMS 26230120002</award-id>
+</award-group>
+<award-group>
+<funding-source>Slovak Research and Development Agency</funding-source>
+<award-id>APVV-16-0148</award-id>
+</award-group>
+<award-group>
+<funding-source>Slovak Grant Agency for Science, VEGA</funding-source>
+<award-id>2/0037/18</award-id>
+</award-group>
+</funding-group>
+<counts>
+<page-count count="9"/>
+</counts>
+<custom-meta-group>
+<custom-meta>
+<meta-name>ccc</meta-name>
+<meta-value>0004-6256/21/20&plus;9&dollar;33.00</meta-value>
+</custom-meta>
+<custom-meta>
+<meta-name>crossmark</meta-name>
+<meta-value>yes</meta-value>
+</custom-meta>
+</custom-meta-group>
+</article-meta>
+</front>
+<body>
+<sec id="ajabfdc9s1">
+<label>1.</label>
+<title>Introduction</title>
+<p>In recent decades, a number of new meteor showers have been reported using low-light video cameras for meteor triangulation (Jenniskens et al. <xref ref-type="bibr" rid="ajabfdc9bib22">2016a</xref>, <xref ref-type="bibr" rid="ajabfdc9bib23">2016b</xref>, <xref ref-type="bibr" rid="ajabfdc9bib24">2016c</xref>, <xref ref-type="bibr" rid="ajabfdc9bib20">2020</xref>) and meteor radar to measure meteor orbits (Younger et al. <xref ref-type="bibr" rid="ajabfdc9bib68">2009</xref>, <xref ref-type="bibr" rid="ajabfdc9bib69">2012</xref>; Bruzzone et al. <xref ref-type="bibr" rid="ajabfdc9bib64">2015</xref>; Janches et al. <xref ref-type="bibr" rid="ajabfdc9bib66">2015</xref>, <xref ref-type="bibr" rid="ajabfdc9bib67">2020</xref>; Moorhead et al. <xref ref-type="bibr" rid="ajabfdc9bib67">2015</xref>; Brown <xref ref-type="bibr" rid="ajabfdc9bib62">2016</xref>; Brown &amp; Weryk <xref ref-type="bibr" rid="ajabfdc9bib63">2020</xref>). The study of meteoroid stream and parent body links were performed using a variety of models, e.g., Lyytinen &amp; Jenniskens (<xref ref-type="bibr" rid="ajabfdc9bib33">2003</xref>), Jopek &amp; Williams (<xref ref-type="bibr" rid="ajabfdc9bib26">2013</xref>), &Scaron;egon et al. (<xref ref-type="bibr" rid="ajabfdc9bib53">2014a</xref>, <xref ref-type="bibr" rid="ajabfdc9bib54">2014b</xref>, <xref ref-type="bibr" rid="ajabfdc9bib55">2017</xref>), Abedin et al. (<xref ref-type="bibr" rid="ajabfdc9bib1">2015</xref>, <xref ref-type="bibr" rid="ajabfdc9bib3">2017</xref>, <xref ref-type="bibr" rid="ajabfdc9bib2">2018</xref>), Babadzhanov et al. (<xref ref-type="bibr" rid="ajabfdc9bib4">2015a</xref>, <xref ref-type="bibr" rid="ajabfdc9bib5">2015b</xref>), Ishiguro et al. (<xref ref-type="bibr" rid="ajabfdc9bib17">2015</xref>), Korno&scaron; et al. (<xref ref-type="bibr" rid="ajabfdc9bib30">2015</xref>), Kov&aacute;&ccaron;ov&aacute; et al. (<xref ref-type="bibr" rid="ajabfdc9bib31">2020</xref>), Rudawska &amp; Vaubaillon (<xref ref-type="bibr" rid="ajabfdc9bib49">2015</xref>), Rudawska et al. (<xref ref-type="bibr" rid="ajabfdc9bib50">2016</xref>), Egal et al. (<xref ref-type="bibr" rid="ajabfdc9bib8">2019</xref>), and Matlovi&ccaron; et al. (<xref ref-type="bibr" rid="ajabfdc9bib35">2020</xref>). A description of some of these methods can be found in a review chapter by Vaubaillon et al. (<xref ref-type="bibr" rid="ajabfdc9bib61">2019</xref>) on modeling meteoroid streams and searching for their parent bodies, which was recently published in the book &ldquo;Meteoroids: Sources of Meteors on Earth and Beyond&rdquo; (Ryabova et al. <xref ref-type="bibr" rid="ajabfdc9bib51">2019</xref>).</p>
+<p>It is well known that dust material is released from the nuclei of periodic comets. The released dust grains form a stream around the orbit of the source, i.e., around the parent comet. Almost all periodic comets in orbits passing closely to the orbit of Earth have an associated meteoroid stream. The meteoroids in the stream are not distributed only along the orbit of the parent but often occupy some alternative corridors in their motion around the Sun. These corridors and, possible meteor showers observable on Earth, can be revealed by a modeling of the stream and by following the dynamical evolution of its particles.</p>
+<p>In the past, we successfully modeled the streams of several comets, specifically C/1917 F1 (Neslu&scaron;an &amp; Hajdukov&aacute; <xref ref-type="bibr" rid="ajabfdc9bib37">2014</xref>), C/1979 Y1 (Hajdukov&aacute; &amp; Neslu&scaron;an <xref ref-type="bibr" rid="ajabfdc9bib14">2017</xref>), C/1964 N1 (Neslu&scaron;an &amp; Hajdukov&aacute; <xref ref-type="bibr" rid="ajabfdc9bib38">2018a</xref>, <xref ref-type="bibr" rid="ajabfdc9bib39">2018b</xref>), C/1975 T2 (Hajdukov&aacute; &amp; Neslu&scaron;an <xref ref-type="bibr" rid="ajabfdc9bib15">2019</xref>), C/1963 A1 (Neslu&scaron;an &amp; Hajdukov&aacute; <xref ref-type="bibr" rid="ajabfdc9bib40">2019</xref>), C/1853 G1 (Neslu&scaron;an &amp; Hajdukov&aacute; <xref ref-type="bibr" rid="ajabfdc9bib41">2020</xref>), and C/1992 W1 (Hajdukov&aacute; &amp; Neslu&scaron;an <xref ref-type="bibr" rid="ajabfdc9bib16">2020</xref>). The same method was also used in mapping the meteor shower complexes of comets 96/P Machholz (Neslu&scaron;an et al. <xref ref-type="bibr" rid="ajabfdc9bib42">2013</xref>), 12P/Pons-Brooks (Tomko &amp; Neslu&scaron;an <xref ref-type="bibr" rid="ajabfdc9bib59">2016</xref>), 2P/Encke (Tomko &amp; Neslu&scaron;an <xref ref-type="bibr" rid="ajabfdc9bib60">2019</xref>), and of two asteroids, (196256) 2003 EH1 (Neslu&scaron;an et al. <xref ref-type="bibr" rid="ajabfdc9bib42">2013</xref>) and 3200 Phaethon (Jakub&iacute;k &amp; Neslu&scaron;an <xref ref-type="bibr" rid="ajabfdc9bib18">2015</xref>).</p>
+<p>In this paper, we describe our modeling of another periodic comet, C/1961 T1 (Seki). The comet was discovered by T. Seki on 1961 October 10.81, at Kochi Observatory, Japan (Kronk &amp; Meyer <xref ref-type="bibr" rid="ajabfdc9bib32">2010</xref>). Its magnitude was estimated as 7&minus;8. The discovery was confirmed by M. Honda on October 11.82. Later, the comet was observed by G. E. D. Alcock in Peterborough, England, A. M. Bakharev at the Dushanbe Observatory, Tajikistan, H. Kern in Mulhouse-Dornach, France, G. A. Van Biesbroeck at the Yerkes Observatory, Wisconsin, USA, E. Roemer at the US Naval Observatory, Flagstaff Station, Arizona, USA, and others.</p>
+<p>Observers from around the world followed the comet during November. It became a naked-eye object and passed very close to Earth around midmonth. A diffuse coma and short tail were reported by several observers. The comet quickly faded during December. It was last detected on December 29, when photographed by Roemer and C. Jackson at the Yale-Columbia Southern Station, Canberra, Australia.</p>
+<p>The first parabolic orbit was published by L. E. Cunningham on 1961 October 20. During November, the orbit was improved by the calculations of B. G. Marsden, Seki, Cunningham himself, and C. Jackson. The first ecliptical orbit was also calculated by Cunningham and was published on December 11. Using 56 positions of the comet, spanning from October 11 to December 29, and considering the perturbations by nine planets, Marsden (Marsden et al. <xref ref-type="bibr" rid="ajabfdc9bib34">1978</xref>) calculated the nominal orbit of the comet, which is used in our work. Marsden et al. (<xref ref-type="bibr" rid="ajabfdc9bib34">1978</xref>) also calculated the original and future orbits. Both these orbits were ecliptical, with the orbital periods of about 627 and 703 yr, respectively.</p>
+<p>Hasegawa (<xref ref-type="bibr" rid="ajabfdc9bib70">1961</xref>) predicted a meteor shower associated with C/1961 T1. He determined that the shower&rsquo;s maximum should occur on 1961 November 28.75, from a radiant of <italic>&agr;</italic> &equals; 181&deg;, <italic>&delta;</italic> &equals; &plus; 15&deg;. No such meteors were reported that time.</p>
+<p>A possible relationship of C/1961 T1 to a meteor shower was also proposed by Greaves (<xref ref-type="bibr" rid="ajabfdc9bib11">2000</xref>), when investigating the Dutch Meteor Society database. The author found three meteoroids with similar orbits to the orbit of the comet. Almost 20 yr later, searching in larger data sets, Greaves (<xref ref-type="bibr" rid="ajabfdc9bib12">2019</xref>) confirmed his previous suggestion with 13 other orbits from the European viDeo MeteOr Network Database (EDMOND) and the SonotaCo data, and specified that the meteor shower associated with the comet was the December <italic>&rgr;</italic>-Virginids, shower No. 502 in the IAU Meteor Data Center (MDC) list of showers.</p>
+<p>The shower was first found by Rudawska &amp; Jenniskens (<xref ref-type="bibr" rid="ajabfdc9bib48">2014</xref>), analyzing combined SonotaCo and Cameras for All-sky Meteor Surveillance (CAMS) data. Based on 19 meteoroids, the newly identified shower was included in the IAU MDC Shower Working List and confirmed by Korno&scaron; et al. (<xref ref-type="bibr" rid="ajabfdc9bib29">2014b</xref>), searching the EDMOND data, and by Jenniskens &amp; N&eacute;non (<xref ref-type="bibr" rid="ajabfdc9bib21">2016</xref>), using an updated version of the CAMS data.</p>
+</sec>
+<sec id="ajabfdc9s2">
+<label>2.</label>
+<title>Evolution of the Orbit of Parent Comet</title>
+<p>It is impossible to model a meteoroid stream in its whole complexity. Therefore, we model only several parts of the stream. A given subset of these parts is modeled in a discrete time in the past, when the particles are assumed to be ejected from the surface of the parent comet. Hence, we need to know the past orbital evolution of the comet. In this section, we describe our investigation of this evolution.</p>
+<p>We consider the orbit of the comet published in the Jet Propulsion Laboratory (JPL) web browser<xref ref-type="fn" rid="ajabfdc9fn1"><sup>3</sup></xref>
+<fn id="ajabfdc9fn1">
+<label><sup>3</sup></label>
+<p>
+<ext-link ext-link-type="uri" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://ssd.jpl.nasa.gov/sbdb.cgi">http://ssd.jpl.nasa.gov/sbdb.cgi</ext-link>
+</p>
+</fn> (Giorgini et al. <xref ref-type="bibr" rid="ajabfdc9bib10">1996</xref>). The elements of this&mdash;nominal orbit, referred to epoch on 1961 October, 28.0 (JDT &equals; 2437600.5) and equinox J2000.0&mdash;are <italic>q</italic> &equals; 0.681129  au, <italic>e</italic> &equals; 0.991812, <italic>&ohgr;</italic> &equals; 126&fdg;5749, &OHgr; &equals; 247&fdg;3552, <italic>i</italic> &equals; 155&fdg;7107, and <italic>T</italic>(JDT) &equals; 2437583.1408 (on 1961 October 10.6408).</p>
+<p>The uncertainty of the orbit is unknown. We created a set of clones of the nominal orbit and followed their orbital evolution in order to map the sensitivity of the stream&rsquo;s evolution to changes in the orbital parameters. As in our past studies, we again considered three values of each orbital element, generally denoted by <italic>&epsi;</italic><sub><italic>i</italic></sub>, where <italic>i</italic> &equals; 1, 2, 3,&hellip;, 6. These values are <italic>&epsi;</italic><sub><italic>i</italic></sub> &minus; &Delta;<italic>&epsi;</italic><sub><italic>i</italic></sub>, <italic>&epsi;</italic><sub><italic>i</italic></sub>, and <italic>&epsi;</italic><sub><italic>i</italic></sub> &plus; &Delta;<italic>&epsi;</italic><sub><italic>i</italic></sub>, where &Delta;<italic>&epsi;</italic><sub><italic>i</italic></sub> is a small deviation of the <italic>i</italic>th element from its nominal value.</p>
+<p>We assumed a 1&percnt; difference of the nominal value of the perihelion distance and of the eccentricity, and a 1&percnt; difference of the maximum range in the case of the angular elements. In other words, &Delta;<italic>q</italic> &equals; 0.01<italic>q</italic>, &Delta;<italic>e</italic> &equals; 0.01<italic>e</italic>, &Delta;<italic>&ohgr;</italic> &equals; &Delta;&OHgr; &equals; 3&fdg;6, and &Delta;<italic>i</italic> &equals; 1&fdg;8. The difference in the perihelion passage was &Delta;<italic>T</italic> &equals; 10  days. This was an ad hoc chosen value.</p>
+<p>All of the possible combinations of the three values of the six elements were considered in order to construct the set of cloned orbits. The total number of these combinations is 729 including the nominal orbit. We discarded the nominal orbit in the set of clones and used 728 cloned orbits. All of the orbits were integrated backward in time for a period of 100  kyr. We used the integrator RA15 (Everhart <xref ref-type="bibr" rid="ajabfdc9bib9">1985</xref>) incorporated in the MERCURY package (Chambers <xref ref-type="bibr" rid="ajabfdc9bib6">1999</xref>; Chambers &amp; Murison <xref ref-type="bibr" rid="ajabfdc9bib7">2000</xref>). The perturbations due to the gravity of the eight major planets, Mercury to Neptune, were included.</p>
+<p>The evolution of the elements of the nominal orbit is shown in Figure <xref ref-type="fig" rid="ajabfdc9f1">1</xref>. The color scale indicates the distribution of each of the given elements of the cloned orbits. We can see that the comet has been situated in a &ldquo;turbulent&rdquo; orbital phase space. The change of the orbital elements was considerable. However, the semimajor axis (Figure <xref ref-type="fig" rid="ajabfdc9f1">1</xref>(b)) was quasi-constant in several short periods. In these periods, the comet was most probably temporarily captured in a resonance. Both the semimajor axis and the eccentricity of the nominal orbit (Figures <xref ref-type="fig" rid="ajabfdc9f1">1</xref>(b), (c)) did not follow the most abundant path.</p>
+<fig id="ajabfdc9f1" position="float">
+<label>Figure 1.</label>
+<caption id="ajabfdc9fc1">
+<p>The evolution of the elements of the nominal orbit of comet C/1961 T1 (black curve) and the distribution of the orbital elements of the nominal-orbit clones (color scale). The evolution was followed for a period of 100 kyr.</p>
+</caption>
+<graphic id="ajabfdc9f1_eps" content-type="print" xlink:href="ajabfdc9f1.eps"/>
+<graphic id="ajabfdc9f1_lr" content-type="low" xlink:href="ajabfdc9f1_lr.jpg"/>
+<graphic id="ajabfdc9f1_hr" content-type="high" xlink:href="ajabfdc9f1_hr.jpg"/>
+</fig>
+<p>Since the uncertainty of the nominal orbit can influence our modeling of the meteoroid stream and, consequently, our predictions of meteor showers, we modeled the theoretical stream of C/1961 T1 starting not only with the nominal orbit but also with several cloned orbits (Section <xref ref-type="sec" rid="ajabfdc9s5">5</xref>).</p>
+<p>The main filament of the stream is situated around the orbit of the stream&rsquo;s parent body. If the orbit of the parent body passes close to the orbit of Earth, then this filament causes a meteor shower in Earth&rsquo;s atmosphere. We investigated the evolution of the minimum-orbit intersection distance (MOID) in the past 100 kyr. The approach of the post-perihelion and pre-perihelion arcs to Earth&rsquo;s orbit was investigated separately. The evolution of the MOID can be seen in Figure <xref ref-type="fig" rid="ajabfdc9f2">2</xref>.</p>
+<fig id="ajabfdc9f2" position="float">
+<label>Figure 2.</label>
+<caption id="ajabfdc9fc2">
+<p>The MOID between the orbit of Earth and both post-perihelion (shown with the red curve) and pre-perihelion (blue curve) orbital arcs of comet C/1961 T1.</p>
+</caption>
+<graphic id="ajabfdc9f2_eps" content-type="print" xlink:href="ajabfdc9f2.eps"/>
+<graphic id="ajabfdc9f2_lr" content-type="low" xlink:href="ajabfdc9f2_lr.jpg"/>
+<graphic id="ajabfdc9f2_hr" content-type="high" xlink:href="ajabfdc9f2_hr.jpg"/>
+</fig>
+<p>The MOID of the post-perihelion arc was often small enough (smaller than &sim;0.15 au) for the particles in the stream to hit Earth. The MOID of the pre-perihelion arc was largely variable in the period between 100 and 60 kyr ago. From 60 to &sim;40 kyr ago, the pre-perihelion arc also passed close to Earth&rsquo;s orbit. In recent millennia, the MOID of this arc has increased.</p>
+</sec>
+<sec id="ajabfdc9s3">
+<label>3.</label>
+<title>Method of Modeling and Used Databases</title>
+<p>In our work, a meteoroid stream associated with the particular parent was modeled by the method suggested by Neslu&scaron;an (<xref ref-type="bibr" rid="ajabfdc9bib36">1999</xref>). The method was improved later several times. The last, detailed description was given by Tomko &amp; Neslu&scaron;an (<xref ref-type="bibr" rid="ajabfdc9bib60">2019</xref>).</p>
+<p>Since a meteoroid stream cannot be modeled in its whole complexity, we model only parts of the stream. From the dynamical behavior of these parts, we infer the spatial structure of the stream and the mean characteristics of its individual filaments, which usually correspond to the meteor showers.</p>
+<p>A given part of the stream is assumed to form in a discrete time, <italic>t</italic><sub>ev</sub>, before the present. The value of <italic>t</italic><sub>ev</sub> is chosen arbitrarily. However, the particles of a part of the stream are assumed to have been released from the nucleus of the parent comet at the moment of perihelion passage, which happened at the nearest perihelion to <italic>t</italic><sub>ev</sub>. At perihelion, we assume that 10,000 test particles&mdash;meteoroids&mdash;are ejected, in a single moment and uniformly in all directions.</p>
+<p>After ejection, the orbits of the particles and perturbing planets are numerically integrated forward, up to the present. It means that we perform the integration for an &ldquo;evolutionary period,&rdquo; <italic>t</italic><sub>ev</sub>. The particles moving at the end of the integration (at the present), in the orbits which have an MOID to Earth&rsquo;s orbit less than the ad hoc chosen limit of 0.05 au, are used to predict the observable meteor showers. The geocentric radiant and geocentric velocity are calculated by the optimal method as selected by the computer program published by Neslu&scaron;an et al. (<xref ref-type="bibr" rid="ajabfdc9bib45">1998</xref>).</p>
+<p>The motion of small dust grains as meteoroids is influenced by the radiation pressure and solar wind. Because of this circumstance, we take the Poynting&ndash;Robertson (P-R) effect (Kla&ccaron;ka <xref ref-type="bibr" rid="ajabfdc9bib27">2014</xref>) into account. The size of this effect is proportional to parameter <italic>&beta;</italic>, the ratio of nongravitational acceleration of the particles and their acceleration due to solar gravity. In our work, <italic>&beta;</italic> is regarded as a free parameter.</p>
+<p>The fixed values of parameters <italic>t</italic><sub>ev</sub> and <italic>&beta;</italic> are considered in every given model. We create the models for a grid of these two parameters to map the dynamics of several parts of the stream. In more detail, we first created 20 models combining the values <italic>t</italic><sub>ev</sub> &equals; 10, 20, 40, and 80 kyr and <italic>&beta;</italic> &equals; 10<sup>&minus;11</sup> (no P-R effect), 10<sup>&minus;4</sup>, 0.001, 0.003, and 0.005. To find the largest value of <italic>&beta;</italic> when a shower can still be predicted, for given <italic>t</italic><sub>ev</sub>, we also created models for (<italic>t</italic><sub>ev</sub>, <italic>&beta;</italic>) &equals; (10  kyr, 0.006), (20 kyr, 0.006), (40 kyr, 0.004), and (80 kyr, 0.006). No shower was predicted in some models. The models with predicted showers are listed in Tables <xref ref-type="table" rid="ajabfdc9t1">1</xref> or <xref ref-type="table" rid="ajabfdc9t2">2</xref>. Since the modeled stream appeared to have a filamentary structure, more showers were predicted.</p>
+<table-wrap id="ajabfdc9t1" position="float">
+<label>Table 1</label>
+<caption id="ajabfdc9tc1">
+<p>Mean Geocentric Parameters of the Predicted and Corresponding Real Showers</p>
+</caption>
+<table>
+<colgroup>
+<col align="left"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+</colgroup>
+<thead>
+<tr>
+<th align="left"><italic>t</italic><sub>ev</sub></th>
+<th align="center"><italic>&beta;</italic></th>
+<th align="center">&lang;<italic>&lambda;</italic>&rang;</th>
+<th align="center">
+<inline-formula>
+<tex-math>
+<?CDATA ${\lambda }_{\min }$?>
+</tex-math>
+<mml:math>
+<mml:msub>
+<mml:mrow>
+<mml:mi>&lambda;</mml:mi>
+</mml:mrow>
+<mml:mrow>
+<mml:mi>min</mml:mi>
+</mml:mrow>
+</mml:msub>
+</mml:math>
+<inline-graphic xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ajabfdc9ieqn1.gif"/>
+</inline-formula>&ndash;<inline-formula>
+<tex-math>
+<?CDATA ${\lambda }_{\max }$?>
+</tex-math>
+<mml:math>
+<mml:msub>
+<mml:mrow>
+<mml:mi>&lambda;</mml:mi>
+</mml:mrow>
+<mml:mrow>
+<mml:mi>max</mml:mi>
+</mml:mrow>
+</mml:msub>
+</mml:math>
+<inline-graphic xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ajabfdc9ieqn2.gif"/>
+</inline-formula>
+</th>
+<th align="center">&lang;<italic>&agr;</italic>&rang;</th>
+<th align="center">&lang;<italic>&delta;</italic>&rang;</th>
+<th align="center">&lang;<italic>V</italic><sub><italic>g</italic></sub>&rang;</th>
+<th align="center"><italic>&gamma;</italic></th>
+<th align="center"><italic>n</italic></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" colspan="9">Prediction: Filament 1</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="center">10<sup>&minus;11</sup></td>
+<td align="center">239.8 &PlusMinus; 5.7</td>
+<td align="center">227.7&minus;253.8</td>
+<td align="center">174.7 &PlusMinus; 4.5</td>
+<td align="center">15.7 &PlusMinus; 1</td>
+<td align="center">68.6 &PlusMinus; 0.2</td>
+<td align="center">71</td>
+<td align="center">2021</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="center">10<sup>&minus;4</sup></td>
+<td align="center">239.2 &PlusMinus; 5.7</td>
+<td align="center">227.9&minus;253.9</td>
+<td align="center">174.2 &PlusMinus; 4.4</td>
+<td align="center">15.8 &PlusMinus; 1</td>
+<td align="center">68.6 &PlusMinus; 0.2</td>
+<td align="center">71</td>
+<td align="center">2107</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="center">001</td>
+<td align="center">234.4 &PlusMinus; 4.6</td>
+<td align="center">227.4&minus;248.9</td>
+<td align="center">170.3 &PlusMinus; 3.7</td>
+<td align="center">16.5 &PlusMinus; 0.8</td>
+<td align="center">68.5 &PlusMinus; 0.2</td>
+<td align="center">70</td>
+<td align="center">3392</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="center">003</td>
+<td align="center">231.5 &PlusMinus; 2.3</td>
+<td align="center">227.2&minus;241.3</td>
+<td align="center">167.7 &PlusMinus; 2</td>
+<td align="center">16.8 &PlusMinus; 0.5</td>
+<td align="center">68.5 &PlusMinus; 0.2</td>
+<td align="center">70</td>
+<td align="center">4291</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="center">005</td>
+<td align="center">230.3 &PlusMinus; 1.3</td>
+<td align="center">227.3&minus;235.2</td>
+<td align="center">166.5 &PlusMinus; 1</td>
+<td align="center">16.6 &PlusMinus; 0.5</td>
+<td align="center">68.6 &PlusMinus; 0.2</td>
+<td align="center">70</td>
+<td align="center">1806</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="center">10<sup>&minus;11</sup></td>
+<td align="center">244.7 &PlusMinus; 9.8</td>
+<td align="center">222.7&minus;264.8</td>
+<td align="center">178.5 &PlusMinus; 8</td>
+<td align="center">14.8 &PlusMinus; 1.7</td>
+<td align="center">68.7 &PlusMinus; 0.3</td>
+<td align="center">72</td>
+<td align="center">2758</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="center">10<sup>&minus;4</sup></td>
+<td align="center">239.2 &PlusMinus; 5.7</td>
+<td align="center">227.9&minus;253.9</td>
+<td align="center">174.2 &PlusMinus; 4.4</td>
+<td align="center">15.8 &PlusMinus; 1</td>
+<td align="center">68.6 &PlusMinus; 0.2</td>
+<td align="center">71</td>
+<td align="center">2107</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="center">001</td>
+<td align="center">229.6 &PlusMinus; 3.4</td>
+<td align="center">222.6&minus;238.6</td>
+<td align="center">166.1 &PlusMinus; 2.9</td>
+<td align="center">17.2 &PlusMinus; 0.5</td>
+<td align="center">68.4 &PlusMinus; 0.1</td>
+<td align="center">69</td>
+<td align="center">2521</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="center">003</td>
+<td align="center">228.6 &PlusMinus; 3.1</td>
+<td align="center">222.5&minus;240.2</td>
+<td align="center">165.1 &PlusMinus; 2.8</td>
+<td align="center">17.2 &PlusMinus; 0.5</td>
+<td align="center">68.5 &PlusMinus; 0.1</td>
+<td align="center">69</td>
+<td align="center">4352</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="center">005</td>
+<td align="center">227.1 &PlusMinus; 1.6</td>
+<td align="center">222.6&minus;233.2</td>
+<td align="center">163.7 &PlusMinus; 1.4</td>
+<td align="center">17.2 &PlusMinus; 0.4</td>
+<td align="center">68.5 &PlusMinus; 0.1</td>
+<td align="center">69</td>
+<td align="center">2058</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="center">006</td>
+<td align="center">226.3 &PlusMinus; 1.6</td>
+<td align="center">223&minus;229.2</td>
+<td align="center">162.8 &PlusMinus; 1.2</td>
+<td align="center">17.3 &PlusMinus; 0.5</td>
+<td align="center">68.5 &PlusMinus; 0.1</td>
+<td align="center">69</td>
+<td align="center">192</td>
+</tr>
+<tr>
+<td align="left">40</td>
+<td align="center">10<sup>&minus;11</sup></td>
+<td align="center">218.5 &PlusMinus; 2.5</td>
+<td align="center">212.1&minus;230.3</td>
+<td align="center">156.4 &PlusMinus; 2</td>
+<td align="center">18.8 &PlusMinus; 0.4</td>
+<td align="center">68.1 &PlusMinus; 0.2</td>
+<td align="center">68</td>
+<td align="center">1915</td>
+</tr>
+<tr>
+<td align="left">40</td>
+<td align="center">10<sup>&minus;4</sup></td>
+<td align="center">218.5 &PlusMinus; 2.5</td>
+<td align="center">211.1&minus;229.3</td>
+<td align="center">156.4 &PlusMinus; 2</td>
+<td align="center">18.8 &PlusMinus; 0.5</td>
+<td align="center">68.1 &PlusMinus; 0.2</td>
+<td align="center">68</td>
+<td align="center">1614</td>
+</tr>
+<tr>
+<td align="left">40</td>
+<td align="center">001</td>
+<td align="center">218 &PlusMinus; 2</td>
+<td align="center">211.8&minus;225.2</td>
+<td align="center">155.9 &PlusMinus; 1.6</td>
+<td align="center">18.9 &PlusMinus; 0.4</td>
+<td align="center">68.1 &PlusMinus; 0.2</td>
+<td align="center">67</td>
+<td align="center">2316</td>
+</tr>
+<tr>
+<td align="left">40</td>
+<td align="center">003</td>
+<td align="center">218.3 &PlusMinus; 2.4</td>
+<td align="center">212&minus;229.9</td>
+<td align="center">156.2 &PlusMinus; 2</td>
+<td align="center">18.9 &PlusMinus; 0.5</td>
+<td align="center">68.1 &PlusMinus; 0.2</td>
+<td align="center">68</td>
+<td align="center">1877</td>
+</tr>
+<tr>
+<td align="left">40</td>
+<td align="center">004</td>
+<td align="center">217.6 &PlusMinus; 2.1</td>
+<td align="center">212.2&minus;223.6</td>
+<td align="center">155.5 &PlusMinus; 1.6</td>
+<td align="center">19 &PlusMinus; 0.5</td>
+<td align="center">68.1 &PlusMinus; 0.2</td>
+<td align="center">67</td>
+<td align="center">499</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">10<sup>&minus;11</sup></td>
+<td align="center">265.1 &PlusMinus; 7.9</td>
+<td align="center">244.1&minus;286</td>
+<td align="center">196.1 &PlusMinus; 6.7</td>
+<td align="center">11.9 &PlusMinus; 2.2</td>
+<td align="center">68.5 &PlusMinus; 0.5</td>
+<td align="center">76</td>
+<td align="center">1368</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">10<sup>&minus;4</sup></td>
+<td align="center">264.4 &PlusMinus; 7.4</td>
+<td align="center">247.7&minus;282.8</td>
+<td align="center">195.5 &PlusMinus; 6.2</td>
+<td align="center">12 &PlusMinus; 2.1</td>
+<td align="center">68.6 &PlusMinus; 0.5</td>
+<td align="center">76</td>
+<td align="center">1007</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">001</td>
+<td align="center">217.2 &PlusMinus; 6.5</td>
+<td align="center">200.3&minus;234.8</td>
+<td align="center">155.1 &PlusMinus; 5.4</td>
+<td align="center">19.2 &PlusMinus; 1.3</td>
+<td align="center">68 &PlusMinus; 0.4</td>
+<td align="center">67</td>
+<td align="center">1818</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">003</td>
+<td align="center">219.8 &PlusMinus; 7.8</td>
+<td align="center">200.1&minus;241.8</td>
+<td align="center">157.3 &PlusMinus; 6.5</td>
+<td align="center">18.6 &PlusMinus; 1.6</td>
+<td align="center">68.1 &PlusMinus; 0.4</td>
+<td align="center">68</td>
+<td align="center">2331</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">005</td>
+<td align="center">221.7 &PlusMinus; 7.5</td>
+<td align="center">204.8&minus;240.9</td>
+<td align="center">158.7 &PlusMinus; 6.2</td>
+<td align="center">18.1 &PlusMinus; 1.7</td>
+<td align="center">68.3 &PlusMinus; 0.4</td>
+<td align="center">68</td>
+<td align="center">864</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">006</td>
+<td align="center">221.8 &PlusMinus; 7.8</td>
+<td align="center">205.2&minus;241</td>
+<td align="center">158.6 &PlusMinus; 6.5</td>
+<td align="center">18.2 &PlusMinus; 1.7</td>
+<td align="center">68.3 &PlusMinus; 0.4</td>
+<td align="center">69</td>
+<td align="center">113</td>
+</tr>
+<tr>
+<td align="center" colspan="9">Real Shower; December <italic>&rgr;</italic>-Virginids, #502</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="center"/>
+<td align="center">216.5 &PlusMinus; 6.2</td>
+<td align="center">204.3&minus;222.4</td>
+<td align="center">154.1 &PlusMinus; 4.9</td>
+<td align="center">20 &PlusMinus; 2.1</td>
+<td align="center">67 &PlusMinus; 0.9</td>
+<td align="center">68</td>
+<td align="center">7</td>
+</tr>
+<tr>
+<td align="left">S</td>
+<td align="center"/>
+<td align="center">226.9 &PlusMinus; 8.5</td>
+<td align="center">213.4&minus;242</td>
+<td align="center">162.2 &PlusMinus; 6.6</td>
+<td align="center">16.9 &PlusMinus; 2.5</td>
+<td align="center">68.1 &PlusMinus; 1.1</td>
+<td align="center">70</td>
+<td align="center">36</td>
+</tr>
+<tr>
+<td align="left">Ea</td>
+<td align="center"/>
+<td align="center">254 &PlusMinus; 5.3</td>
+<td align="center">244.9&minus;265.6</td>
+<td align="center">185.3 &PlusMinus; 4.5</td>
+<td align="center">12.7 &PlusMinus; 2.1</td>
+<td align="center">68.3 &PlusMinus; 0.8</td>
+<td align="center">75</td>
+<td align="center">46</td>
+</tr>
+<tr>
+<td align="left">Eb</td>
+<td align="center"/>
+<td align="center">205.1 &PlusMinus; 7.2</td>
+<td align="center">197.3&minus;218.6</td>
+<td align="center">145.8 &PlusMinus; 5.6</td>
+<td align="center">22.4 &PlusMinus; 1.8</td>
+<td align="center">66.5 &PlusMinus; 1.1</td>
+<td align="center">65</td>
+<td align="center">11</td>
+</tr>
+<tr>
+<td align="left"> [1]</td>
+<td align="center"/>
+<td align="center">252.5</td>
+<td align="center"/>
+<td align="center">185.1</td>
+<td align="center">12.9</td>
+<td align="center">68.1</td>
+<td align="center"/>
+<td align="center">19</td>
+</tr>
+<tr>
+<td align="left"> [2]</td>
+<td align="center"/>
+<td align="center">253.2</td>
+<td align="center"/>
+<td align="center">185.1</td>
+<td align="center">12.3</td>
+<td align="center">68.18</td>
+<td align="center"/>
+<td align="center">7</td>
+</tr>
+<tr>
+<td align="left"> [3]</td>
+<td align="center"/>
+<td align="center">256</td>
+<td align="center"/>
+<td align="center">187.5</td>
+<td align="center">13</td>
+<td align="center">68.3</td>
+<td align="center"/>
+<td align="center">15</td>
+</tr>
+<tr>
+<td colspan="9">
+<hr/>
+</td>
+</tr>
+<tr>
+<td align="center" colspan="9">Prediction: Filament 2, Subfilament a</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">10<sup>&minus;11</sup></td>
+<td align="center">11.8 &PlusMinus; 2.3</td>
+<td align="center">8&minus; 14.4</td>
+<td align="center">254.1 &PlusMinus; 2.3</td>
+<td align="center">&minus;29.9 &PlusMinus; 0.2</td>
+<td align="center">67 &PlusMinus; 0.2</td>
+<td align="center">115</td>
+<td align="center">8</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">10<sup>&minus;4</sup></td>
+<td align="center">13 &PlusMinus; 2</td>
+<td align="center">11&minus; 15.7</td>
+<td align="center">255.7 &PlusMinus; 1.9</td>
+<td align="center">&minus;30.1 &PlusMinus; 0.2</td>
+<td align="center">67 &PlusMinus; 0.2</td>
+<td align="center">115</td>
+<td align="center">7</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">003</td>
+<td align="center">11.4 &PlusMinus; 2.2</td>
+<td align="center">7.5&minus; 14.6</td>
+<td align="center">254 &PlusMinus; 2.3</td>
+<td align="center">&minus;29.9 &PlusMinus; 0.2</td>
+<td align="center">67 &PlusMinus; 0.2</td>
+<td align="center">115</td>
+<td align="center">16</td>
+</tr>
+<tr>
+<td align="center" colspan="9">real shower; <italic>&gamma;</italic>-Sagittariids, #657</td>
+</tr>
+<tr>
+<td align="left">S</td>
+<td align="center"/>
+<td align="center">16.6 &PlusMinus; 9.7</td>
+<td align="center">0.4&minus;35.2</td>
+<td align="center">257.4 &PlusMinus; 9.7</td>
+<td align="center">&minus;30.9 &PlusMinus; 2.4</td>
+<td align="center">65.2 &PlusMinus; 1.5</td>
+<td align="center">117</td>
+<td align="center">30</td>
+</tr>
+<tr>
+<td align="left"> [4]</td>
+<td align="center"/>
+<td align="center">30</td>
+<td align="center"/>
+<td align="center">269.6</td>
+<td align="center">&minus;29</td>
+<td align="center">62.1</td>
+<td align="center"/>
+<td align="center">6</td>
+</tr>
+<tr>
+<td colspan="9">
+<hr/>
+</td>
+</tr>
+<tr>
+<td align="center" colspan="9">Prediction: Filament 2, Subfilament b</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">001</td>
+<td align="center">340.8 &PlusMinus; 2.1</td>
+<td align="center">338.2&minus;345.1</td>
+<td align="center">229.1 &PlusMinus; 1.9</td>
+<td align="center">&minus;27.2 &PlusMinus; 0.3</td>
+<td align="center">69.8 &PlusMinus; 0.1</td>
+<td align="center">107</td>
+<td align="center">11</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">003</td>
+<td align="center">340.5 &PlusMinus; 2.1</td>
+<td align="center">336&minus;345.2</td>
+<td align="center">228.5 &PlusMinus; 1.8</td>
+<td align="center">&minus;27 &PlusMinus; 0.4</td>
+<td align="center">69.7 &PlusMinus; 0.1</td>
+<td align="center">107</td>
+<td align="center">43</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">005</td>
+<td align="center">340.2 &PlusMinus; 2.1</td>
+<td align="center">337.1&minus;345.2</td>
+<td align="center">228.2 &PlusMinus; 1.9</td>
+<td align="center">&minus;27 &PlusMinus; 0.4</td>
+<td align="center">69.7 &PlusMinus; 0.1</td>
+<td align="center">107</td>
+<td align="center">40</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">006</td>
+<td align="center">339.7 &PlusMinus; 1.5</td>
+<td align="center">336.8&minus;343.4</td>
+<td align="center">227.7 &PlusMinus; 1.2</td>
+<td align="center">&minus;26.8 &PlusMinus; 0.3</td>
+<td align="center">69.7 &PlusMinus; 0.1</td>
+<td align="center">107</td>
+<td align="center">38</td>
+</tr>
+<tr>
+<td align="center" colspan="9">Real Shower</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="center"/>
+<td align="center">347.9 &PlusMinus; 8.6</td>
+<td align="center">335.9&minus;357.9</td>
+<td align="center">236.5 &PlusMinus; 7.5</td>
+<td align="center">&minus;29.9 &PlusMinus; 1.8</td>
+<td align="center">68.3 &PlusMinus; 0.8</td>
+<td align="center">107</td>
+<td align="center">9</td>
+</tr>
+</tbody>
+</table>
+<graphic xlink:href="ajabfdc9t1_tb.gif"/>
+<graphic xlink:href="ajabfdc9t1_lr.gif">
+<caption>
+<p>Typeset image</p>
+</caption>
+</graphic>
+<table-wrap-foot>
+<p><bold>Note.</bold> In the first column, a numerical value is the evolutionary time, <italic>t</italic><sub>ev</sub> in kilo-years, a capital letter refers to the database from which the shower was separated by us in this work, and a number in brackets indicates the reference to the shower as found by other authors: [1]&mdash;Rudawska &amp; Jenniskens (<xref ref-type="bibr" rid="ajabfdc9bib48">2014</xref>), [2]&mdash;Korno&scaron; et al. (<xref ref-type="bibr" rid="ajabfdc9bib29">2014b</xref>), [3]&mdash;Jenniskens &amp; N&eacute;non (<xref ref-type="bibr" rid="ajabfdc9bib21">2016</xref>), and [4]&mdash;Jenniskens et al. (<xref ref-type="bibr" rid="ajabfdc9bib24">2016c</xref>); <italic>&beta;</italic> is the parameter characterizing the strength of the P-R effect; &lang;<italic>&lambda;</italic><sub>&CircleDot;</sub>&rang; is the mean solar longitude; <inline-formula>
+<tex-math>
+<?CDATA ${\lambda }_{\odot ,\min }$?>
+</tex-math>
+<mml:math>
+<mml:msub>
+<mml:mrow>
+<mml:mi>&lambda;</mml:mi>
+</mml:mrow>
+<mml:mrow>
+<mml:mo>&CircleDot;</mml:mo>
+<mml:mo>,</mml:mo>
+<mml:mi>min</mml:mi>
+</mml:mrow>
+</mml:msub>
+</mml:math>
+<inline-graphic xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ajabfdc9ieqn3.gif"/>
+</inline-formula> and <inline-formula>
+<tex-math>
+<?CDATA ${\lambda }_{\odot ,\max }$?>
+</tex-math>
+<mml:math>
+<mml:msub>
+<mml:mrow>
+<mml:mi>&lambda;</mml:mi>
+</mml:mrow>
+<mml:mrow>
+<mml:mo>&CircleDot;</mml:mo>
+<mml:mo>,</mml:mo>
+<mml:mi>max</mml:mi>
+</mml:mrow>
+</mml:msub>
+</mml:math>
+<inline-graphic xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ajabfdc9ieqn4.gif"/>
+</inline-formula> are the minimum and maximum solar longitudes of the shower given to delimit the activity of shower; &lang;<italic>&agr;</italic>&rang; and &lang;<italic>&delta;</italic>&rang; are the mean equatorial coordinates of geocentric radiant; &lang;<italic>V</italic><sub><italic>g</italic></sub>&rang; is the mean geocentric velocity; &lang;<italic>&gamma;</italic>&rang; is the angular distance of the mean radiant from the Sun in time corresponding to &lang;<italic>&lambda;</italic><sub>&CircleDot;</sub>&rang;; <italic>n</italic> is the number of particles in the predicted shower, or meteors of a real shower.</p>
+</table-wrap-foot>
+</table-wrap>
+<table-wrap id="ajabfdc9t2" position="float">
+<label>Table 2</label>
+<caption id="ajabfdc9tc2">
+<p>Mean Orbital Elements of the Showers Predicted by Our Models and Their Real Counterparts</p>
+</caption>
+<table>
+<colgroup>
+<col align="left"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+</colgroup>
+<thead>
+<tr>
+<th align="left"><italic>t</italic><sub>ev</sub></th>
+<th align="center"><italic>&beta;</italic></th>
+<th align="center">&lang;<italic>q</italic>&rang;</th>
+<th align="center">&lang;<italic>a</italic>&rang;</th>
+<th align="center">&lang;<italic>e</italic>&rang;</th>
+<th align="center">&lang;<italic>&ohgr;</italic>&rang;</th>
+<th align="center">&lang;&OHgr;&rang;</th>
+<th align="center">&lang;<italic>i</italic>&rang;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" colspan="8">Prediction: Filament 1</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="center">10<sup>&minus;11</sup></td>
+<td align="center">0.711 &PlusMinus; 0.033</td>
+<td align="center">72 &PlusMinus; 36</td>
+<td align="center">0.988 &PlusMinus; 0.005</td>
+<td align="center">123.5 &PlusMinus; 3.1</td>
+<td align="center">244.6 &PlusMinus; 4.5</td>
+<td align="center">157.3 &PlusMinus; 1.7</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="center">10<sup>&minus;4</sup></td>
+<td align="center">0.709 &PlusMinus; 0.034</td>
+<td align="center">76 &PlusMinus; 38</td>
+<td align="center">0.989 &PlusMinus; 0.005</td>
+<td align="center">123.1 &PlusMinus; 3</td>
+<td align="center">244.1 &PlusMinus; 4.5</td>
+<td align="center">157.5 &PlusMinus; 1.6</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="center">001</td>
+<td align="center">0.686 &PlusMinus; 0.024</td>
+<td align="center">138 &PlusMinus; 73</td>
+<td align="center">0.993 &PlusMinus; 0.004</td>
+<td align="center">119.8 &PlusMinus; 3.4</td>
+<td align="center">239.4 &PlusMinus; 4.7</td>
+<td align="center">158.8 &PlusMinus; 1.3</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="center">003</td>
+<td align="center">0.678 &PlusMinus; 0.014</td>
+<td align="center">246 &PlusMinus; 139</td>
+<td align="center">0.996 &PlusMinus; 0.002</td>
+<td align="center">116.1 &PlusMinus; 4.2</td>
+<td align="center">234.6 &PlusMinus; 4.8</td>
+<td align="center">159.8 &PlusMinus; 0.9</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="center">005</td>
+<td align="center">0.681 &PlusMinus; 0.014</td>
+<td align="center">355 &PlusMinus; 127</td>
+<td align="center">0.998 &PlusMinus; 0.001</td>
+<td align="center">112.8 &PlusMinus; 3.9</td>
+<td align="center">230.8 &PlusMinus; 4.2</td>
+<td align="center">160.4 &PlusMinus; 0.6</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="center">10<sup>&minus;11</sup></td>
+<td align="center">0.738 &PlusMinus; 0.055</td>
+<td align="center">66 &PlusMinus; 40</td>
+<td align="center">0.986 &PlusMinus; 0.006</td>
+<td align="center">125.2 &PlusMinus; 4.8</td>
+<td align="center">248 &PlusMinus; 7.9</td>
+<td align="center">155.9 &PlusMinus; 3.1</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="center">10<sup>&minus;4</sup></td>
+<td align="center">0.709 &PlusMinus; 0.034</td>
+<td align="center">76 &PlusMinus; 38</td>
+<td align="center">0.989 &PlusMinus; 0.005</td>
+<td align="center">123.1 &PlusMinus; 3</td>
+<td align="center">244.1 &PlusMinus; 4.5</td>
+<td align="center">157.5 &PlusMinus; 1.6</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="center">001</td>
+<td align="center">0.666 &PlusMinus; 0.018</td>
+<td align="center">159 &PlusMinus; 73</td>
+<td align="center">0.995 &PlusMinus; 0.002</td>
+<td align="center">116.8 &PlusMinus; 3.2</td>
+<td align="center">234.5 &PlusMinus; 4.2</td>
+<td align="center">160.1 &PlusMinus; 0.9</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="center">003</td>
+<td align="center">0.668 &PlusMinus; 0.018</td>
+<td align="center">234 &PlusMinus; 195</td>
+<td align="center">0.996 &PlusMinus; 0.002</td>
+<td align="center">114.2 &PlusMinus; 4.5</td>
+<td align="center">231.4 &PlusMinus; 5.5</td>
+<td align="center">160.5 &PlusMinus; 1</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="center">005</td>
+<td align="center">0.669 &PlusMinus; 0.015</td>
+<td align="center">327 &PlusMinus; 228</td>
+<td align="center">0.997 &PlusMinus; 0.001</td>
+<td align="center">111.3 &PlusMinus; 3.9</td>
+<td align="center">227.7 &PlusMinus; 4.4</td>
+<td align="center">161.2 &PlusMinus; 0.7</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="center">006</td>
+<td align="center">0.673 &PlusMinus; 0.019</td>
+<td align="center">729 &PlusMinus; 638</td>
+<td align="center">0.999 &PlusMinus; 0.001</td>
+<td align="center">109 &PlusMinus; 3.5</td>
+<td align="center">224.7 &PlusMinus; 3.7</td>
+<td align="center">161.6 &PlusMinus; 0.4</td>
+</tr>
+<tr>
+<td align="left">40</td>
+<td align="center">10<sup>&minus;11</sup></td>
+<td align="center">0.620 &PlusMinus; 0.018</td>
+<td align="center">274 &PlusMinus; 152</td>
+<td align="center">0.997 &PlusMinus; 0.001</td>
+<td align="center">108.2 &PlusMinus; 4.6</td>
+<td align="center">221.5 &PlusMinus; 5.4</td>
+<td align="center">162.7 &PlusMinus; 0.7</td>
+</tr>
+<tr>
+<td align="left">40</td>
+<td align="center">10<sup>&minus;4</sup></td>
+<td align="center">0.621 &PlusMinus; 0.019</td>
+<td align="center">274 &PlusMinus; 156</td>
+<td align="center">0.997 &PlusMinus; 0.001</td>
+<td align="center">108 &PlusMinus; 4.8</td>
+<td align="center">221.4 &PlusMinus; 5.5</td>
+<td align="center">162.7 &PlusMinus; 0.7</td>
+</tr>
+<tr>
+<td align="left">40</td>
+<td align="center">001</td>
+<td align="center">0.620 &PlusMinus; 0.019</td>
+<td align="center">314 &PlusMinus; 230</td>
+<td align="center">0.997 &PlusMinus; 0.001</td>
+<td align="center">107 &PlusMinus; 4.5</td>
+<td align="center">220 &PlusMinus; 5.2</td>
+<td align="center">162.8 &PlusMinus; 0.6</td>
+</tr>
+<tr>
+<td align="left">40</td>
+<td align="center">003</td>
+<td align="center">0.622 &PlusMinus; 0.018</td>
+<td align="center">309 &PlusMinus; 213</td>
+<td align="center">0.997 &PlusMinus; 0.001</td>
+<td align="center">107 &PlusMinus; 4.9</td>
+<td align="center">220.2 &PlusMinus; 5.7</td>
+<td align="center">162.8 &PlusMinus; 0.7</td>
+</tr>
+<tr>
+<td align="left">40</td>
+<td align="center">004</td>
+<td align="center">0.627 &PlusMinus; 0.020</td>
+<td align="center">393 &PlusMinus; 261</td>
+<td align="center">0.998 &PlusMinus; 0.001</td>
+<td align="center">105 &PlusMinus; 4.1</td>
+<td align="center">217.4 &PlusMinus; 4.6</td>
+<td align="center">163.1 &PlusMinus; 0.5</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">10<sup>&minus;11</sup></td>
+<td align="center">0.821 &PlusMinus; 0.037</td>
+<td align="center">69 &PlusMinus; 55</td>
+<td align="center">0.986 &PlusMinus; 0.005</td>
+<td align="center">133.4 &PlusMinus; 3.7</td>
+<td align="center">265.7 &PlusMinus; 7.3</td>
+<td align="center">148.4 &PlusMinus; 3.7</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">10<sup>&minus;4</sup></td>
+<td align="center">0.820 &PlusMinus; 0.038</td>
+<td align="center">68 &PlusMinus; 50</td>
+<td align="center">0.986 &PlusMinus; 0.005</td>
+<td align="center">133.1 &PlusMinus; 3.5</td>
+<td align="center">265 &PlusMinus; 6.8</td>
+<td align="center">148.6 &PlusMinus; 3.7</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">001</td>
+<td align="center">0.622 &PlusMinus; 0.035</td>
+<td align="center">168 &PlusMinus; 108</td>
+<td align="center">0.995 &PlusMinus; 0.002</td>
+<td align="center">106 &PlusMinus; 7.3</td>
+<td align="center">218.3 &PlusMinus; 9.4</td>
+<td align="center">163 &PlusMinus; 1.2</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">003</td>
+<td align="center">0.635 &PlusMinus; 0.040</td>
+<td align="center">140 &PlusMinus; 82</td>
+<td align="center">0.994 &PlusMinus; 0.003</td>
+<td align="center">106.7 &PlusMinus; 7.8</td>
+<td align="center">220 &PlusMinus; 10.7</td>
+<td align="center">162.7 &PlusMinus; 1.4</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">005</td>
+<td align="center">0.651 &PlusMinus; 0.037</td>
+<td align="center">121 &PlusMinus; 63</td>
+<td align="center">0.993 &PlusMinus; 0.003</td>
+<td align="center">106.3 &PlusMinus; 7.1</td>
+<td align="center">220 &PlusMinus; 9.9</td>
+<td align="center">162.7 &PlusMinus; 1.3</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">006</td>
+<td align="center">0.664 &PlusMinus; 0.035</td>
+<td align="center">115 &PlusMinus; 53</td>
+<td align="center">0.993 &PlusMinus; 0.003</td>
+<td align="center">105.6 &PlusMinus; 7.3</td>
+<td align="center">218.3 &PlusMinus; 10.3</td>
+<td align="center">162.6 &PlusMinus; 1.5</td>
+</tr>
+<tr>
+<td align="center" colspan="8">Real Shower; December <italic>&rgr;</italic>-Virginids, #502</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="center"/>
+<td align="center">0.623 &PlusMinus; 0.041</td>
+<td align="center">154 &PlusMinus; 372.8</td>
+<td align="center">0.937 &PlusMinus; 0.051</td>
+<td align="center">103.2 &PlusMinus; 5.1</td>
+<td align="center">216.4 &PlusMinus; 6.2</td>
+<td align="center">162 &PlusMinus; 2.3</td>
+</tr>
+<tr>
+<td align="left">S</td>
+<td align="center"/>
+<td align="center">0.680 &PlusMinus; 0.060</td>
+<td align="center">11.3 &PlusMinus; 20.9</td>
+<td align="center">0.954 &PlusMinus; 0.056</td>
+<td align="center">111 &PlusMinus; 8</td>
+<td align="center">226.9 &PlusMinus; 8.5</td>
+<td align="center">162.8 &PlusMinus; 3.7</td>
+</tr>
+<tr>
+<td align="left">Ea</td>
+<td align="center"/>
+<td align="center">0.795 &PlusMinus; 0.034</td>
+<td align="center">10.4 &PlusMinus; 17</td>
+<td align="center">0.918 &PlusMinus; 0.061</td>
+<td align="center">126.7 &PlusMinus; 5.7</td>
+<td align="center">254 &PlusMinus; 5.3</td>
+<td align="center">154.4 &PlusMinus; 3.6</td>
+</tr>
+<tr>
+<td align="left">Eb</td>
+<td align="center"/>
+<td align="center">0.547 &PlusMinus; 0.057</td>
+<td align="center">11.9 &PlusMinus; 20.7</td>
+<td align="center">0.975 &PlusMinus; 0.049</td>
+<td align="center">94.9 &PlusMinus; 7</td>
+<td align="center">205.1 &PlusMinus; 7.2</td>
+<td align="center">162.1 &PlusMinus; 2.1</td>
+</tr>
+<tr>
+<td align="left"> [1]</td>
+<td align="center"/>
+<td align="center">0.777</td>
+<td align="center"/>
+<td align="center">0.923</td>
+<td align="center">124</td>
+<td align="center">252.5</td>
+<td align="center">153.9</td>
+</tr>
+<tr>
+<td align="left"> [2]</td>
+<td align="center"/>
+<td align="center">0.776</td>
+<td align="center"/>
+<td align="center">0.920</td>
+<td align="center">123.8</td>
+<td align="center">253.2</td>
+<td align="center">154.8</td>
+</tr>
+<tr>
+<td align="left"> [3]</td>
+<td align="center"/>
+<td align="center">0.717</td>
+<td align="center">8.35</td>
+<td align="center">0.936</td>
+<td align="center">127.6</td>
+<td align="center">256</td>
+<td align="center">152.5</td>
+</tr>
+<tr>
+<td colspan="8">
+<hr/>
+</td>
+</tr>
+<tr>
+<td align="center" colspan="8">Prediction: Filament 2, Subfilament a</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">10<sup>&minus;11</sup></td>
+<td align="center">0.557 &PlusMinus; 0.018</td>
+<td align="center">364 &PlusMinus; 165</td>
+<td align="center">0.998 &PlusMinus; 0.001</td>
+<td align="center">88.4 &PlusMinus; 1.6</td>
+<td align="center">196.2 &PlusMinus; 2.4</td>
+<td align="center">164.4 &PlusMinus; 0.2</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">10<sup>&minus;4</sup></td>
+<td align="center">0.561 &PlusMinus; 0.018</td>
+<td align="center">335 &PlusMinus; 137</td>
+<td align="center">0.998 &PlusMinus; 0.001</td>
+<td align="center">88.3 &PlusMinus; 1.1</td>
+<td align="center">197.7 &PlusMinus; 2.1</td>
+<td align="center">164.4 &PlusMinus; 0.2</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">003</td>
+<td align="center">0.567 &PlusMinus; 0.019</td>
+<td align="center">355 &PlusMinus; 306</td>
+<td align="center">0.998 &PlusMinus; 0.001</td>
+<td align="center">89 &PlusMinus; 1.1</td>
+<td align="center">197.2 &PlusMinus; 2.6</td>
+<td align="center">164.4 &PlusMinus; 0.2</td>
+</tr>
+<tr>
+<td align="center" colspan="8">real shower; <italic>&gamma;</italic>-Sagittariids, #657</td>
+</tr>
+<tr>
+<td align="left">S</td>
+<td align="center"/>
+<td align="center">0.488 &PlusMinus; 0.061</td>
+<td align="center">1.4 &PlusMinus; 61.6</td>
+<td align="center">0.963 &PlusMinus; 0.055</td>
+<td align="center">92.6 &PlusMinus; 7.9</td>
+<td align="center">196.6 &PlusMinus; 9.7</td>
+<td align="center">161.5 &PlusMinus; 5.6</td>
+</tr>
+<tr>
+<td align="left"> [4]</td>
+<td align="center"/>
+<td align="center">0.373</td>
+<td align="center">3.82</td>
+<td align="center">0.906</td>
+<td align="center">109.3</td>
+<td align="center">210.6</td>
+<td align="center">166.2</td>
+</tr>
+<tr>
+<td colspan="8">
+<hr/>
+</td>
+</tr>
+<tr>
+<td align="center" colspan="8">Prediction: Filament 2, Subfilament b</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">001</td>
+<td align="center">0.793 &PlusMinus; 0.014</td>
+<td align="center">801 &PlusMinus; 174</td>
+<td align="center">0.999 &PlusMinus; </td>
+<td align="center">62.7 &PlusMinus; 1.8</td>
+<td align="center">167.7 &PlusMinus; 2.4</td>
+<td align="center">162.4 &PlusMinus; 0.4</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">003</td>
+<td align="center">0.786 &PlusMinus; 0.015</td>
+<td align="center">755 &PlusMinus; 468</td>
+<td align="center">0.999 &PlusMinus; </td>
+<td align="center">63.3 &PlusMinus; 1.4</td>
+<td align="center">167.1 &PlusMinus; 1.7</td>
+<td align="center">162.3 &PlusMinus; 0.4</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">005</td>
+<td align="center">0.787 &PlusMinus; 0.013</td>
+<td align="center">696 &PlusMinus; 321</td>
+<td align="center">0.999 &PlusMinus; </td>
+<td align="center">63.2 &PlusMinus; 1.1</td>
+<td align="center">166.8 &PlusMinus; 1.5</td>
+<td align="center">162.3 &PlusMinus; 0.4</td>
+</tr>
+<tr>
+<td align="left">80</td>
+<td align="center">006</td>
+<td align="center">0.787 &PlusMinus; 0.011</td>
+<td align="center">843 &PlusMinus; 637</td>
+<td align="center">0.999 &PlusMinus; 0.001</td>
+<td align="center">63.5 &PlusMinus; 1</td>
+<td align="center">166.6 &PlusMinus; 1.1</td>
+<td align="center">162.2 &PlusMinus; 0.3</td>
+</tr>
+<tr>
+<td align="center" colspan="8">Real Shower</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="center"/>
+<td align="center">0.764 &PlusMinus; 0.060</td>
+<td align="center">18.1 &PlusMinus; 18.8</td>
+<td align="center">0.917 &PlusMinus; 0.056</td>
+<td align="center">58.5 &PlusMinus; 8.5</td>
+<td align="center">167.9 &PlusMinus; 8.6</td>
+<td align="center">161 &PlusMinus; 3.4</td>
+</tr>
+</tbody>
+</table>
+<graphic xlink:href="ajabfdc9t2_tb.gif"/>
+<graphic xlink:href="ajabfdc9t2_lr.gif">
+<caption>
+<p>Typeset image</p>
+</caption>
+</graphic>
+<table-wrap-foot>
+<p><bold>Note.</bold> The content of the first column and parameter <italic>&beta;</italic> are the same as in Table <xref ref-type="table" rid="ajabfdc9t1">1</xref>.</p>
+</table-wrap-foot>
+</table-wrap>
+<p>We tried to identify the predicted meteor showers with the real showers. In the course of the identification, we compared the mean orbit of each predicted shower with every mean orbit in the IAU MDC list of all showers (Jopek &amp; Ka&ncaron;uchov&aacute; <xref ref-type="bibr" rid="ajabfdc9bib25">2014</xref>; Jenniskens et al. <xref ref-type="bibr" rid="ajabfdc9bib20">2020</xref>). The similarity of both mean orbits was evaluated with the help of the Southworth&ndash;Hawkins <italic>D</italic>-discriminant (Southworth &amp; Hawkins <xref ref-type="bibr" rid="ajabfdc9bib58">1963</xref>). The threshold value was defined to be 0.2. It is the typical value characterizing the dispersion of meteor orbits in major showers in the photographic IAU MDC database (Neslu&scaron;an et al. <xref ref-type="bibr" rid="ajabfdc9bib44">1995</xref>).</p>
+<p>We also searched for the predicted showers in the databases of the real meteors: (1) the IAU MDC photographic database (Porub&ccaron;an et al. <xref ref-type="bibr" rid="ajabfdc9bib47">2011</xref>; Neslu&scaron;an et al. <xref ref-type="bibr" rid="ajabfdc9bib43">2014</xref>), (2) the IAU MDC CAMS video database (Gural <xref ref-type="bibr" rid="ajabfdc9bib13">2011</xref>; Jenniskens et al. <xref ref-type="bibr" rid="ajabfdc9bib19">2011</xref>, <xref ref-type="bibr" rid="ajabfdc9bib22">2016a</xref>, <xref ref-type="bibr" rid="ajabfdc9bib23">2016b</xref>, <xref ref-type="bibr" rid="ajabfdc9bib24">2016c</xref>),<xref ref-type="fn" rid="ajabfdc9fn2"><sup>4</sup></xref>
+<fn id="ajabfdc9fn2">
+<label><sup>4</sup></label>
+<p>The IAU MDC catalogs can be downloaded from the public-domain website: <ext-link ext-link-type="uri" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.astro.sk/iaumdcDB/">https://www.astro.sk/iaumdcDB/</ext-link>.</p>
+</fn> (3) the SonotaCo video catalog (SonotaCo <xref ref-type="bibr" rid="ajabfdc9bib56">2009</xref>, <xref ref-type="bibr" rid="ajabfdc9bib57">2016</xref>), (4) the EDMOND video meteor (Korno&scaron; et al. <xref ref-type="bibr" rid="ajabfdc9bib28">2014a</xref>, <xref ref-type="bibr" rid="ajabfdc9bib29">2014b</xref>); (5) the Southern Argentina Agile MEteor Radar (SAAMER; Pokorn&yacute; et al. <xref ref-type="bibr" rid="ajabfdc9bib46">2017</xref>), and (6) the Middle Atmosphere ALOMAR Radar System (MAARSY; Schult et al. (<xref ref-type="bibr" rid="ajabfdc9bib52">2018</xref>) radar meteor data. We refer to these databases with the capital letters F, C, S, E, A, and M, respectively.</p>
+</sec>
+<sec id="ajabfdc9s4">
+<label>4.</label>
+<title>Predicted Showers</title>
+<p>We predicted two meteor showers when the nominal orbit was considered in the modeling. Their mean parameters, according to the individual models, are listed in Tables <xref ref-type="table" rid="ajabfdc9t1">1</xref> and <xref ref-type="table" rid="ajabfdc9t2">2</xref>. The positions of the radiants of the theoretical particles as well as the real meteors in the corresponding showers are shown in Figures <xref ref-type="fig" rid="ajabfdc9f3">3</xref> and <xref ref-type="fig" rid="ajabfdc9f4">4</xref>.</p>
+<fig id="ajabfdc9f3" position="float">
+<label>Figure 3.</label>
+<caption id="ajabfdc9fc3">
+<p>Position of the radiants of the predicted and real shower meteors associated with comet C/1961 T1 in the Hammer projection of the celestial sphere. In panel (a), the equatorial coordinate frame is used. The sinusoid-like curve indicates the ecliptic. In panel (b), the ecliptical coordinates with the origin identified with the apex of the heliocentric motion of Earth is used. The radiants of the theoretical particles in the predicted filaments F1 and F2 (with the subfilaments F2a and F2b), in panel (a), are shown in black (in the models for <italic>t</italic><sub>ev</sub> &equals; 10&ndash;40 kyr) and orange (in the models for <italic>t</italic><sub>ev</sub> &equals; 80 kyr) by small circles. In panel (b), the radiants of the theoretical particles in subfilament F2a (F2b) are shown with black (violet) small circles. The radiants of the real meteors of the corresponding showers found in the C, S, and E catalogs are shown with the red squares, green asterisks, and blue (also cyan) crosses. In the E catalog, two modifications of <italic>&gamma;</italic>-Sagittariids were identified (distinguished by the blue and cyan symbols).</p>
+</caption>
+<graphic id="ajabfdc9f3_eps" content-type="print" xlink:href="ajabfdc9f3.eps"/>
+<graphic id="ajabfdc9f3_lr" content-type="low" xlink:href="ajabfdc9f3_lr.jpg"/>
+<graphic id="ajabfdc9f3_hr" content-type="high" xlink:href="ajabfdc9f3_hr.jpg"/>
+</fig>
+<fig id="ajabfdc9f4" position="float">
+<label>Figure 4.</label>
+<caption id="ajabfdc9fc4">
+<p>The detailed positions of the radiants of the predicted and real shower meteors associated with comet C/1961 T1. The radiants of the first shower identified with the December <italic>&rgr;</italic>-Virginids, #502, are shown in panel (a) and those of the second shower, which was identified with the <italic>&gamma;</italic>-Sagittariids, #657, in panel (b). The radiants of the theoretical particles in panel (a) are shown in black (in the models for <italic>t</italic><sub>ev</sub> &equals; 10 to 40 kyr) and orange (in the models for <italic>t</italic><sub>ev</sub> &equals; 80  kyr) by small circles. In panel (b), the radiants of the theoretical particles in subfilament F2a (F2b) are shown with the black (violet) small circles. The radiants of the real meteors of the corresponding showers found in the C, S, and E catalogs are shown with red squares, green asterisks, and blue (also cyan) crosses. In the E catalog, two modifications of <italic>&gamma;</italic>-Sagittariids were identified (distinguished by the blue and cyan symbols).</p>
+</caption>
+<graphic id="ajabfdc9f4_eps" content-type="print" xlink:href="ajabfdc9f4.eps"/>
+<graphic id="ajabfdc9f4_lr" content-type="low" xlink:href="ajabfdc9f4_lr.jpg"/>
+<graphic id="ajabfdc9f4_hr" content-type="high" xlink:href="ajabfdc9f4_hr.jpg"/>
+</fig>
+<p>The first predicted shower, hereafter referred to as Filament 1 (or F1), has its radiant area in the northern ecliptic hemisphere of sky. The radiant area combined, as predicted, in all successful models is large. The interval of R.A. of the radiants ranges from 140&deg; to 210&deg; and that of the decl. from 5&deg; to 23&deg;. In the models for <italic>t</italic><sub>ev</sub> &le; 40  kyr, the radiant area is predicted to be compact. However, it splits into two separated areas according to the prediction in the models for <italic>t</italic><sub>ev</sub> &equals; 80 kyr. They are well seen in Figure <xref ref-type="fig" rid="ajabfdc9f4">4</xref> (orange circles). During a longer evolutionary period, the part of the stream approaching Earth&rsquo;s orbit obviously evolved into two distinct filaments.</p>
+<p>Filament 1 was identified with the December <italic>&rgr;</italic>-Virginids, #502, in the IAU MDC list of all showers. The minimum values of the Southworth &amp; Hawkins (<xref ref-type="bibr" rid="ajabfdc9bib58">1963</xref>) <italic>D</italic>-discriminant were 0.125, 0.134, and 0.140 between the mean orbit of the shower predicted in our model for <italic>t</italic><sub>ev</sub> &equals; 20 kyr and <italic>&beta;</italic> &equals; 10<sup>&minus;11</sup> and the mean orbit of real December <italic>&rgr;</italic>-Virginids as determined by Rudawska &amp; Jenniskens (<xref ref-type="bibr" rid="ajabfdc9bib48">2014</xref>), Korno&scaron; et al. (<xref ref-type="bibr" rid="ajabfdc9bib29">2014b</xref>), and Jenniskens &amp; N&eacute;non (<xref ref-type="bibr" rid="ajabfdc9bib21">2016</xref>), respectively. Thus, we confirm the conclusion by Hasegawa (<xref ref-type="bibr" rid="ajabfdc9bib70">1961</xref>) and Greaves (<xref ref-type="bibr" rid="ajabfdc9bib11">2000</xref>). We note that the dispersion of shower meteors in the major meteor showers is characterized by a <italic>D</italic>-discriminant up to 0.20 (Neslu&scaron;an et al. <xref ref-type="bibr" rid="ajabfdc9bib44">1995</xref>, Table 3).</p>
+<p>Based on the mean orbits of Filament 1, in the individual models, we also found the corresponding real shower in the C, S, and E video data. When searching for the shower in the E catalog, the iteration procedure converged on two modifications of the shower (denoted by Ea and Eb). The mean parameters of these new identifications of the December <italic>&rgr;</italic>-Virginids are given in Tables <xref ref-type="table" rid="ajabfdc9t1">1</xref> and <xref ref-type="table" rid="ajabfdc9t2">2</xref>.</p>
+<p>Furthermore, we predicted a shower with the radiant area on the southern ecliptic hemisphere. It is hereafter referred to as Filament 2 (F2). Our theoretical prediction yielded two distinct substructures of this shower: we refer to them as subfilament &ldquo;a&rdquo; and subfilament &ldquo;b.&rdquo; (It is, however, rather a matter of convention whether one speaks about two substructures of a single shower or about two individual showers. In this case, it is hard to decide, and sufficiently argue, in favor of the first or second possibility.)</p>
+<p>As seen in Tables <xref ref-type="table" rid="ajabfdc9t1">1</xref> and <xref ref-type="table" rid="ajabfdc9t2">2</xref>, the period of activity of F2a starts about 20 days after the end of the period of activity of F2b. The corresponding mean parameters of both subfilaments are similar, but different enough that they could be distinguished. For example, the mean R.A. of the geocentric radiant of F2a in the individual models varies from 254&fdg;0 to 255&fdg;7 and that of F2b from 227&fdg;7 to 240&fdg;2 (Table <xref ref-type="table" rid="ajabfdc9t1">1</xref>).</p>
+<p>The reason why we regard the subfilaments F2a and F2b as substructures of a single filament is the relatively large dispersion of the meteors of real counterpart of Filament 2. In the real data, one of its substructures cannot be distinguished from the other. Specifically, we found the real counterpart of F2a in the S data, and the real counterpart of F2b in the C data. There is no gap between the interval of the values of a given parameter in these two identifications of real shower. The overlapping of the radiants of both subfilaments can be seen in Figure <xref ref-type="fig" rid="ajabfdc9f4">4</xref>(b) (the right border of the area of red squares overlaps with the left border of that of green asterisks).</p>
+<p>In the S data, we found a shower with parameters consistent with their counterparts, as predicted in several our models. When the mean orbit of the real shower, in the S catalog, was compared with the predicted mean orbits, with the help of the Southworth&ndash;Hawkins <italic>D</italic>-discriminant, the <italic>D</italic>-value ranged from 0.113 to 0.132.</p>
+<p>In the IAU MDC list of all showers, Filament 2a was identified with the <italic>&gamma;</italic>-Sagittariids, #657. The minimum value of the <italic>D</italic>-discriminant between the mean orbit predicted in the model for <italic>t</italic><sub>ev</sub> &equals; 80  kyr and <italic>&beta;</italic> &equals; 10<sup>&minus;11</sup> and the mean orbit of the real <italic>&gamma;</italic>-Sagittariids (Jenniskens et al. <xref ref-type="bibr" rid="ajabfdc9bib24">2016c</xref>) was 0.246. This is a relatively high value. Better evidence that the <italic>&gamma;</italic>-Sagittariids are related to the stream of C/1961 T1 was obtained by comparing this shower with the real shower found in the S data; the similarity of their mean orbits was characterized by <italic>D</italic><sub>SH</sub> &equals; 0.175.</p>
+<p>The subfilaments of Filament 2 were predicted only in the models for <italic>t</italic><sub>ev</sub> &equals; 80  kyr. Hence, the meteoroids originating from C/1961 T1 need approximately this length of time to evolve to the Earth-orbit crossing orbits in the second (F2-related) corridor of the stream. In an analogy to Filament 1, we can speculate that Filament 2 also had enough time to evolve into two separated subfilaments during this long evolutionary period.</p>
+<p>In Figure <xref ref-type="fig" rid="ajabfdc9f3">3</xref>(b), we can see a symmetry of the radiant areas of Filament 1 and subfilament 2a in respect to the apex of Earth&rsquo;s heliocentric motion. In our past studies, we found several such symmetrical radiant areas of various showers of a single parent body. For example, the showers associated with parent bodies 96P/Machholz and/or (196256) 2003 EH1 (Neslu&scaron;an et al. <xref ref-type="bibr" rid="ajabfdc9bib42">2013</xref>), (3200) Phaethon (Jakub&iacute;k &amp; Neslu&scaron;an <xref ref-type="bibr" rid="ajabfdc9bib18">2015</xref>), 12P/Pons-Brooks (Tomko &amp; Neslu&scaron;an <xref ref-type="bibr" rid="ajabfdc9bib59">2016</xref>), C/1917 F1 (Mellish; Neslu&scaron;an &amp; Hajdukov&aacute; <xref ref-type="bibr" rid="ajabfdc9bib37">2014</xref>), or C/1963 A1 (Ikeya; Neslu&scaron;an &amp; Hajdukov&aacute; <xref ref-type="bibr" rid="ajabfdc9bib40">2019</xref>). The symmetry of the radiant areas of December <italic>&rgr;</italic>-Virginids and <italic>&gamma;</italic>-Sagittariids is another example of this.</p>
+</sec>
+<sec id="ajabfdc9s5">
+<label>5.</label>
+<title>Modeling and Prediction from the Cloned Orbits</title>
+<p>The orbit of each parent body of a meteor shower is never determined exactly. Due to an uncertainty in the determination of the orbit C/1961 T1, the extrapolation of this orbit to the past is not absolutely reliable. Hence, we must ask the question whether we would predict essentially the same showers if we started our modeling from an orbit slightly different than the nominal orbit of the parent comet.</p>
+<p>Unfortunately, the error of the nominal-orbit determination is unknown. To estimate the differences between the results gained from the models based on the nominal and on the cloned orbits of the parent comet, we made some assumptions about the uncertainty in our knowledge of the orbit. Specifically, we also modeled the stream of C/1961 T1, starting from several cloned orbits and compared the result with that based on the nominal-orbit modeling. In more detail, we randomly selected 5 from 728 cloned orbits described in Section <xref ref-type="sec" rid="ajabfdc9s2">2</xref>. For each of these orbits, we created a model of the stream for the longest considered evolutionary period, <italic>t</italic><sub>ev</sub> &equals; 80  kyr and no P-R effect (<italic>&beta;</italic> &equals; 10<sup>&minus;11</sup>). Hereafter, we refer to these orbits by CA, CB, CC, CD, and CE.</p>
+<p>The mean parameters of the predicted showers in the models derived from the cloned orbits are given in Tables <xref ref-type="table" rid="ajabfdc9t3">3</xref> and <xref ref-type="table" rid="ajabfdc9t4">4</xref>. In the tables, one can see that Filament 1, which was predicted in the models derived from the nominal orbit, was also predicted by four of five cloned-orbit models (related to CB, CC, CD, and CE). In the fifth model (from orbit CA), the relation of the prediction is questionable, since the values of all mean parameters are significantly shifted in respect to those in the other models.</p>
+<table-wrap id="ajabfdc9t3" position="float">
+<label>Table 3</label>
+<caption id="ajabfdc9tc3">
+<p>Mean Geocentric Parameters of the Showers Predicted in the Models Created by Using the Cloned Orbits</p>
+</caption>
+<table>
+<colgroup>
+<col align="left"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+</colgroup>
+<thead>
+<tr>
+<th align="left">Orb.</th>
+<th align="center">&lang;<italic>&lambda;</italic>&rang;</th>
+<th align="center">
+<inline-formula>
+<tex-math>
+<?CDATA ${\lambda }_{\min }$?>
+</tex-math>
+<mml:math>
+<mml:msub>
+<mml:mrow>
+<mml:mi>&lambda;</mml:mi>
+</mml:mrow>
+<mml:mrow>
+<mml:mi>min</mml:mi>
+</mml:mrow>
+</mml:msub>
+</mml:math>
+<inline-graphic xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ajabfdc9ieqn5.gif"/>
+</inline-formula>&ndash;<inline-formula>
+<tex-math>
+<?CDATA ${\lambda }_{\max }$?>
+</tex-math>
+<mml:math>
+<mml:msub>
+<mml:mrow>
+<mml:mi>&lambda;</mml:mi>
+</mml:mrow>
+<mml:mrow>
+<mml:mi>max</mml:mi>
+</mml:mrow>
+</mml:msub>
+</mml:math>
+<inline-graphic xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="ajabfdc9ieqn6.gif"/>
+</inline-formula>
+</th>
+<th align="center">&lang;<italic>&agr;</italic>&rang;</th>
+<th align="center">&lang;<italic>&delta;</italic>&rang;</th>
+<th align="center">&lang;<italic>V</italic><sub><italic>g</italic></sub>&rang;</th>
+<th align="center"><italic>&gamma;</italic></th>
+<th align="center"><italic>n</italic></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" colspan="8">Prediction: Filament 1</td>
+</tr>
+<tr>
+<td align="left">CA</td>
+<td align="center">189.8 &PlusMinus; 8.3</td>
+<td align="center">172.4&minus;207.8</td>
+<td align="center">129.4 &PlusMinus; 7.5</td>
+<td align="center">27.6 &PlusMinus; 1.3</td>
+<td align="center">66.7 &PlusMinus; 0.6</td>
+<td align="center">65</td>
+<td align="center">611</td>
+</tr>
+<tr>
+<td align="left">CB</td>
+<td align="center">233.9 &PlusMinus; 9.8</td>
+<td align="center">212.2&minus;255</td>
+<td align="center">169.1 &PlusMinus; 8.3</td>
+<td align="center">17.9 &PlusMinus; 2.4</td>
+<td align="center">68.5 &PlusMinus; 0.4</td>
+<td align="center">71</td>
+<td align="center">389</td>
+</tr>
+<tr>
+<td align="left">CC</td>
+<td align="center">220.3 &PlusMinus; 10.5</td>
+<td align="center">198.1&minus;242.7</td>
+<td align="center">158.3 &PlusMinus; 8.5</td>
+<td align="center">17.5 &PlusMinus; 2.4</td>
+<td align="center">67.7 &PlusMinus; 0.7</td>
+<td align="center">67</td>
+<td align="center">453</td>
+</tr>
+<tr>
+<td align="left">CD</td>
+<td align="center">219.9 &PlusMinus; 8</td>
+<td align="center">204.5&minus;236.9</td>
+<td align="center">157.2 &PlusMinus; 6.5</td>
+<td align="center">18.7 &PlusMinus; 1.9</td>
+<td align="center">68 &PlusMinus; 0.5</td>
+<td align="center">68</td>
+<td align="center">182</td>
+</tr>
+<tr>
+<td align="left">CE</td>
+<td align="center">215.4 &PlusMinus; 4.3</td>
+<td align="center">203&minus;227.1</td>
+<td align="center">152.7 &PlusMinus; 3.8</td>
+<td align="center">21.1 &PlusMinus; 0.7</td>
+<td align="center">68.3 &PlusMinus; 0.2</td>
+<td align="center">69</td>
+<td align="center">1875</td>
+</tr>
+<tr>
+<td colspan="8">
+<hr/>
+</td>
+</tr>
+<tr>
+<td align="center" colspan="8">Prediction: Filament 2, Subfilament a</td>
+</tr>
+<tr>
+<td align="left">CC</td>
+<td align="center">11.4 &PlusMinus; 8.8</td>
+<td align="center">&minus;9.8&minus; 31.3</td>
+<td align="center">256 &PlusMinus; 8</td>
+<td align="center">&minus;30.5 &PlusMinus; 1.1</td>
+<td align="center">67.3 &PlusMinus; 0.7</td>
+<td align="center">113</td>
+<td align="center">345</td>
+</tr>
+<tr>
+<td colspan="8">
+<hr/>
+</td>
+</tr>
+<tr>
+<td align="center" colspan="8">Prediction: Filament 2, Subfilament b</td>
+</tr>
+<tr>
+<td align="left">CA</td>
+<td align="center">352 &PlusMinus; 6.2</td>
+<td align="center">334.9&minus;366.1</td>
+<td align="center">232 &PlusMinus; 5.6</td>
+<td align="center">&minus;27.6 &PlusMinus; 1.1</td>
+<td align="center">66.9 &PlusMinus; 0.5</td>
+<td align="center">115</td>
+<td align="center">352</td>
+</tr>
+<tr>
+<td align="left">CB</td>
+<td align="center">321 &PlusMinus; 6.3</td>
+<td align="center">308.9&minus;334</td>
+<td align="center">206.2 &PlusMinus; 6.2</td>
+<td align="center">&minus;29.1 &PlusMinus; 1.6</td>
+<td align="center">68.4 &PlusMinus; 0.3</td>
+<td align="center">105</td>
+<td align="center">219</td>
+</tr>
+<tr>
+<td align="left">CD</td>
+<td align="center">306.9 &PlusMinus; 8.4</td>
+<td align="center">292.6&minus;323</td>
+<td align="center">192.8 &PlusMinus; 7.2</td>
+<td align="center">&minus;28.6 &PlusMinus; 2.6</td>
+<td align="center">67.8 &PlusMinus; 0.5</td>
+<td align="center">103</td>
+<td align="center">691</td>
+</tr>
+</tbody>
+</table>
+<graphic xlink:href="ajabfdc9t3_tb.gif"/>
+<graphic xlink:href="ajabfdc9t3_lr.gif">
+<caption>
+<p>Typeset image</p>
+</caption>
+</graphic>
+<table-wrap-foot>
+<p><bold>Note.</bold> In the first column, there is the code of the cloned orbit. The quantities in the other columns are the same as in Table <xref ref-type="table" rid="ajabfdc9t1">1</xref>.</p>
+</table-wrap-foot>
+</table-wrap>
+<table-wrap id="ajabfdc9t4" position="float">
+<label>Table 4</label>
+<caption id="ajabfdc9tc4">
+<p>Mean Orbital Elements of the Predicted Showers Using the Cloned Orbits</p>
+</caption>
+<table>
+<colgroup>
+<col align="left"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+<col align="center"/>
+</colgroup>
+<thead>
+<tr>
+<th align="left">Orb.</th>
+<th align="center">&lang;<italic>q</italic>&rang;</th>
+<th align="center">&lang;<italic>a</italic>&rang;</th>
+<th align="center">&lang;<italic>e</italic>&rang;</th>
+<th align="center">&lang;<italic>&ohgr;</italic>&rang;</th>
+<th align="center">&lang;&OHgr;&rang;</th>
+<th align="center">&lang;<italic>i</italic>&rang;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center" colspan="7">Prediction: Filament 1</td>
+</tr>
+<tr>
+<td align="left">CA</td>
+<td align="center">0.569 &PlusMinus; 0.047</td>
+<td align="center">50 &PlusMinus; 16</td>
+<td align="center">0.988 &PlusMinus; 0.004</td>
+<td align="center">99 &PlusMinus; 7.4</td>
+<td align="center">190.8 &PlusMinus; 9.8</td>
+<td align="center">160.9 &PlusMinus; 1.3</td>
+</tr>
+<tr>
+<td align="left">CB</td>
+<td align="center">0.730 &PlusMinus; 0.053</td>
+<td align="center">60 &PlusMinus; 18</td>
+<td align="center">0.987 &PlusMinus; 0.004</td>
+<td align="center">117.2 &PlusMinus; 7</td>
+<td align="center">233.1 &PlusMinus; 9.9</td>
+<td align="center">156.3 &PlusMinus; 3.5</td>
+</tr>
+<tr>
+<td align="left">CC</td>
+<td align="center">0.607 &PlusMinus; 0.065</td>
+<td align="center">42 &PlusMinus; 14</td>
+<td align="center">0.984 &PlusMinus; 0.006</td>
+<td align="center">104.1 &PlusMinus; 9.9</td>
+<td align="center">221.5 &PlusMinus; 12</td>
+<td align="center">163.7 &PlusMinus; 2.2</td>
+</tr>
+<tr>
+<td align="left">CD</td>
+<td align="center">0.638 &PlusMinus; 0.054</td>
+<td align="center">40 &PlusMinus; 10</td>
+<td align="center">0.983 &PlusMinus; 0.005</td>
+<td align="center">107 &PlusMinus; 7.9</td>
+<td align="center">220.4 &PlusMinus; 8.9</td>
+<td align="center">162.5 &PlusMinus; 1.9</td>
+</tr>
+<tr>
+<td align="left">CE</td>
+<td align="center">0.654 &PlusMinus; 0.027</td>
+<td align="center">241 &PlusMinus; 152</td>
+<td align="center">0.997 &PlusMinus; 0.002</td>
+<td align="center">110.7 &PlusMinus; 5.1</td>
+<td align="center">217.1 &PlusMinus; 6.5</td>
+<td align="center">161.6 &PlusMinus; 1.1</td>
+</tr>
+<tr>
+<td colspan="7">
+<hr/>
+</td>
+</tr>
+<tr>
+<td align="center" colspan="7">Prediction: Filament 2, Subfilament a</td>
+</tr>
+<tr>
+<td align="left">CC</td>
+<td align="center">0.605 &PlusMinus; 0.064</td>
+<td align="center">41 &PlusMinus; 11</td>
+<td align="center">0.984 &PlusMinus; 0.005</td>
+<td align="center">77.7 &PlusMinus; 8.9</td>
+<td align="center">191.2 &PlusMinus; 10.4</td>
+<td align="center">163.7 &PlusMinus; 2</td>
+</tr>
+<tr>
+<td colspan="7">
+<hr/>
+</td>
+</tr>
+<tr>
+<td align="center" colspan="7">Prediction: Filament 2, Subfilament b</td>
+</tr>
+<tr>
+<td align="left">CA</td>
+<td align="center">0.550 &PlusMinus; 0.044</td>
+<td align="center">54 &PlusMinus; 18</td>
+<td align="center">0.989 &PlusMinus; 0.004</td>
+<td align="center">84 &PlusMinus; 6.3</td>
+<td align="center">171.9 &PlusMinus; 7.5</td>
+<td align="center">161.4 &PlusMinus; 1.2</td>
+</tr>
+<tr>
+<td align="left">CB</td>
+<td align="center">0.809 &PlusMinus; 0.037</td>
+<td align="center">142 &PlusMinus; 100</td>
+<td align="center">0.992 &PlusMinus; 0.004</td>
+<td align="center">49.9 &PlusMinus; 3.4</td>
+<td align="center">140.8 &PlusMinus; 6</td>
+<td align="center">148.3 &PlusMinus; 3.1</td>
+</tr>
+<tr>
+<td align="left">CD</td>
+<td align="center">0.857 &PlusMinus; 0.035</td>
+<td align="center">207 &PlusMinus; 175</td>
+<td align="center">0.992 &PlusMinus; 0.006</td>
+<td align="center">40.1 &PlusMinus; 4.2</td>
+<td align="center">126.4 &PlusMinus; 8.3</td>
+<td align="center">141.8 &PlusMinus; 2.6</td>
+</tr>
+</tbody>
+</table>
+<graphic xlink:href="ajabfdc9t4_tb.gif"/>
+<graphic xlink:href="ajabfdc9t4_lr.gif">
+<caption>
+<p>Typeset image</p>
+</caption>
+</graphic>
+<table-wrap-foot>
+<p><bold>Note.</bold> In the first column, there is the code of cloned orbit.</p>
+</table-wrap-foot>
+</table-wrap>
+<p>Subfilament 2a was predicted only in a single cloned-orbit (CC) model and subfilament 2b in three such models (derived from CA, CB, and CD). However in the CD-derived model, the prediction of F2b is not very consistent with the other predictions.</p>
+<p>In conclusion, the uncertainty of the position of the parent-body orbit in the interplanetary space has a discernible influence on the prediction of the spatial structure of a related meteoroid stream. For a special deviation of the actual orbit from the nominal, modeling may result in the nonexistence of some meteor showers observable in Earth&rsquo;s atmosphere.</p>
+<p>Specifically, if the actual orbit was the cloned orbit CA, the characteristics of Filament 1 would be different from that predicted in the models derived from the nominal orbit and substructure &ldquo;a&rdquo; of Filament 2 would not exist. If cloned orbit CC was the case, then Filament 2 would not have its substructure &ldquo;b.&rdquo; However, these seem to be only some theoretical possibilities. Since the real counterparts of both predicted filaments were found, the actual orbit of C/1961 T1 was probably not significantly different from the known nominal orbit.</p>
+</sec>
+<sec id="ajabfdc9s6">
+<label>6.</label>
+<title>Conclusion</title>
+<p>We modeled parts of the meteoroid stream of long-period comet C/1961 T1 (Seki) and followed their dynamical evolution in the interplanetary space. Based on this, we confirmed that the comet is the parent body of the December <italic>&rgr;</italic>-Virginids, #502. In addition, we found that it is probably also the parent body of the <italic>&gamma;</italic>-Sagittariids, #657. None of these showers is classified as &ldquo;established&rdquo; yet. The radiant areas of both showers are symmetrical in respect to the apex of Earth&rsquo;s motion around the Sun.</p>
+</sec>
+</body>
+<back>
+<ack>
+<p>The calculations of stream evolution in the models were performed using computing resources provided by the project SIVVP, ITMS 26230120002, supported by the Research and Development Operational Program funded by the European Regional Development Fund. Furthermore, the work was supported by the Slovak Research and Development Agency under the contract No. APVV-16-0148 and, in part, by the Slovak Grant Agency for Science (VEGA), grant No. 2/0037/18.</p>
+<p><italic>Software</italic>: MERCURY package (Chambers <xref ref-type="bibr" rid="ajabfdc9bib6">1999</xref>; Chambers &amp; Murison <xref ref-type="bibr" rid="ajabfdc9bib7">2000</xref>), IAU MDC database Porub&ccaron;an et al. (<xref ref-type="bibr" rid="ajabfdc9bib47">2011</xref>), Neslu&scaron;an et al. (<xref ref-type="bibr" rid="ajabfdc9bib43">2014</xref>), Gural (<xref ref-type="bibr" rid="ajabfdc9bib13">2011</xref>), Jenniskens et al. (<xref ref-type="bibr" rid="ajabfdc9bib19">2011</xref>, <xref ref-type="bibr" rid="ajabfdc9bib22">2016a</xref>, <xref ref-type="bibr" rid="ajabfdc9bib23">2016b</xref>, <xref ref-type="bibr" rid="ajabfdc9bib24">2016c</xref>) SonotaCo database (SonotaCo <xref ref-type="bibr" rid="ajabfdc9bib56">2009</xref>, <xref ref-type="bibr" rid="ajabfdc9bib57">2016</xref>), EDMOND database (Korno&scaron; et al. <xref ref-type="bibr" rid="ajabfdc9bib28">2014a</xref>, <xref ref-type="bibr" rid="ajabfdc9bib29">2014b</xref>), SAAMER meteor data (Pokorn&yacute; et al. <xref ref-type="bibr" rid="ajabfdc9bib46">2017</xref>), MAARSY meteor data (Schult et al. <xref ref-type="bibr" rid="ajabfdc9bib52">2018</xref>).</p>
+</ack>
+<ref-list content-type="alphabetical">
+<title>References</title>
+<ref id="ajabfdc9bib1">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Abedin</surname>
+<given-names>A.</given-names>
+</name>
+<name>
+<surname>Spurn&yacute;</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Wiegert</surname>
+<given-names>P.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2015</year>
+<source>Icar</source>
+<volume>261</volume>
+<fpage>100</fpage>
+<ext-link ext-link-type="bibcode">2015Icar..261..100A</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.icarus.2015.08.016</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib2">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Abedin</surname>
+<given-names>A.</given-names>
+</name>
+<name>
+<surname>Wiegert</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Janches</surname>
+<given-names>D.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2018</year>
+<source>Icar</source>
+<volume>300</volume>
+<fpage>360</fpage>
+<ext-link ext-link-type="bibcode">2018Icar..300..360A</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.icarus.2017.07.015</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib3">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Abedin</surname>
+<given-names>A.</given-names>
+</name>
+<name>
+<surname>Wiegert</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Pokorn&yacute;</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Brown</surname>
+<given-names>P.</given-names>
+</name>
+</person-group>
+<year>2017</year>
+<source>Icar</source>
+<volume>281</volume>
+<fpage>417</fpage>
+<ext-link ext-link-type="bibcode">2017Icar..281..417A</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.icarus.2016.08.017</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib4">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Babadzhanov</surname>
+<given-names>P. B.</given-names>
+</name>
+<name>
+<surname>Kokhirova</surname>
+<given-names>G. I.</given-names>
+</name>
+<name>
+<surname>Khamroev</surname>
+<given-names>U. K.</given-names>
+</name>
+</person-group>
+<year>2015a</year>
+<source>AdSpR</source>
+<volume>55</volume>
+<fpage>1784</fpage>
+<ext-link ext-link-type="bibcode">2015AdSpR..55.1784B</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.asr.2015.01.012</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib5">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Babadzhanov</surname>
+<given-names>P. B.</given-names>
+</name>
+<name>
+<surname>Kokhirova</surname>
+<given-names>G. I.</given-names>
+</name>
+<name>
+<surname>Obrubov</surname>
+<given-names>Y. V.</given-names>
+</name>
+</person-group>
+<year>2015b</year>
+<source>A&amp;A</source>
+<volume>579</volume>
+<fpage>A119</fpage>
+<ext-link ext-link-type="bibcode">2015A&amp;A...579A.119B</ext-link>
+<pub-id pub-id-type="doi">10.1051/0004-6361/201424923</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib62">
+<element-citation publication-type="confproc">
+<person-group person-group-type="author">
+<name>
+<surname>Brown</surname>
+<given-names>P.</given-names>
+</name>
+</person-group>
+<year>2016</year>
+<conf-name>Proc. Int. Meteor Conf.</conf-name>
+<person-group person-group-type="editor">
+<name>
+<surname>Roggemans</surname>
+<given-names>A.</given-names>
+</name>
+<name>
+<surname>Roggemans</surname>
+<given-names>P.</given-names>
+</name>
+</person-group>
+<publisher-loc>Poznan</publisher-loc>
+<publisher-name>A. Mickiewicz Univ. Press</publisher-name>
+<fpage>42</fpage>
+<ext-link ext-link-type="bibcode">2016pimo.conf...42B</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib63">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Brown</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Weryk</surname>
+<given-names>R. J.</given-names>
+</name>
+</person-group>
+<year>2020</year>
+<source>Icar</source>
+<volume>352</volume>
+<fpage>113975</fpage>
+<ext-link ext-link-type="bibcode">2020Icar..35213975B</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.icarus.2020.113975</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib64">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Bruzzone</surname>
+<given-names>J. S.</given-names>
+</name>
+<name>
+<surname>Brown</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Weryk</surname>
+<given-names>R. J.</given-names>
+</name>
+<name>
+<surname>Campbell-Brown</surname>
+<given-names>M. D.</given-names>
+</name>
+</person-group>
+<year>2015</year>
+<source>MNRAS</source>
+<volume>446</volume>
+<fpage>1625</fpage>
+<ext-link ext-link-type="bibcode">2015MNRAS.446.1625B</ext-link>
+<pub-id pub-id-type="doi">10.1093/mnras/stu2200</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib6">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Chambers</surname>
+<given-names>J. E.</given-names>
+</name>
+</person-group>
+<year>1999</year>
+<source>MNRAS</source>
+<volume>304</volume>
+<fpage>793</fpage>
+<ext-link ext-link-type="bibcode">1999MNRAS.304..793C</ext-link>
+<pub-id pub-id-type="doi">10.1046/j.1365-8711.1999.02379.x</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib7">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Chambers</surname>
+<given-names>J. E.</given-names>
+</name>
+<name>
+<surname>Murison</surname>
+<given-names>M. A.</given-names>
+</name>
+</person-group>
+<year>2000</year>
+<source>AJ</source>
+<volume>119</volume>
+<fpage>425</fpage>
+<ext-link ext-link-type="bibcode">2000AJ....119..425C</ext-link>
+<pub-id pub-id-type="doi">10.1086/301161</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib8">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Egal</surname>
+<given-names>A.</given-names>
+</name>
+<name>
+<surname>Wiegert</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Brown</surname>
+<given-names>P. G.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2019</year>
+<source>Icar</source>
+<volume>330</volume>
+<fpage>123</fpage>
+<ext-link ext-link-type="bibcode">2019Icar..330..123E</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.icarus.2019.04.021</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib9">
+<element-citation publication-type="confproc">
+<person-group person-group-type="author">
+<name>
+<surname>Everhart</surname>
+<given-names>E.</given-names>
+</name>
+</person-group>
+<year>1985</year>
+<article-title>An efficient integrator that uses Gauss-Radau spacings</article-title>
+<conf-name>Dynamics of Comets: Their Origin and Evolution</conf-name>
+<person-group person-group-type="editor">
+<name>
+<surname>Carusi</surname>
+<given-names>A.</given-names>
+</name>
+<name>
+<surname>Valsecchi</surname>
+<given-names>G. B.</given-names>
+</name>
+</person-group>
+<publisher-loc>Dordrecht</publisher-loc>
+<publisher-name>Reidel</publisher-name>
+<fpage>185</fpage>
+<ext-link ext-link-type="bibcode">1985IAUCo..83..185E</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib10">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Giorgini</surname>
+<given-names>J. D.</given-names>
+</name>
+<name>
+<surname>Yeomans</surname>
+<given-names>D. K.</given-names>
+</name>
+<name>
+<surname>Chamberlin</surname>
+<given-names>A. B.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>1996</year>
+<source>BAAS</source>
+<volume>28</volume>
+<fpage>1158</fpage>
+<ext-link ext-link-type="bibcode">1996BAAS...28.1158G</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib11">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Greaves</surname>
+<given-names>J.</given-names>
+</name>
+</person-group>
+<year>2000</year>
+<source>Rad</source>
+<volume>22</volume>
+<fpage>41</fpage>
+<ext-link ext-link-type="bibcode">2000Rad....22...41G</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib12">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Greaves</surname>
+<given-names>J.</given-names>
+</name>
+</person-group>
+<year>2019</year>
+<source>JIMO</source>
+<volume>47</volume>
+<fpage>156</fpage>
+<ext-link ext-link-type="bibcode">2019JIMO...47..156G</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib13">
+<element-citation publication-type="confproc">
+<person-group person-group-type="author">
+<name>
+<surname>Gural</surname>
+<given-names>P. S.</given-names>
+</name>
+</person-group>
+<year>2011</year>
+<conf-name>Proc. Int. Meteor Conf.</conf-name>
+<person-group person-group-type="editor">
+<name>
+<surname>Asher</surname>
+<given-names>D. J.</given-names>
+</name>
+<etal/>
+</person-group>
+<publisher-loc>Mechelen</publisher-loc>
+<publisher-name>International Meteor Organization</publisher-name>
+<fpage>28</fpage>
+<ext-link ext-link-type="bibcode">2011pimo.conf...28G</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib14">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Hajdukov&aacute;</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+</person-group>
+<year>2017</year>
+<source>A&amp;A</source>
+<volume>605</volume>
+<fpage>A36</fpage>
+<ext-link ext-link-type="bibcode">2017A&amp;A...605A..36H</ext-link>
+<pub-id pub-id-type="doi">10.1051/0004-6361/201730646</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib15">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Hajdukov&aacute;</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+</person-group>
+<year>2019</year>
+<source>A&amp;A</source>
+<volume>627</volume>
+<fpage>A73</fpage>
+<ext-link ext-link-type="bibcode">2019A&amp;A...627A..73H</ext-link>
+<pub-id pub-id-type="doi">10.1051/0004-6361/201935630</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib16">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Hajdukov&aacute;</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+</person-group>
+<year>2020</year>
+<source>Icar</source>
+<volume>351</volume>
+<elocation-id content-type="artnum">113960</elocation-id>
+<ext-link ext-link-type="bibcode">2020Icar..35113960H</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.icarus.2020.113960</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib70">
+<element-citation publication-type="communication">
+<person-group person-group-type="author">
+<name>
+<surname>Hasegawa</surname>
+<given-names>I.</given-names>
+</name>
+</person-group>
+<year>1961</year>
+<comment>IAU Circular, No. 1781</comment>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib17">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Ishiguro</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Kuroda</surname>
+<given-names>D.</given-names>
+</name>
+<name>
+<surname>Hanayama</surname>
+<given-names>H.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2015</year>
+<source>ApJL</source>
+<volume>798</volume>
+<fpage>L34</fpage>
+<ext-link ext-link-type="bibcode">2015ApJ...798L..34I</ext-link>
+<pub-id pub-id-type="doi">10.1088/2041-8205/798/2/L34</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib18">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Jakub&iacute;k</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+</person-group>
+<year>2015</year>
+<source>MNRAS</source>
+<volume>453</volume>
+<fpage>1186</fpage>
+<ext-link ext-link-type="bibcode">2015MNRAS.453.1186J</ext-link>
+<pub-id pub-id-type="doi">10.1093/mnras/stv1643</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib65">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Janches</surname>
+<given-names>D.</given-names>
+</name>
+<name>
+<surname>Bruzzone</surname>
+<given-names>J. S.</given-names>
+</name>
+<name>
+<surname>Weryk</surname>
+<given-names>R. J.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2020</year>
+<source>ApJL</source>
+<volume>895</volume>
+<fpage>L25</fpage>
+<ext-link ext-link-type="bibcode">2020ApJ...895L..25J</ext-link>
+<pub-id pub-id-type="doi">10.3847/2041-8213/ab9181</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib66">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Janches</surname>
+<given-names>D.</given-names>
+</name>
+<name>
+<surname>Close</surname>
+<given-names>S.</given-names>
+</name>
+<name>
+<surname>Hormaechea</surname>
+<given-names>J. L.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2015</year>
+<source>ApJ</source>
+<volume>809</volume>
+<fpage>36</fpage>
+<ext-link ext-link-type="bibcode">2015ApJ...809...36J</ext-link>
+<pub-id pub-id-type="doi">10.1088/0004-637X/809/1/36</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib19">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Jenniskens</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Gural</surname>
+<given-names>P. S.</given-names>
+</name>
+<name>
+<surname>Dynneson</surname>
+<given-names>L.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2011</year>
+<source>Icar</source>
+<volume>216</volume>
+<fpage>40</fpage>
+<ext-link ext-link-type="bibcode">2011Icar..216...40J</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.icarus.2011.08.012</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib20">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Jenniskens</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Jopek</surname>
+<given-names>T. J.</given-names>
+</name>
+<name>
+<surname>Janches</surname>
+<given-names>D.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2020</year>
+<source>P&amp;SS</source>
+<volume>182</volume>
+<elocation-id content-type="artnum">104821</elocation-id>
+<ext-link ext-link-type="bibcode">2020P&amp;SS..18204821J</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.pss.2019.104821</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib21">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Jenniskens</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>N&eacute;non</surname>
+<given-names>Q.</given-names>
+</name>
+</person-group>
+<year>2016</year>
+<source>Icar</source>
+<volume>266</volume>
+<fpage>371</fpage>
+<ext-link ext-link-type="bibcode">2016Icar..266..371J</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.icarus.2015.10.004</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib22">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Jenniskens</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>N&eacute;non</surname>
+<given-names>Q.</given-names>
+</name>
+<name>
+<surname>Albers</surname>
+<given-names>J.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2016a</year>
+<source>Icar</source>
+<volume>266</volume>
+<fpage>331</fpage>
+<ext-link ext-link-type="bibcode">2016Icar..266..331J</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.icarus.2015.09.013</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib23">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Jenniskens</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>N&eacute;non</surname>
+<given-names>Q.</given-names>
+</name>
+<name>
+<surname>Gural</surname>
+<given-names>P. S.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2016b</year>
+<source>Icar</source>
+<volume>266</volume>
+<fpage>355</fpage>
+<ext-link ext-link-type="bibcode">2016Icar..266..355J</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.icarus.2015.08.014</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib24">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Jenniskens</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>N&eacute;non</surname>
+<given-names>Q.</given-names>
+</name>
+<name>
+<surname>Gural</surname>
+<given-names>P. S.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2016c</year>
+<source>Icar</source>
+<volume>266</volume>
+<fpage>384</fpage>
+<ext-link ext-link-type="bibcode">2016Icar..266..384J</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.icarus.2015.11.009</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib25">
+<element-citation publication-type="confproc">
+<person-group person-group-type="author">
+<name>
+<surname>Jopek</surname>
+<given-names>T. J.</given-names>
+</name>
+<name>
+<surname>Ka&ncaron;uchov&aacute;</surname>
+<given-names>Z.</given-names>
+</name>
+</person-group>
+<year>2014</year>
+<conf-name>Proc. Astronomical Conf., Meteoroids 2013</conf-name>
+<person-group person-group-type="editor">
+<name>
+<surname>Jopek</surname>
+<given-names>T. J.</given-names>
+</name>
+<etal/>
+</person-group>
+<publisher-loc>Poznan</publisher-loc>
+<publisher-name>A. Mickiewicz Univ. Press</publisher-name>
+<fpage>353</fpage>
+<ext-link ext-link-type="bibcode">2014me13.conf..353J</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib26">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Jopek</surname>
+<given-names>T. J.</given-names>
+</name>
+<name>
+<surname>Williams</surname>
+<given-names>I. P.</given-names>
+</name>
+</person-group>
+<year>2013</year>
+<source>MNRAS</source>
+<volume>430</volume>
+<fpage>2377</fpage>
+<ext-link ext-link-type="bibcode">2013MNRAS.430.2377J</ext-link>
+<pub-id pub-id-type="doi">10.1093/mnras/stt057</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib27">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Kla&ccaron;ka</surname>
+<given-names>J.</given-names>
+</name>
+</person-group>
+<year>2014</year>
+<source>MNRAS</source>
+<volume>443</volume>
+<fpage>213</fpage>
+<ext-link ext-link-type="bibcode">2014MNRAS.443..213K</ext-link>
+<pub-id pub-id-type="doi">10.1093/mnras/stu1133</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib28">
+<element-citation publication-type="confproc">
+<person-group person-group-type="author">
+<name>
+<surname>Korno&scaron;</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Koukal</surname>
+<given-names>J.</given-names>
+</name>
+<name>
+<surname>Piffl</surname>
+<given-names>R.</given-names>
+</name>
+<name>
+<surname>T&oacute;th</surname>
+<given-names>J.</given-names>
+</name>
+</person-group>
+<year>2014a</year>
+<conf-name>Proc. Int. Meteor Conf.</conf-name>
+<person-group person-group-type="editor">
+<name>
+<surname>Gyssens</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Roggemans</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Zoladek</surname>
+<given-names>P.</given-names>
+</name>
+</person-group>
+<publisher-loc>Mechelen</publisher-loc>
+<publisher-name>International Meteor Organization</publisher-name>
+<fpage>23</fpage>
+<ext-link ext-link-type="bibcode">2014pim3.conf...23K</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib29">
+<element-citation publication-type="confproc">
+<person-group person-group-type="author">
+<name>
+<surname>Korno&scaron;</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Matlovi&ccaron;</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Rudawska</surname>
+<given-names>R.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2014b</year>
+<conf-name>Proc. Astronomical Conf., Meteoroids 2013</conf-name>
+<person-group person-group-type="editor">
+<name>
+<surname>Jopek</surname>
+<given-names>T. J.</given-names>
+</name>
+<etal/>
+</person-group>
+<publisher-loc>Poznan</publisher-loc>
+<publisher-name>A. Mickiewicz Univ. Press</publisher-name>
+<fpage>225</fpage>
+<ext-link ext-link-type="bibcode">2014me13.conf..225K</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib30">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Korno&scaron;</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>T&oacute;th</surname>
+<given-names>J.</given-names>
+</name>
+<name>
+<surname>Porub&ccaron;an</surname>
+<given-names>V.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2015</year>
+<source>P&amp;SS</source>
+<volume>118</volume>
+<fpage>48</fpage>
+<ext-link ext-link-type="bibcode">2015P&amp;SS..118...48K</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.pss.2015.05.001</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib31">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Kov&aacute;&ccaron;ov&aacute;</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Nagy</surname>
+<given-names>R.</given-names>
+</name>
+<name>
+<surname>Korno&scaron;</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>T&oacute;th</surname>
+<given-names>J.</given-names>
+</name>
+</person-group>
+<year>2020</year>
+<source>P&amp;SS</source>
+<volume>185</volume>
+<elocation-id content-type="artnum">104897</elocation-id>
+<ext-link ext-link-type="bibcode">2020P&amp;SS..18504897K</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.pss.2020.104897</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib32">
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Kronk</surname>
+<given-names>G. W.</given-names>
+</name>
+<name>
+<surname>Meyer</surname>
+<given-names>M.</given-names>
+</name>
+</person-group>
+<year>2010</year>
+<source>Cometography: A Catalog of Comets, Volume 5</source>
+<publisher-loc>Cambridge</publisher-loc>
+<publisher-name>Cambridge Univ. Press</publisher-name>
+<fpage>1</fpage>
+<ext-link ext-link-type="bibcode">2010come.book.....K</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib33">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Lyytinen</surname>
+<given-names>E.</given-names>
+</name>
+<name>
+<surname>Jenniskens</surname>
+<given-names>P.</given-names>
+</name>
+</person-group>
+<year>2003</year>
+<source>Icar</source>
+<volume>162</volume>
+<fpage>443</fpage>
+<ext-link ext-link-type="bibcode">2003Icar..162..443L</ext-link>
+<pub-id pub-id-type="doi">10.1016/S0019-1035(02)00071-4</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib34">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Marsden</surname>
+<given-names>B. G.</given-names>
+</name>
+<name>
+<surname>Sekanina</surname>
+<given-names>Z.</given-names>
+</name>
+<name>
+<surname>Everhart</surname>
+<given-names>E.</given-names>
+</name>
+</person-group>
+<year>1978</year>
+<source>AJ</source>
+<volume>83</volume>
+<fpage>64</fpage>
+<ext-link ext-link-type="bibcode">1978AJ.....83...64M</ext-link>
+<pub-id pub-id-type="doi">10.1086/112177</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib35">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Matlovi&ccaron;</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Korno&scaron;</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Kov&aacute;&ccaron;ov&aacute;</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>T&oacute;th</surname>
+<given-names>J.</given-names>
+</name>
+<name>
+<surname>Licandro</surname>
+<given-names>J.</given-names>
+</name>
+</person-group>
+<year>2020</year>
+<source>A&amp;A</source>
+<volume>636</volume>
+<fpage>A122</fpage>
+<ext-link ext-link-type="bibcode">2020A&amp;A...636A.122M</ext-link>
+<pub-id pub-id-type="doi">10.1051/0004-6361/202037727</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib67">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Moorhead</surname>
+<given-names>A. V.</given-names>
+</name>
+<name>
+<surname>Brown</surname>
+<given-names>P. G.</given-names>
+</name>
+<name>
+<surname>Spurn&yacute;</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Cooke</surname>
+<given-names>W. J.</given-names>
+</name>
+<name>
+<surname>Shrben&yacute;</surname>
+<given-names>L.</given-names>
+</name>
+</person-group>
+<year>2015</year>
+<source>AJ</source>
+<volume>150</volume>
+<fpage>122</fpage>
+<ext-link ext-link-type="bibcode">2015AJ....150..122M</ext-link>
+<pub-id pub-id-type="doi">10.1088/0004-6256/150/4/122</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib36">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+</person-group>
+<year>1999</year>
+<source>A&amp;A</source>
+<volume>351</volume>
+<fpage>752</fpage>
+<ext-link ext-link-type="bibcode">1999A&amp;A...351..752N</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib37">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Hajdukov&aacute;</surname>
+<given-names>M.</given-names>
+</name>
+</person-group>
+<year>2014</year>
+<source>A&amp;A</source>
+<volume>566</volume>
+<fpage>A33</fpage>
+<ext-link ext-link-type="bibcode">2014A&amp;A...566A..33N</ext-link>
+<pub-id pub-id-type="doi">10.1051/0004-6361/201423382</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib38">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Hajdukov&aacute;</surname>
+<given-names>M.</given-names>
+</name>
+</person-group>
+<year>2018a</year>
+<source>A&amp;A</source>
+<volume>616</volume>
+<fpage>A162</fpage>
+<ext-link ext-link-type="bibcode">2018A&amp;A...616A.162N</ext-link>
+<pub-id pub-id-type="doi">10.1051/0004-6361/201832829</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib39">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Hajdukov&aacute;</surname>
+<given-names>M.</given-names>
+</name>
+</person-group>
+<year>2018b</year>
+<source>CoSka</source>
+<volume>48</volume>
+<fpage>554</fpage>
+<ext-link ext-link-type="bibcode">2018CoSka..48..554N</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib40">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Hajdukov&aacute;</surname>
+<given-names>M.</given-names>
+</name>
+</person-group>
+<year>2019</year>
+<source>A&amp;A</source>
+<volume>631</volume>
+<fpage>A112</fpage>
+<ext-link ext-link-type="bibcode">2019A&amp;A...631A.112N</ext-link>
+<pub-id pub-id-type="doi">10.1051/0004-6361/201936407</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib41">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Hajdukov&aacute;</surname>
+<given-names>M.</given-names>
+</name>
+</person-group>
+<year>2020</year>
+<source>MNRAS</source>
+<volume>498</volume>
+<fpage>1013</fpage>
+<ext-link ext-link-type="bibcode">2020MNRAS.498.1013N</ext-link>
+<pub-id pub-id-type="doi">10.1093/mnras/staa2374</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib42">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Hajdukov&aacute;</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Jakub&iacute;k</surname>
+<given-names>M.</given-names>
+</name>
+</person-group>
+<year>2013</year>
+<source>A&amp;A</source>
+<volume>560</volume>
+<fpage>A47</fpage>
+<ext-link ext-link-type="bibcode">2013A&amp;A...560A..47N</ext-link>
+<pub-id pub-id-type="doi">10.1051/0004-6361/201322228</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib43">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Porub&ccaron;an</surname>
+<given-names>V.</given-names>
+</name>
+<name>
+<surname>Svore&ncaron;</surname>
+<given-names>J.</given-names>
+</name>
+</person-group>
+<year>2014</year>
+<source>EM&amp;P</source>
+<volume>111</volume>
+<fpage>105</fpage>
+<ext-link ext-link-type="bibcode">2014EM&amp;P..111..105N</ext-link>
+<pub-id pub-id-type="doi">10.1007/s11038-013-9427-1</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib44">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Svore&ncaron;</surname>
+<given-names>J.</given-names>
+</name>
+<name>
+<surname>Porub&ccaron;an</surname>
+<given-names>V.</given-names>
+</name>
+</person-group>
+<year>1995</year>
+<source>EM&amp;P</source>
+<volume>68</volume>
+<fpage>427</fpage>
+<ext-link ext-link-type="bibcode">1995EM&amp;P...68..427N</ext-link>
+<pub-id pub-id-type="doi">10.1007/BF00671536</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib45">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Svore&ncaron;</surname>
+<given-names>J.</given-names>
+</name>
+<name>
+<surname>Porub&ccaron;an</surname>
+<given-names>V.</given-names>
+</name>
+</person-group>
+<year>1998</year>
+<source>A&amp;A</source>
+<volume>331</volume>
+<fpage>411</fpage>
+<ext-link ext-link-type="bibcode">1998A&amp;A...331..411N</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib46">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Pokorn&yacute;</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Janches</surname>
+<given-names>D.</given-names>
+</name>
+<name>
+<surname>Brown</surname>
+<given-names>P. G.</given-names>
+</name>
+<name>
+<surname>Hormaechea</surname>
+<given-names>J. L.</given-names>
+</name>
+</person-group>
+<year>2017</year>
+<source>Icar</source>
+<volume>290</volume>
+<fpage>162</fpage>
+<ext-link ext-link-type="bibcode">2017Icar..290..162P</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.icarus.2017.02.025</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib47">
+<element-citation publication-type="confproc">
+<person-group person-group-type="author">
+<name>
+<surname>Porub&ccaron;an</surname>
+<given-names>V.</given-names>
+</name>
+<name>
+<surname>Svore&ncaron;</surname>
+<given-names>J.</given-names>
+</name>
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Schunov&aacute;</surname>
+<given-names>E.</given-names>
+</name>
+</person-group>
+<year>2011</year>
+<conf-name>Proc. Meteoroids Conf., Meteoroids: The Smallest Solar System Bodies</conf-name>
+<person-group person-group-type="editor">
+<name>
+<surname>Cooke</surname>
+<given-names>W. J.</given-names>
+</name>
+<etal/>
+</person-group>
+<publisher-loc>Huntsville, AL</publisher-loc>
+<publisher-name>NASA</publisher-name>
+<fpage>338</fpage>
+<ext-link ext-link-type="bibcode">2011msss.conf..338P</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib48">
+<element-citation publication-type="confproc">
+<person-group person-group-type="author">
+<name>
+<surname>Rudawska</surname>
+<given-names>R.</given-names>
+</name>
+<name>
+<surname>Jenniskens</surname>
+<given-names>P.</given-names>
+</name>
+</person-group>
+<year>2014</year>
+<conf-name>Proc. Astronomical Conf., Meteoroids 2013</conf-name>
+<person-group person-group-type="editor">
+<name>
+<surname>Jopek</surname>
+<given-names>T. J.</given-names>
+</name>
+<etal/>
+</person-group>
+<publisher-loc>Poznan</publisher-loc>
+<publisher-name>A. Mickiewicz Univ. Press</publisher-name>
+<fpage>217</fpage>
+<ext-link ext-link-type="bibcode">2014me13.conf..217R</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib49">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Rudawska</surname>
+<given-names>R.</given-names>
+</name>
+<name>
+<surname>Vaubaillon</surname>
+<given-names>J.</given-names>
+</name>
+</person-group>
+<year>2015</year>
+<source>P&amp;SS</source>
+<volume>118</volume>
+<fpage>25</fpage>
+<ext-link ext-link-type="bibcode">2015P&amp;SS..118...25R</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.pss.2015.04.014</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib50">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Rudawska</surname>
+<given-names>R.</given-names>
+</name>
+<name>
+<surname>Vaubaillon</surname>
+<given-names>J.</given-names>
+</name>
+<name>
+<surname>T&oacute;th</surname>
+<given-names>J.</given-names>
+</name>
+<name>
+<surname>Raetz</surname>
+<given-names>S.</given-names>
+</name>
+</person-group>
+<year>2016</year>
+<source>AAS/DPS Meeting</source>
+<volume>48</volume>
+<fpage>218.01</fpage>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib51">
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Ryabova</surname>
+<given-names>G. O.</given-names>
+</name>
+<name>
+<surname>Asher</surname>
+<given-names>D. J.</given-names>
+</name>
+<name>
+<surname>Campbell-Brown</surname>
+<given-names>M. J.</given-names>
+</name>
+</person-group>
+<year>2019</year>
+<source>Meteoroids: Sources of Meteors on Earth and Beyond</source>
+<publisher-loc>Cambridge</publisher-loc>
+<publisher-name>Cambridge Univ. Press</publisher-name>
+<ext-link ext-link-type="bibcode">2019msme.book.....R</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib52">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Schult</surname>
+<given-names>C.</given-names>
+</name>
+<name>
+<surname>Brown</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Pokorn&yacute;</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Stober</surname>
+<given-names>G.</given-names>
+</name>
+<name>
+<surname>Chau</surname>
+<given-names>J. L.</given-names>
+</name>
+</person-group>
+<year>2018</year>
+<source>Icar</source>
+<volume>309</volume>
+<fpage>177</fpage>
+<ext-link ext-link-type="bibcode">2018Icar..309..177S</ext-link>
+<pub-id pub-id-type="doi">10.1016/j.icarus.2018.02.032</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib53">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>&Scaron;egon</surname>
+<given-names>D.</given-names>
+</name>
+<name>
+<surname>Gural</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Andrei&cacute;</surname>
+<given-names>&Zcaron;.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2014a</year>
+<source>JIMO</source>
+<volume>42</volume>
+<fpage>57</fpage>
+<ext-link ext-link-type="bibcode">2014JIMO...42...57S</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib54">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>&Scaron;egon</surname>
+<given-names>D.</given-names>
+</name>
+<name>
+<surname>Andrei&cacute;</surname>
+<given-names>&Zcaron;.</given-names>
+</name>
+<name>
+<surname>Gural</surname>
+<given-names>P.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2014b</year>
+<source>JIMO</source>
+<volume>42</volume>
+<fpage>227</fpage>
+<ext-link ext-link-type="bibcode">2014JIMO...42..227S</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib55">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>&Scaron;egon</surname>
+<given-names>D.</given-names>
+</name>
+<name>
+<surname>Vaubaillon</surname>
+<given-names>J.</given-names>
+</name>
+<name>
+<surname>Gural</surname>
+<given-names>P. S.</given-names>
+</name>
+<etal/>
+</person-group>
+<year>2017</year>
+<source>A&amp;A</source>
+<volume>598</volume>
+<fpage>A15</fpage>
+<ext-link ext-link-type="bibcode">2017A&amp;A...598A..15S</ext-link>
+<pub-id pub-id-type="doi">10.1051/0004-6361/201629100</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib56">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<collab>SonotaCo</collab>
+</person-group>
+<year>2009</year>
+<source>JIMO</source>
+<volume>37</volume>
+<fpage>55</fpage>
+<ext-link ext-link-type="bibcode">2009JIMO...37...55S</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib57">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<collab>SonotaCo</collab>
+</person-group>
+<year>2016</year>
+<source>JIMO</source>
+<volume>44</volume>
+<fpage>42</fpage>
+<ext-link ext-link-type="bibcode">2016JIMO...44...42S</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib58">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Southworth</surname>
+<given-names>R. B.</given-names>
+</name>
+<name>
+<surname>Hawkins</surname>
+<given-names>G. S.</given-names>
+</name>
+</person-group>
+<year>1963</year>
+<source>SCoA</source>
+<volume>7</volume>
+<fpage>261</fpage>
+<ext-link ext-link-type="bibcode">1963SCoA....7..261S</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib59">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Tomko</surname>
+<given-names>D.</given-names>
+</name>
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+</person-group>
+<year>2016</year>
+<source>A&amp;A</source>
+<volume>592</volume>
+<fpage>A107</fpage>
+<ext-link ext-link-type="bibcode">2016A&amp;A...592A.107T</ext-link>
+<pub-id pub-id-type="doi">10.1051/0004-6361/201628404</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib60">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Tomko</surname>
+<given-names>D.</given-names>
+</name>
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+</person-group>
+<year>2019</year>
+<source>A&amp;A</source>
+<volume>623</volume>
+<fpage>A13</fpage>
+<ext-link ext-link-type="bibcode">2019A&amp;A...623A..13T</ext-link>
+<pub-id pub-id-type="doi">10.1051/0004-6361/201833868</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib61">
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Vaubaillon</surname>
+<given-names>J.</given-names>
+</name>
+<name>
+<surname>Neslu&scaron;an</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Sekhar</surname>
+<given-names>A.</given-names>
+</name>
+<name>
+<surname>Rudawska</surname>
+<given-names>R.</given-names>
+</name>
+<name>
+<surname>Ryabova</surname>
+<given-names>G. O.</given-names>
+</name>
+</person-group>
+<year>2019</year>
+<source>From Parent Body to Meteor Shower: The Dynamics of Meteoroid Streams</source>
+<person-group person-group-type="editor">
+<name>
+<surname>Ryabova</surname>
+<given-names>G. O.</given-names>
+</name>
+<name>
+<surname>Asher</surname>
+<given-names>D. J.</given-names>
+</name>
+<name>
+<surname>Campbell-Brown</surname>
+<given-names>M. J.</given-names>
+</name>
+</person-group>
+<publisher-loc>Cambridge</publisher-loc>
+<publisher-name>Cambridge Univ. Press</publisher-name>
+<fpage>161</fpage>
+<ext-link ext-link-type="bibcode">2019msme.book..161V</ext-link>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib68">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Younger</surname>
+<given-names>J. P.</given-names>
+</name>
+<name>
+<surname>Reid</surname>
+<given-names>I. M.</given-names>
+</name>
+<name>
+<surname>Vincent</surname>
+<given-names>R. A.</given-names>
+</name>
+<name>
+<surname>Holdsworth</surname>
+<given-names>D. A.</given-names>
+</name>
+<name>
+<surname>Murphy</surname>
+<given-names>D. J.</given-names>
+</name>
+</person-group>
+<year>2009</year>
+<source>MNRAS</source>
+<volume>398</volume>
+<fpage>350</fpage>
+<ext-link ext-link-type="bibcode">2009MNRAS.398..350Y</ext-link>
+<pub-id pub-id-type="doi">10.1111/j.1365-2966.2009.15142.x</pub-id>
+</element-citation>
+</ref>
+<ref id="ajabfdc9bib69">
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Younger</surname>
+<given-names>J. P.</given-names>
+</name>
+<name>
+<surname>Reid</surname>
+<given-names>I. M.</given-names>
+</name>
+<name>
+<surname>Vincent</surname>
+<given-names>R. A.</given-names>
+</name>
+<name>
+<surname>Murphy</surname>
+<given-names>D. J.</given-names>
+</name>
+</person-group>
+<year>2012</year>
+<source>MNRAS</source>
+<volume>425</volume>
+<fpage>1473</fpage>
+<ext-link ext-link-type="bibcode">2012MNRAS.425.1473Y</ext-link>
+<pub-id pub-id-type="doi">10.1111/j.1365-2966.2012.21632.x</pub-id>
+</element-citation>
+</ref>
+</ref-list>
+</back>
+</article>

@@ -76,8 +76,8 @@ class JATSParser(BaseBeautifulSoupParser):
 
         return newr
 
-    def resource_dict(self, input_data, **kwargs):
-        d = self.bsstrtodict(input_data, 'lxml-xml', **kwargs)
+    def resource_dict(self, input_data, parser='lxml-xml', **kwargs):
+        d = self.bsstrtodict(input_data, parser, **kwargs)
         r = d.article
         return r
 
