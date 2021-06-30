@@ -15,7 +15,7 @@ class AuthorInitial(object):
              instring = namedentities.unicode_entities(namestring)
              outstring = u2asc(instring)[0]
              if outstring.isalpha():
-                 return outstring
+                 return outstring.upper()
          except Exception as err:
              raise BadAuthorInitialException(err)
          else:
