@@ -97,11 +97,14 @@ class JATSContribs(object):
         new_aff = []
         emails = []
         for a in aff_list:
-            if self.regex_email.match(a.strip()):
-                emails.append(a.strip())
+            a = a.strip()
+            if self.regex_email.match(a):
+                emails.append(a)
             else:
-                if a.strip():
-                    new_aff.append(a.strip())
+                # check for empty strings with commas
+                checka = a.replace(',',' ')
+                if checka.replace(' ',''):
+                    new_aff.append(a)
 
         newaffstr = '; '.join(new_aff)
         return (newaffstr, emails)
