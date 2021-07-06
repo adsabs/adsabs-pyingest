@@ -200,12 +200,16 @@ try:
                 HEX_ENTITY = carr[2].lower()
                 DEC_ENTITY = carr[3].lower()
                 for c in NAME_ENTITY.strip().split():
-                    try:
+                    # preserve greek letters, convert all other high-bit chars
+                    eValue = int(DEC_ENTITY.lstrip('&#').rstrip(';'))
+                    if (eValue >= 913 and eValue <= 969) or (eValue >= 192 and eValue <= 382):
+                        ENTITY_DICTIONARY[UNI_ENTITY.strip()] = c.strip()
+                        ENTITY_DICTIONARY[HEX_ENTITY.strip()] = c.strip()
+                        ENTITY_DICTIONARY[DEC_ENTITY.strip()] = c.strip()
+                    else:
+                        ENTITY_DICTIONARY[UNI_ENTITY.strip()] = DEC_ENTITY.strip()
+                        ENTITY_DICTIONARY[HEX_ENTITY.strip()] = DEC_ENTITY.strip()
                         ENTITY_DICTIONARY[c.strip()] = DEC_ENTITY.strip()
-                    except Exception as e:
-                        print("Error splitting NAME_ENTITY: '%s'" % NAME_ENTITY)
-                ENTITY_DICTIONARY[UNI_ENTITY.strip()] = DEC_ENTITY.strip()
-                ENTITY_DICTIONARY[HEX_ENTITY.strip()] = DEC_ENTITY.strip()
             else:
                 print("broken HTML entity:", l.rstrip())
                 NAME_ENTITY = "xxxxx"
@@ -216,20 +220,33 @@ except Exception as e:
 # ADS-specific translations
 # have been added to html5.txt
 ENTITY_DICTIONARY['&sim;'] = "~"
+ENTITY_DICTIONARY['&#8764;'] = "~"
 ENTITY_DICTIONARY['&Tilde;'] = "~"
 ENTITY_DICTIONARY['&rsquo;'] = "'"
+ENTITY_DICTIONARY['&#8217;'] = "'"
 ENTITY_DICTIONARY['&lsquo;'] = "'"
+ENTITY_DICTIONARY['&#8216;'] = "'"
 ENTITY_DICTIONARY['&nbsp;'] = " "
 ENTITY_DICTIONARY['&mdash;'] = "-"
+ENTITY_DICTIONARY['&#8212;'] = "-"
 ENTITY_DICTIONARY['&ndash;'] = "-"
+ENTITY_DICTIONARY['&#8211;'] = "-"
 ENTITY_DICTIONARY['&rdquo;'] = '"'
+ENTITY_DICTIONARY['&#8221;'] = '"'
 ENTITY_DICTIONARY['&ldquo;'] = '"'
+ENTITY_DICTIONARY['&#8220;'] = '"'
 ENTITY_DICTIONARY['&minus;'] = "-"
+ENTITY_DICTIONARY['&#8722;'] = "-"
 ENTITY_DICTIONARY['&plus;'] = "+"
+ENTITY_DICTIONARY['&#43;'] = "+"
 ENTITY_DICTIONARY['&thinsp;'] = " "
+ENTITY_DICTIONARY['&#8201;'] = " "
 ENTITY_DICTIONARY['&hairsp;'] = " "
+ENTITY_DICTIONARY['&#8202;'] = " "
 ENTITY_DICTIONARY['&ensp;'] = " "
+ENTITY_DICTIONARY['&#8194;'] = " "
 ENTITY_DICTIONARY['&emsp;'] = " "
+ENTITY_DICTIONARY['&#8195;'] = " "
 
 
 # ProQuest harvester
