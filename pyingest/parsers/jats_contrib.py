@@ -28,9 +28,22 @@ class JATSContribs(object):
             # NOTE: using 'contents[0]' will strip out any markup in the object
             # surname = name.find('surname').contents[0]
             # given = name.find('given-names').contents[0]
-            surname = name.find('surname').text
-            given = name.find('given-names').text
-            ads_name = str(surname) + ', ' + str(given)
+            try:
+                surname = name.find('surname').text
+            except:
+                surname = ''
+            try:
+                given = name.find('given-names').text
+            except:
+                given = ''
+            if surname and given:
+                ads_name = str(surname) + ', ' + str(given)
+            elif surname:
+                ads_name = str(surname)
+            elif given:
+                ads_name = str(given)
+            else:
+                ads_name = None
             return ads_name
         except Exception as noop:
             # print('this is a problem, add logging/exception')
@@ -201,8 +214,9 @@ class JATSContribs(object):
                                           }
                     elif a['contrib-type'] == 'author':
                         if a.find('collab') is not None:
+                            collab = a.find('collab')
                             try:
-                                collab_name = collab.find('institution').text
+                                collab_name = collab.contents[0]
                             except Exception as noop:
                                 pass
                             else:
