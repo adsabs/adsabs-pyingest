@@ -187,37 +187,28 @@ class JATSContribs(object):
             try:
                 art_contrib_group = art_meta.find('contrib-group').extract()
             except Exception as noop:
-                print('If you see this, you have a problem...', noop)
+                # print('If you see this, you have a problem...', noop)
                 pass
             else:
                 contrib_raw = art_contrib_group.find_all('contrib')
 
                 for a in contrib_raw:
+                    try:
+                        subcontrib = a.find_all('contrib')
+                    except Exception as noop:
+                        pass
                     auth = {}
                     l_correspondent = False
 
                     # note: IOP, APS get affil data within each contrib block,
                     #       OUP, AIP, Springer, etc get them via xrefs.
-                    if a['contrib-type'] == 'collab':
-                        collab = a.find('collab')
-                        try:
-                            collab_name = collab.contents[0]
-                        except Exception as err:
-                            pass
-                        else:
-                            self.collab = {'name': collab_name, 
-                                           'aff': [],
-                                           'xaff': [],
-                                           'xemail': [],
-                                           'email': [],
-                                           'corresp': False
-                                          }
-                    elif a['contrib-type'] == 'author':
-                        if a.find('collab') is not None:
+                    try:
+                        if a['contrib-type'] == 'collab':
                             collab = a.find('collab')
                             try:
-                                collab_name = collab.contents[0]
-                            except Exception as noop:
+                                # collab_name = collab.contents[0]
+                                collab_name = collab.text
+                            except Exception as err:
                                 pass
                             else:
                                 self.collab = {'name': collab_name, 
@@ -227,116 +218,133 @@ class JATSContribs(object):
                                                'email': [],
                                                'corresp': False
                                               }
+                        elif a['contrib-type'] == 'author':
+                            if a.find('collab') is not None:
+                                collab = a.find('collab')
                                 try:
-                                    collab_affil = collab.find('address').text
+                                    collab_name = collab.contents[0]
                                 except Exception as noop:
                                     pass
                                 else:
-                                    self.collab['aff'] = collab_affil
-                        else:
-                            # corresponding author?
-                            try:
-                                if a['corresp'] == 'yes':
-                                    l_correspondent = True
-                            except Exception as noop:
-                                pass
-
-                            # get author's name...
-                            try:
-                                n1 = a.find('string-name')
-                                n1.name = 'name'
-                            except Exception as noop:
-                                pass
-                            name = self._name_to_ads(a.find('name').extract())
-
-                            # get named affiliations within the contrib block
-                            affs = a.find_all('aff')
-                            aff_text = []
-                            for i in affs:
-                                # special case: some pubs label affils with
-                                # <sup>label</sup>, strip them
-                                try:
-                                    # NOTE: institution-id is actually useful, but at
-                                    # at the moment, strip it
-                                    a = self._decompose(soup=a, tag='institution-id')
-                                    i = self._decompose(soup=i, tag='sup')
-                                except Exception as noop:
-                                    pass
-                                affstr = (i.get_text(separator=' ').strip())
-                                (affstr, email_list) = self._fix_affil(affstr)
-                                aff_text.append(affstr)
-                                i.decompose()
-
-                            # get xrefs...
-                            xrefs = a.find_all('xref')
-                            xref_aff = []
-                            xref_email = []
-                            for x in xrefs:
-                                try:
-                                    if x['ref-type'] == 'aff':
-                                        xref_aff.append(x['rid'])
-                                    elif x['ref-type'] == 'corresp':
-                                        xref_email.append(x['rid'])
-                                except Exception as noop:
-                                    pass
-                                x.decompose()
-
-                            # get orcid
-                            contrib_id = a.find_all('contrib-id')
-                            orcid = []
-                            for c in contrib_id:
-                                try:
-                                    if c['contrib-id-type'] == 'orcid':
-                                        orcid.append(c.get_text(separator=' ').strip())
-                                except Exception as noop:
-                                    pass
-                                c.decompose()
-
-                            # get email(s)...
-                            emails = []
-                            # first, add any emails found by stripping raw emails out of affil strings above...
-                            try:
-                                for e in email_list:
-                                    emails.append(e)
-                            except Exception as noop:
-                                pass
-                            else:
-                                email_list = []
-                            try:
-                                email = a.find_all('email')
-                                for e in email:
+                                    self.collab = {'name': collab_name, 
+                                                   'aff': [],
+                                                   'xaff': [],
+                                                   'xemail': [],
+                                                   'email': [],
+                                                   'corresp': False
+                                                  }
                                     try:
-                                        emails.append(e.get_text(separator=' ').strip())
+                                        collab_affil = collab.find('address').text
+                                    except Exception as noop:
+                                        pass
+                                    else:
+                                        self.collab['aff'] = collab_affil
+                            else:
+                                # corresponding author?
+                                try:
+                                    if a['corresp'] == 'yes':
+                                        l_correspondent = True
+                                except Exception as noop:
+                                    pass
+
+                                # get author's name...
+                                try:
+                                    n1 = a.find('string-name')
+                                    n1.name = 'name'
+                                except Exception as noop:
+                                    pass
+                                name = self._name_to_ads(a.find('name').extract())
+
+                                # get named affiliations within the contrib block
+                                affs = a.find_all('aff')
+                                aff_text = []
+                                for i in affs:
+                                    # special case: some pubs label affils with
+                                    # <sup>label</sup>, strip them
+                                    try:
+                                        # NOTE: institution-id is actually useful, but at
+                                        # at the moment, strip it
+                                        a = self._decompose(soup=a, tag='institution-id')
+                                        i = self._decompose(soup=i, tag='sup')
+                                    except Exception as noop:
+                                        pass
+                                    affstr = (i.get_text(separator=' ').strip())
+                                    (affstr, email_list) = self._fix_affil(affstr)
+                                    aff_text.append(affstr)
+                                    i.decompose()
+
+                                # get xrefs...
+                                xrefs = a.find_all('xref')
+                                xref_aff = []
+                                xref_email = []
+                                for x in xrefs:
+                                    try:
+                                        if x['ref-type'] == 'aff':
+                                            xref_aff.append(x['rid'])
+                                        elif x['ref-type'] == 'corresp':
+                                            xref_email.append(x['rid'])
+                                    except Exception as noop:
+                                        pass
+                                    x.decompose()
+
+                                # get orcid
+                                contrib_id = a.find_all('contrib-id')
+                                orcid = []
+                                for c in contrib_id:
+                                    try:
+                                        if c['contrib-id-type'] == 'orcid':
+                                            orcid.append(c.get_text(separator=' ').strip())
+                                    except Exception as noop:
+                                        pass
+                                    c.decompose()
+
+                                # get email(s)...
+                                emails = []
+                                # first, add any emails found by stripping raw emails out of affil strings above...
+                                try:
+                                    for e in email_list:
+                                        emails.append(e)
+                                except Exception as noop:
+                                    pass
+                                else:
+                                    email_list = []
+                                try:
+                                    email = a.find_all('email')
+                                    for e in email:
+                                        try:
+                                            emails.append(e.get_text(separator=' ').strip())
+                                        except Exception as noop:
+                                            pass
+                                        e.decompose()
+                                except Exception as noop:
+                                    pass
+
+                                # double-check for other things...
+                                extlinks = a.find_all('ext-link')
+                                for e in extlinks:
+                                    # orcid
+                                    try:
+                                        if e['ext-link-type'] == 'orcid':
+                                            orcid.append(e.get_text(separator=' ').strip())
                                     except Exception as noop:
                                         pass
                                     e.decompose()
-                            except Exception as noop:
-                                pass
+    
+                            # create the author dict
+                            auth.update(corresp=l_correspondent)
+                            auth.update(name=name)
+                            auth.update(aff=aff_text)
+                            auth.update(xaff=xref_aff, xemail=xref_email)
+                            auth.update(orcid=orcid)
+                            auth.update(email=emails)
+                            a.decompose()
+                            emails = None
+                            orcid = None
 
-                            # double-check for other things...
-                            extlinks = a.find_all('ext-link')
-                            for e in extlinks:
-                                # orcid
-                                try:
-                                    if e['ext-link-type'] == 'orcid':
-                                        orcid.append(e.get_text(separator=' ').strip())
-                                except Exception as noop:
-                                    pass
-                                e.decompose()
-
-                        # create the author dict
-                        auth.update(corresp=l_correspondent)
-                        auth.update(name=name)
-                        auth.update(aff=aff_text)
-                        auth.update(xaff=xref_aff, xemail=xref_email)
-                        auth.update(orcid=orcid)
-                        auth.update(email=emails)
-                        a.decompose()
-                        emails = None
-                        orcid = None
-
-                    # this is a list of author dicts
-                    self.auth_list.append(auth)
+                        # this is a list of author dicts
+                        self.auth_list.append(auth)
+                    except Exception as err:
+                        pass
                 if self.collab:
                     self.auth_list.append(self.collab)
 
