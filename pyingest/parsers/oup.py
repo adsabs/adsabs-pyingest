@@ -7,7 +7,6 @@ from pyingest.config.utils import u2asc
 from .jats import JATSParser
 from .author_init import AuthorInitial
 from pyingest.config.config import *
-from pyingest.parsers.entity_convert import EntityConverter
 
 
 class NoSchemaException(Exception):

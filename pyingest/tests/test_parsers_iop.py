@@ -62,9 +62,9 @@ class TestIOP(unittest.TestCase):
         # input_data = namedentities.unicode_entities(str(input_data))
         # input_data = bytes(input_data, encoding='utf-8')
         test_data = parser.parse(input_data)
-        output_title = 'Meteoroid Stream of Comet C/1961 T1 (Seki) and Its Relation to the December &#961;-Virginids and &#947;-Sagittariids'
-        output_authors = 'Neslu&#353;an, Lubo&#353;; Hajdukov&#225;, M&#225;ria'
-        output_affiliations = ['Astronomical Institute, Slovak Academy of Science, 05960 Tatransk&#225; Lomnica, Slovakia; <ID system="ORCID">0000-0001-9758-1144</ID> <EMAIL>ne@ta3.sk</EMAIL>', 'Astronomical Institute, Slovak Academy of Science, D&#250;bravsk&#225; cesta 9, 84504 Bratislava, Slovakia; <ID system="ORCID">0000-0002-7837-2627</ID>']
+        output_title = 'Meteoroid Stream of Comet C/1961 T1 (Seki) and Its Relation to the December &rgr;-Virginids and &gamma;-Sagittariids'
+        output_authors = 'Neslu&scaron;an, Lubo&scaron;; Hajdukov&aacute;, M&aacute;ria'
+        output_affiliations = ['Astronomical Institute, Slovak Academy of Science, 05960 Tatransk&aacute; Lomnica, Slovakia; <ID system="ORCID">0000-0001-9758-1144</ID> <EMAIL>ne@ta3.sk</EMAIL>', 'Astronomical Institute, Slovak Academy of Science, D&uacute;bravsk&aacute; cesta 9, 84504 Bratislava, Slovakia; <ID system="ORCID">0000-0002-7837-2627</ID>']
         self.assertEqual(test_data['title'], output_title)
         self.assertEqual(test_data['authors'], output_authors)
         self.assertEqual(test_data['affiliations'], output_affiliations)
