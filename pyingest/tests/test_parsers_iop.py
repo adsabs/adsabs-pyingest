@@ -59,8 +59,6 @@ class TestIOP(unittest.TestCase):
         parser = iop.IOPJATSParser()
         with open(test_infile, open_mode_u) as fp:
             input_data = fp.read()
-        # input_data = namedentities.unicode_entities(str(input_data))
-        # input_data = bytes(input_data, encoding='utf-8')
         test_data = parser.parse(input_data)
         output_title = 'Meteoroid Stream of Comet C/1961 T1 (Seki) and Its Relation to the December &rgr;-Virginids and &gamma;-Sagittariids'
         output_authors = 'Neslu&scaron;an, Lubo&scaron;; Hajdukov&aacute;, M&aacute;ria'
@@ -68,4 +66,15 @@ class TestIOP(unittest.TestCase):
         self.assertEqual(test_data['title'], output_title)
         self.assertEqual(test_data['authors'], output_authors)
         self.assertEqual(test_data['affiliations'], output_affiliations)
+        return
+
+    # Test 15b
+    def test_iop_issueletter(self):
+        test_infile = os.path.join(self.inputdir, 'iop_ansnn_issueletter.xml')
+        parser = iop.IOPJATSParser()
+        with open(test_infile, open_mode_u) as fp:
+            input_data = fp.read()
+        test_data = parser.parse(input_data)
+        output_bibcode = '2021ANSNN..12b5001V'
+        self.assertEqual(test_data['bibcode'], output_bibcode)
         return

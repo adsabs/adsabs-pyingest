@@ -1,0 +1,1017 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" "http://ej.iop.org/dtd/nlm-3.0/journalpublishing3.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+<front>
+<journal-meta>
+<journal-id journal-id-type="publisher-id">ansn</journal-id>
+<journal-id journal-id-type="coden">ANSNCK</journal-id>
+<journal-title-group>
+<journal-title>Advances in Natural Sciences: Nanoscience and Nanotechnology</journal-title>
+<abbrev-journal-title abbrev-type="IOP">ANSN</abbrev-journal-title>
+<abbrev-journal-title abbrev-type="publisher">Adv. Nat. Sci.: Nanosci. Nanotechnol.</abbrev-journal-title>
+</journal-title-group>
+<issn pub-type="ppub">2043-6262</issn>
+<issn pub-type="epub">2043-6262</issn>
+<publisher>
+<publisher-name>IOP Publishing</publisher-name>
+</publisher>
+<notes notes-type="publishing-partner">
+<p>Vietnam Academy of Science and Technology</p>
+</notes>
+</journal-meta>
+<article-meta>
+<article-id pub-id-type="publisher-id">ansnabfa8e</article-id>
+<article-id pub-id-type="doi">10.1088/2043-6262/abfa8e</article-id>
+<article-id pub-id-type="manuscript">abfa8e</article-id>
+<article-id pub-id-type="other">ANSN-1225005</article-id>
+<article-categories>
+<subj-group subj-group-type="article-type">
+<subject>Paper</subject>
+</subj-group>
+</article-categories>
+<title-group>
+<article-title>Highly porous nanocomposite of NiMoS<sub>4</sub> nanosheets and reduced graphene oxide for energy storage application</article-title>
+<alt-title alt-title-type="ascii">Highly porous nanocomposite of NiMoS<sub>4</sub> nanosheets and reduced graphene oxide for energy storage application</alt-title>
+</title-group>
+<contrib-group content-type="all">
+<contrib contrib-type="author" corresp="yes">
+<name>
+<surname>Van Hoa</surname>
+<given-names>Nguyen</given-names>
+</name>
+<xref ref-type="aff" rid="ansnabfa8eaf1">1</xref>
+<xref ref-type="aff" rid="ansnabfa8eaf2">2</xref>
+<xref ref-type="aff" rid="ansnabfa8eem1"/>
+<email>hoadhnt@gmail.com</email>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Dat</surname>
+<given-names>Pham Anh</given-names>
+</name>
+<xref ref-type="aff" rid="ansnabfa8eaf1">1</xref>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Ngoc Le</surname>
+<given-names>Tran</given-names>
+</name>
+<xref ref-type="aff" rid="ansnabfa8eaf2">2</xref>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Minh</surname>
+<given-names>Nguyen Cong</given-names>
+</name>
+<xref ref-type="aff" rid="ansnabfa8eaf3">3</xref>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Van Tang</surname>
+<given-names>Nguyen</given-names>
+</name>
+<xref ref-type="aff" rid="ansnabfa8eaf1">1</xref>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Thi Nga</surname>
+<given-names>Dao</given-names>
+</name>
+<xref ref-type="aff" rid="ansnabfa8eaf2">2</xref>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Ngoc</surname>
+<given-names>Tran Quang</given-names>
+</name>
+<xref ref-type="aff" rid="ansnabfa8eaf1">1</xref>
+</contrib>
+<aff id="ansnabfa8eaf1">
+<label>1</label>Faculty of Food Technology, <institution>Nha Trang University</institution>, 2 Nguyen Dinh Chieu, Nha Trang, <country>Vietnam</country>
+</aff>
+<aff id="ansnabfa8eaf2">
+<label>2</label>Center for Experiments and Practices, <institution>Nha Trang University</institution>, 2 Nguyen Dinh Chieu, Nha Trang, <country>Vietnam</country>
+</aff>
+<aff id="ansnabfa8eaf3">
+<label>3</label>Institute of Biotechnology and Environment, <institution>Nha Trang University</institution>, 2 Nguyen Dinh Chieu, Nha Trang, <country>Vietnam</country>
+</aff>
+<ext-link id="ansnabfa8eem1" ext-link-type="email">hoanv@ntu.edu.vn</ext-link>
+<author-comment content-type="short-author-list">
+<p>N Van Hoa <italic>et al</italic></p>
+</author-comment>
+</contrib-group>
+<pub-date pub-type="ppub">
+<month>6</month>
+<year>2021</year>
+</pub-date>
+<pub-date pub-type="epub">
+<day>30</day>
+<month>04</month>
+<year>2021</year>
+</pub-date>
+<volume>12</volume>
+<issue>2</issue>
+<elocation-id content-type="artnum">025001</elocation-id>
+<history>
+<date date-type="received">
+<day>21</day>
+<month>01</month>
+<year>2021</year>
+</date>
+<date date-type="accepted">
+<day>17</day>
+<month>03</month>
+<year>2021</year>
+</date>
+</history>
+<permissions>
+<copyright-statement>&copy; 2021 Vietnam Academy of Science &amp; Technology</copyright-statement>
+<copyright-year>2021</copyright-year>
+</permissions>
+<self-uri xlink:href="http://stacks.iop.org/ANSN/12/025001"/>
+<abstract>
+<title>Abstract</title>
+<p>This study presents a high porous nanocomposite composed of reduced graphene oxide and NiMoS<sub>4</sub> (RGO/NiMoS<sub>4</sub>) for supercapacitor electrode materials. The different morphologies of NiMoS<sub>4</sub> growth on RGO sheets were obtained via a facile one-step microwave-assisted method. The obtained material comprised NiMoS<sub>4</sub> nanoneedles of several nanometers in diameter, which are well attached to the surface of RGO nanosheets. The RGO/NiMoS<sub>4</sub> nanocomposite had a mesoporous structure, high specific surface area, and high electric conductivity. These excellent characteristics yield a fast electron and ion transport, and a large number of electroactive sites. The RGO/NiMoS<sub>4</sub> composite delivered a specific capacitance of 1273 F g<sup>&minus;1</sup> at a current density of 1.0 A g<sup>&minus;1</sup>, high-rate capability of 71.3&percnt; retention from 1 to 6.5 A g<sup>&minus;1</sup>. Besides, an asymmetric supercapacitor device had a capacitance of 80 F g<sup>&minus;1</sup> at a current density of 1.0 A g<sup>&minus;1</sup> and an energy density of 82.5 Wh kg<sup>&minus;1</sup> at a power density of 1000 W kg<sup>&minus;1</sup> with an operating voltage of 1.6 V. Thus, the current RGO/NiMoS<sub>4</sub> nanocomposite has a great potential for energy storage application.</p>
+</abstract>
+<kwd-group kwd-group-type="author">
+<kwd>supercapacitor</kwd>
+<kwd>graphene</kwd>
+<kwd>molybdate sulfide</kwd>
+<kwd>Nickel sulfide</kwd>
+</kwd-group>
+<kwd-group>
+<kwd>Classification numbers: 2.00, 2.04, 4.00, 5.11, 515</kwd>
+</kwd-group>
+<counts>
+<page-count count="8"/>
+</counts>
+<custom-meta-group>
+<custom-meta>
+<meta-name>ccc</meta-name>
+<meta-value>2043-6254/21/025001&plus;8&dollar;33.00</meta-value>
+</custom-meta>
+<custom-meta>
+<meta-name>crossmark</meta-name>
+<meta-value>yes</meta-value>
+</custom-meta>
+</custom-meta-group>
+</article-meta>
+</front>
+<body>
+[deleted]
+</body>
+<back>
+<ack>
+<title>Acknowledgments</title>
+<p>This research was funded by the Vietnam National Foundation for Science and Technology Development (NAFOSTED) under grant number 103.99-2018.310.</p>
+</ack>
+<ref-list content-type="numerical">
+<title>References</title>
+<ref id="ansnabfa8ebib1">
+<label>1</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Kumar</surname>
+<given-names>S</given-names>
+</name>
+<name>
+<surname>Saeed</surname>
+<given-names>G</given-names>
+</name>
+<name>
+<surname>Zhu</surname>
+<given-names>L</given-names>
+</name>
+<name>
+<surname>Hui</surname>
+<given-names>K N</given-names>
+</name>
+<name>
+<surname>Kim</surname>
+<given-names>N H</given-names>
+</name>
+<name>
+<surname>Lee</surname>
+<given-names>J H</given-names>
+</name>
+</person-group>
+<year>2021</year>
+<source>Chem. Eng. J.</source>
+<volume>403</volume>
+<elocation-id content-type="artnum">115352</elocation-id>
+<pub-id pub-id-type="doi">10.1016/j.cej.2020.126352</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib2">
+<label>2</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Nandi</surname>
+<given-names>D</given-names>
+</name>
+<name>
+<surname>Mohan</surname>
+<given-names>V B</given-names>
+</name>
+<name>
+<surname>Bhowmick</surname>
+<given-names>A K</given-names>
+</name>
+<name>
+<surname>Anil</surname>
+<given-names>K B</given-names>
+</name>
+<name>
+<surname>Debes</surname>
+<given-names>B</given-names>
+</name>
+</person-group>
+<year>2020</year>
+<source>J. Mater. Sci.</source>
+<volume>55</volume>
+<fpage>6375</fpage>
+<pub-id pub-id-type="doi">10.1007/s10853-020-04475-z</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib3">
+<label>3</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Bello</surname>
+<given-names>I T</given-names>
+</name>
+<name>
+<surname>Oladipo</surname>
+<given-names>A O</given-names>
+</name>
+<name>
+<surname>Adedokun</surname>
+<given-names>O</given-names>
+</name>
+<name>
+<surname>Dhlamini</surname>
+<given-names>S M</given-names>
+</name>
+</person-group>
+<year>2020</year>
+<source>Mater. Today Commun.</source>
+<volume>25</volume>
+<elocation-id content-type="artnum">101664</elocation-id>
+<pub-id pub-id-type="doi">10.1016/j.mtcomm.2020.101664</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib4">
+<label>4</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Ngo</surname>
+<given-names>L T</given-names>
+</name>
+<name>
+<surname>Tran</surname>
+<given-names>T P</given-names>
+</name>
+<name>
+<surname>Ngo</surname>
+<given-names>V K T</given-names>
+</name>
+<name>
+<surname>Do</surname>
+<given-names>H Q</given-names>
+</name>
+</person-group>
+<year>2019</year>
+<source>Adv. Nat. Sci: Nanosci. Nanotechnol.</source>
+<volume>10</volume>
+<elocation-id content-type="artnum">025004</elocation-id>
+<pub-id pub-id-type="doi">10.1088/2043-6254/ab1b77</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib5">
+<label>5</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Ahmed</surname>
+<given-names>A</given-names>
+</name>
+<name>
+<surname>Rafat</surname>
+<given-names>M</given-names>
+</name>
+<name>
+<surname>Ahmed</surname>
+<given-names>S</given-names>
+</name>
+</person-group>
+<year>2020</year>
+<source>Adv. Nat. Sci: Nanosci. Nanotechnol.</source>
+<volume>11</volume>
+<elocation-id content-type="artnum">035013</elocation-id>
+<pub-id pub-id-type="doi">10.1088/2043-6254/aba1dc</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib6">
+<label>6</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Godlaveeti</surname>
+<given-names>S K</given-names>
+</name>
+<name>
+<surname>Maseed</surname>
+<given-names>H</given-names>
+</name>
+<name>
+<surname>Reddy</surname>
+<given-names>S A</given-names>
+</name>
+<name>
+<surname>Nagireddy</surname>
+<given-names>R R</given-names>
+</name>
+</person-group>
+<year>2020</year>
+<source>Adv. Nat. Sci: Nanosci. Nanotechnol.</source>
+<volume>11</volume>
+<elocation-id content-type="artnum">025021</elocation-id>
+<pub-id pub-id-type="doi">10.1088/2043-6254/ab8bde</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib7">
+<label>7</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Wei</surname>
+<given-names>M</given-names>
+</name>
+<name>
+<surname>Wu</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Yao</surname>
+<given-names>Y</given-names>
+</name>
+<name>
+<surname>Yu</surname>
+<given-names>S</given-names>
+</name>
+<name>
+<surname>Sun</surname>
+<given-names>R</given-names>
+</name>
+<name>
+<surname>Wong</surname>
+<given-names>C</given-names>
+</name>
+</person-group>
+<year>2019</year>
+<source>ACS Sustainable Chem. Eng.</source>
+<volume>7</volume>
+<fpage>19779</fpage>
+<elocation-id content-type="artnum"/>
+<pub-id pub-id-type="doi">10.1021/acssuschemeng.9b04582</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib8">
+<label>8</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Du</surname>
+<given-names>D</given-names>
+</name>
+<name>
+<surname>Lan</surname>
+<given-names>R</given-names>
+</name>
+<name>
+<surname>Humphreys</surname>
+<given-names>J</given-names>
+</name>
+<name>
+<surname>Xu</surname>
+<given-names>W</given-names>
+</name>
+<name>
+<surname>Xie</surname>
+<given-names>K</given-names>
+</name>
+<name>
+<surname>Wang</surname>
+<given-names>H</given-names>
+</name>
+<name>
+<surname>Tao</surname>
+<given-names>S</given-names>
+</name>
+</person-group>
+<year>2017</year>
+<source>J. Electrochem. Soc.</source>
+<volume>164</volume>
+<fpage>A2881</fpage>
+<pub-id pub-id-type="doi">10.1149/2.0071713jes</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib9">
+<label>9</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Liu</surname>
+<given-names>Z</given-names>
+</name>
+<name>
+<surname>Pan</surname>
+<given-names>C</given-names>
+</name>
+<name>
+<surname>Li</surname>
+<given-names>W</given-names>
+</name>
+<name>
+<surname>Wei</surname>
+<given-names>S</given-names>
+</name>
+<name>
+<surname>Zhang</surname>
+<given-names>M</given-names>
+</name>
+<name>
+<surname>Chen</surname>
+<given-names>S</given-names>
+</name>
+</person-group>
+<year>2020</year>
+<source>Electrochim. Acta</source>
+<volume>338</volume>
+<elocation-id content-type="artnum">135897</elocation-id>
+<pub-id pub-id-type="doi">10.1016/j.electacta.2020.135897</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib10">
+<label>10</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Xu</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Liang</surname>
+<given-names>L</given-names>
+</name>
+<name>
+<surname>Zhang</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Xing</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Zhao</surname>
+<given-names>Y</given-names>
+</name>
+<name>
+<surname>Gao</surname>
+<given-names>J</given-names>
+</name>
+<name>
+<surname>Weid</surname>
+<given-names>A</given-names>
+</name>
+</person-group>
+<year>2020</year>
+<source>Colloids Surf. A</source>
+<volume>586</volume>
+<elocation-id content-type="artnum">124289</elocation-id>
+<pub-id pub-id-type="doi">10.1016/j.colsurfa.2019.124289</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib11">
+<label>11</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Gao</surname>
+<given-names>M J</given-names>
+</name>
+<name>
+<surname>Le</surname>
+<given-names>K</given-names>
+</name>
+<name>
+<surname>Xu</surname>
+<given-names>D M</given-names>
+</name>
+<name>
+<surname>Wang</surname>
+<given-names>Z</given-names>
+</name>
+<name>
+<surname>Wang</surname>
+<given-names>F L</given-names>
+</name>
+<name>
+<surname>Liu</surname>
+<given-names>W</given-names>
+</name>
+<name>
+<surname>Yu</surname>
+<given-names>H J</given-names>
+</name>
+<name>
+<surname>Liu</surname>
+<given-names>J R</given-names>
+</name>
+<name>
+<surname>Chen</surname>
+<given-names>C Z</given-names>
+</name>
+</person-group>
+<year>2019</year>
+<source>J. Alloys. Compd.</source>
+<volume>804</volume>
+<fpage>27</fpage>
+<pub-id pub-id-type="doi">10.1016/j.jallcom.2019.07.009</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib12">
+<label>12</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Marcano</surname>
+<given-names>C</given-names>
+</name>
+<name>
+<surname>Kosynkin</surname>
+<given-names>D V</given-names>
+</name>
+<name>
+<surname>Berlin</surname>
+<given-names>J M</given-names>
+</name>
+<name>
+<surname>Sinitskii</surname>
+<given-names>A</given-names>
+</name>
+<name>
+<surname>Sun</surname>
+<given-names>Z</given-names>
+</name>
+<name>
+<surname>Slesarev</surname>
+<given-names>A</given-names>
+</name>
+<name>
+<surname>Alemany</surname>
+<given-names>L B</given-names>
+</name>
+<name>
+<surname>Lu</surname>
+<given-names>W</given-names>
+</name>
+<name>
+<surname>Tour</surname>
+<given-names>J M</given-names>
+</name>
+</person-group>
+<year>2010</year>
+<source>ACS Nano</source>
+<volume>4</volume>
+<fpage>4806</fpage>
+<pub-id pub-id-type="doi">10.1021/nn1006368</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib13">
+<label>13</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Huang</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Gou</surname>
+<given-names>L</given-names>
+</name>
+</person-group>
+<year>2020</year>
+<source>Nanotechnology</source>
+<volume>31</volume>
+<elocation-id content-type="artnum">185602</elocation-id>
+<pub-id pub-id-type="doi">10.1088/1361-6528/ab6d9a</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib14">
+<label>14</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Li</surname>
+<given-names>J</given-names>
+</name>
+<name>
+<surname>Zhao</surname>
+<given-names>J</given-names>
+</name>
+<name>
+<surname>Qin</surname>
+<given-names>L</given-names>
+</name>
+<name>
+<surname>Zhang</surname>
+<given-names>Q</given-names>
+</name>
+<name>
+<surname>Tang</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Xu</surname>
+<given-names>Y</given-names>
+</name>
+</person-group>
+<year>2020</year>
+<source>RSC Adv.</source>
+<volume>10</volume>
+<elocation-id content-type="artnum">22606</elocation-id>
+<pub-id pub-id-type="doi">10.1039/D0RA03253K</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib15">
+<label>15</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Lai</surname>
+<given-names>F</given-names>
+</name>
+<name>
+<surname>Huang</surname>
+<given-names>Y</given-names>
+</name>
+<name>
+<surname>Miao</surname>
+<given-names>Y E</given-names>
+</name>
+<name>
+<surname>Liu</surname>
+<given-names>T</given-names>
+</name>
+</person-group>
+<year>2015</year>
+<source>Electrochim. Acta</source>
+<volume>174</volume>
+<fpage>456</fpage>
+<pub-id pub-id-type="doi">10.1016/j.electacta.2015.06.031</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib16">
+<label>16</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Cao</surname>
+<given-names>Y</given-names>
+</name>
+<name>
+<surname>An</surname>
+<given-names>L</given-names>
+</name>
+<name>
+<surname>Liao</surname>
+<given-names>L</given-names>
+</name>
+<name>
+<surname>Liu</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Ji</surname>
+<given-names>T</given-names>
+</name>
+<name>
+<surname>Zou</surname>
+<given-names>R</given-names>
+</name>
+<name>
+<surname>Yang</surname>
+<given-names>J</given-names>
+</name>
+<name>
+<surname>Qin</surname>
+<given-names>Z</given-names>
+</name>
+<name>
+<surname>Hu</surname>
+<given-names>J</given-names>
+</name>
+</person-group>
+<year>2016</year>
+<source>RSC Adv.</source>
+<volume>6</volume>
+<fpage>3020</fpage>
+<pub-id pub-id-type="doi">10.1039/C5RA21953A</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib17">
+<label>17</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Wu</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Fan</surname>
+<given-names>Z</given-names>
+</name>
+<name>
+<surname>Ling</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Wu</surname>
+<given-names>S</given-names>
+</name>
+<name>
+<surname>Chen</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Hu</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Zhuang</surname>
+<given-names>N</given-names>
+</name>
+<name>
+<surname>Chen</surname>
+<given-names>J</given-names>
+</name>
+</person-group>
+<year>2018</year>
+<source>J. Nanopart. Res.</source>
+<volume>20</volume>
+<fpage>156</fpage>
+<pub-id pub-id-type="doi">10.1007/s11051-018-4205-7</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib18">
+<label>18</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Bai</surname>
+<given-names>S</given-names>
+</name>
+<name>
+<surname>Chen</surname>
+<given-names>C</given-names>
+</name>
+<name>
+<surname>Luo</surname>
+<given-names>R</given-names>
+</name>
+<name>
+<surname>Chen</surname>
+<given-names>A</given-names>
+</name>
+<name>
+<surname>Li</surname>
+<given-names>D</given-names>
+</name>
+</person-group>
+<year>2015</year>
+<source>Sens. Actuators B Chem.</source>
+<volume>216</volume>
+<fpage>113</fpage>
+<pub-id pub-id-type="doi">10.1016/j.snb.2015.04.036</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib19">
+<label>19</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>He</surname>
+<given-names>B</given-names>
+</name>
+<name>
+<surname>Zhou</surname>
+<given-names>M</given-names>
+</name>
+<name>
+<surname>Hou</surname>
+<given-names>Z</given-names>
+</name>
+<name>
+<surname>Li</surname>
+<given-names>G</given-names>
+</name>
+<name>
+<surname>Kuang</surname>
+<given-names>Y</given-names>
+</name>
+</person-group>
+<year>2018</year>
+<source>J. Mater. Res.</source>
+<volume>33</volume>
+<fpage>519</fpage>
+<pub-id pub-id-type="doi">10.1557/jmr.2017.270</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib20">
+<label>20</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Zhao</surname>
+<given-names>C</given-names>
+</name>
+<name>
+<surname>Zhang</surname>
+<given-names>Y</given-names>
+</name>
+<name>
+<surname>Qian</surname>
+<given-names>X</given-names>
+</name>
+</person-group>
+<year>2016</year>
+<source>Electrochim. Acta</source>
+<volume>198</volume>
+<fpage>135</fpage>
+<pub-id pub-id-type="doi">10.1016/j.electacta.2016.03.058</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib21">
+<label>21</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Mai</surname>
+<given-names>L Q</given-names>
+</name>
+<name>
+<surname>Yang</surname>
+<given-names>F</given-names>
+</name>
+<name>
+<surname>Zhao</surname>
+<given-names>Y L</given-names>
+</name>
+<name>
+<surname>Xu</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Xu</surname>
+<given-names>L</given-names>
+</name>
+<name>
+<surname>Luo</surname>
+<given-names>Y Z</given-names>
+</name>
+</person-group>
+<year>2011</year>
+<source>Nature Commun.</source>
+<volume>2</volume>
+<fpage>381</fpage>
+<pub-id pub-id-type="doi">10.1038/ncomms1387</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib22">
+<label>22</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Yang</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Sun</surname>
+<given-names>H</given-names>
+</name>
+<name>
+<surname>Zan</surname>
+<given-names>P</given-names>
+</name>
+<name>
+<surname>Zhao</surname>
+<given-names>L</given-names>
+</name>
+<name>
+<surname>Lian</surname>
+<given-names>J</given-names>
+</name>
+</person-group>
+<year>2016</year>
+<source>J. Mater. Chem. A</source>
+<volume>4</volume>
+<elocation-id content-type="artnum">18857</elocation-id>
+<pub-id pub-id-type="doi">10.1039/C6TA07898B</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib23">
+<label>23</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Xu</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Song</surname>
+<given-names>Y</given-names>
+</name>
+<name>
+<surname>Xue</surname>
+<given-names>R</given-names>
+</name>
+<name>
+<surname>Zhou</surname>
+<given-names>J</given-names>
+</name>
+<name>
+<surname>Gao</surname>
+<given-names>J</given-names>
+</name>
+<name>
+<surname>Xing</surname>
+<given-names>F</given-names>
+</name>
+</person-group>
+<year>2016</year>
+<source>Chem. Eng. J.</source>
+<volume>301</volume>
+<fpage>266</fpage>
+<pub-id pub-id-type="doi">10.1016/j.cej.2016.05.033</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib24">
+<label>24</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Han</surname>
+<given-names>X</given-names>
+</name>
+<name>
+<surname>Tao</surname>
+<given-names>K</given-names>
+</name>
+<name>
+<surname>Wang</surname>
+<given-names>D</given-names>
+</name>
+<name>
+<surname>Han</surname>
+<given-names>L</given-names>
+</name>
+</person-group>
+<year>2018</year>
+<source>Nanoscale</source>
+<volume>10</volume>
+<fpage>2735</fpage>
+<pub-id pub-id-type="doi">10.1039/C7NR07931A</pub-id>
+</element-citation>
+</ref>
+<ref id="ansnabfa8ebib25">
+<label>25</label>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Hoa</surname>
+<given-names>N V</given-names>
+</name>
+<name>
+<surname>Dat</surname>
+<given-names>P A</given-names>
+</name>
+<name>
+<surname>Nghia</surname>
+<given-names>N H</given-names>
+</name>
+</person-group>
+<year>2021</year>
+<source>J. Mater. Sci.</source>
+<volume>56</volume>
+<fpage>5132</fpage>
+<pub-id pub-id-type="doi">10.1007/s10853-020-05591-6</pub-id>
+</element-citation>
+</ref>
+</ref-list>
+</back>
+</article>
