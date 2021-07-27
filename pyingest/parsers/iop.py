@@ -124,11 +124,8 @@ class IOPJATSParser(JATSParser):
                 bibstem = u'ApJ..'
                 issue_letter = u'L'
                 idno = idno.replace('L', '.')
-
-            if bibstem in IOP_SPECIAL_ID_HANDLING:
-                bib_tail = idno + author_init
-            else:
-                bib_tail = issue_letter + idno + author_init
+                
+            bib_tail = issue_letter + idno + author_init
             while len(bib_tail) > 6:
                 if bib_tail[0] == '.':
                     bib_tail = bib_tail[1:]

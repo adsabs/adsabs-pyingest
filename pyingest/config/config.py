@@ -78,7 +78,6 @@ IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical Soci
 
 # IOP_SPECIAL_ID_HANDLING = ['PASP.','QuEle','JGE..','PhyU.','IzMat','SbMat',
 #                            'RuMaS','RuCRv','EL...','Nonli','JRP..']
-IOP_SPECIAL_ID_HANDLING = ['PASP.']
 
 OUP_PUBLISHER_IDS = {'mnras': u'MNRAS', 'mnrasl': u'MNRAS',
                      'pasj': u'PASJ', 'ptep': u'PTEP', 'gji': u'GeoJI'}
