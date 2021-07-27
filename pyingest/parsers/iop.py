@@ -104,8 +104,9 @@ class IOPJATSParser(JATSParser):
             else:
                 if len(idno) == 6:
                     try:
-                        idtwo = string.letters[int(idno[0:2]) - 1]
+                        idtwo = string.ascii_letters[int(idno[0:2]) - 1]
                     except Exception as err:
+                        print('warning while creating volume/issue for bibcode:',err)
                         idtwo = idno[0:2]
                     idfour = idno[2:]
                     issue_letter = ''
