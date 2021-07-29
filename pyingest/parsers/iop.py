@@ -94,7 +94,10 @@ class IOPJATSParser(JATSParser):
         else:
             year = output_metadata['pubdate'][-4:]
             bibstem = j_bibstem.ljust(5, '.')
-            volume = output_metadata['volume'].rjust(4, '.')
+            if bibstem == u'JCAP.':
+                volume = output_metadata['issue'].rjust(4, '.')
+            else:
+                volume = output_metadata['volume'].rjust(4, '.')
             # RNAAS used to have a month-letter in column 14, but it was
             # deprecated September 2019 by CSG
             issue_letter = '.'
