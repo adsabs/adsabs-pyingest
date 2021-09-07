@@ -62,7 +62,7 @@ class Tagged(object):
     def write(cls, record, fp=sys.stdout):
         for field in cls.fieldDict:
             content = record.get(field)
-            if field is 'bibcode' and content is None:
+            if field == 'bibcode' and content == None:
                 continue
             elif not content:
                 continue
