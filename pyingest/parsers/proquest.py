@@ -88,8 +88,13 @@ class ProQuestParser(DefaultParser):
                 record = next(reader)
 
                 # ProQuest ID (001)
-                proqid = record['001'].value()
-                pubnr = proqid.replace('AAI', '')
+                try:
+                    proqid = record['001'].value()
+                except Exception as err:
+                    print('unable to get proquest id! %s ' % err)
+                else:
+                    print('I am processing ProQuest ID# %s' % proqid)
+                    pubnr = proqid.replace('AAI', '')
 
                 # MARC 2.1 fixed length data elements (005)
                 flde = record['005'].value()
@@ -209,12 +214,30 @@ class ProQuestParser(DefaultParser):
                     url = url_base % pubnr
                 properties['ELECTR'] = url
 
-                output_metadata['source'] = datasource
-                output_metadata['authors'] = author
-                output_metadata['affiliations'] = [affil]
-                output_metadata['title'] = title
-                output_metadata['abstract'] = abstract
-                output_metadata['publication'] = '; '.join(jfield)
+                try:
+                    output_metadata['source'] = datasource
+                except:
+                    print('datasource missing')
+                try:
+                    output_metadata['authors'] = author
+                except:
+                    print('author missing')
+                try:
+                    output_metadata['affiliations'] = [affil]
+                except:
+                    print('affil missing')
+                try:
+                    output_metadata['title'] = title
+                except:
+                    print('title missing')
+                try:
+                    output_metadata['abstract'] = abstract
+                except:
+                    print('abstract missing')
+                try:
+                    output_metadata['publication'] = '; '.join(jfield)
+                except:
+                    print('jfield missing')
                 if pubdate:
                     output_metadata['pubdate'] = "%s" % pubdate
                 if databases:
@@ -233,6 +256,7 @@ class ProQuestParser(DefaultParser):
             except Exception as err:
                 print("Record skipped, MARC parsing failed: %s" % err)
             else:
+                print("Record processed successfully.")
                 self.results.append(output_metadata)
 
         return
