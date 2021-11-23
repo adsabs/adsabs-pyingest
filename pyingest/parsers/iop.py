@@ -48,6 +48,36 @@ class IOPJATSParser(JATSParser):
                     db.append('AST')
                     return db
         return db
+    
+    def dbfrombs(self, bs):
+        db = []
+        try:
+            bibs = IOP_PUBLISHER_IDS[bs]
+        except KeyError:
+            return 'XSTEM'
+        else:
+            if bibs == 'apj':
+                db.append('AST')
+            elif bibs == 'apjl':
+                db.append('AST')
+            elif bibs == 'apjs':
+                db.append('AST')
+            elif bibs == 'aj':
+                db.append('AST')
+            elif bibs == 'jcap':
+                db.append('AST')
+            elif bibs == 'psj':
+                db.append('AST')
+            elif bibs == 'raa':
+                db.append('AST')
+            elif bibs == 'rnaas':
+                db.append('AST')
+            elif bibs == 'pasp':
+                db.append('AST')
+            else:
+                db.append('PHY')
+        return db
+
 
     def parse(self, input_data, **kwargs):
         output_metadata = super(self.__class__, self).parse(input_data, **kwargs)
