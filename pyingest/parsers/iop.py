@@ -124,7 +124,7 @@ class IOPJATSParser(JATSParser):
         else:
             year = output_metadata['pubdate'][-4:]
             bibstem = j_bibstem.ljust(5, '.')
-            if bibstem == u'JCAP':
+            if bibstem == u'JCAP.':
                 volume = output_metadata['issue'].rjust(4, '.')
             else:
                 volume = output_metadata['volume'].rjust(4, '.')
