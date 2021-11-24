@@ -124,7 +124,7 @@ class IOPJATSParser(JATSParser):
         else:
             year = output_metadata['pubdate'][-4:]
             bibstem = j_bibstem.ljust(5, '.')
-            if bibstem == u'JCAP':
+            if bibstem == 'JCAP':
                 volume = output_metadata['issue'].rjust(4, '.')
                 print('JCAP bibcode')
             else:
@@ -176,6 +176,12 @@ class IOPJATSParser(JATSParser):
         # Database (from APS keywords)
         try:
             output_metadata['database'] = self.dbfromkw(output_metadata['keywords'])
+        except Exception as err:
+            pass
+        
+        # Database (for IOPP parsing)
+        try:
+            output_metadata['database'] = self.dbfrombs(output_metadata['bibstem'])
         except Exception as err:
             pass
 
