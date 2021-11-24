@@ -125,7 +125,8 @@ class IOPJATSParser(JATSParser):
             year = output_metadata['pubdate'][-4:]
             bibstem = j_bibstem.ljust(5, '.')
             print('bibstem')
-            if bibstem == u'JCAP.':
+            if bibstem == IOP_PUBLISHER_IDS['jcap']
+            # if bibstem == u'JCAP.':
                 volume = output_metadata['issue'].rjust(4, '.')
                 print('JCAP bibcode')
             else:
