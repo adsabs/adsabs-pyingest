@@ -4,11 +4,15 @@ from __future__ import print_function
 from __future__ import absolute_import
 from past.builtins import basestring
 import string
+import logging, sys
+from pyingest.config.utils import u2asc
 from .jats import JATSParser
 from .author_init import AuthorInitial
 from pyingest.config.config import *
 from pyingest.parsers.entity_convert import EntityConverter
 
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+# change to logging.INFO or logging.WARNING to turn off
 
 class NoSchemaException(Exception):
     pass
@@ -51,13 +55,13 @@ class IOPJATSParser(JATSParser):
     
     def dbfrombs(self, bs):
         db = []
-        print('bs',bs)
+        logging.debug('bs)
         try:
             bibs = IOP_PUBLISHER_IDS[bs]
         except KeyError:
             return 'XSTEM'
         else:
-            print('bibs',bibs)
+            logging.debug('bibs)
             if bibs == 'ApJ':
                 db.append('AST')
             elif bibs == 'apjl':
@@ -125,14 +129,14 @@ class IOPJATSParser(JATSParser):
             pass
         else:
             year = output_metadata['pubdate'][-4:]
-            print('year',year)
+            logging.debug(year)
             bibstem = j_bibstem.ljust(5, '.')
-            print('bibstem',bibstem)
-            print('j_bibstem',j_bibstem)
+            logging.debug('bibstem',bibstem)
+            logging.debug('j_bibstem',j_bibstem)
             if bibstem == IOP_PUBLISHER_IDS['jcap']:
             # if bibstem == u'JCAP':
                 volume = output_metadata['issue'].rjust(4, '.')
-                print('JCAP bibcode',bibstem)
+                logging.debug('JCAP bibcode',bibstem)
             else:
                 volume = output_metadata['volume'].rjust(4, '.')
             # RNAAS used to have a month-letter in column 14, but it was
