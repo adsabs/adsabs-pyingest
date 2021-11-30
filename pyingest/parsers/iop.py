@@ -191,7 +191,7 @@ class IOPJATSParser(JATSParser):
         
         # Database (for IOPP parsing)
         try:
-            output_metadata['database'] = self.dbfrombs(output_metadata['bibstem'])
+            output_metadata['database'] = self.dbfrombs(bibstem)
         except Exception as err:
             pass
 
