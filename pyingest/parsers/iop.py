@@ -52,13 +52,13 @@ class IOPJATSParser(JATSParser):
     
     def dbfrombs(self, bs):
         db = []
-        print('bs')
+        print('bs',bs)
         try:
             bibs = IOP_PUBLISHER_IDS[bs]
         except KeyError:
             return 'XSTEM'
         else:
-            print('bibs')
+            print('bibs',bibs)
             if bibs == 'ApJ':
                 db.append('AST')
             elif bibs == 'apjl':
@@ -126,14 +126,14 @@ class IOPJATSParser(JATSParser):
             pass
         else:
             year = output_metadata['pubdate'][-4:]
-            print('year')
+            print('year',year)
             bibstem = j_bibstem.ljust(5, '.')
-            print('bibstem')
-            print('j_bibstem')
+            print('bibstem',bibstem)
+            print('j_bibstem',j_bibstem)
             if bibstem == IOP_PUBLISHER_IDS['jcap']:
             # if bibstem == u'JCAP':
                 volume = output_metadata['issue'].rjust(4, '.')
-                print('JCAP bibcode')
+                print('JCAP bibcode',bibstem)
             else:
                 volume = output_metadata['volume'].rjust(4, '.')
             # RNAAS used to have a month-letter in column 14, but it was
