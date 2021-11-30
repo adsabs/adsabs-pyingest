@@ -55,13 +55,13 @@ class IOPJATSParser(JATSParser):
     
     def dbfrombs(self, bs):
         db = []
-        logging.debug('bs)
+        logging.debug(bs)
         try:
             bibs = IOP_PUBLISHER_IDS[bs]
         except KeyError:
             return 'XSTEM'
         else:
-            logging.debug('bibs)
+            logging.debug(bibs)
             if bibs == 'ApJ':
                 db.append('AST')
             elif bibs == 'apjl':
