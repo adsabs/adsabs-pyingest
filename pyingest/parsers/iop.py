@@ -68,6 +68,7 @@ class IOPJATSParser(JATSParser):
                 db.append('AST')
             elif bibs == 'jcap':
                 db.append('AST')
+                return db
             elif bibs == 'psj':
                 db.append('AST')
             elif bibs == 'raa':
@@ -124,8 +125,10 @@ class IOPJATSParser(JATSParser):
             pass
         else:
             year = output_metadata['pubdate'][-4:]
+            print('year')
             bibstem = j_bibstem.ljust(5, '.')
             print('bibstem')
+            print('j_bibstem')
             if bibstem == IOP_PUBLISHER_IDS['jcap']:
             # if bibstem == u'JCAP':
                 volume = output_metadata['issue'].rjust(4, '.')
