@@ -3,21 +3,12 @@ Test parsers
 """
 
 import unittest
-import filecmp
 import sys
 import os
-import glob
 import json
-import shutil
-
-import namedentities
 
 from pyingest.parsers import iop
-from pyingest.config import config
-from pyingest.parsers.author_names import AuthorNames
-from pyingest.parsers.affils import AffiliationParser
 
-from pyingest.serializers import classic
 
 if sys.version_info > (3,):
     open_mode = 'rb'

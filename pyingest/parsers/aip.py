@@ -3,11 +3,16 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import string
-from pyingest.config.utils import u2asc
+from adsputils import u2asc
 from .jats import JATSParser
 from .author_init import AuthorInitial
-from pyingest.config.config import *
 from pyingest.parsers.entity_convert import EntityConverter
+
+from adsputils import load_config
+
+proj_home = os.path.realpath(os.path.join(os.path.dirname(__file__),'../../'))
+conf = load_config(proj_home=proj_home)
+
 
 
 class NoSchemaException(Exception):
@@ -24,13 +29,13 @@ class UnparseableException(Exception):
 
 class AIPJATSParser(JATSParser):
 
-    AST_WORDS = [x.lower() for x in UAT_ASTRO_KEYWORDS]
-    AST_WORDS = AST_WORDS + [x.lower() for x in AAS_ASTRO_KEYWORDS]
-    AST_WORDS = AST_WORDS + [x.lower() for x in APS_ASTRO_KEYWORDS]
+    AST_WORDS = [x.lower() for x in conf.get('UAT_ASTRO_KEYWORDS', [])]
+    AST_WORDS = AST_WORDS + [x.lower() for x in conf.get('AAS_ASTRO_KEYWORDS', [])]
+    AST_WORDS = AST_WORDS + [x.lower() for x in conf.get('APS_ASTRO_KEYWORDS', [])]
 
     def aip_journals(self, pid):
         try:
-            bibstem = AIP_PUBLISHER_IDS[pid]
+            bibstem = conf.get('AIP_PUBLISHER_IDS',{})[pid]
         except KeyError as err:
             return 'XSTEM'
         else:

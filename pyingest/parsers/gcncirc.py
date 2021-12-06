@@ -1,7 +1,7 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import re
-from pyingest.config.utils import u2asc
+from adsputils import u2asc
 from .default import DefaultParser
 from .author_names import AuthorNames
 from .entity_convert import EntityConverter

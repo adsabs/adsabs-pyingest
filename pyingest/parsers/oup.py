@@ -2,11 +2,16 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+import os
 import string
-from pyingest.config.utils import u2asc
+from adsputils import u2asc
 from .jats import JATSParser
 from .author_init import AuthorInitial
-from pyingest.config.config import *
+
+from adsputils import load_config
+
+proj_home = os.path.realpath(os.path.join(os.path.dirname(__file__),'../../'))
+conf = load_config(proj_home=proj_home)
 
 
 class NoSchemaException(Exception):
@@ -25,7 +30,7 @@ class OUPJATSParser(JATSParser):
 
     def oup_journals(self, pid):
         try:
-            bibstem = OUP_PUBLISHER_IDS[pid]
+            bibstem = conf.get('OUP_PUBLISHER_IDS', {})[pid]
         except KeyError:
             return 'XSTEM'
         else:
@@ -33,7 +38,7 @@ class OUPJATSParser(JATSParser):
 
     def get_tmp_page(self, bs):
         try:
-            f = OUP_TMP_DIRS[bs.lower()]
+            f = conf.get('OUP_TMP_DIRS', {})[bs.lower()]
         except Exception as err:
             pass
         else:
@@ -51,7 +56,7 @@ class OUPJATSParser(JATSParser):
 
     def update_tmp_file(self, bs, bib, doi):
         try:
-            f = OUP_TMP_DIRS[bs.lower()]
+            f = conf.get('OUP_TMP_DIRS', {})[bs.lower()]
         except Exception as err:
             pass
         else:
@@ -82,7 +87,7 @@ class OUPJATSParser(JATSParser):
     def dbfrombs(self, bs):
         db = []
         try:
-            bibs = OUP_PUBLISHER_IDS[bs]
+            bibs = conf.get('OUP_PUBLISHER_IDS', {})[bs]
         except KeyError:
             return 'XSTEM'
         else:
@@ -97,7 +102,7 @@ class OUPJATSParser(JATSParser):
     def getnexttmp(self, bs):
         tmpid = []
         try:
-            bibs = OUP_PUBLISHER_IDS[bs]
+            bibs = conf.get('OUP_PUBLISHER_IDS', {})[bs]
         except KeyError:
             return 'XSTEM'
         else:

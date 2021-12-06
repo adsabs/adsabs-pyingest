@@ -3,11 +3,14 @@ import os
 import sys
 import re
 import logging
-from pyingest.config.utils import u2asc
-from pyingest.config import config
+from adsputils import u2asc
 from namedentities import named_entities, unicode_entities
 import nameparser
 
+from adsputils import load_config
+
+proj_home = os.path.realpath(os.path.join(os.path.dirname(__file__),'../../'))
+conf = load_config(proj_home=proj_home)
 
 class AuthorNames(object):
     """
@@ -99,7 +102,7 @@ class AuthorNames(object):
             normalized_author_str = self.normalized_unknown_author_str
         return normalized_author_str
 
-    def __init__(self, data_dirname=config.AUTHOR_ALIAS_DIR,
+    def __init__(self, data_dirname=conf.get('AUTHOR_ALIAS_DIR', './'),
                  unknown_author_str=u'',
                  max_first_name_initials=6):
         self.max_first_name_initials = max(1, max_first_name_initials)

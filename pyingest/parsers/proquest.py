@@ -1,5 +1,6 @@
 from __future__ import print_function
 from __future__ import absolute_import
+import os
 import re
 import sys
 if sys.version_info > (3,) or 'unittest' in sys.modules.keys():
@@ -12,9 +13,13 @@ else:
                           'Run the following: pip install "pymarc<=2.9.1"')
     else:
         import pymarc
-from pyingest.config import config
 from pyingest.parsers.author_names import AuthorNames
 from .default import DefaultParser
+
+from adsputils import load_config
+
+proj_home = os.path.realpath(os.path.join(os.path.dirname(__file__),'../../'))
+conf = load_config(proj_home=proj_home)
 
 
 # For the MARC2.1 standard guide, see:
@@ -26,7 +31,7 @@ from .default import DefaultParser
 class ProQuestParser(DefaultParser):
 
     def __init__(self, filename):
-        marc_input_file = config.PROQUEST_BASE_PATH + filename
+        marc_input_file = conf.get('PROQUEST_BASE_PATH', './') + filename
         oa_input_file = marc_input_file.replace('.UNX', '_OpenAccessTitles.csv')
         self.records = open(marc_input_file).read().strip().split('\n')
         oa_input_data = open(oa_input_file).read().strip().split('\n')
@@ -47,7 +52,7 @@ class ProQuestParser(DefaultParser):
                 if chunk['a'] not in subjects:
                     cat = re.sub('\\.$', '', chunk['a'])
                     try:
-                        db = config.PROQUEST_TO_DB.get(cat, 'PHY')
+                        db = conf.get('PROQUEST_TO_DB', {}).get(cat, 'PHY')
                         if 'physics' in cat.lower():
                             db = 'PHY'
                         if 'astronomy' in cat.lower() or 'astroph' in cat.lower():
@@ -66,8 +71,8 @@ class ProQuestParser(DefaultParser):
 
     def parse(self):
 
-        oa_base = config.PROQUEST_OA_BASE
-        url_base = config.PROQUEST_URL_BASE
+        oa_base = conf.get('PROQUEST_OA_BASE', '')
+        url_base = conf.get('PROQUEST_URL_BASE', '')
 
         auth_parse = AuthorNames()
 
