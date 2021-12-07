@@ -4,11 +4,16 @@ from __future__ import print_function
 from __future__ import absolute_import
 from past.builtins import basestring
 import string
-from pyingest.config.utils import u2asc
+from adsputils import u2asc
 from .jats import JATSParser
 from .author_init import AuthorInitial
-from pyingest.config.config import *
 from pyingest.parsers.entity_convert import EntityConverter
+
+import os
+from adsputils import load_config
+
+proj_home = os.path.realpath(os.path.join(os.path.dirname(__file__),'../../'))
+conf = load_config(proj_home=proj_home)
 
 
 class NoSchemaException(Exception):
@@ -30,7 +35,7 @@ class IOPJATSParser(JATSParser):
         # IOP_PUBLISHER_IDS = {}
         # IOP_PUBLISHER_IDS['rnaas'] = u'RNAAS'
         try:
-            bibstem = IOP_PUBLISHER_IDS[pid]
+            bibstem = conf.get('IOP_PUBLISHER_IDS', {})[pid]
         except KeyError:
             return 'XSTEM'
         else:
@@ -42,7 +47,7 @@ class IOPJATSParser(JATSParser):
             keywords = d.split(',')
             for k in keywords:
                 # if k.lower() in AST_WORDS:
-                if k in AST_WORDS:
+                if k in conf.get('AST_WORDS', []):
                     db.append('AST')
                     return db
                 elif 'UAT:' in k.lower():

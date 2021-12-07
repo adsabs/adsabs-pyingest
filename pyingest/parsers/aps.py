@@ -2,11 +2,16 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+import os
 from past.builtins import basestring
-from pyingest.config.utils import u2asc
+from adsputils import u2asc
 from .jats import JATSParser
 from .author_init import AuthorInitial
-from pyingest.config.config import *
+
+from adsputils import load_config
+
+proj_home = os.path.realpath(os.path.join(os.path.dirname(__file__),'../../'))
+conf = load_config(proj_home=proj_home)
 
 
 class NoSchemaException(Exception):
@@ -23,12 +28,12 @@ class UnparseableException(Exception):
 
 class APSJATSParser(JATSParser):
 
-    AST_WORDS = [x.lower() for x in APS_ASTRO_KEYWORDS]
+    AST_WORDS = [x.lower() for x in conf.get('APS_ASTRO_KEYWORDS', [])]
 
     def aps_journals(self, pid):
         # mapping journal-meta/journal-id/publisher-id to bibstems
         try:
-            bibstem = APS_PUBLISHER_IDS[pid]
+            bibstem = conf.get('APS_PUBLISHER_IDS', {})[pid]
         except KeyError as err:
             print("Warning, APS bibstem not found!")
             return 'XSTEM'

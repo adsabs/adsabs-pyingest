@@ -1,5 +1,10 @@
+import os
 import sys
-from pyingest.config.config import *
+
+from adsputils import load_config
+
+proj_home = os.path.realpath(os.path.join(os.path.dirname(__file__),'../../'))
+conf = load_config(proj_home=proj_home)
 
 if sys.version_info > (3,):
     str_type = str
@@ -18,8 +23,8 @@ class NoReferencesException(Exception):
 class ReferenceWriter(object):
 
     def __init__(self):
-        self.topdir = REFERENCE_TOPDIR
-        self.refsource = REFSOURCE_DICT
+        self.topdir = conf.get('REFERENCE_TOPDIR', './')
+        self.refsource = conf.get('REFSOURCE_DICT', {})
 
     def writeref(self, output_metadata, source='iop'):
         if isinstance(output_metadata, dict):

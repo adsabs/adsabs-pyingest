@@ -1,6 +1,11 @@
+import os
 import sys
 from collections import OrderedDict
-from pyingest.config import config
+
+from adsputils import load_config
+
+proj_home = os.path.realpath(os.path.join(os.path.dirname(__file__),'../../'))
+conf = load_config(proj_home=proj_home)
 
 
 class UATURIConverter(object):
@@ -21,8 +26,8 @@ class UATURIConverter(object):
             uat_conv = UATURIConverter()
             kwl = list()
             for kw in kw_list_new:
-                if kw.lower() in config.UAT_ASTRO_URI_DICT.keys():
-                    kout = 'UAT:' + config.UAT_ASTRO_URI_DICT[kw.lower()]
+                if kw.lower() in conf.get('UAT_ASTRO_URI_DICT', {}).keys():
+                    kout = 'UAT:' + conf.get('UAT_ASTRO_URI_DICT', {})[kw.lower()]
                 else:
                     kout = kw
                 kwl.append(kout)

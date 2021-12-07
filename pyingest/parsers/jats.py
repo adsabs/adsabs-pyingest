@@ -1,19 +1,25 @@
 #!/usr/bin/env python
 
 from __future__ import absolute_import
-# import bs4
 from bs4 import BeautifulSoup, CData, Tag
 from collections import OrderedDict
 from .default import BaseBeautifulSoupParser
 from .jats_contrib import JATSContribs
-from pyingest.config.config import *
 from .affils import AffiliationParser
 from .entity_convert import EntityConverter
 # from uat_key2uri import UATURIConverter
 import namedentities
+import os
 import re
 import copy
 import sys
+
+from adsputils import load_config
+
+proj_home = os.path.realpath(os.path.join(os.path.dirname(__file__),'../../'))
+conf = load_config(proj_home=proj_home)
+
+JATS_TAGSET = conf.get('JATS_TAGSET', {})
 
 if sys.version_info > (3,):
     str_type = str
@@ -50,7 +56,7 @@ class JATSParser(BaseBeautifulSoupParser):
         for t in tag_list:
             elements = newr.findAll(t)
             for e in elements:
-                if t in JATS_TAGS_DANGER:
+                if t in conf.get('JATS_TAGS_DANGER', []):
                     e.decompose()
                 elif t in tags_keep:
                     e.contents
@@ -345,8 +351,11 @@ class JATSParser(BaseBeautifulSoupParser):
                     try:
                         int(self._detag(d.month, []))
                     except Exception as errrr:
-                        month_name = self._detag(d.month, [])[0:3].lower()
-                        month = MONTH_TO_NUMBER[month_name]
+                        try:
+                            month_name = self._detag(d.month, [])[0:3].lower()
+                            month = conf.get('MONTH_TO_NUMBER', {})[month_name]
+                        except:
+                            month = '0'
                     else:
                         month = self._detag(d.month, [])
                     if int(month) < 10:
