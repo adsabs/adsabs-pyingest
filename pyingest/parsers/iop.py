@@ -53,7 +53,7 @@ class IOPJATSParser(JATSParser):
                     return db
         return db
     
-    def dbfrombs(self, bs):
+    def dbfrombs(self, d, bs):
         db = []
         logging.debug(bs)
         try:
