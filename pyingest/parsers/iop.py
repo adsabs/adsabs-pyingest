@@ -133,8 +133,8 @@ class IOPJATSParser(JATSParser):
             bibstem = j_bibstem.ljust(5, '.')
             logging.debug('bibstem',bibstem)
             logging.debug('j_bibstem',j_bibstem)
-            if bibstem == IOP_PUBLISHER_IDS['jcap']:
-            # if bibstem == u'JCAP':
+            # if bibstem == IOP_PUBLISHER_IDS['jcap']:
+            if bibstem == 'JCAP.':
                 volume = output_metadata['issue'].rjust(4, '.')
                 logging.debug('JCAP bibcode',bibstem)
             else:
