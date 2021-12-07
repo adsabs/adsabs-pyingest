@@ -30,11 +30,9 @@ conf = load_config(proj_home=proj_home)
 
 class ProQuestParser(DefaultParser):
 
-    def __init__(self, filename):
-        marc_input_file = conf.get('PROQUEST_BASE_PATH', './') + filename
-        oa_input_file = marc_input_file.replace('.UNX', '_OpenAccessTitles.csv')
-        self.records = open(marc_input_file).read().strip().split('\n')
-        oa_input_data = open(oa_input_file).read().strip().split('\n')
+    def __init__(self, marc_data, oa_data):
+        self.records = marc_data.strip().split('\n')
+        oa_input_data = oa_data.strip().split('\n')
         self.oa_pubnum = list()
         for line in oa_input_data:
             entries = line.split(',')
@@ -52,7 +50,7 @@ class ProQuestParser(DefaultParser):
                 if chunk['a'] not in subjects:
                     cat = re.sub('\\.$', '', chunk['a'])
                     try:
-                        db = conf.get('PROQUEST_TO_DB', {}).get(cat, 'PHY')
+                        db = conf.get('PROQUEST_TO_DB', {}).get(cat, 'GEN')
                         if 'physics' in cat.lower():
                             db = 'PHY'
                         if 'astronomy' in cat.lower() or 'astroph' in cat.lower():
@@ -65,6 +63,8 @@ class ProQuestParser(DefaultParser):
                         # sys.stderr.write("Could not find DB for category: %s\n"%cat)
                         pass
                     subjects.append(cat)
+            if 'GEN' in databases and len(databases) > 1:
+                databases.remove('GEN')
         except Exception as err:
             pass
         return databases, subjects

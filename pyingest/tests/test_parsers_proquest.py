@@ -23,14 +23,17 @@ else:
 class TestProQuest(unittest.TestCase):
 
     def setUp(self):
-        self.stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata')
+        self.stubdata_dir = os.path.join(os.path.dirname(__file__), 'data/stubdata/')
         # config.PROQUEST_BASE_PATH = os.path.join(stubdata_dir, 'input/')
         self.outputdir = os.path.join(self.stubdata_dir, 'serialized')
 
     # Test 29
     def test_proquest_parser(self):
-        infilename = 'SAO_NASA_Sep_2020.UNX'
-        parser = proquest.ProQuestParser(infilename)
+        marc_filename = self.stubdata_dir + 'input/' + 'SAO_NASA_Sep_2020.UNX'
+        oa_filename = marc_filename.replace('.UNX', '_OpenAccessTitles.csv')
+        marcdata = open(marc_filename).read()
+        oadata = open(oa_filename).read()
+        parser = proquest.ProQuestParser(marcdata,oadata)
         parsed = parser.parse()
         serializer = classic.Tagged()
         standard_outfile = os.path.join(self.outputdir, 'SAO_NASA_Sep_2020.UNX.new')
