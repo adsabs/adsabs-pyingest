@@ -62,9 +62,9 @@ class IOPJATSParser(JATSParser):
             return 'XSTEM'
         else:
             logging.debug(bibs)
-            if bibs isin IOP_AST_BIBSTEMS:
+            if bibs in IOP_AST_BIBSTEMS:
                 db.append('AST')
-            elif bibs isin IOP_GEN_BIBSTEMS:
+            elif bibs in IOP_GEN_BIBSTEMS:
                 db.append('GEN')
             else:
                 db.append('PHY')
