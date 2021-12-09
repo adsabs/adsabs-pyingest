@@ -129,15 +129,10 @@ class IOPJATSParser(JATSParser):
             pass
         else:
             year = output_metadata['pubdate'][-4:]
-            # logging.debug(year)
             bibstem = j_bibstem.ljust(5, '.')
-            # logging.debug('bibstem',bibstem)
-            # logging.debug('j_bibstem',j_bibstem)
-            # if bibstem == IOP_PUBLISHER_IDS['jcap']:
-            print('bibstem')
             if bibstem == u'JCAP.':
                 volume = output_metadata['issue'].rjust(4, '.')
-                logging.debug('JCAP bibcode',bibstem)
+                # logging.debug('JCAP bibcode',bibstem)
             else:
                 volume = output_metadata['volume'].rjust(4, '.')
             # RNAAS used to have a month-letter in column 14, but it was
