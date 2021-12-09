@@ -62,24 +62,23 @@ class IOPJATSParser(JATSParser):
             return 'XSTEM'
         else:
             logging.debug(bibs)
-            if bibs == 'ApJ':
+            if bibs == u'ApJ..':
                 db.append('AST')
-            elif bibs == 'apjl':
+            elif bibs == u'ApJL.':
                 db.append('AST')
-            elif bibs == 'apjs':
+            elif bibs == u'ApJS.':
                 db.append('AST')
-            elif bibs == 'aj':
+            elif bibs == u'AJ...':
                 db.append('AST')
-            elif bibs == 'jcap':
+            elif bibs == u'JCAP.':
                 db.append('AST')
-                return db
-            elif bibs == 'psj':
+            elif bibs == u'PSJ..':
                 db.append('AST')
-            elif bibs == 'raa':
+            elif bibs == u'RAA..':
                 db.append('AST')
-            elif bibs == 'rnaas':
+            elif bibs == u'RNAAS':
                 db.append('AST')
-            elif bibs == 'pasp':
+            elif bibs == u'PASP.':
                 db.append('AST')
             else:
                 db.append('PHY')
