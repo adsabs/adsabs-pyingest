@@ -129,10 +129,10 @@ class IOPJATSParser(JATSParser):
             pass
         else:
             year = output_metadata['pubdate'][-4:]
-            logging.debug(year)
+            # logging.debug(year)
             bibstem = j_bibstem.ljust(5, '.')
-            logging.debug('bibstem',bibstem)
-            logging.debug('j_bibstem',j_bibstem)
+            # logging.debug('bibstem',bibstem)
+            # logging.debug('j_bibstem',j_bibstem)
             # if bibstem == IOP_PUBLISHER_IDS['jcap']:
             print('bibstem')
             if bibstem == u'JCAP.':
