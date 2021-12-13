@@ -58,7 +58,7 @@ class IOPJATSParser(JATSParser):
         logging.debug(bs)
         try:
             bibs = IOP_PUBLISHER_IDS[bs]
-            print bibs
+            print(bibs)
         except KeyError:
             return 'XSTEM'
         else:
