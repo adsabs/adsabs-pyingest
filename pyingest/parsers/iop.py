@@ -54,10 +54,11 @@ class IOPJATSParser(JATSParser):
         return db
     
     def dbfrombs(self, d, bs):
-        db = []
+        db = ['PHY']
         logging.debug(bs)
         try:
             bibs = IOP_PUBLISHER_IDS[bs]
+            print bibs
         except KeyError:
             return 'XSTEM'
         else:
