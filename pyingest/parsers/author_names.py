@@ -3,7 +3,7 @@ import os
 import sys
 import re
 import logging
-from pyingest.config.utils import u2asc
+from adsputils import u2asc
 from pyingest.config import config
 from namedentities import named_entities, unicode_entities
 import nameparser

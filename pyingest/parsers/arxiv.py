@@ -1,7 +1,6 @@
 ### parser for arXiv records in Dublin Core XML format ###
 
 from xml.parsers import expat
-from pyingest.config.utils import u2asc
 from pyingest.parsers.dubcore import DublinCoreParser
 from pyingest.parsers.author_names import AuthorNames
 from .author_init import AuthorInitial
