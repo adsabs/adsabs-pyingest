@@ -4,21 +4,12 @@ Test parsers
 from __future__ import print_function
 
 import unittest
-import filecmp
 import sys
 import os
 import glob
 import json
-import shutil
-from mock import patch, Mock, mock_open
 
 from pyingest.parsers import zenodo
-from pyingest.config import config
-from pyingest.parsers.author_names import AuthorNames
-from pyingest.parsers.affils import AffiliationParser
-from pyingest.parsers import adsfeedback
-
-from pyingest.serializers import classic
 
 if sys.version_info > (3,):
     open_mode = 'rb'

@@ -4,7 +4,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 from past.builtins import basestring
 import string
-from pyingest.config.utils import u2asc
 from .jats import JATSParser
 from .author_init import AuthorInitial
 from pyingest.config.config import *
@@ -51,7 +50,7 @@ class IOPJATSParser(JATSParser):
         return db
 
     def parse(self, input_data, **kwargs):
-        output_metadata = super(self.__class__, self).parse(input_data, parser='lxml', **kwargs)
+        output_metadata = super(self.__class__, self).parse(input_data, **kwargs)
 
         # Publication +
         try:

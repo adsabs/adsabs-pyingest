@@ -3,7 +3,6 @@
 from __future__ import print_function
 from __future__ import absolute_import
 import string
-from pyingest.config.utils import u2asc
 from .jats import JATSParser
 from .author_init import AuthorInitial
 from pyingest.config.config import *

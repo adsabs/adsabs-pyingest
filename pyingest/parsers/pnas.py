@@ -1,6 +1,5 @@
 import re
 import requests
-from pyingest.config.utils import u2asc
 from pyingest.parsers.default import BaseBeautifulSoupParser
 from pyingest.parsers.author_names import AuthorNames
 from pyingest.parsers.affils import AffiliationParser

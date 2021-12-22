@@ -10,4 +10,4 @@ PNAS_RSS_URLS = {
     'briefrep':'https://www.pnas.org/rss/Brief_Report.xml'
 }
 
-PNAS_ARCHIVE_DIR = '/proj/ads/abstracts/sources/PNAS/'
+PNAS_ARCHIVE_DIR = '/proj/ads_abstracts/sources/PNAS/'

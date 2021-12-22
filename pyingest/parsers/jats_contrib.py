@@ -330,19 +330,20 @@ class JATSContribs(object):
                                         pass
                                     e.decompose()
     
-                            # create the author dict
-                            auth.update(corresp=l_correspondent)
-                            auth.update(name=name)
-                            auth.update(aff=aff_text)
-                            auth.update(xaff=xref_aff, xemail=xref_email)
-                            auth.update(orcid=orcid)
-                            auth.update(email=emails)
-                            a.decompose()
-                            emails = None
-                            orcid = None
+                                # create the author dict
+                                auth.update(corresp=l_correspondent)
+                                auth.update(name=name)
+                                auth.update(aff=aff_text)
+                                auth.update(xaff=xref_aff, xemail=xref_email)
+                                auth.update(orcid=orcid)
+                                auth.update(email=emails)
+                                a.decompose()
+                                emails = None
+                                orcid = None
 
                         # this is a list of author dicts
-                        self.auth_list.append(auth)
+                        if auth:
+                            self.auth_list.append(auth)
                     except Exception as err:
                         pass
                 if self.collab:
