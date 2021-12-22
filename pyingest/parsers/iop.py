@@ -50,7 +50,7 @@ class IOPJATSParser(JATSParser):
         return db
 
     def parse(self, input_data, **kwargs):
-        output_metadata = super(self.__class__, self).parse(input_data, parser='lxml', **kwargs)
+        output_metadata = super(self.__class__, self).parse(input_data, **kwargs)
 
         # Publication +
         try:
