@@ -49,7 +49,11 @@ class TestIOP(unittest.TestCase):
         parser = iop.IOPJATSParser()
         with open(test_infile, open_mode_u) as fp:
             input_data = fp.read()
-        test_data = parser.parse(input_data)
+        # Note the earlier format of IOP/STACKS content was NLM, not JATS
+        # For this particular test, you need to specify the 'lxml' parser,
+        # to override the jats default 'lxml-xml' (strict) parser
+        # test_data = parser.parse(input_data)
+        test_data = parser.parse(input_data, parser='lxml')
         output_title = 'Meteoroid Stream of Comet C/1961 T1 (Seki) and Its Relation to the December &rgr;-Virginids and &gamma;-Sagittariids'
         output_authors = 'Neslu&scaron;an, Lubo&scaron;; Hajdukov&aacute;, M&aacute;ria'
         output_affiliations = ['Astronomical Institute, Slovak Academy of Science, 05960 Tatransk&aacute; Lomnica, Slovakia; <ID system="ORCID">0000-0001-9758-1144</ID> <EMAIL>ne@ta3.sk</EMAIL>', 'Astronomical Institute, Slovak Academy of Science, D&uacute;bravsk&aacute; cesta 9, 84504 Bratislava, Slovakia; <ID system="ORCID">0000-0002-7837-2627</ID>']
