@@ -84,10 +84,10 @@ OUP_PUBLISHER_IDS = {'mnras': u'MNRAS', 'mnrasl': u'MNRAS',
 OUP_PDFDIR = 'https://academic.oup.com'
 
 OUP_TMP_DIRS = {
-    'mnrasl': '/proj/ads/abstracts/config/links/DOI/MNRASL',
-    'mnras':  '/proj/ads/abstracts/config/links/DOI/MNRAS',
-    'pasj.':  '/proj/ads/abstracts/config/links/DOI/PASJ',
-    'geoji':    '/proj/ads/abstracts/config/links/DOI/GeoJI'
+    'mnrasl': '/proj/ads_abstracts/config/links/DOI/MNRASL',
+    'mnras':  '/proj/ads_abstracts/config/links/DOI/MNRAS',
+    'pasj.':  '/proj/ads_abstracts/config/links/DOI/PASJ',
+    'geoji':    '/proj/ads_abstracts/config/links/DOI/GeoJI'
 }
 
 AIP_PUBLISHER_IDS = {'AAIDBI': u'AIPA', 'APCPCS': u'AIPC', 'APPLAB': u'ApPhL',
@@ -180,7 +180,7 @@ REFSOURCE_DICT = {
 }
 
 # AUTHOR ALIASES
-AUTHOR_ALIAS_DIR = '/proj/ads/abstracts/config/Authors/'
+AUTHOR_ALIAS_DIR = '/proj/ads_abstracts/config/Authors/'
 
 # HTML_ENTITY_TABLE
 HTML_ENTITY_TABLE = os.path.dirname(os.path.abspath(__file__)) + '/html5.dat'
@@ -250,7 +250,7 @@ ENTITY_DICTIONARY['&#8195;'] = " "
 
 
 # ProQuest harvester
-PROQUEST_BASE_PATH = "/proj/ads/abstracts/sources/ProQuest/fromProQuest/"
+PROQUEST_BASE_PATH = "/proj/ads_abstracts/sources/ProQuest/fromProQuest/"
 PROQUEST_OA_BASE = "http://pqdtopen.proquest.com/pubnum/%s.html"
 PROQUEST_URL_BASE = "http://gateway.proquest.com/openurl?url_ver=Z39.88-2004&res_dat=xri:pqdiss&rft_val_fmt=info:ofi/fmt:kev:mtx:dissertation&rft_dat=xri:pqdiss:%s"
 PROQUEST_DATASOURCE = "UMI"

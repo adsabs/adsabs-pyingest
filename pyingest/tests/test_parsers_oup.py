@@ -4,33 +4,15 @@ Test parsers
 from __future__ import print_function
 
 import unittest
-import filecmp
 import sys
 import os
 import glob
 import json
 import shutil
-from mock import patch, Mock, mock_open
+from mock import patch
 
-from pyingest.parsers import aps
-from pyingest.parsers import arxiv
-from pyingest.parsers import atel
-from pyingest.parsers import datacite
-from pyingest.parsers import gcncirc
-from pyingest.parsers import hstprop
-from pyingest.parsers import iop
-from pyingest.parsers import joss
 from pyingest.parsers import oup
-from pyingest.parsers import pnas
-from pyingest.parsers import proquest
-from pyingest.parsers import procsci
-from pyingest.parsers import zenodo
 from pyingest.config import config
-from pyingest.parsers.author_names import AuthorNames
-from pyingest.parsers.affils import AffiliationParser
-from pyingest.parsers import adsfeedback
-
-from pyingest.serializers import classic
 
 if sys.version_info > (3,):
     open_mode = 'rb'
@@ -38,14 +20,6 @@ if sys.version_info > (3,):
 else:
     open_mode = 'r'
     open_mode_u = 'rU'
-
-class MockResponse(object):
-
-    def __init__(self, resp_data):
-        self.resp_data = resp_data
-
-    def read(self):
-        return self.resp_data
 
 
 class TestOUP(unittest.TestCase):
@@ -66,9 +40,9 @@ class TestOUP(unittest.TestCase):
 
     # Test 16
     def test_oup_parser(self):
-        with patch.dict(config.OUP_TMP_DIRS, self.FAKE_OUP_TMP_DIRS, clear=True):
-            parser = oup.OUPJATSParser()
+        with patch.object(oup.OUPJATSParser, 'get_tmp_page', return_value = '41') as mockity_mock:
             for file in self.inputdocs:
+                parser = oup.OUPJATSParser()
                 # this will raise exceptions if something is wrong
                 with open(file, open_mode_u) as fp:
                     input_data = fp.read()

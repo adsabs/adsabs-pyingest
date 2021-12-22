@@ -4,13 +4,10 @@ Test parsers
 from __future__ import print_function
 
 import unittest
-import filecmp
 import sys
 import os
 import glob
 import json
-import shutil
-from mock import patch, Mock, mock_open
 
 from pyingest.parsers import zenodo
 

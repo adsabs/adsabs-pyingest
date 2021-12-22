@@ -8,7 +8,7 @@ import filecmp
 import sys
 import os
 import json
-from mock import patch, Mock, mock_open
+from mock import patch
 
 from pyingest.parsers import pnas
 
@@ -20,6 +20,7 @@ if sys.version_info > (3,):
 else:
     open_mode = 'r'
     open_mode_u = 'rU'
+
 
 class MockResponse(object):
 

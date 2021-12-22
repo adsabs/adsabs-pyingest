@@ -5,21 +5,12 @@ from __future__ import print_function
 
 import unittest
 import filecmp
-import sys
 import os
-from mock import patch
 
 from pyingest.parsers import proquest
 from pyingest.config import config
 
 from pyingest.serializers import classic
-
-if sys.version_info > (3,):
-    open_mode = 'rb'
-    open_mode_u = 'rb'
-else:
-    open_mode = 'r'
-    open_mode_u = 'rU'
 
 
 class TestProQuest(unittest.TestCase):

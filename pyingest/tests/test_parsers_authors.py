@@ -4,35 +4,7 @@ Test parsers
 from __future__ import print_function
 
 import unittest
-import filecmp
-import sys
-import os
-import glob
-import json
-import shutil
-from mock import patch, Mock, mock_open
-
-from pyingest.config import config
 from pyingest.parsers.author_names import AuthorNames
-from pyingest.parsers.affils import AffiliationParser
-from pyingest.parsers import adsfeedback
-
-from pyingest.serializers import classic
-
-if sys.version_info > (3,):
-    open_mode = 'rb'
-    open_mode_u = 'rb'
-else:
-    open_mode = 'r'
-    open_mode_u = 'rU'
-
-class MockResponse(object):
-
-    def __init__(self, resp_data):
-        self.resp_data = resp_data
-
-    def read(self):
-        return self.resp_data
 
 
 class TestAuthorNames(unittest.TestCase):

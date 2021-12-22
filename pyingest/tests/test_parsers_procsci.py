@@ -10,7 +10,7 @@ import os
 import glob
 import json
 import shutil
-from mock import patch, Mock
+from mock import patch
 
 from pyingest.parsers import procsci
 
@@ -35,7 +35,6 @@ class MockResponse(object):
 class TestProcSci(unittest.TestCase):
 
     def setUp(self):
-        # Mock procsci.PoSParser.urllib.urlopen
         self.patcher = patch('requests.get')
         self.requests_mock = self.patcher.start()
 
