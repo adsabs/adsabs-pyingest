@@ -1,5 +1,11 @@
+'''
+PNAS Parser -- this version of the parser takes webdata as its input rather
+               than a url that it goes and fetches.  Calls to the requests
+               module have been removed.  Pass the webdata with the .parse
+               method.
+'''
+
 import re
-import requests
 from pyingest.parsers.default import BaseBeautifulSoupParser
 from pyingest.parsers.author_names import AuthorNames
 from pyingest.parsers.affils import AffiliationParser
@@ -24,27 +30,15 @@ class PNASParser(BaseBeautifulSoupParser):
     def __init__(self):
         pass
 
-    def get_buffer(self, url, **kwargs):
-        hostname = url.split('/')[2]
-        if hostname != 'www.pnas.org':
-            raise URLError("This parser is only for PNAS.org RSS feed")
-        try:
-            pnas_buffer = requests.get(url)
-        except IOError:
-            raise URLError("Could not open %s" % url)
-        return pnas_buffer
-
     def resource_dict(self, fp, **kwargs):
         d = self.bsstrtodict(fp, **kwargs)
         return d
 
-    def parse(self, url, **kwargs):
+    def parse(self, inputdata, **kwargs):
 
-        data = self.resource_dict(self.get_buffer(url).text)
+        data = self.resource_dict(inputdata)
 
         output_metadata = {}
-
-        meta_data = data.find_all('meta')
 
         auth_list = []
 

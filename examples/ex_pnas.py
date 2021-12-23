@@ -43,7 +43,7 @@ for k, v in PNAS_RSS_URLS.items():
                 abs_source = urllib.urlopen(absURL).read()
                 open(archive_file, 'w').write(abs_source)
                 pnas = PNASParser()
-                output = pnas.parse(absURL)
+                output = pnas.parse(abs_source)
                 records.append(output)
         except Exception, err:
             print("Error parsing %s: %s:" % (absURL,err))
