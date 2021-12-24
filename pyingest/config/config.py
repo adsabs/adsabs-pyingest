@@ -169,7 +169,7 @@ except Exception as e:
 AST_WORDS = UAT_ASTRO_KEYWORDS + APS_ASTRO_KEYWORDS + AAS_ASTRO_KEYWORDS
 
 # REFERENCE SOURCE OUTPUT
-REFERENCE_TOPDIR = '/proj/ads/references/sources/'
+REFERENCE_TOPDIR = '/proj/ads_references/sources/'
 
 # REFSOURCE DICTIONARY
 REFSOURCE_DICT = {
