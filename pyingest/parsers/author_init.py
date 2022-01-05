@@ -1,4 +1,4 @@
-import namedentities
+import html
 from adsputils import u2asc
 
 class BadAuthorInitialException(Exception):
@@ -12,7 +12,7 @@ class AuthorInitial(object):
 
      def get_author_init(self, namestring):
          try:
-             instring = namedentities.unicode_entities(namestring)
+             instring = html.unescape(namestring)
              outstring = u2asc(instring)[0]
              if outstring.isalpha():
                  return outstring.upper()
