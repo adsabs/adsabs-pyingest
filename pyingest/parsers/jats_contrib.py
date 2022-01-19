@@ -359,10 +359,13 @@ class JATSContribs(object):
                     nested_email_list = a.find_all('ext-link')
                     if nested_email_list:
                          for e in nested_email_list:
-                             key = e['id']
-                             value = e.text
-                             self.email_xref[key] = value
-                             e.decompose()
+                             try:
+                                 key = e['id']
+                                 value = e.text
+                                 self.email_xref[key] = value
+                                 e.decompose()
+                             except Exception as noop:
+                                 pass
                     try:
                         key = a['id']
                     except:
@@ -428,14 +431,14 @@ class JATSContribs(object):
                         # emails...
                         cor = a.find_all('corresp')
                         for c in cor:
-                            key = c['id']
                             try:
                                 c = self._decompose(soup=c, tag='sup')
+                                key = c['id']
+                                val = c.get_text(separator=' ').strip()
+                                self.xref_dict[key] = val
+                                c.decompose()
                             except Exception as noop:
                                 pass
-                            val = c.get_text(separator=' ').strip()
-                            self.xref_dict[key] = val
-                            c.decompose()
                 except Exception as err:
                     print('no authnote id key!',a)
                     pass
