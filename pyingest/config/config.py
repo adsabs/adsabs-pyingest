@@ -50,18 +50,20 @@ IOP_PUBLISHER_IDS = {'apj': u'ApJ', 'jcap': u'JCAP', 'ejp': u'EJPh',
                      'fcs': u'FCS', 'fdr': u'FlDyR', 'izv': u'IzMat',
                      'jbr': u'JBR', 'jopt': u'JOpt', 'cm': u'JPCM',
                      'jpenergy': u'JPEn', 'a': u'JPhA', 'b': u'JPhB',
-                     'jpco': u'JPhCo', 'jpcomplex': u'JPCom', 
+                     'jpco': u'JPhCo', 'jpcomplex': u'JPCom', 'jss': u'JSSST',
                      'iopsn': u'IOPSN', 'g': u'JPhG', 'jpmater': u'JPhM',
                      'jpphoton': u'JPhP', 'lpl': u'LaPhL', 'mrx': u'MRE',
-                     'mqt': u'MatQT',
+                     'mqt': u'MatQT', 'mlst': u'MLS&T',
                      'mst': u'MeScT', 'mfm': u'MuMat', 'nanoe': u'NanoE',
                      'njp': u'NJPh', 'nanof': u'NanoF', 'nano': u'Nanot',
                      'non': u'Nonli', 'pasp': u'PASP', 'met': u'Metro',
-                     'pmb': u'PMB', 'ppcf': u'PPCF', 'prex': u'PRCom',
+                     'pmb': u'PMB', 'ppcf': u'PPCF', 'prex': u'PlREx',
                      'ps': u'PhyS', 'ped': u'PhyEd', 'psj': u'PSJ',
                      'phu': u'PhyU', 'pst': u'PlST', 'prge': u'PrEne',
                      'rnaas': u'RNAAS', 'rop': u'RPPh', 'rms': u'RuMaS',
                      'sst': u'SeScT', 'sust': u'SuScT', 'tdm': u'TDM',
+                     '2DM': u'TDM', 'jes': u'JElS', '2dm': u'TDM', 
+                     'eris': u'ERIS', 'ecsma': u'ECSMA', 'prgb': u'PBioE',
                      'rcr': u'RuCRv', 'nf': u'NucFu', 'jmm': u'JMiMi',
                      'cpl': u'ChPhL', 'ip': u'InvPr', 'jrp': u'JRP',
                      'psst': u'PSST', 'sms': u'SMaS', 'msms': u'MSMSE',
@@ -76,8 +78,9 @@ IOP_PUBLISHER_IDS = {'apj': u'ApJ', 'jcap': u'JCAP', 'ejp': u'EJPh',
 
 IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical Society'}
 
-# IOP_SPECIAL_ID_HANDLING = ['PASP.','QuEle','JGE..','PhyU.','IzMat','SbMat',
-#                            'RuMaS','RuCRv','EL...','Nonli','JRP..']
+IOP_AST_BIBSTEMS = ['ApJ..', 'ApJL.', 'ApJS.', 'PASP.', 'PSJ..', 'JCAP.', 'AJ...', 'RAA..', 'RNAAS']
+
+IOP_GEN_BIBSTEMS = ['JRP..', 'JBR..', 'BiBi.', 'BioFa', 'BioMa', 'JSRP.', 'NCNS.', 'PhyM.', 'PUS..', 'QuFin']
 
 OUP_PUBLISHER_IDS = {'mnras': u'MNRAS', 'mnrasl': u'MNRAS',
                      'pasj': u'PASJ', 'ptep': u'PTEP', 'gji': u'GeoJI'}

@@ -4,11 +4,15 @@ from __future__ import print_function
 from __future__ import absolute_import
 from past.builtins import basestring
 import string
+import logging, sys
+from pyingest.config.utils import u2asc
 from .jats import JATSParser
 from .author_init import AuthorInitial
 from pyingest.config.config import *
 from pyingest.parsers.entity_convert import EntityConverter
 
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+# change to logging.INFO or logging.WARNING to turn off
 
 class NoSchemaException(Exception):
     pass
@@ -48,6 +52,25 @@ class IOPJATSParser(JATSParser):
                     db.append('AST')
                     return db
         return db
+    
+    def dbfrombs(self, d, bs):
+        db = ['PHY']
+        logging.debug('bs')
+        try:
+            bibs = IOP_PUBLISHER_IDS['bs']
+            print('bibs')
+        except KeyError:
+            return 'XSTEM'
+        else:
+            logging.debug('bibs')
+            if bibs in IOP_AST_BIBSTEMS:
+                db.append('AST')
+            elif bibs in IOP_GEN_BIBSTEMS:
+                db.append('GEN')
+            else:
+                db.append('PHY')
+        return db
+
 
     def parse(self, input_data, **kwargs):
         output_metadata = super(self.__class__, self).parse(input_data, **kwargs)
@@ -95,6 +118,7 @@ class IOPJATSParser(JATSParser):
             bibstem = j_bibstem.ljust(5, '.')
             if bibstem == u'JCAP.':
                 volume = output_metadata['issue'].rjust(4, '.')
+                # logging.debug('JCAP bibcode',bibstem)
             else:
                 volume = output_metadata['volume'].rjust(4, '.')
             # RNAAS used to have a month-letter in column 14, but it was
@@ -144,6 +168,12 @@ class IOPJATSParser(JATSParser):
         # Database (from APS keywords)
         try:
             output_metadata['database'] = self.dbfromkw(output_metadata['keywords'])
+        except Exception as err:
+            pass
+        
+        # Database (for IOPP parsing)
+        try:
+            output_metadata['database'] = self.dbfrombs(bibstem)
         except Exception as err:
             pass
 
