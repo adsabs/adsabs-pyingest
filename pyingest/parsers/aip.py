@@ -92,9 +92,9 @@ class AIPJATSParser(JATSParser):
             else:
                 issue_letter = string.ascii_letters[int(output_metadata['issue'])-1]
             if "-" in output_metadata['page']:
-                idno = output_metadata['page']
-            else:
                 idno = output_metadata['page'].split('-')
+            else:
+                idno = output_metadata['page']
             if len(idno) == 6:
                 try:
                     idtwo = string.ascii_letters[int(idno[0:2]) - 1]
