@@ -87,14 +87,15 @@ class AIPJATSParser(JATSParser):
             year = output_metadata['pubdate'][-4:]
             bibstem = j_bibstem.ljust(5, '.')
             volume = output_metadata['volume'].rjust(4, '.')
-            if j_bibstem == 'AIPC':
-                issue_letter = string.ascii_letters[int(output_metadata['page'][0:2]) - 1]
-            else:
-                issue_letter = string.ascii_letters[int(output_metadata['issue'])-1]
             if "-" in output_metadata['page']:
                 idno = output_metadata['page'].split('-')[0]
+                issue_letter = '.'
             else:
                 idno = output_metadata['page']
+                if j_bibstem == 'AIPC':
+                    issue_letter = string.ascii_letters[int(output_metadata['page'][0:2]) - 1]
+                else:
+                    issue_letter = string.ascii_letters[int(output_metadata['issue'])-1]
             if len(idno) == 6:
                 try:
                     idtwo = string.ascii_letters[int(idno[0:2]) - 1]
