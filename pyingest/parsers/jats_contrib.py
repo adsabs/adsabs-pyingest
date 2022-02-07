@@ -398,27 +398,26 @@ class JATSContribs(object):
             except Exception as noop:
                 aff_glob = None
             else:
-                try:
-                    for a in aff_glob:
+                for a in aff_glob:
+                    try:
                         key = a['id']
-                        # special case: get rid of <sup>...
-                        try:
-                            a = self._decompose(soup=a, tag='sup')
-                        except Exception as noop:
-                            pass
-                        try:
-                            # NOTE: institution-id is actually useful, but at
-                            # at the moment, strip it
-                            a = self._decompose(soup=a, tag='institution-id')
-                        except Exception as noop:
-                            pass
-                        affstr = a.get_text(separator=' ').strip()
-                        (affstr, email_list) = self._fix_affil(affstr)
-                        self.xref_dict[key] = affstr
-                        a.decompose()
-                except Exception as err:
-                    print('no aff id key!',a)
-                    pass
+                    except:
+                        key = 'ALLAUTH'
+                    # special case: get rid of <sup>...
+                    try:
+                        a = self._decompose(soup=a, tag='sup')
+                    except Exception as noop:
+                        pass
+                    try:
+                        # NOTE: institution-id is actually useful, but at
+                        # at the moment, strip it
+                        a = self._decompose(soup=a, tag='institution-id')
+                    except Exception as noop:
+                        pass
+                    affstr = a.get_text(separator=' ').strip()
+                    (affstr, email_list) = self._fix_affil(affstr)
+                    self.xref_dict[key] = affstr
+                    a.decompose()
 
             # author-notes xrefs...
             try:
