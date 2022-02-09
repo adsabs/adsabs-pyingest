@@ -191,7 +191,7 @@ class OUPJATSParser(JATSParser):
                     else:
                         idno = output_metadata['page']
                     idno = idno.lstrip(idno[:1])
-                    idno = idno.rjust(3, '.')
+                    idno = idno.rjust(4, '.')
                 else:
                     issue_letter = '.'
                     if output_metadata['page'].find("-"):
