@@ -7,7 +7,6 @@ from namedentities import *
 
 def main():
 
-    input_file = 'SAO_NASA_Jul_2020.UNX'
     marc_filename = 'SAO_NASA_Jul_2020.UNX'
     oa_filename = marc_filename.replace('.UNX', '_OpenAccessTitles.csv')
     marcdata = open(marc_filename).read()

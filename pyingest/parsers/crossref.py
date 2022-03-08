@@ -22,22 +22,36 @@ class CrossrefXMLParser(BaseBeautifulSoupParser):
         pass
 
 
-    def _get_dict(self, data, parser='lxml-xml'):
+    def _make_soup(self, data, parser='lxml-xml'):
         try:
-            soup = self.bsstrtodict(data, parser)
-            records_in_file = soup.find_all('doi_record')
+            self.soup = self.bsstrtodict(data, parser)
+            records_in_file = self.soup.find_all('doi_record')
             if len(records_in_file) > 1:
                 raise TooManyDocumentsException('This file has %s records, should have only one!' % len(records_in_file))
         except Exception as err:
             raise XmlLoadException(err)
         else:
-            return records_in_file[0]
+
+
+    def _get_book(self):
+        try:
+            data_book = self.soup.find('book').extract()
+        except Exception as noop:
+            pass
+        else:
+            
+
+    def _get_chapter(self):
+
+    
+            
+        
 
 
     def parse(self, data, **kwargs):
         output_metadata = {}
         try:
-            record = self._get_dict(data)
+            self._make_soup(data)
         except Exception as err:
             raise NoSoupForYouException(err)
         else:
