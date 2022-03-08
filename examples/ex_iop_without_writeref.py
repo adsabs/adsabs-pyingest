@@ -129,24 +129,26 @@ basedir = '/proj/ads/articles/sources/STACKS/'
 issn_list = list(journal_ISSN.keys())
 issn_list.sort()
 
-for issn in issn_list:
-    b2 = basedir + issn
-    vols = glob(b2 + '/*')
-    vols.sort(key=os.path.getmtime)
-    v = vols[-1]
-    papers = glob(v + '/*/*/*.xml')
-    papers2 = []
-    for p in papers:
-        if 'refs.xml' not in p and 'meta.xml' not in p:
-            papers2.append(p)
+#for issn in issn_list:
+#    b2 = basedir + issn
+#    vols = glob(b2 + '/*')
+#    vols.sort(key=os.path.getmtime)
+#    v = vols[-1]
+#    papers = glob(v + '/*/*/*.xml')
+#    papers2 = []
+#    for p in papers:
+#        if 'refs.xml' not in p and 'meta.xml' not in p:
+#            papers2.append(p)
+#
+#    papers = papers2
+papers = ['./apj_927_1_1.xml']
 
-    papers = papers2
-
+try:
     # Try the parser
     documents = []
     for p in papers:
         try:
-            with open(p, 'rU') as fp:
+            with open(p, 'rb') as fp:
                 doc = parser.parse(fp)
                 if doc != {}:
                     documents.append(doc)
@@ -166,3 +168,5 @@ for issn in issn_list:
             print("no bibcode...")
         serializer.write(d, fo)
     fo.close()
+except Exception as err:
+    print('oops: %s' % err)

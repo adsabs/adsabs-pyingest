@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD Journal Publishing DTD v3.0 20080202//EN" "http://ej.iop.org/dtd/nlm-3.0/journalpublishing3.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+<front>
+<journal-meta>
+<journal-id journal-id-type="publisher-id">apj</journal-id>
+<journal-title-group>
+<journal-title>The Astrophysical Journal</journal-title>
+<abbrev-journal-title abbrev-type="AAS">APJ</abbrev-journal-title>
+<abbrev-journal-title abbrev-type="publisher">Astrophys. J.</abbrev-journal-title>
+</journal-title-group>
+<issn pub-type="ppub">0004-637X</issn>
+<issn pub-type="epub">1538-4357</issn>
+<publisher>
+<publisher-name>The American Astronomical Society</publisher-name>
+</publisher>
+</journal-meta>
+<article-meta>
+<article-id pub-id-type="publisher-id">apjac3df9</article-id>
+<article-id pub-id-type="doi">10.3847/1538-4357/ac3df9</article-id>
+<article-id pub-id-type="manuscript">ac3df9</article-id>
+<article-id pub-id-type="other">AAS32988</article-id>
+<article-categories>
+<subj-group subj-group-type="section">
+<subject content-type="order">360</subject>
+<subject content-type="heading">The Sun and the Heliosphere</subject>
+</subj-group>
+</article-categories>
+<title-group>
+<article-title>The Coronal Veil</article-title>
+<alt-title alt-title-type="ascii">The Coronal Veil</alt-title>
+<alt-title alt-title-type="toc-author">A. Malanushenko, M. C. M. Cheung, C. E. DeForest, J. A. Klimchuk, and M. Rempel</alt-title>
+</title-group>
+<contrib-group content-type="all">
+<contrib contrib-type="author" corresp="yes">
+<name>
+<surname>Malanushenko</surname>
+<given-names>A.</given-names>
+</name>
+<xref ref-type="aff" rid="apjac3df9af1">1</xref>
+<ext-link ext-link-type="orcid" specific-use="authenticated-true">0000-0001-5066-8509</ext-link>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Cheung</surname>
+<given-names>M. C. M.</given-names>
+</name>
+<xref ref-type="aff" rid="apjac3df9af2">2</xref>
+<ext-link ext-link-type="orcid" specific-use="authenticated-true">0000-0003-2110-9753</ext-link>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>DeForest</surname>
+<given-names>C. E.</given-names>
+</name>
+<xref ref-type="aff" rid="apjac3df9af3">3</xref>
+<ext-link ext-link-type="orcid" specific-use="authenticated-true">0000-0002-7164-2786</ext-link>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Klimchuk</surname>
+<given-names>J. A.</given-names>
+</name>
+<xref ref-type="aff" rid="apjac3df9af4">4</xref>
+<ext-link ext-link-type="orcid" specific-use="authenticated-true">0000-0003-2255-0305</ext-link>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Rempel</surname>
+<given-names>M.</given-names>
+</name>
+<xref ref-type="aff" rid="apjac3df9af1">1</xref>
+<ext-link ext-link-type="orcid" specific-use="authenticated-true">0000-0001-5850-3119</ext-link>
+</contrib>
+<aff id="apjac3df9af1">
+<label>1</label>High Altitude Observatory, National Center for Atmospheric Research, Boulder, CO, <country>USA</country>
+</aff>
+<aff id="apjac3df9af2">
+<label>2</label>Lockheed Martin Solar and Astrophysics Laboratory, Palo Alto, CA, <country>USA</country>
+</aff>
+<aff id="apjac3df9af3">
+<label>3</label>Southwest Research Institute, Boulder, CO, <country>USA</country>
+</aff>
+<aff id="apjac3df9af4">
+<label>4</label>Heliophysics Division, NASA Goddard Space Flight Center, Greenbelt, MD, <country>USA</country>
+</aff>
+<author-comment content-type="short-author-list">
+<p>Malanushenko et al.</p>
+</author-comment>
+</contrib-group>
+<pub-date pub-type="ppub">
+<month>3</month>
+<year>2022</year>
+</pub-date>
+<pub-date pub-type="epub">
+<day>02</day>
+<month>03</month>
+<year>2022</year>
+</pub-date>
+<pub-date pub-type="open-access">
+<day>02</day>
+<month>03</month>
+<year>2022</year>
+</pub-date>
+<volume>927</volume>
+<issue>1</issue>
+<elocation-id content-type="artnum">1</elocation-id>
+<supplementary-material>
+<label>animation</label>
+</supplementary-material>
+<history>
+<date date-type="received">
+<day>22</day>
+<month>6</month>
+<year>2021</year>
+</date>
+<date date-type="rev-recd">
+<day>15</day>
+<month>11</month>
+<year>2021</year>
+</date>
+<date date-type="accepted">
+<day>26</day>
+<month>11</month>
+<year>2021</year>
+</date>
+<date date-type="oa-requested">
+<day>22</day>
+<month>06</month>
+<year>2021</year>
+</date>
+</history>
+<permissions>
+<copyright-statement>&copy; 2022. The Author(s). Published by the American Astronomical Society.</copyright-statement>
+<copyright-year>2022</copyright-year>
+<license license-type="cc-by" xlink:href="http://creativecommons.org/licenses/by/4.0/">
+<license-p>
+<graphic content-type="print" xlink:href="apjac3df9license.eps"/>
+<graphic content-type="online" xlink:href="apjac3df9license.gif"/>Original content from this work may be used under the terms of the <ext-link ext-link-type="uri" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 licence</ext-link>. Any further distribution of this work must maintain attribution to the author(s) and the title of the work, journal citation and DOI.</license-p>
+</license>
+</permissions>
+<self-uri xlink:href="http://stacks.iop.org/APJ/927/1"/>
+<abstract>
+<title>Abstract</title>
+<p>Coronal loops, seen in solar coronal images, are believed to represent emission from magnetic flux tubes with compact cross sections. We examine the 3D structure of plasma above an active region in a radiative magnetohydrodynamic simulation to locate volume counterparts for coronal loops. In many cases, a loop cannot be linked to an individual thin strand in the volume. While many thin loops are present in the synthetic images, the bright structures in the volume are fewer and of complex shape. We demonstrate that this complexity can form impressions of thin bright loops, even in the absence of thin bright plasma strands. We demonstrate the difficulty of discerning from observations whether a particular loop corresponds to a strand in the volume, or a projection artifact. We demonstrate how apparently isolated loops could deceive observers, even when observations from multiple viewing angles are available. While we base our analysis on a simulation, the main findings are independent from a particular simulation setup and illustrate the intrinsic complexity involved in interpreting observations resulting from line-of-sight integration in an optically thin plasma. We propose alternative interpretation for strands seen in Extreme Ultraviolet images of the corona. The &ldquo;coronal veil&rdquo; hypothesis is mathematically more generic, and naturally explains properties of loops that are difficult to address otherwise&mdash;such as their constant cross section and anomalously high density scale height. We challenge the paradigm of coronal loops as thin magnetic flux tubes, offering new understanding of solar corona, and by extension, of other magnetically confined bright hot plasmas.</p>
+</abstract>
+<kwd-group kwd-group-type="author">
+<title content-type="vocab">unified-astronomy-thesaurus</title>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/1964</compound-kwd-part>
+<compound-kwd-part content-type="term">Magnetohydrodynamics</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">1964</compound-kwd-part>
+</compound-kwd>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/1483</compound-kwd-part>
+<compound-kwd-part content-type="term">Solar corona</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">1483</compound-kwd-part>
+</compound-kwd>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/1989</compound-kwd-part>
+<compound-kwd-part content-type="term">Solar coronal heating</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">1989</compound-kwd-part>
+</compound-kwd>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/1485</compound-kwd-part>
+<compound-kwd-part content-type="term">Solar coronal loops</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">1485</compound-kwd-part>
+</compound-kwd>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/2009</compound-kwd-part>
+<compound-kwd-part content-type="term">Radiative magnetohydrodynamics</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">2009</compound-kwd-part>
+</compound-kwd>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/1974</compound-kwd-part>
+<compound-kwd-part content-type="term">Solar active regions</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">1974</compound-kwd-part>
+</compound-kwd>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/1477</compound-kwd-part>
+<compound-kwd-part content-type="term">Solar atmosphere</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">1477</compound-kwd-part>
+</compound-kwd>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/1503</compound-kwd-part>
+<compound-kwd-part content-type="term">Solar magnetic fields</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">1503</compound-kwd-part>
+</compound-kwd>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/1476</compound-kwd-part>
+<compound-kwd-part content-type="term">Solar physics</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">1476</compound-kwd-part>
+</compound-kwd>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/1533</compound-kwd-part>
+<compound-kwd-part content-type="term">Solar ultraviolet emission</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">1533</compound-kwd-part>
+</compound-kwd>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/1493</compound-kwd-part>
+<compound-kwd-part content-type="term">Solar extreme ultraviolet emission</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">1493</compound-kwd-part>
+</compound-kwd>
+<compound-kwd>
+<compound-kwd-part content-type="vocab-term-identifier">http://astrothesaurus.org/uat/2170</compound-kwd-part>
+<compound-kwd-part content-type="term">Extreme ultraviolet astronomy</compound-kwd-part>
+<compound-kwd-part content-type="uat-code">2170</compound-kwd-part>
+</compound-kwd>
+</kwd-group>
+<kwd-group kwd-group-type="AAS">
+<kwd>Magnetohydrodynamics</kwd>
+<kwd>Solar corona</kwd>
+<kwd>Solar coronal heating</kwd>
+<kwd>Solar coronal loops</kwd>
+<kwd>Radiative magnetohydrodynamics</kwd>
+<kwd>Solar active regions</kwd>
+<kwd>Solar atmosphere</kwd>
+<kwd>Solar magnetic fields</kwd>
+<kwd>Solar physics</kwd>
+<kwd>Solar ultraviolet emission</kwd>
+<kwd>Solar extreme ultraviolet emission</kwd>
+<kwd>Extreme ultraviolet astronomy</kwd>
+</kwd-group>
+<funding-group>
+<award-group>
+<funding-source>National Center for Atmospheric Research (NCAR)<named-content content-type="funder-id">https://doi.org/10.13039/100005323</named-content>
+</funding-source>
+<award-id>1287611</award-id>
+</award-group>
+</funding-group>
+<counts>
+<page-count count="27"/>
+</counts>
+<custom-meta-group>
+<custom-meta>
+<meta-name>ccc</meta-name>
+<meta-value>0004-637X/22/1&plus;27&dollar;33.00</meta-value>
+</custom-meta>
+<custom-meta>
+<meta-name>crossmark</meta-name>
+<meta-value>yes</meta-value>
+</custom-meta>
+</custom-meta-group>
+</article-meta>
+</front>
+<body>
+</body>
+<back>
+<ack>
+</ack>
+</back>
+</article>
