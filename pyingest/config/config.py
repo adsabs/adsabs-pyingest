@@ -139,14 +139,17 @@ JATS_TAGSET = {'title': JATS_TAGS_MATH + JATS_TAGS_HTML,
 # retrieve current UAT from github
 UAT_URL = 'https://raw.githubusercontent.com/astrothesaurus/UAT/master/UAT.json'
 UAT_ASTRO_URI_DICT = dict()
+UAT_URI_KEYWORD_DICT = dict()
 try:
     uat_request = requests.get(UAT_URL)
     uat_data = uat_request.json()
     get_uat(uat_request.json(), UAT_ASTRO_URI_DICT)
+    for k, v in UAT_ASTRO_URI_DICT.items():
+        UAT_URI_KEYWORD_DICT[v] = k
     UAT_ASTRO_KEYWORDS = list(UAT_ASTRO_URI_DICT.keys())
     UAT_ASTRO_URI_DICT = dict((k.lower(), v) for k, v in list(UAT_ASTRO_URI_DICT.items()))
 except Exception as e:
-    print("Warning: could not load UAT from github!")
+    print("Warning: could not load UAT from github! %s" % e)
     UAT_ASTRO_KEYWORDS = list()
 
 # American Physical Society keywords

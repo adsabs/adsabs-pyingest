@@ -205,6 +205,12 @@ class JATSParser(BaseBeautifulSoupParser):
                     keywords.extend(keys_misc)
                 else:
                     keywords = keys_misc
+
+            if keys_uat:
+                for k in keys_uat:
+                    if UAT_URI_KEYWORD_DICT[k] not in keywords:
+                        keywords.append(UAT_URI_KEYWORD_DICT[k])
+
             if keywords:
                 base_metadata['keywords'] = ', '.join(keywords)
         except Exception as err:
