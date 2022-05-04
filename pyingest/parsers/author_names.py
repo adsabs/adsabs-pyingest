@@ -82,6 +82,7 @@ class AuthorNames(object):
                     key = 'initial' + str(i)
                     if match.group(key):
                         initials_list.append(match.group(key).strip().upper())
+                #initials_list.remove(".")
                 initials_str = u" ".join(initials_list)
                 # Form normalized author string where capitalization is guaranteed
                 normalized_author_str = "{}, {}".format(last_name, initials_str)
@@ -147,7 +148,7 @@ class AuthorNames(object):
         self.regex_dash = re.compile(r"^-")
         self.regex_quote = re.compile(r"^'")
         self.regex_the = re.compile(r"^[Tt]he ")
-        self.regex_author = re.compile(r"^(?P<last_name>[^,]+),\s*(?P<initial0>\S)\w*" + "".join([r"(?:\s*(?P<initial{}>\S)\S*)?".format(i + 1) for i in range(self.max_first_name_initials - 1)]))
+        self.regex_author = re.compile(r"^(?P<last_name>[^,]+),\s*(?P<initial0>\w)\S*" + "".join([r"(?:\s*(?P<initial{}>\w)\S*)?".format(i + 1) for i in range(self.max_first_name_initials - 1)]))
 
         # Default collaboration parameters
         self.default_collaborations_params = {
