@@ -82,7 +82,6 @@ class AuthorNames(object):
                     key = 'initial' + str(i)
                     if match.group(key):
                         initials_list.append(match.group(key).strip().upper())
-                #initials_list.remove(".")
                 initials_str = u" ".join(initials_list)
                 # Form normalized author string where capitalization is guaranteed
                 normalized_author_str = "{}, {}".format(last_name, initials_str)
