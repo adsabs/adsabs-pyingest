@@ -75,6 +75,7 @@ IOP_PUBLISHER_IDS = {'apj': u'ApJ', 'jcap': u'JCAP', 'ejp': u'EJPh',
                      'jstat': u'JSMTE', 'jpcs': u'JPhCS', 'pw': u'PhyW',
                      'prv': u'PPS', 'c': 'JPhC', 'jphf': 'JPhF', 
                      'ijem': u'IJExM', 'ecst': u'ECSTr', 'ercl': u'ERCli',
+                     'ecsa': u'ECSAd', 'ecssp': u'ECSSP',
                      'jinst': u'JInst', 'nanox': u'NanoE'}
 
 IOP_JOURNAL_NAMES = {'rnaas': u'Research Notes of the American Astronomical Society'}
