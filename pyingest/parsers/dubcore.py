@@ -43,9 +43,9 @@ class DublinCoreParser(BaseXmlToDictParser):
 
     def resource_dict(self, fp, **kwargs):
         d = self.xmltodict(fp, **kwargs)
-        idtag = d.get('record', {}).get('header', {}).get('identifier', {})
+        header = d.get('record', {}).get('header', {})
         r = d.get('record', {}).get('metadata', {}).get('oai_dc:dc', {})
-        return idtag, r
+        return header, r
 
     def make_dubc_bibcode(self, ident):
         return ident
@@ -57,13 +57,14 @@ class DublinCoreParser(BaseXmlToDictParser):
 
         output_metadata = dict()
 
-        idtag, r = self.resource_dict(fp, **kwargs)
+        header, r = self.resource_dict(fp, **kwargs)
         try:
             self.check_schema(r)
         except Exception as err:
             raise UnparseableException("Cannot parse record.")
         else:
             # Bibcode
+            idtag = header.get('identifier', {})
             if idtag is not None:
                 output_metadata['bibcode'] = self.make_dubc_bibcode(idtag)
 
@@ -105,5 +106,9 @@ class DublinCoreParser(BaseXmlToDictParser):
             # the URL to the arxiv.org abstract page
             if self.get_tag(r, 'dc:identifier'):
                 output_metadata['properties'] = self.get_tag(r, 'dc:identifier')
+
+            # specific to arXiv, return arXiv_classes
+            if self.get_tag(header, 'setSpec'):
+                output_metadata['class'] = self.get_tag(header, 'setSpec')
 
         return output_metadata
