@@ -73,7 +73,7 @@ IOP_PUBLISHER_IDS = {'apj': u'ApJ', 'jcap': u'JCAP', 'ejp': u'EJPh',
                      'pb': u'PhBio', 'lp': u'LaPhy', 'cpb': u'ChPhB',
                      'jos': u'JSemi', 'jne': u'JNEng', 'jge': u'JGE',
                      'jstat': u'JSMTE', 'jpcs': u'JPhCS', 'pw': u'PhyW',
-                     'prv': u'PPS', 'c': 'JPhC', 'jphf': 'JPhF', 
+                     'prv': u'PPS', 'c': 'JPhC', 'jphf': 'JPhF', 'erh': u'ERH',
                      'ijem': u'IJExM', 'ecst': u'ECSTr', 'ercl': u'ERCli',
                      'ecsa': u'ECSAd', 'ecssp': u'ECSSP', 'if': u'ECSIn',
                      'jinst': u'JInst', 'ere': u'EREco', 'nanox': u'NanoE'}
@@ -84,7 +84,7 @@ IOP_AST_BIBSTEMS = ['ApJ..', 'ApJL.', 'ApJS.', 'PASP.', 'PSJ..', 'JCAP.', 'AJ...
 
 IOP_GEN_BIBSTEMS = ['JRP..', 'JBR..', 'BiBi.', 'BioFa', 'BioMa', 'JSRP.', 'NCNS.', 'PhyM.', 'PUS..', 'QuFin']
 
-OUP_PUBLISHER_IDS = {'mnras': u'MNRAS', 'mnrasl': u'MNRAS',
+OUP_PUBLISHER_IDS = {'mnras': u'MNRAS', 'mnrasl': u'MNRAS', 'rasti': u'RASTI',
                      'pasj': u'PASJ', 'ptep': u'PTEP', 'gji': u'GeoJI'}
 OUP_PDFDIR = 'https://academic.oup.com'
 
