@@ -89,7 +89,7 @@ class AASNovaParser(BaseRSSFeedParser):
         # Get the abstract data
         try:
             abstract = entry.find('description').text.replace('<![CDATA[','').replace(']]>','').strip()
-            abstract = re.sub('The post.*?appeared first on AAS Nova\.','', abstract).strip()
+            abstract = re.sub(r'The post.*?appeared first on AAS Nova\.','', abstract).strip()
         except:
             abstract = ''
         # Sometimes the associated DOI(s) are in the 'contents' data, 
@@ -120,7 +120,7 @@ class AASNovaParser(BaseRSSFeedParser):
         return rec
 
     def parse(self, url, **kwargs):
-        atel_recs = [{}]
+        nova_recs = [{}]
         headers = {
             'Content-type': 'text/xml',
             'Accept': 'text/html,application/xhtml+xml,application/xml',
@@ -128,9 +128,9 @@ class AASNovaParser(BaseRSSFeedParser):
         data = self.get_records(url, headers=headers, **kwargs)
         for d in data:
             try:
-                atel_recs.append(self.extract_data(d))
+                nova_recs.append(self.extract_data(d))
             except Exception as err:
-                sys.stderr.write('Failed to process record %s (%s). Skipping...\n' % (d.find('identifier').text, err))
+                sys.stderr.write('Failed to process record %s (%s). Skipping...\n' % (d.find('guid').text, err))
                 continue
 
-        return atel_recs
+        return nova_recs
