@@ -54,10 +54,11 @@ class ATelParser(BaseRSSFeedParser):
 
     def parse(self, url, **kwargs):
         atel_recs = [{}]
+        USER_AGENT = "The NASA Astrophysics Data System harvester (http://ads.harvard.edu; ads@cfa.harvard.edu)"
         headers = {
             'Content-type': 'text/xml',
             'Accept': 'text/html,application/xhtml+xml,application/xml',
-            'User-agent': 'Mozilla/5.0'}
+            'User-agent': USER_AGENT}
         data = self.get_records(url, headers=headers, **kwargs)
         for d in data:
             try:
