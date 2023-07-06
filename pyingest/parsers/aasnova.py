@@ -105,7 +105,7 @@ class AASNovaParser(BaseRSSFeedParser):
             # If we have a DOI, assign it to the ASSOCIATED link
             links['ASSOCIATED'] = "https://dx.doi/%s"%doi
         # Form the bibcode
-        bibcode = "%snova.pres%s%s" % (year, recno.rjust(4, '.'), lname[0])
+        bibcode = "%snova.pres%s%s" % (year, recno.rjust(5, '.'), lname[0])
         # Now we have all information to send back
         rec = {
             'bibcode': bibcode,
