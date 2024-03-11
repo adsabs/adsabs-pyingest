@@ -8,7 +8,7 @@ from namedentities import *
 
 def main():
 
-    marc_filename = '/Users/mtemple/Desktop/SAO_NASA_May_2023.UNX'
+    marc_filename = 'SAO_NASA_Mar_2024.UNX'
     oa_filename = marc_filename.replace('.UNX', '_OpenAccessTitles.csv')
     marcdata = open(marc_filename).read()
     if os.path.exists(oa_filename):
@@ -19,7 +19,7 @@ def main():
     lol = parser.parse()
     print("%s records processed" % len(parser.results))
     tag = Tagged()
-    outfile = 'lolproque.tag'
+    outfile = marc_filename+'.NEW'
     with open(outfile,'w') as fo:
         for rec in parser.results:
             tag.write(rec,fo)
