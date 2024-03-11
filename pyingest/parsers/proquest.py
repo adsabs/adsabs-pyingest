@@ -66,7 +66,6 @@ class ProQuestParser(DefaultParser):
 
     def parse(self):
 
-        oa_base = config.PROQUEST_OA_BASE
         url_base = config.PROQUEST_URL_BASE
 
         auth_parse = AuthorNames()
