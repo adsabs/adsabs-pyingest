@@ -8,7 +8,7 @@ from namedentities import *
 
 def main():
 
-    marc_filename = 'SAO_NASA_Mar_2024.UNX'
+    marc_filename = './SAO_NASA_Dec_2023.UNX'
     oa_filename = marc_filename.replace('.UNX', '_OpenAccessTitles.csv')
     marcdata = open(marc_filename).read()
     if os.path.exists(oa_filename):
