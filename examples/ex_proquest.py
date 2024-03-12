@@ -1,4 +1,5 @@
 from __future__ import print_function
+import os
 from glob import glob
 from pyingest.parsers.proquest import ProQuestParser
 from pyingest.serializers.classic import Tagged
@@ -7,15 +8,18 @@ from namedentities import *
 
 def main():
 
-    marc_filename = 'SAO_NASA_Jul_2020.UNX'
+    marc_filename = './SAO_NASA_Dec_2023.UNX'
     oa_filename = marc_filename.replace('.UNX', '_OpenAccessTitles.csv')
     marcdata = open(marc_filename).read()
-    oadata = open(oa_filename).read()
+    if os.path.exists(oa_filename):
+        oadata = open(oa_filename).read()
+    else:
+        oadata = ''
     parser = ProQuestParser(marcdata, oadata)
     lol = parser.parse()
     print("%s records processed" % len(parser.results))
     tag = Tagged()
-    outfile = 'lolproque.tag'
+    outfile = marc_filename+'.NEW'
     with open(outfile,'w') as fo:
         for rec in parser.results:
             tag.write(rec,fo)

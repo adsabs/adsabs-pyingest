@@ -259,7 +259,6 @@ ENTITY_DICTIONARY['&#8195;'] = " "
 
 # ProQuest harvester
 PROQUEST_BASE_PATH = "/proj/ads_abstracts/sources/ProQuest/fromProQuest/"
-PROQUEST_OA_BASE = "http://pqdtopen.proquest.com/pubnum/%s.html"
 PROQUEST_URL_BASE = "http://gateway.proquest.com/openurl?url_ver=Z39.88-2004&res_dat=xri:pqdiss&rft_val_fmt=info:ofi/fmt:kev:mtx:dissertation&rft_dat=xri:pqdiss:%s"
 PROQUEST_DATASOURCE = "UMI"
 
