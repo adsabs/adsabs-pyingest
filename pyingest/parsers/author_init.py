@@ -1,5 +1,5 @@
 import html
-from adsputils import u2asc
+from pyingest.config.utils import u2asc
 
 class BadAuthorInitialException(Exception):
     pass
