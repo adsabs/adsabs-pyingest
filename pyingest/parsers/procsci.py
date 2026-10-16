@@ -89,11 +89,12 @@ class PoSParser(BaseBeautifulSoupParser):
                 papers = body.find_all('td')
 
                 for p in papers:
+                    print("YA-BOO: %s" % p)
                     article = {}
-                    title = p.find("span", {"class": "contrib_title"})
-                    pdf = p.find("span", {"class": "contrib_file"})
-                    auths = p.find("span", {"class": "contrib_authors"})
-                    page = p.find("span", {"class": "contrib_code"})
+                    title = p.find("div", {"class": "contrib_title"})
+                    pdf = p.find("div", {"class": "contrib_file"})
+                    auths = p.find("div", {"class": "contrib_authors"})
+                    page = p.find("div", {"class": "contrib_code"})
 
                     # Title:
                     if not isinstance(title, type(None)):
