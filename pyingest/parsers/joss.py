@@ -33,8 +33,10 @@ class JOSSParser(BaseRSSFeedParser):
             spage = entry.find('page').text
         except Exception as err:
             spage = str(int(doi.split('.')[-1]))
-        if len(spage) <= 4:
-            pg = spage.rjust(4, '.')
+        if len(spage) <= 5:
+            pg = spage.rjust(5, '.')
+        else:
+            pg = spage[-5:]
         try:
             volume = entry.find('volume').text
         except Exception as err:
@@ -107,7 +109,7 @@ class JOSSParser(BaseRSSFeedParser):
             initial = authors[0][0]
         except Exception as err:
             initial = '.'
-        bibcode = "%sJOSS.%s.%s%s" % (pubdate[:4], volume.rjust(4, '.'), pg, initial)
+        bibcode = "%sJOSS.%s%s%s" % (pubdate[:4], volume.rjust(5, '.'), pg, initial)
         rec = {
             'bibcode': bibcode,
             'title': title,
